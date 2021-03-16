@@ -3,6 +3,24 @@
 
               
             <div class="item active text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_03_16_wall.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"> <i class="fa fa-calendar-o"></i> A Year of Lockdown <i class="fa fa-calendar-o"></i><br/><small>Mar. 15, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      It’s been 1 year since the national lockdown was implemented. <br/><br/>Check your phone gallery and post the last photo you took while in the office before the historic March 15, 2020 happened. Visit EMS now and earn 20 points!  <br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',46)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/clutch.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO named <br/> <span class="text-primary"> <i class="fa fa-trophy"></i> top BPO company <i class="fa fa-trophy"></i><br/><small>Mar. 12, 2021</small><br/>
                   
@@ -61,24 +79,7 @@
                     
             </div>
 
-            <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_03_08_wall.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Today is International Women’s Day. <br/>As we celebrate in the entire world, how about we celebrate the <strong class="text-purple" style="font-size:larger">women of Open Access BPO</strong> this year? <br/> <strong>Post a photo of a woman colleague you admire who #ChooseToChallenge in this dynamic world and why.</strong><br/>
-                      <br/> You and your friend can win P1000 worth of prizes! P700 for you and P300 for your friend. There will be 2 winners (1 with most votes &amp; 1 by the judges). All participants will also earn 20 points, visit our wall now!<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',45)}}"><i class="fa fa-th-large"></i> View Wall</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
+            
 
             <div class="item text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_1.jpg" width="100%" />
