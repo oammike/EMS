@@ -6494,7 +6494,13 @@ trait TimekeepingTraits
 
                     }else
                     {
-                      if($isExempt) $workedHours = number_format($wh/60,2);//Carbon::parse($userLogOUT[0]['logTxt'],"Asia/Manila")->diffInMinutes( Carbon::parse($userLogIN[0]['logTxt'],"Asia/Manila")->addHour(1) );//
+                      if($isExempt) {
+                        //determin of course kung Flexi anytime; pag flexi 8hr kasi, mas of 8 lang lalabas dapat
+                        if($exemptEmp[0]->schedType_id == '2') //flexi 8hr
+                        {
+                          $workedHours = 8.00;
+                        } else $workedHours = number_format($wh/60,2);
+                      }//Carbon::parse($userLogOUT[0]['logTxt'],"Asia/Manila")->diffInMinutes( Carbon::parse($userLogIN[0]['logTxt'],"Asia/Manila")->addHour(1) );//
                       else
                       {
                         ($is4x11) ? $workedHours = 10.00 : $workedHours = 8.00;
