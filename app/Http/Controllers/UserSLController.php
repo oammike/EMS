@@ -276,8 +276,13 @@ class UserSLController extends Controller
                                 
                                 if (count($savedCredits)>0){
                                      $hasSavedCredits = true;
-                                     $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used;
-                                     $creditsLeft2 = $savedCredits->first()->beginBalance - $savedCredits->first()->used;
+
+                                     $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used - $used) + $totalVLearned - ($totalVTO + $totalAdv) - $savedCredits->first()->paid;
+                                     $creditsLeft2 = ($savedCredits->first()->beginBalance - $savedCredits->first()->used) + $totalVLearned - ($totalVTO + $totalAdv) - $savedCredits->first()->paid;
+
+
+                                     /*$creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used;
+                                     $creditsLeft2 = $savedCredits->first()->beginBalance - $savedCredits->first()->used;*/
                                  }else 
                                  {
                                     //check muna kung may existing approved VLs
@@ -351,7 +356,7 @@ class UserSLController extends Controller
                         }
 
                         if($request->debug)
-                            return response()->json(['creditsLeft2'=>$creditsLeft2, 'creditsLeft'=>$creditsLeft,'savedCredits'=>$savedCredits->first(),'totalVLearned'=>$totalVLearned,'totalAdv'=>$totalAdv,'canSL'=>$canSL ]);
+                            return response()->json(['creditsLeft2'=>$creditsLeft2, 'creditsLeft'=>$creditsLeft,'savedCredits'=>$savedCredits->first(),'totalVLearned'=>$totalVLearned,'totalVTO'=>$totalVTO, 'totalAdv'=>$totalAdv,'canSL'=>$canSL,'used'=>$used ]);
                         else
                             return view('timekeeping.user-sl_create',compact('user', 'forSomeone', 'vl_from','creditsLeft','used','hasSavedCredits','isParttimer','foreignPartime','canSL'));
 
