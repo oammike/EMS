@@ -2,7 +2,26 @@
 
 
               
-            <div class="item active text-center" >
+           
+
+             <div class="item active text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/winner_womenMonth.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >CONGRATULATIONS <br/> <span class="text-primary"> <i class="fa fa-female"></i>Women's Month Challenge Winners <i class="fa fa-female"></i><br/><small>Mar. 17, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Thank you to all who also posted their entries! <br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',45)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+             <div class="item text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_03_16_wall.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"> <i class="fa fa-calendar-o"></i> A Year of Lockdown <i class="fa fa-calendar-o"></i><br/><small>Mar. 15, 2021</small><br/>
                   
