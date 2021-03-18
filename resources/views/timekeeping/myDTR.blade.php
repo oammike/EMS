@@ -868,6 +868,7 @@
                                                                   <!-- new if has VTO -->
                                                                   @if($data['hasVTO'])
 
+                                                                     {!! $data['wholeIN'][0]['logTxt'] !!}<br/>
                                                                      {!! $data['logIN'] !!} 
                                                                     <!-- <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong> -->
 
@@ -1102,6 +1103,7 @@
                                                                   <!-- new if has VTO -->
                                                                   @if($data['hasVTO'])
 
+                                                                     {!! $data['wholeOUT'][0]['logTxt'] !!}<br/>
                                                                      {!! $data['logOUT'] !!} 
                                                                     <!-- <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong> -->
                                                                   @else 

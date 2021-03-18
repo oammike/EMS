@@ -6507,7 +6507,7 @@ class DTRController extends Controller
 
                                                  
              $cp0 =$currentPeriod[0]; $cp1 = $currentPeriod[1];
-            if (  count($verifiedDTR) >= count($payrollPeriod)  )//|| ($currentPeriod[0] == $currentPeriod[1])
+           /* if (  count($verifiedDTR) >= count($payrollPeriod)  )//|| ($currentPeriod[0] == $currentPeriod[1])
              {
 
                 $myDTRSheet = $verifiedDTR;
@@ -6518,7 +6518,7 @@ class DTRController extends Controller
                 return view('timekeeping.myDTRSheet', compact('ecq', 'wfhData', 'fromYr', 'payrollPeriod', 'anApprover','isWorkforce','employeeisBackoffice', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'cutoffID', 'myDTRSheet','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','paystart','payend','currentVLbalance','currentSLbalance','cp0','cp1'));
  
 
-             }
+             }*/
 
 
 
