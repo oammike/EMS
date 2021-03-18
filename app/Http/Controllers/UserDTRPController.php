@@ -188,6 +188,10 @@ class UserDTRPController extends Controller
         {
 
             
+            $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n DL_DTRPMGT from: ".$from."_".$to." on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            
 
             $headers = ['EmployeeCode', 'EmployeeName','Program','ImmediateHead','ProductionDate','Log time','Request', 'Approver_Status','Reviewed by DataMgt', 'Details'];
             $description = "DTRP Summary for dates: ".$from." to ".$to;
