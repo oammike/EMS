@@ -2241,7 +2241,7 @@ trait TimekeepingTraits
                     leftJoin('users','user_dtrp.user_id','=','users.id')->
                     leftJoin('team','team.user_id','=','users.id')->
                     leftJoin('campaign','campaign.id','=','team.campaign_id')->
-                    select('user_dtrp.actualLogdate','user_dtrp.id','user_dtrp.biometrics_id','user_dtrp.user_id','user_dtrp.notes','user_dtrp.logTime','user_dtrp.logType_id','user_dtrp.isApproved','user_dtrp.approvedBy','users.nickname','users.firstname','users.lastname','campaign.name as program','campaign.id as programID','biometrics.productionDate','user_dtrp.isApproved','user_dtrp.reviewed')->get();
+                    select('user_dtrp.actualLogdate','user_dtrp.id','user_dtrp.biometrics_id','users.employeeCode', 'user_dtrp.user_id','user_dtrp.notes','user_dtrp.logTime','user_dtrp.logType_id','user_dtrp.isApproved','user_dtrp.approvedBy','users.nickname','users.firstname','users.lastname','campaign.name as program','campaign.id as programID','biometrics.productionDate','user_dtrp.isApproved','user_dtrp.reviewed','team.immediateHead_Campaigns_id as ihID')->get();
       }
         # code...
         break;

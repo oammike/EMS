@@ -101,6 +101,8 @@ class UserDTRPController extends Controller
      public function manage()
     {
       $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
+      $dl = Input::get('dl');
+
       (Input::get('from')) ? $from = Input::get('from') : $from = Carbon::now()->addDays(-7)->format('m/d/Y'); 
       (Input::get('to')) ? $to = Input::get('to') : $to = Carbon::now()->endOfMonth()->addDays(14)->format('m/d/Y'); //date('m/d/Y');
 
@@ -109,7 +111,7 @@ class UserDTRPController extends Controller
 
       /*$isAdmin =  ($roles->contains('ADMIN_LEAVE_MANAGEMENT')) ? '1':'0';
       $canCredit =  ($roles->contains('UPDATE_LEAVES')) ? '1':'0';*/
-      $canManage =  ($roles->contains('UPLOAD_BIOMETRICS')) ? '1':'0';
+      $canManage =  ($roles->contains('UPLOAD_BIOMETRICS') || $roles->contains('ADMIN_DTRP_MANAGEMENT')) ? '1':'0';
 
       if(!$canManage){
         $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
@@ -182,7 +184,79 @@ class UserDTRPController extends Controller
                 get(); 
                           
                 //return $allDTRP;
-      return view('timekeeping.dtrpMgt',compact('canManage', 'from','to','type','label', 'deleteLink','notifType','allDTRP','allPendings','allIns', 'allOuts','allOlds','storageLoc','leaders'));
+      if($dl)
+        {
+
+            
+
+            $headers = ['EmployeeCode', 'EmployeeName','Program','ImmediateHead','ProductionDate','Log time','Request', 'Approver_Status','Details'];
+            $description = "DTRP Summary for dates: ".$from." to ".$to;
+            Excel::create("DTRP_Summary_from".$from,function($excel) use( $allDTRP, $to, $from, $headers,$description,$leaders) 
+              {
+                      $excel->setTitle("DTRP Summary from ".$to.' to '. $from);
+                      $excel->setCreator('Programming Team')
+                            ->setCompany('OpenAccessBPO');
+
+                      // Call them separately
+                      $excel->setDescription($description);
+
+                      $excel->sheet("Sheet1", function($sheet) use ( $allDTRP, $to, $from, $headers,$description,$leaders)
+                      {
+                        $sheet->appendRow($headers);      
+
+                        $arr = [];
+
+                        foreach($allDTRP as $jps)
+                        {
+                            $i = 0;
+
+                            $arr[$i] = $jps->employeeCode; $i++;
+                            $arr[$i] = $jps->lastname.", ".$jps->firstname; $i++;
+                            $arr[$i] = $jps->program; $i++;
+
+                            $ih = collect($leaders)->where('id',$jps->ihID);
+                            
+                            if (count($ih) > 0)
+                            {
+                                $arr[$i] = $ih->first()->firstname. " ". $ih->first()->lastname; $i++;
+
+                            }else $arr[$i] = "-"; $i++;
+
+                            $arr[$i] = $jps->productionDate; $i++;
+
+                            $arr[$i] = $jps->logTime; $i++;
+
+                            //** Request
+
+                            if($jps->logType_id == '1') $r = "DTRP IN"; else $r="DTRP OUT";
+
+                            $arr[$i] = $r; $i++;
+
+                            //*** Status
+                            if($jps->isApproved == '1') $stat = "Approved";
+                            else if ($jps->isApproved == '0') $stat = "Denied";
+                            else $stat = "Pending Approval";
+
+                            $arr[$i] = $stat; $i++;
+
+                            //*** Details
+                            $arr[$i] = $jps->notes; $i++;
+
+                            
+
+                            $sheet->appendRow($arr);
+
+                          
+
+                        }//end foreach employee
+
+                        
+                      });//end sheet1
+
+              })->export('xls'); return "Download";
+     
+        }
+      else return view('timekeeping.dtrpMgt',compact('canManage', 'from','to','type','label', 'deleteLink','notifType','allDTRP','allPendings','allIns', 'allOuts','allOlds','storageLoc','leaders'));
 
     }
 

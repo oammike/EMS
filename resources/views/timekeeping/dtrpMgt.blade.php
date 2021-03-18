@@ -133,6 +133,8 @@
                     
 
                     <div class="tab-pane active" id="tab_1"> <!-- ACTIVE EMPLOYEES -->
+                      @if($type == 'OLD')<br/><br/><a class="btn btn-xs btn-success pull-right"><i class="fa fa-download"></i> Export CSV</a><br/>@endif
+                      
                       <h1 class="pull-right" style="color:#dedede">{{$label}}</h1>
                       <div class="row" style="margin-top:50px">
 
