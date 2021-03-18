@@ -6114,6 +6114,9 @@ class DTRController extends Controller
         $hrDept = Campaign::where('name',"HR")->first();
         $financeDept = Campaign::where('name',"Finance")->first();
 
+        $financeteam = Team::where('user_id',$this->user->id)->where('campaign_id',$financeDept->id)->get();
+        (count($financeteam) > 0) ? $isFinance=1 : $isFinance=0;
+
         $ndy = Team::where('user_id',$user->id)->where('campaign_id',54)->get();
         (count($ndy) > 0) ? $isNDY = 1 : $isNDY=0;
 
@@ -7630,7 +7633,7 @@ class DTRController extends Controller
            //return response()->json(['currentVLbalance'=>$currentVLbalance,'currentSLbalance'=>$currentSLbalance]);
 
            
-           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','canPreshift', 'isBackoffice','vlEarnings','slEarnings','isParttimer','canVL','canSL','isNDY','cp0','cp1','isExempt','exemptEmp','paystart','payend'));
+           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','isFinance', 'canPreshift', 'isBackoffice','vlEarnings','slEarnings','isParttimer','canVL','canSL','isNDY','cp0','cp1','isExempt','exemptEmp','paystart','payend'));
 
 
         } else return view('access-denied');

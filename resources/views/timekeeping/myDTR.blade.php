@@ -190,8 +190,13 @@
                                               <!-- ********** DTR BUTTONS ************** -->
                                               
                                               @if(count($payrollPeriod) > 1 && ( count($myDTR) >= count($payrollPeriod) ) )
-                                              <!-- <a id="lockDTR" class="btn btn-danger btn-md pull-left"><i class="fa fa-unlock"></i> Lock Entire DTR Sheet </a> -->
+                                              
+                                                @if( ($isFinance || $isWorkforce || $anApprover) && (count($verifiedDTR) !== count($myDTR)) )
+                                                <a id="lockDTR" class="btn btn-danger btn-md pull-left"><i class="fa fa-unlock"></i> Lock Entire DTR Sheet </a>
+                                                @endif
+
                                               @endif
+                                              
                                               <a id="unlock" class="btn btn-sm btn-default pull-left" style="margin-left: 5px;"><i class="fa fa-unlock"></i> Request Unlock </a>
                                               <a target="_blank" href="{{action('LogsController@viewRawBiometricsData', $user->id)}}" class="btn btn-xs btn-primary pull-right"><i class="fa fa-search"></i> View Uploaded Biometrics</a>
 
@@ -205,7 +210,7 @@
                                               <!-- ********** DTR BUTTONS ************** -->
                                               <!-- ********** DTR BUTTONS ************** -->
 
-                                              @if ($anApprover || (!$isBackoffice && $isWorkforce) )
+                                              @if ($anApprover || (!$isBackoffice && $isWorkforce) || $isFinance )
 
                                               <h5 class="pull-left text-danger">
 
