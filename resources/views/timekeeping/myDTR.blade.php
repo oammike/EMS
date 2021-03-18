@@ -203,6 +203,35 @@
                                               <br/><br/>
 
                                               <!-- ********** DTR BUTTONS ************** -->
+                                              <!-- ********** DTR BUTTONS ************** -->
+
+                                              @if ($anApprover || (!$isBackoffice && $isWorkforce) )
+
+                                              <h5 class="pull-left text-danger">
+
+                                                @if (count($payrollPeriod) == 1 && count($verifiedDTR->where('productionDate',$paystart)) > 0  )
+                                                &nbsp;&nbsp;&nbsp;<i class="fa fa-lock"></i> 
+
+                                                DTR for this production date is locked.
+                                                <a id="unlockByTL" class="btn btn-md btn-success pull-left" style="margin-left: 5px;"><i class="fa fa-unlock"></i> Unlock DTR Now </a>
+
+                                                @else
+
+                                                
+
+                                                @endif
+                                                </h5> 
+
+                                              @else
+
+                                              <h5 class="pull-left text-danger"><!-- &nbsp;&nbsp;&nbsp;<i class="fa fa-lock"></i> DTR Sheet is Locked  -->
+                                                <a id="unlock" class="btn btn-xs btn-default pull-left" style="margin-left: 5px;"><i class="fa fa-unlock"></i> Request Unlock </a></h5> 
+
+
+                                              @endif
+                                              
+
+
                                               
                                               <table id="biometrics" class="table table-bordered table-striped">
                                                   <thead>
@@ -868,8 +897,12 @@
                                                                   <!-- new if has VTO -->
                                                                   @if($data['hasVTO'])
 
-                                                                     {!! $data['wholeIN'][0]['logTxt'] !!}<br/>
-                                                                     {!! $data['logIN'] !!} 
+                                                                     @if ( count($verifiedDTR->where('productionDate',$data['payday'])) > 0 )
+                                                                       {!! $data['wholeIN'][0]['logTxt'] !!}<br/>
+                                                                       {!! $data['logIN'] !!} 
+                                                                     @else
+                                                                        {!! $data['logIN'] !!} 
+                                                                     @endif
                                                                     <!-- <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong> -->
 
 
@@ -1101,10 +1134,17 @@
                                                                 @else
 
                                                                   <!-- new if has VTO -->
+
+
                                                                   @if($data['hasVTO'])
 
-                                                                     {!! $data['wholeOUT'][0]['logTxt'] !!}<br/>
-                                                                     {!! $data['logOUT'] !!} 
+                                                                     @if ( count($verifiedDTR->where('productionDate',$data['payday'])) > 0 )
+                                                                       {!! $data['wholeOUT'][0]['logTxt'] !!}<br/>
+                                                                       {!! $data['logOUT'] !!} 
+                                                                     @else
+                                                                        {!! $data['logOUT'] !!} 
+                                                                     @endif
+                                                                    
                                                                     <!-- <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong> -->
                                                                   @else 
 
@@ -2550,6 +2590,62 @@ $('select.end.form-control').on('change',function(){
     }
 
   });
+
+
+  $('#unlockByTL').on('click',function(){
+
+    var _token = "{{ csrf_token() }}";
+    var payrollPeriod = [];
+
+    @foreach($payrollPeriod as $p)
+        var el = "{{$p}}";
+        payrollPeriod.push(el);
+    @endforeach
+     $.ajax({
+                  url: "{{action('DTRController@unlock', $user->id)}}",
+                  type:'POST',
+                  data:{ 
+
+                    'payrollPeriod': payrollPeriod,
+                    'unlockByTL':true,
+                    '_token':_token
+
+                  },
+
+                 
+                  success: function(res)
+                  {
+                    console.log(res);
+                    $('#unlockByTL').delay(1000).animate({ height: 'toggle', opacity: 'toggle' }, 'slow');
+
+
+                    $.notify(res.message,{className:"success", globalPosition:'top right',autoHideDelay:3000, clickToHide:true} );
+
+                    setTimeout(function(){
+                      //location.reload(true);
+                      var fromDate = "{{$paystart}}"; //$(this).find('option:selected').val();
+                      var toDate = "{{$payend}}";
+                      window.location.href= "{{url('/')}}/user_dtr/{{$user->id}}?from="+fromDate+"&to="+toDate;
+                    },3000);
+                    
+                    //;
+                    //window.location = "{{action('HomeController@index')}}";
+                     
+                  }, error: function(res){
+                    console.log("ERROR");
+                    console.log(res);
+                    $.notify(res.message,{className:"error", globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                  }
+
+
+        });
+    
+    
+
+
+  });
+
+
 
  /* ---- DTR LOCKING ------ */
 
