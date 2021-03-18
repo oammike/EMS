@@ -189,7 +189,7 @@ class UserDTRPController extends Controller
 
             
 
-            $headers = ['EmployeeCode', 'EmployeeName','Program','ImmediateHead','ProductionDate','Log time','Request', 'Approver_Status','Details'];
+            $headers = ['EmployeeCode', 'EmployeeName','Program','ImmediateHead','ProductionDate','Log time','Request', 'Approver_Status','Reviewed by DataMgt', 'Details'];
             $description = "DTRP Summary for dates: ".$from." to ".$to;
             Excel::create("DTRP_Summary_".$from."-".$to,function($excel) use( $allDTRP, $to, $from, $headers,$description,$leaders) 
               {
@@ -238,6 +238,17 @@ class UserDTRPController extends Controller
                             else $stat = "Pending Approval";
 
                             $arr[$i] = $stat; $i++;
+
+
+                             //*** Reviewed by DataMgt
+                            if($jps->reviewed == '1') $d = "Valid";
+                            else if ($jps->reviewed == '0') $d = "Rejected";
+                            else $d = "Pending Review";
+
+                            $arr[$i] = $d; $i++;
+
+
+
 
                             //*** Details
                             $arr[$i] = $jps->notes; $i++;
