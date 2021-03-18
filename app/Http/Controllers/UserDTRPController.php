@@ -191,7 +191,7 @@ class UserDTRPController extends Controller
 
             $headers = ['EmployeeCode', 'EmployeeName','Program','ImmediateHead','ProductionDate','Log time','Request', 'Approver_Status','Details'];
             $description = "DTRP Summary for dates: ".$from." to ".$to;
-            Excel::create("DTRP_Summary_from".$from,function($excel) use( $allDTRP, $to, $from, $headers,$description,$leaders) 
+            Excel::create("DTRP_Summary_".$from."-".$to,function($excel) use( $allDTRP, $to, $from, $headers,$description,$leaders) 
               {
                       $excel->setTitle("DTRP Summary from ".$to.' to '. $from);
                       $excel->setCreator('Programming Team')
