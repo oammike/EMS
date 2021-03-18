@@ -220,7 +220,7 @@ class UserDTRPController extends Controller
                             {
                                 $arr[$i] = $ih->first()->firstname. " ". $ih->first()->lastname; $i++;
 
-                            }else $arr[$i] = "-"; $i++;
+                            }else{ $arr[$i] = "-"; $i++; } 
 
                             $arr[$i] = $jps->productionDate; $i++;
 
