@@ -328,7 +328,7 @@
 
                             /*we process BIR forms*/
                             if(full.has2316){
-                              var has2316 = '<br/><br/><a href="user_forms/create?for='+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-upload"></i> Upload Digital Forms</a> <br/>';
+                              var has2316 = '<br/><br/><a href="user_forms/create?for='+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-upload"></i> Upload Digital Forms</a> <br/><a href="viewUserForm?f=BIR2316&u='+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-file-o"></i> View Uploaded Form</a> <br/>';
 
                             }else{
 

@@ -140,6 +140,8 @@
 
           @endforeach
 
+          <p><small class="text-primary"><a href="https://internal.openaccess.bpo/evaluation/public/build/changes.txt">__link</a> </small>
+
         </div><!--end col xs 12-->
 
       </div><!--end row-->
