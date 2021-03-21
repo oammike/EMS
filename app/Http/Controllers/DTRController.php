@@ -3784,7 +3784,7 @@ class DTRController extends Controller
                               {
                                 $isLocked = true;
                                 $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours;
-                                if ($sched[0]->workshift !== '* RD * - * RD *')
+                                if ( ($sched[0]->workshift !== '* RD * - * RD *') && (strpos($sched[0]->workshift, 'RD') === false) )  
                                 {
                                   $wshift = explode('-',$sched[0]->workshift);
                                   $s = Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
@@ -3858,7 +3858,7 @@ class DTRController extends Controller
                                   
                                   
                                 }
-                                else if ($sched[0]->workshift === '* RD * - * RD *')
+                                else if ( ($sched[0]->workshift === '* RD * - * RD *') ||  strpos($sched[0]->workshift, 'RD') !== false )
                                 {
                                   $wshift = explode('-',$sched[0]->workshift);
                                   $s = Carbon::parse($j->productionDate." ".$j->timeStart,'Asia/Manila');
