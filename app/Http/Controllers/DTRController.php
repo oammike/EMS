@@ -3918,7 +3918,7 @@ class DTRController extends Controller
                                         {
                                           if(count($sched) > 0)
                                           {
-                                            if ($sched[0]->workshift === '* RD * - * RD *') {  $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1; }
+                                            if (($sched[0]->workshift === '* RD * - * RD *') || strpos($sched[0]->workshift, 'RD') !== false) {  $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1; }
                                             else
                                             {
                                               // check muna kung PT or not
@@ -3961,7 +3961,7 @@ class DTRController extends Controller
                                       {
                                         if(count($sched) > 0)
                                         {
-                                          if ($sched[0]->workshift === '* RD * - * RD *') {  $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1; }
+                                          if (($sched[0]->workshift === '* RD * - * RD *')||strpos($sched[0]->workshift, 'RD') !== false) {  $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1; }
                                           else
                                           {
                                             // check muna kung PT or not
@@ -4074,7 +4074,7 @@ class DTRController extends Controller
                             $sched = $this->getUserWorksched($jps[0]->userID,$jps[0]->productionDate);
                             if(count($sched) > 0)
                             {
-                              if ($sched[0]->workshift !== '* RD * - * RD *')
+                              if (($sched[0]->workshift !== '* RD * - * RD *') && strpos($sched[0]->workshift, 'RD') === false)
                               {
                                 $wshift = explode('-',$sched[0]->workshift);
                                 $s = Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila');
@@ -4099,7 +4099,7 @@ class DTRController extends Controller
                                 $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$jps[0]->timeEnd,'Asia/Manila');
                                 
                               }
-                              else if ($sched[0]->workshift === '* RD * - * RD *')
+                              else if (($sched[0]->workshift === '* RD * - * RD *') || strpos($sched[0]->workshift, 'RD') !== false)
                               {
                                 $wshift = explode('-',$sched[0]->workshift);
                                 $s = Carbon::parse($jps[0]->productionDate." ".$jps[0]->timeStart,'Asia/Manila');
@@ -4157,7 +4157,7 @@ class DTRController extends Controller
                                       {
                                         if(count($sched) > 0)
                                         {
-                                          if ($sched[0]->workshift === '* RD * - * RD *') {  $hoursFiled =$jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving; }
+                                          if (($sched[0]->workshift === '* RD * - * RD *')||strpos($sched[0]->workshift, 'RD') !== false) {  $hoursFiled =$jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving; }
                                           else
                                           {
                                             // check muna kung PT or not
@@ -4200,7 +4200,7 @@ class DTRController extends Controller
                                     {
                                       if(count($sched) > 0)
                                       {
-                                        if ($sched[0]->workshift === '* RD * - * RD *') { $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving; }
+                                        if (($sched[0]->workshift === '* RD * - * RD *')||strpos($sched[0]->workshift, 'RD') !== false) { $hoursFiled = $jps[0]->billable_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving; }
                                         else
                                         {
                                           // check muna kung PT or not
@@ -5144,7 +5144,7 @@ class DTRController extends Controller
                               if(count($ex) > 0)
                               {
                                 //exempt employee
-                                if($j->workshift == "* RD * - * RD *")
+                                if (($j->workshift == "* RD * - * RD *") || strpos($j->workshift, 'RD') !== false)
                                  {
                                      $arr[$c] = $ex[0]->name; $c++; 
                                      $arr[$c] = $ex[0]->name;$c++;
@@ -5160,7 +5160,7 @@ class DTRController extends Controller
                               }
                               else
                               {
-                                if($j->workshift == "* RD * - * RD *")
+                                if (($j->workshift == "* RD * - * RD *") || strpos($j->workshift, 'RD') !== false)
                                  {
                                      $arr[$c] = "FLEXI-TIME 8 HOURS"; $c++; 
                                      $arr[$c] = "FLEXI-TIME 8 HOURS";$c++;
@@ -5213,7 +5213,7 @@ class DTRController extends Controller
                               if(count($ex) > 0)
                               {
                                 //exempt employee
-                                if($jps[0]->workshift == "* RD * - * RD *")
+                                if(($jps[0]->workshift == "* RD * - * RD *") || strpos($jps[0]->workshift, 'RD') !== false)
                                  {
                                      $arr[$c] = $ex[0]->name; $c++; 
                                      $arr[$c] = $ex[0]->name;$c++;
@@ -5230,7 +5230,7 @@ class DTRController extends Controller
                               else
                               {
                                   //*** CurrentDailySchedule
-                                  if($jps[0]->workshift == "* RD * - * RD *")
+                                  if(($jps[0]->workshift == "* RD * - * RD *") || strpos($jps[0]->workshift, 'RD') !== false)
                                   {
                                        $arr[$i] = "FLEXI-TIME 8 HOURS";$i++; 
                                        $arr[$i] = "FLEXI-TIME 8 HOURS";$i++;
@@ -5311,7 +5311,7 @@ class DTRController extends Controller
                               // if(count($sched) > 0)
                               // {
                                 $hoursFiled = $j->filed_hours; $hoursApproved =$j->filed_hours;
-                                if ($sched !== '* RD * - * RD *')
+                                if (($sched !== '* RD * - * RD *') && strpos($sched, 'RD') === false)
                                 {
                                   $wshift = explode('-',$sched);
 
@@ -5409,7 +5409,7 @@ class DTRController extends Controller
 
                               if ($isHoliday)
                               {
-                                    if ($sched === '* RD * - * RD *') {  $hoursFiled = $j->filed_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1; }
+                                    if (($sched === '* RD * - * RD *')||strpos($sched, 'RD') !== false) {  $hoursFiled = $j->filed_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1; }
                                     else
                                     {
                                       // check muna kung PT or not
@@ -5422,7 +5422,7 @@ class DTRController extends Controller
                                       else
                                       {
 
-                                         if ($sched !== '* RD * - * RD *')
+                                         if (($sched !== '* RD * - * RD *') && strpos($sched, 'RD') === false)
                                          {
                                             if (strpos($j->timeStart, 'shift') !== false) {
                                                 $hoursFiled = 4.0;
@@ -5510,7 +5510,7 @@ class DTRController extends Controller
                               // if(count($sched) > 0)
                               // {
                                 $hoursFiled = $jps[0]->filed_hours; $hoursApproved =$jps[0]->filed_hours;
-                                if ($sched !== '* RD * - * RD *')
+                                if (($sched !== '* RD * - * RD *') && strpos($sched, 'RD') === false)
                                 {
                                   $wshift = explode('-',$sched);
 
@@ -5559,7 +5559,7 @@ class DTRController extends Controller
 
                               if ($isHoliday)
                               {
-                                    if ($sched === '* RD * - * RD *') {  $hoursFiled = $jps[0]->filed_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving; }
+                                    if (($sched === '* RD * - * RD *') || strpos($sched, 'RD') !== false) {  $hoursFiled = $jps[0]->filed_hours; $hoursApproved =$jps[0]->filed_hours; goto proceedSaving; }
                                     else
                                     {
                                       // check muna kung PT or not
