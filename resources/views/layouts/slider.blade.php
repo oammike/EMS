@@ -3,7 +3,25 @@
 
               
             
-             <div class="item active text-center" >
+            <div class="item active text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_03_22_wall.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"><i class="fa fa-pagelines"></i> Earth Day 2021 <i class="fa fa-pagelines"></i><br/><small>Mar. 22, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Leonardo di Caprio is not only a Hollywood actor but a known environmentalist. <br/><em>‘We only get one planet. This is the most urgent of times, and the most urgent of messages’,</em> he once said. <br/><br/><strong>What small act are you doing for our mother Earth these days? </strong><br/>March 27 is Earth Hour, let’s do our part OABPO family! <br/> Earn 20 points for your post, visit EMS now! <br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',47)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_waterday.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Today is <br/> <span class="text-primary"> <i class="fa fa-tint"></i> World Water Day <i class="fa fa-tint"></i><br/><small>Mar. 22, 2021</small><br/>
                   
@@ -64,23 +82,7 @@
             </div>
 
             
-             <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_03_16_wall.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"> <i class="fa fa-calendar-o"></i> A Year of Lockdown <i class="fa fa-calendar-o"></i><br/><small>Mar. 15, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      It’s been 1 year since the national lockdown was implemented. <br/><br/>Check your phone gallery and post the last photo you took while in the office before the historic March 15, 2020 happened. Visit EMS now and earn 20 points!  <br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',46)}}"><i class="fa fa-th-large"></i> View Wall</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
+            
              <div class="item text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/winner_womenMonth.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >CONGRATULATIONS <br/> <span class="text-primary"> <i class="fa fa-female"></i>Women's Month Challenge Winners <i class="fa fa-female"></i><br/><small>Mar. 17, 2021</small><br/>
