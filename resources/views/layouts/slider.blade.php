@@ -2,45 +2,68 @@
 
 
               
-             <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> MAR 25, 2021</strong> PAYOUT <br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Dear All,<br/><br/>
-                    
-                    Please be informed that our cut-off for Mar. 25 payout is Mar. 20, 2021. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before SUNDAY 12:00 noon of Mar 21, 2021</strong>.<br/><br/>
-
-                    In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate supervisor to lock your DTR on your behalf.<br/><br/>
-
-If you have any payroll-related inquiries and concerns, please log in to our Payroll Help Desk by clicking this link <a href="http://ticketing.openaccess.bpo/" target="_blank"> http://ticketing.openaccess.bpo/. </a>You may also access it via EMS. For those employees who are working from home, your VPN should be connected before you can access the Payroll Help Desk.<br/><br/>
-
-                    Thank you.<br/>
-
- 
-                    
-              </div>
-
-
-             <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/winner_womenMonth.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >CONGRATULATIONS <br/> <span class="text-primary"> <i class="fa fa-female"></i>Women's Month Challenge Winners <i class="fa fa-female"></i><br/><small>Mar. 17, 2021</small><br/>
+            
+             <div class="item active text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_waterday.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Today is <br/> <span class="text-primary"> <i class="fa fa-tint"></i> World Water Day <i class="fa fa-tint"></i><br/><small>Mar. 22, 2021</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
                    
                     <p style="padding: 30px;" class="text-center">
-                      Thank you to all who also posted their entries! <br/><br/>
+                      Water plays a vital role in keeping us safe and healthy through this pandemic. Remember these tips to boost your protection against #COVID19. <br/><br/>
+                      Happy #WorldWaterDay! 💧<br/>
+                      #WeSpeakYourLanguage #OAonWaterDay #OneForHealth<br/><br/>
 
-                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',45)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/openaccessbpolife/photos/pcb.3958055310917607/3958054554251016/"><i class="fa fa-facebook-square"></i> View Facebook post</a>
                      </p>
                     
                    
                     
                     
             </div>
+
+             <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_waterday2.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Today is <br/> <span class="text-primary"> <i class="fa fa-tint"></i> World Water Day <i class="fa fa-tint"></i><br/><small>Mar. 22, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Water plays a vital role in keeping us safe and healthy through this pandemic. Remember these tips to boost your protection against #COVID19. <br/><br/>
+                      Happy #WorldWaterDay! 💧<br/>
+                      #WeSpeakYourLanguage #OAonWaterDay #OneForHealth<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/openaccessbpolife/photos/pcb.3958055310917607/3958054554251016/"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+             <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_waterday3.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Today is <br/> <span class="text-primary"> <i class="fa fa-tint"></i> World Water Day <i class="fa fa-tint"></i><br/><small>Mar. 22, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Water plays a vital role in keeping us safe and healthy through this pandemic. Remember these tips to boost your protection against #COVID19. <br/><br/>
+                      Happy #WorldWaterDay! 💧<br/>
+                      #WeSpeakYourLanguage #OAonWaterDay #OneForHealth<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/openaccessbpolife/photos/pcb.3958055310917607/3958054554251016/"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            
              <div class="item text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_03_16_wall.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"> <i class="fa fa-calendar-o"></i> A Year of Lockdown <i class="fa fa-calendar-o"></i><br/><small>Mar. 15, 2021</small><br/>
@@ -52,6 +75,23 @@ If you have any payroll-related inquiries and concerns, please log in to our Pay
                       It’s been 1 year since the national lockdown was implemented. <br/><br/>Check your phone gallery and post the last photo you took while in the office before the historic March 15, 2020 happened. Visit EMS now and earn 20 points!  <br/><br/>
 
                       <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',46)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+             <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/winner_womenMonth.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >CONGRATULATIONS <br/> <span class="text-primary"> <i class="fa fa-female"></i>Women's Month Challenge Winners <i class="fa fa-female"></i><br/><small>Mar. 17, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Thank you to all who also posted their entries! <br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',45)}}"><i class="fa fa-th-large"></i> View Wall</a>
                      </p>
                     
                    
@@ -10643,6 +10683,27 @@ In case that your rest day falls on the cut-off and has no access in EMS, please
                     If you have any payroll-related inquiries and concerns, please log in to our Payroll Help Desk by clicking this link <a href="http://ticketing.openaccess.bpo/" target="_blank">http://ticketing.openaccess.bpo/</a>. You may also access it via EMS. For those employees who are working from home, your VPN should be connected before you can access the Payroll Help Desk.
 
                     Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/>
+
+ 
+                    
+              </div>
+
+               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> MAR 25, 2021</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for Mar. 25 payout is Mar. 20, 2021. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before SUNDAY 12:00 noon of Mar 21, 2021</strong>.<br/><br/>
+
+                    In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate supervisor to lock your DTR on your behalf.<br/><br/>
+
+If you have any payroll-related inquiries and concerns, please log in to our Payroll Help Desk by clicking this link <a href="http://ticketing.openaccess.bpo/" target="_blank"> http://ticketing.openaccess.bpo/. </a>You may also access it via EMS. For those employees who are working from home, your VPN should be connected before you can access the Payroll Help Desk.<br/><br/>
 
                     Thank you.<br/>
 
