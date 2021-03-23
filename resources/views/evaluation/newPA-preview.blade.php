@@ -132,10 +132,10 @@
 
                           @elseif( $comp[0]->componentName == "Professionalism" )
                           <tr>
-                            <td colspan="3" class="bg-gray" style="padding-left: 50px;" >
+                            <td colspan="3" class="bg-gray" style="padding: 50px;" >
                               <div class="row">
                                
-                                <div class="col-lg-1" style="font-weight: bold;">Rating</div>
+                                <div class="col-lg-1 text-left" style="font-weight: bold;">Rating</div>
                                 <div class="col-lg-4 text-center" style="font-weight: bold;">Guidelines</div>
                                 <div class="col-lg-4 text-center" style="font-weight: bold;">Qty Infractions by yearend</div>
                                 <div class="col-lg-3" style="font-weight: bold;">Penalty category by yearend</div>
@@ -201,6 +201,8 @@
                                 Two or more Level 2 offenses and or at least 1 level 3 offense</div>
                                 <div class="col-lg-3">SERIOUS/GRAVE [FINAL WRITTEN or SUSPENSION]</div>
                               </div>
+
+
                               
                             </td>
                             
@@ -208,6 +210,7 @@
                             
                             
                           </tr>
+                          <tr><td colspan="3"> <br/><br/><br/></td></tr>
 
                           @endif
 

@@ -5,7 +5,7 @@
             
             <div class="item active text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_03_22_wall.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"><i class="fa fa-pagelines"></i> Earth Day 2021 <i class="fa fa-pagelines"></i><br/><small>Mar. 22, 2021</small><br/>
+                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"><i class="fa fa-pagelines"></i> Earth Hour 2021 <i class="fa fa-pagelines"></i><br/><small>Mar. 22, 2021</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
