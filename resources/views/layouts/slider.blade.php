@@ -2,40 +2,9 @@
 
 
               
+           
+
             <div class="item active text-center" >
-                  <!-- <img src="storage/uploads/goalSetting.jpg" width="100%" /> -->
-                  <h4 class="text-orange" style="line-height: 1.5em" >New Leadership Development Course <br/><span class="text-primary"><i class="fa fa-users"></i> Understanding Core Competencies<br/> and Rating Criteria <br/><small>Mar.24, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-left">
-                     Hi leaders,<br/><br/>
- 
-                      It's finally here!<br/><br/>
-                       
-                      As part of rolling out our new corporate approach to performance management and development this year, we are happy to announce that our course for understanding our core competencies and criteria for rating performance is now available in Rise 360.<br/><br/>
-                       
-                      This mandatory course provides instruction and insights on performance management, and discusses the working definitions for the essential skills and competencies for our jobs and how they can be developed. It is vital for leaders to have a clear understanding and an aligned implementation of these across the board, as we set performance standards and assess how we're doing all year-round. This will help us advance them as well as evaluate them as one Open Access BPO team.<br/><br/>
-                       
-                      This is also designed to equip people managers to competently care for the development of our people and will be an accessible reference all year long. Through this valuable toolkit we can coach, guide, set goals for, and make thrive our most valuable resources --- our talents, our people.<br/><br/> 
-                       
-                      Please self-register in LMS today and take <strong class="text-primary">How to Rate Performance: Understanding Our Core Competencies and Rating Criteria.</strong>  All people managers and individual support contributors are required to complete this <strong class="text-success"> on or before April 15, 2021.</strong>
-                       
-                      <br/><br/>
-
-                      <strong>ENROLL NOW!</strong><br/>
-                       <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://open-access.training-online.eu/catalog/" />
-                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
-                  </p>
-                    
-                   
-                    
-                    
-            </div>
-
-
-            <div class="item text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_03_22_wall.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"><i class="fa fa-pagelines"></i> Earth Hour 2021 <i class="fa fa-pagelines"></i><br/><small>Mar. 22, 2021</small><br/>
                   
@@ -10726,6 +10695,38 @@ If you have any payroll-related inquiries and concerns, please log in to our Pay
  
                     
               </div>
+
+ <div class="item active text-center" >
+                  
+                  <h4 class="text-orange" style="line-height: 1.5em" >New Leadership Development Course <br/><span class="text-primary"><i class="fa fa-users"></i> Understanding Core Competencies<br/> and Rating Criteria <br/><small>Mar.24, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-left">
+                     Hi leaders,<br/><br/>
+ 
+                      It's finally here!<br/><br/>
+                       
+                      As part of rolling out our new corporate approach to performance management and development this year, we are happy to announce that our course for understanding our core competencies and criteria for rating performance is now available in Rise 360.<br/><br/>
+                       
+                      This mandatory course provides instruction and insights on performance management, and discusses the working definitions for the essential skills and competencies for our jobs and how they can be developed. It is vital for leaders to have a clear understanding and an aligned implementation of these across the board, as we set performance standards and assess how we're doing all year-round. This will help us advance them as well as evaluate them as one Open Access BPO team.<br/><br/>
+                       
+                      This is also designed to equip people managers to competently care for the development of our people and will be an accessible reference all year long. Through this valuable toolkit we can coach, guide, set goals for, and make thrive our most valuable resources --- our talents, our people.<br/><br/> 
+                       
+                      Please self-register in LMS today and take <strong class="text-primary">How to Rate Performance: Understanding Our Core Competencies and Rating Criteria.</strong>  All people managers and individual support contributors are required to complete this <strong class="text-success"> on or before April 15, 2021.</strong>
+                       
+                      <br/><br/>
+
+                      <strong>ENROLL NOW!</strong><br/>
+                       <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://open-access.training-online.eu/catalog/" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                  </p>
+                    
+                   
+                    
+                    
+            </div>
 
             
 
