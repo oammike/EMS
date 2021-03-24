@@ -2109,6 +2109,10 @@ $(function ()
                   }break;
         case '2': { 
 
+                    //but you need to check first kung may existing DTRP in na
+                    var biometrics_id = $('input[name="biometrics_id"]').val();
+                    var meronDTRPIN = getExisting('DTRPIN',biometrics_id);
+
                     $('.container#login').fadeIn(); 
                     $('input[id="leave"]').attr('checked',false);
                     $('.container#leave').fadeOut();
@@ -2122,7 +2126,10 @@ $(function ()
                       $('.container#login').append('<input type="radio" name="shifttype" value="0" checked="checked"/>');
                   }break;
 
-        case '3': { $('.container#logout').fadeIn(); 
+        case '3': { 
+                    var biometrics_id = $('input[name="biometrics_id"]').val();
+                    var meronDTRPIN = getExisting('DTRPOUT',biometrics_id);
+                    $('.container#logout').fadeIn(); 
                     $('input[id="leave"]').attr('checked',false);
                     $('.container#leave').fadeOut();$('button#upload').fadeIn();
                     $('textarea[name="logoutReason"]').prop('required',true);
@@ -2172,6 +2179,20 @@ $(function ()
        
 
   }); //end main checkboxes
+
+
+
+function getExisting(getType,biometrics_id){
+
+  switch(getType){
+    case 'DTRPIN': {/*alert(getType+": "+ biometrics_id);*/} break;
+    case 'DTRPOUT': {/*alert("Requested "+ getType+": "+ biometrics_id);*/} break;
+
+  };
+
+  
+
+};
 
 $('select.end.form-control').on('change',function(){
   var selval = $(this).children("option:selected").val();
