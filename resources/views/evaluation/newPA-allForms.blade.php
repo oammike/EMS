@@ -27,15 +27,17 @@
                 <p>Below are all appraisal forms created:<br/><br/><br/>
                   
                 </p>
+         
                 
-                <table class="table">
+                <table class="table table-bordered" id="allForms">
                   <thead>
-                    <tr>
+                    
                       <th style="width:25%">Form Type</th>
-                      <th style="width:30%">Description</th><th style="width: 10%">Actions </th>
-                      <th style="width:45%"class="text-center">Applies To</th>
+                      <th style="width:30%">Description</th>
+                      <th style="width: 10%">Actions </th>
+                      <th style="width:35%"class="text-center">Applies To</th>
                       
-                    </tr>
+                    
                   </thead>
 
                   <tbody>
@@ -60,67 +62,65 @@
                       </td>
                       <td style="font-size: smaller; white-space: pre;"> {!! $form->description !!} </td>
 
-                       <td>
+                      <td>
                         <a class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> </a>
                         <a href="{{action('NewPA_Form_Controller@preview',$form->id)}} " class="btn btn-xs btn-default"><i class="fa fa-eye"></i> </a>
                         <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#myModal{{$form->id}}"><i class="fa fa-trash"></i> </a>
                       </td>
 
                       @if($form->typeID == 5 ||  $form->typeID == 6 )
-                      <td>
-                        <?php $exists = collect($hasExistingForms)->where('formID',$form->id); ?>
-                        <ul style="list-style: none">
-                          @foreach($exists as $e)
+                          <td>
+                            <?php $exists = collect($hasExistingForms)->where('formID',$form->id); ?>
+                            <ul style="list-style: none">
+                              @foreach($exists as $e)
 
-                            @if(in_array($e->user_id,$evaluatedAlready))
-                             <?php $toshow = collect($evals)->where('user_id',$e->user_id); ?>
+                                @if(in_array($e->user_id,$evaluatedAlready))
+                                 <?php $toshow = collect($evals)->where('user_id',$e->user_id); ?>
 
-                                <li> <a data-toggle="modal" data-target="#myModal{{$e->id}}"  class="pull-right"><i class="fa fa-times"></i></a><img src="{{url('/')}}/public/img/employees/{{$e->user_id}}.jpg" width="50" class="pull-left" /><strong>{{$e->lastname}}, {{$e->firstname}}</strong> <br/><em style="font-size: small;">{{$e->jobTitle}}</em> <br/>
-                                  <a class="pull-right btn btn-sm btn-default" href="{{action('NewPA_Evals_Controller@show',['id'=>$toshow->first()->id])}}" target="_blank"><i class="fa fa-eye"></i>&nbsp; View Evaluation </a>
-                                  <span class="label label-danger">{{$toshow->first()->finalRating}} </span> 
+                                    <li> <a data-toggle="modal" data-target="#myModal{{$e->id}}"  class="pull-right"><i class="fa fa-times"></i></a><img src="{{url('/')}}/public/img/employees/{{$e->user_id}}.jpg" width="50" class="pull-left" /><strong>{{$e->lastname}}, {{$e->firstname}}</strong> <br/><em style="font-size: small;">{{$e->jobTitle}}</em> <br/>
+                                      <a class="pull-right btn btn-sm btn-default" href="{{action('NewPA_Evals_Controller@show',['id'=>$toshow->first()->id])}}" target="_blank"><i class="fa fa-eye"></i>&nbsp; View Evaluation </a>
+                                      <span class="label label-danger">{{$toshow->first()->finalRating}} </span> 
 
-                                  <br/><br/><br/><br/>
-                                </li>
+                                      <br/><br/><br/><br/>
+                                    </li>
 
-                                @include('layouts.modals', [
-                                'modelRoute'=>'newPA_form_user.destroy',
-                                'modelID' => $e->id, 
-                                'modelName'=>$e->firstname." ".$e->lastname, 
-                                'modalTitle'=>'Delete', 
-                                'modalMessage'=>'Are you sure you want to remove '.$e->firstname.' '.$e->lastname.' from using this form?', 
-                                'formID'=>'deleteUserForm',
-                                'icon'=>'glyphicon-trash' ])
-
-
-                            @else
-
-                                 <li> <a data-toggle="modal" data-target="#myModal{{$e->id}}"  class="pull-right"><i class="fa fa-times"></i></a><img src="{{url('/')}}/public/img/employees/{{$e->user_id}}.jpg" width="50" class="pull-left" style="padding:5px" /><strong>{{$e->lastname}}, {{$e->firstname}}</strong> <br/><em style="font-size: small;">{{$e->jobTitle}}</em> <br/>
-                                  <a target="_blank" class="pull-right btn btn-sm btn-primary" href="{{action('NewPA_Form_Controller@evaluate',['id'=>$e->user_id, 'form'=>$form->id])}}"><i class="fa fa-thumbs-up"></i>&nbsp; Evaluate Now </a><br/><br/><br/><br/>
-                                </li>
-
-                                @include('layouts.modals', [
-                                'modelRoute'=>'newPA_form_user.destroy',
-                                'modelID' => $e->id, 
-                                'modelName'=>$e->firstname." ".$e->lastname, 
-                                'modalTitle'=>'Delete', 
-                                'modalMessage'=>'Are you sure you want to remove '.$e->firstname.' '.$e->lastname.' from using this form?', 
-                                'formID'=>'deleteUserForm',
-                                'icon'=>'glyphicon-trash' ])
-
-                            @endif
-                         
+                                   <!--  @include('layouts.modals', [
+                                    'modelRoute'=>'newPA_form_user.destroy',
+                                    'modelID' => $e->id, 
+                                    'modelName'=>$e->firstname." ".$e->lastname, 
+                                    'modalTitle'=>'Delete', 
+                                    'modalMessage'=>'Are you sure you want to remove '.$e->firstname.' '.$e->lastname.' from using this form?', 
+                                    'formID'=>'deleteUserForm',
+                                    'icon'=>'glyphicon-trash' ]) -->
 
 
-                          @endforeach
-                        </ul>
-                      </td>
+                                @else
+
+                                     <li> <a data-toggle="modal" data-target="#myModal{{$e->id}}"  class="pull-right"><i class="fa fa-times"></i></a><img src="{{url('/')}}/public/img/employees/{{$e->user_id}}.jpg" width="50" class="pull-left" style="padding:5px" /><strong>{{$e->lastname}}, {{$e->firstname}}</strong> <br/><em style="font-size: small;">{{$e->jobTitle}}</em> <br/>
+                                      <a target="_blank" class="pull-right btn btn-sm btn-primary" href="{{action('NewPA_Form_Controller@evaluate',['id'=>$e->user_id, 'form'=>$form->id])}}"><i class="fa fa-thumbs-up"></i>&nbsp; Evaluate Now </a><br/><br/><br/><br/>
+                                    </li>
+
+                                    <!-- @include('layouts.modals', [
+                                    'modelRoute'=>'newPA_form_user.destroy',
+                                    'modelID' => $e->id, 
+                                    'modelName'=>$e->firstname." ".$e->lastname, 
+                                    'modalTitle'=>'Delete', 
+                                    'modalMessage'=>'Are you sure you want to remove '.$e->firstname.' '.$e->lastname.' from using this form?', 
+                                    'formID'=>'deleteUserForm',
+                                    'icon'=>'glyphicon-trash' ]) -->
+
+                                @endif
+                             
+
+
+                              @endforeach
+                            </ul>
+                          </td>
                       
                       @else
-
-
-                      <td>
-                        <p style="margin-left: 40px">all <em>{{$form->type}}</em> </p>
-                      </td>
+                          <td>
+                            <p style="margin-left: 40px">all <em>{{$form->type}}</em> </p>
+                          </td>
 
 
                       
@@ -189,10 +189,28 @@
 
 
 <!-- Page script -->
-<script>
+<script type="text/javascript">
  
   $(function () {
    'use strict';
+
+
+    $("#allForms").DataTable({
+                "deferRender": true,
+                "processing":true,
+                "stateSave": true,
+                "order": [ 0, "desc" ],
+                "lengthMenu": [20, 100, 500],
+                "dom": '<"col-xs-1"f><"col-xs-11 text-right"l><"clearfix">rt<"bottom"ip><"clear">',
+                
+                //"lengthChange": true,
+                "oLanguage": {
+                   "sSearch": "<strong>Refine Results</strong> <br/>To re-order entries, click on the sort icon to the right of column headers. <br/>To filter out results, just type in the search box anything you want to look for:",
+                   "class": "pull-left"
+                 },
+
+                
+        });
 
    
 
