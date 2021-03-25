@@ -31,9 +31,9 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th>Form Type</th>
-                      <th>Description</th><th style="width: 10%">Actions </th>
-                      <th class="text-center">Applies To</th>
+                      <th style="width:25%">Form Type</th>
+                      <th style="width:30%">Description</th><th style="width: 10%">Actions </th>
+                      <th style="width:45%"class="text-center">Applies To</th>
                       
                     </tr>
                   </thead>
@@ -41,19 +41,19 @@
                   <tbody>
                     @foreach($forms as $form)
                     <tr>
-                      <td style="font-size: larger;">
+                      <td style="font-size: small;">
 
                         @if ( $form->typeID == '1' || $form->typeID == '2' )
                         <a href="{{action('NewPA_Form_Controller@preview',$form->id)}}">
-                          <span style="background-color: #f1d61c;padding: 10px;color:#fff; font-size: x-small;font-weight: bolder;"><i class="fa fa-file-o"></i> FIC </span>&nbsp;&nbsp; {{$form->name}} </a>
+                          <span class="pull-left" style="background-color: #f1d61c;padding: 10px;color:#fff; font-size: x-small;font-weight: bolder;"><i class="fa fa-file-o"></i> FIC </span>&nbsp;&nbsp; <p class="pull-left" style="width: 60%;padding-left: 10px">{{$form->name}} </p></a>
 
                         @elseif ( $form->typeID == '3' || $form->typeID == '4' )
                         <a href="{{action('NewPA_Form_Controller@preview',$form->id)}}">
-                          <span style="background-color: #72a919;padding: 10px;color:#fff;  font-size: x-small;font-weight: bolder;"><i class="fa fa-file-o"></i> SIC </span>&nbsp;&nbsp; {{$form->name}}  </a>
+                          <span class="pull-left" style="background-color: #72a919;padding: 10px;color:#fff;  font-size: x-small;font-weight: bolder;"><i class="fa fa-file-o"></i> SIC </span>&nbsp;&nbsp; <p class="pull-left" style="width: 60%;padding-left: 10px">{{$form->name}} </p>  </a>
 
                         @else
                         <a href="{{action('NewPA_Form_Controller@preview',$form->id)}}" >
-                          <span style="background-color: #0778dc;padding: 10px;color:#fff ; font-size: x-small;font-weight: bolder;"><i class="fa fa-file-o"></i> PM </span> &nbsp;&nbsp;{{$form->name}}   </a>
+                          <span class="pull-left" style="background-color: #0778dc;padding: 10px;color:#fff ; font-size: x-small;font-weight: bolder;"><i class="fa fa-file-o"></i> PM </span> &nbsp;&nbsp;<p class="pull-left" style="width: 60%;padding-left: 10px">{{$form->name}} </p>   </a>
 
                         @endif
                         
@@ -75,8 +75,8 @@
                             @if(in_array($e->user_id,$evaluatedAlready))
                              <?php $toshow = collect($evals)->where('user_id',$e->user_id); ?>
 
-                                <li> <a data-toggle="modal" data-target="#myModal{{$e->id}}"  class="pull-right"><i class="fa fa-times"></i></a><img src="./public/img/employees/{{$e->user_id}}.jpg" width="50" class="pull-left" /><strong>{{$e->lastname}}, {{$e->firstname}}</strong> <br/><em style="font-size: small;">{{$e->jobTitle}}</em> <br/>
-                                  <a class="pull-right btn btn-sm btn-default" href="{{action('NewPA_Evals_Controller@show',['id'=>$toshow->first()->id])}}"><i class="fa fa-eye"></i>&nbsp; View Evaluation </a>
+                                <li> <a data-toggle="modal" data-target="#myModal{{$e->id}}"  class="pull-right"><i class="fa fa-times"></i></a><img src="{{url('/')}}/public/img/employees/{{$e->user_id}}.jpg" width="50" class="pull-left" /><strong>{{$e->lastname}}, {{$e->firstname}}</strong> <br/><em style="font-size: small;">{{$e->jobTitle}}</em> <br/>
+                                  <a class="pull-right btn btn-sm btn-default" href="{{action('NewPA_Evals_Controller@show',['id'=>$toshow->first()->id])}}" target="_blank"><i class="fa fa-eye"></i>&nbsp; View Evaluation </a>
                                   <span class="label label-danger">{{$toshow->first()->finalRating}} </span> 
 
                                   <br/><br/><br/><br/>
@@ -94,8 +94,8 @@
 
                             @else
 
-                                 <li> <a data-toggle="modal" data-target="#myModal{{$e->id}}"  class="pull-right"><i class="fa fa-times"></i></a><img src="./public/img/employees/{{$e->user_id}}.jpg" width="50" class="pull-left" /><strong>{{$e->lastname}}, {{$e->firstname}}</strong> <br/><em style="font-size: small;">{{$e->jobTitle}}</em> <br/>
-                                  <a class="pull-right btn btn-sm btn-primary" href="{{action('NewPA_Form_Controller@evaluate',['id'=>$e->user_id, 'form'=>$form->id])}}"><i class="fa fa-thumbs-up"></i>&nbsp; Evaluate Now </a><br/><br/><br/><br/>
+                                 <li> <a data-toggle="modal" data-target="#myModal{{$e->id}}"  class="pull-right"><i class="fa fa-times"></i></a><img src="{{url('/')}}/public/img/employees/{{$e->user_id}}.jpg" width="50" class="pull-left" style="padding:5px" /><strong>{{$e->lastname}}, {{$e->firstname}}</strong> <br/><em style="font-size: small;">{{$e->jobTitle}}</em> <br/>
+                                  <a target="_blank" class="pull-right btn btn-sm btn-primary" href="{{action('NewPA_Form_Controller@evaluate',['id'=>$e->user_id, 'form'=>$form->id])}}"><i class="fa fa-thumbs-up"></i>&nbsp; Evaluate Now </a><br/><br/><br/><br/>
                                 </li>
 
                                 @include('layouts.modals', [
