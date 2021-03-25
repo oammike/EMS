@@ -33,7 +33,7 @@
                     <tr>
                       <th>Form</th>
                       <th>Description</th><th style="width: 10%">Actions </th>
-                      <th class="text-center">Applies To</th>
+                      <th class="text-center">Applicable To</th>
                       
                     </tr>
                   </thead>
@@ -61,8 +61,8 @@
                       <td style="font-size: smaller; white-space: pre;"> {!! $form->description !!} </td>
 
                        <td>
-                        <a class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> </a>
-                        <a href="{{action('NewPA_Form_Controller@preview',$form->id)}} " class="btn btn-xs btn-default"><i class="fa fa-eye"></i> </a>
+                        <!-- <a class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> </a> -->
+                        <a target="_blank" href="{{action('NewPA_Form_Controller@preview',$form->id)}} " class="btn btn-xs btn-default"><i class="fa fa-eye"></i> </a>
                         <a class="btn btn-xs btn-default" data-toggle="modal" data-target="#myModal{{$form->id}}"><i class="fa fa-trash"></i> </a>
                       </td>
 
@@ -119,7 +119,7 @@
 
 
                       <td>
-                        <p style="margin-left: 40px">all <em>{{$form->type}}</em> </p>
+                        <p style="margin-left: 40px">all <em class="text-primary" style="font-weight: bold; font-size: small;">{{$form->type}}</em> </p>
                       </td>
 
 
