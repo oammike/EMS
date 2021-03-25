@@ -88,6 +88,7 @@ class NewPA_Form_Controller extends Controller
     public function allForms()
     {
       $allowed = [184,334,464,1784,1611,305,163,307,2502,564,3264,3204,724, 529 , 508, 511, 586,350];
+      $correct = Carbon::now('GMT+8');
       if (!in_array($this->user->id, $allowed)) return view('access-denied');
 
 
@@ -105,7 +106,15 @@ class NewPA_Form_Controller extends Controller
                           select('newPA_evals.user_id','newPA_evals.id','newPA_evals.finalRating')->get();
       $evaluatedAlready = collect($evals)->pluck('user_id')->toArray();
 
-      return response()->json(['forms'=>$forms,'hasExistingForms'=>$hasExistingForms,'evals'=>$evals,'evaluatedAlready'=>$evaluatedAlready]);
+      
+      $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+        fwrite($file, "-------------------\n View ALL NewPA ".$correct->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+        fclose($file);
+                    
+
+      return view('evaluation.newPA-allForms',compact('forms','hasExistingForms','evals','evaluatedAlready'));
+
+      //return response()->json(['forms'=>$forms,'hasExistingForms'=>$hasExistingForms,'evals'=>$evals,'evaluatedAlready'=>$evaluatedAlready]);
 
 
     }
