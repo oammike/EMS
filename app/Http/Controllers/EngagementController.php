@@ -325,7 +325,7 @@ class EngagementController extends Controller
             return view('access-denied');
         }
 
-        $mods = [564,534,879,1717,1611,1398,491];
+        $mods = [564,534,879,1717,1611,1398,491,167,68,425]; //me, luith, audrey, wendy,emelda,jaja, k.mar; chini; primmy
         $awarder = [564,491];
 
         in_array($this->user->id, $mods) ? $canModerate=1 : $canModerate=0;
