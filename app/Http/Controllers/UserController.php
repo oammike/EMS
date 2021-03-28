@@ -381,7 +381,7 @@ class UserController extends Controller
         $canPlot = $this->checkIfAnApprover($approvers, $this->user);
 
         //if (!$canCWS || !$canPlot) 
-        if ($canPlot 
+        if ( ($canPlot && $isBackoffice)
           || ($isWorkforce && !$isBackoffice)
           || $this->user->userType_id==1 
           || $this->user->userType_id==2 
