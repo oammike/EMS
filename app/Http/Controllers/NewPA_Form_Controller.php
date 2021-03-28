@@ -122,10 +122,12 @@ class NewPA_Form_Controller extends Controller
     public function create()
     {
         // henry, lisa,nate, joy, e, florendo, qhaye, reese, bobby,arvie,agabao,crizzy, faith,jill,511, marj, carla
-        $allowed = [184,334,464,1784,1611,305,163,307,2502,564,3264,3204,724, 529 , 508, 511, 586, 350];
+        $allowed = ImmediateHead::where('employeeNumber',$this->user->employeeNumber)->get();
+        // [184,334,464,1784,1611,305,163,307,2502,564,3264,3204,724, 529 , 508, 511, 586, 350];
         $objectiveCodes = ["Reliable Service Delivery","Effective Client Partnerships","Cost Optimization","Employee Development &amp; Engagement","Compliance &amp; Commitment","Social Responsibility"];
 
-        if (!in_array($this->user->id, $allowed)) return view('access-denied');
+        //if (!in_array($this->user->id, $allowed)) return view('access-denied');
+        if (count($allowed) <= 0) return view('access-denied');
 
         $roles = NewPA_Type::all();
         $objectives = NewPA_Objective::all();
