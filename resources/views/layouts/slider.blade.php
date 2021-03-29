@@ -4,6 +4,77 @@
               
             <div class="item active text-center" >
                   
+                  <h4 class="text-orange" style="line-height: 1.5em" >Employee Communications: <br/><span class="text-primary"><i class="fa fa-info-circle"></i> Business As Usual Amid One-Week Lockdown<br/><small>Mar.29, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-left">
+                     Team,<br/><br/>
+
+                       
+
+                      In light of the Philippine government’s recent announcement about ramping movement restrictions starting Monday, March 29 through Friday, April 4, this is to confirm that Open Access BPO operates business as usual.<br/><br/><br/><br/>
+
+                       
+
+                      There are no changes so far since our processes are already compliant with all travel, health, and safety rulings for private companies. Also, while the new pronouncement includes curfew hours for Metro Manila and some other cities, the BPO industry is exempted hence our business operations will not be affected.<br/><br/>
+
+                       
+
+                      The following measures and provisions remain in place as usual:<br/><br/>
+
+                      ·         Policies, practices, and tools updated to manage and support our integrated workforce (at-home workers and skeletal onsite personnel)<br/>
+
+                      ·         Amped interdepartmental coordination and regular employee communications<br/>
+
+                      ·         Provisions and health/safety protocols maintained for onsite workers<br/><br/><br/>
+
+                      o   Company transport*<br/>
+
+                      o   Office meals when establishments are closed<br/>
+
+                      o   Mandatory health declaration prior to riding company vehicles and entering office premises<br/>
+
+                      o   Physical distancing, protection, and disinfection protocols<br/><br/><br/><br/>
+
+                       
+
+                       
+
+                      *Our company shuttle service operates 24/7 as usual. There are no changes so far, unless otherwise announced by the government and Transport Department. We will maintain our current:<br/><br/>
+
+                      a.       Schedule of shuttle operations<br/><br/>
+
+                      b.       Scope of service (door-to-door for within NCR; point-to-point for outside NCR)<br/><br/>
+
+                      c.        Support help desk hours (0800 - 2300)<br/><br/>
+
+                      d.       Company Shuttle Service Policies and Procedures<br/><br/><br/><br/>
+
+                      Given the curfew and added ECQ restrictions, we advise all shuttlers to ensure they have their:<br/><br/>
+
+                      a. COE (indicating home and office address) and<br/><br/>
+
+                      b. Company ID with them in case of inspection.<br/><br/><br/><br/>
+
+                      As per usual, new or change requests may be sent to OA Transport by submitting an OA Ride Request Form two days before the needed ride.
+
+                       <br/><br/>
+                       
+
+                      Thank you, let's all keep safe.
+
+
+                  </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
+                  
                   <h4 class="text-orange" style="line-height: 1.5em" >New Leadership Development Course <br/><span class="text-primary"><i class="fa fa-users"></i> Understanding Core Competencies<br/> and Rating Criteria <br/><small>Mar.24, 2021</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
