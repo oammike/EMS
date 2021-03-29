@@ -14,7 +14,7 @@
 
                        
 
-                      In light of the Philippine government’s recent announcement about ramping movement restrictions starting Monday, March 29 through Friday, April 4, this is to confirm that Open Access BPO operates business as usual.<br/><br/><br/><br/>
+                      In light of the Philippine government’s recent announcement about ramping movement restrictions <strong class="text-success"> starting Monday, March 29 through Friday, April 4, this is to confirm that Open Access BPO operates business as usual</strong>.<br/><br/><br/><br/>
 
                        
 
@@ -23,26 +23,28 @@
                        
 
                       The following measures and provisions remain in place as usual:<br/><br/>
+                      <ul class="text-left">
+                          <li>Policies, practices, and tools updated to manage and support our integrated workforce (at-home workers and skeletal onsite personnel)<br/></li>
 
-                      ·         Policies, practices, and tools updated to manage and support our integrated workforce (at-home workers and skeletal onsite personnel)<br/>
+                          <li>Amped interdepartmental coordination and regular employee communications<br/></li>
 
-                      ·         Amped interdepartmental coordination and regular employee communications<br/>
+                          <li>Provisions and health/safety protocols maintained for onsite workers<br/></li><br/>
 
-                      ·         Provisions and health/safety protocols maintained for onsite workers<br/><br/><br/>
+                          <li>Company transport*<br/></li>
 
-                      o   Company transport*<br/>
+                          <li>Office meals when establishments are closed<br/></li>
 
-                      o   Office meals when establishments are closed<br/>
+                          <li>Mandatory health declaration prior to riding company vehicles and entering office premises<br/></li>
 
-                      o   Mandatory health declaration prior to riding company vehicles and entering office premises<br/>
-
-                      o   Physical distancing, protection, and disinfection protocols<br/><br/><br/><br/>
+                          <li>Physical distancing, protection, and disinfection protocols<br/></li>
+                      </ul>
+                        <br/><br/></p>
 
                        
 
                        
 
-                      *Our company shuttle service operates 24/7 as usual. There are no changes so far, unless otherwise announced by the government and Transport Department. We will maintain our current:<br/><br/>
+                      <p style="padding: 30px;" class="text-left"><em>* Our company shuttle service operates 24/7 as usual. There are no changes so far, unless otherwise announced by the government and Transport Department. We will maintain our current:<br/><br/>
 
                       a.       Schedule of shuttle operations<br/><br/>
 
@@ -58,7 +60,7 @@
 
                       b. Company ID with them in case of inspection.<br/><br/><br/><br/>
 
-                      As per usual, new or change requests may be sent to OA Transport by submitting an OA Ride Request Form two days before the needed ride.
+                      As per usual, new or change requests may be sent to OA Transport by submitting an OA Ride Request Form two days before the needed ride.</em>
 
                        <br/><br/>
                        
