@@ -120,7 +120,7 @@
                       @if($pending_OT)<span class="label label-warning" style="font-size: small;"> ({{count($pending_OT)}}) </span> @endif</strong></a></li>
 
 
-                    <li @if($type =='DTRP') class="active" @endif ><a href="#" ><strong class="text-primary"><i class="fa fa-2x fa-history"></i> DTRP In | DTRP Out 
+                    <li @if($type =='DTRP') class="active" @endif ><a href="{{action('UserDTRPController@manage',['from'=>$from, 'to'=>$to])}}" ><strong class="text-primary"><i class="fa fa-2x fa-history"></i> DTRP In | DTRP Out 
                       @if($pending_DTRP)<span class="label label-warning" style="font-size: small;"> ({{$pending_DTRP}}) </span> @endif</strong></a></li>
                     
                      @if ($isAdmin) 

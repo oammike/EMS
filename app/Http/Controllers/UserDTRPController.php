@@ -106,7 +106,7 @@ class UserDTRPController extends Controller
       (Input::get('from')) ? $from = Input::get('from') : $from = Carbon::now()->addDays(-7)->format('m/d/Y'); 
       (Input::get('to')) ? $to = Input::get('to') : $to = Carbon::now()->endOfMonth()->addDays(14)->format('m/d/Y'); //date('m/d/Y');
 
-      (Input::get('type')) ? $type = Input::get('type') : $type = 'IN';
+      (Input::get('type')) ? $type = Input::get('type') : $type = 'OLD';
       $stamp = Carbon::now('GMT+8');
 
       /*$isAdmin =  ($roles->contains('ADMIN_LEAVE_MANAGEMENT')) ? '1':'0';
