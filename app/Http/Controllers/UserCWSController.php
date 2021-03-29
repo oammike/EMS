@@ -468,16 +468,20 @@ class UserCWSController extends Controller
              //**** send notification to the sender
             $theNotif = Notification::where('relatedModelID', $cws->id)->where('type',6)->get();
 
+            
+
+
+            //$unotif = $this->notifySender($cws,$theNotif->first(),6);
+
             //then remove those sent notifs to the approvers since it has already been approved/denied
             if (count($theNotif) > 0)
                 DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
 
 
-            $unotif = $this->notifySender($cws,$theNotif->first(),6);
             $user = User::find($cws->user_id);
             (is_null($user->nickname)) ? $f = $user->firstname : $f = $user->nickname;
 
-            return response()->json(['success'=>1, 'firstname'=>$f, 'lastname'=>$user->lastname, 'unotif'=>$unotif]);
+            return response()->json(['success'=>1, 'firstname'=>$f, 'lastname'=>$user->lastname, 'unotif'=>null]); //$unotif]);
 
 
 

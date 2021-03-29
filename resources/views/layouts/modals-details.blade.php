@@ -100,9 +100,15 @@
 
         
         
-        <button type="button" class="btn btn-default btn-sm pull-right" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-times" ></i> Close </button>
+         @if(!$isBackoffice)<p style="font-size: small;" class="text-success"><br/>* CWS requests from all Operations personnel will be processed by WFM team.</p> @endif
 
-        @if ($anApprover && is_null($data['usercws'][0]['isApproved']))
+         <button type="button" class="btn btn-default btn-sm pull-right" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-times" ></i> Close </button>
+
+
+
+        @if ( (($anApprover && $isBackoffice) || ($isWorkforce && !$isBackoffice) ) && is_null($data['usercws'][0]['isApproved']))
+
+
         <a href="#" class="process btn btn-danger btn-sm pull-right" data-notifType="{{$data_notifType}}" data-action="0" data-notifID="{{$data_notifID}}" data-id="{{$data_id}}" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-thumbs-down" ></i> Deny </a>
         <a href="#" class="process btn btn-success btn-sm pull-right" data-notifType="{{$data_notifType}}" data-action="1" data-notifID="{{$data_notifID}}" data-id="{{$data_id}}" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-thumbs-up" ></i> Approve </a>
 

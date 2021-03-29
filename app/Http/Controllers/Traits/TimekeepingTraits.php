@@ -7892,11 +7892,28 @@ trait TimekeepingTraits
       // } else { $cws->isApproved = null; $TLsubmitted=false; $cws->approver=null; }
 
        $employee = User::find($cws->user_id);
-        $approvers = $employee->approvers;
+        //$approvers = $employee->approvers;
+
+       $approvers = $employee->approvers;
+       $anApprover = $this->checkIfAnApprover($approvers, $this->user);
+       
+       $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
+       $canCWS =  ($roles->contains('CAN_CWS')) ? '1':'0';
+
+        /* -------- get this user's department. If Backoffice, WFM can't access this ------*/
+        $isBackoffice = ( Campaign::find(Team::where('user_id',$employee->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+        $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+
+        //Timekeeping Trait
         $anApprover = $this->checkIfAnApprover($approvers, $this->user);
 
-        
-        if ($anApprover)
+        if ( ($anApprover && $isBackoffice)
+          || ($isWorkforce && !$isBackoffice)
+          || $this->user->userType_id==1 
+          || $this->user->userType_id==2 
+          || $this->user->userType_id==5)
+
+         // if ($anApprover)
         {
             $cws->isApproved = true; $TLsubmitted=true; $cws->approver = $request->approver;
         } else { $cws->isApproved = null; $TLsubmitted=false;$cws->approver = $request->approver; }
@@ -7908,7 +7925,7 @@ trait TimekeepingTraits
       //--- notify the TL concerned
       //$employee = User::find($cws->user_id);
 
-     if (!$anApprover) //(!$TLsubmitted && !$canChangeSched)
+     if (!$anApprover && $isBackoffice) //(!$TLsubmitted && !$canChangeSched)
       {
         //$TL = ImmediateHead::find(ImmediateHead_Campaign::find($cws->approver)->immediateHead_id);
        // $TL = ImmediateHead::find(ImmediateHead_Campaign::find($cws->approver)->immediateHead_id)->userData;
@@ -7962,7 +7979,7 @@ trait TimekeepingTraits
 
          /* -------------- log updates made --------------------- */
           
-         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n". $employee->id .",". $employee->lastname." CWS submission ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."| An approver: ".$anApprover."\n");
             fclose($file);
       //return redirect()->back();

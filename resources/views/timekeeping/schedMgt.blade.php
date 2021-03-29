@@ -720,13 +720,15 @@
 
                     if (isApproved == '1') {
                       $('#row'+dataid).fadeOut();
+                      $.notify("Requested "+t+ " marked Approved.",{className:"success",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
                       window.setTimeout(function(){
                         window.location.href = "{{url('/')}}/schedule_management?type={{$type}}&from="+f+"&to="+to;
                       }, 3000);
-                     /*$.notify("Requested "+t+ " marked Approved.",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );window.location.href = "{{url('/')}}/leave_management?type={{$type}}&from="+f+"&to="+to;*/
+                     //;window.location.href = "{{url('/')}}/leave_management?type={{$type}}&from="+f+"&to="+to;
                     }
                    else {
                     $('#row'+dataid).fadeOut();
+                    $.notify("Submitted "+requesttype+ " for "+res.firstname+" :  Denied.",{className:"error",globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
                     window.setTimeout(function(){
                         window.location.href = "{{url('/')}}/schedule_management?type={{$type}}&from="+f+"&to="+to;
                       }, 3000);
