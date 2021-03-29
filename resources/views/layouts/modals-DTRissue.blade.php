@@ -55,6 +55,7 @@
 
                   </div>
 
+                  @if($user->status_id !== 4)
                   <div class="col-sm-4">
                     <div style="margin-top:30px">
                       <label><input type="radio" name="shifttype" value="part" required="required" /> Part Time </label> &nbsp;&nbsp;&nbsp;
@@ -78,6 +79,7 @@
 
                      
                   </div>
+                  @endif
 
                   <div class="col-sm-4">
                     <div style="margin-top:30px">
