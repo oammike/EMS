@@ -407,7 +407,9 @@
                                                   @else
 
                                                       <div class="row">
-                                                        <div class="col-lg-6"> <h5 class="text-success pull-left"><br/><br/><i class="fa fa-thumbs-up"></i> Approved by Approver</h5>
+                                                        <div class="col-lg-6"> 
+                                                          <!-- <h5 class="text-success pull-left"><br/><br/>
+                                                          <i class="fa fa-thumbs-up"></i> Approved by Approver</h5> -->
                                                          <div class="clearfix"></div>
                                                          <a target="_blank" class="btn btn-xs btn-default pull-left" href="{{action('DTRController@show',['id'=>$vl->user_id,'from'=>$vl->productionDate,'to'=>date('Y-m-d',strtotime($to))])}}"><i class="fa fa-calendar"></i> View DTR Page </a>
                                                        </div>
