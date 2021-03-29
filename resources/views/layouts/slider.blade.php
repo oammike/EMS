@@ -2,7 +2,36 @@
 
 
               
-            <div class="item active text-center" >
+             <div class="item active text-center" >
+
+                              <img src="./public/img/ana.jpg" style="z-index: 2" />
+
+                              <div class="text-gray text-right" style="position: relative;width:90%; right:0px;top:-200px; z-index: 999; height: 20px">
+                                 <h2><img src="./public/img/white_logo_small.png" width="40" style="margin-right: 30px" /><br/> <strong>Internal<br/>Hiring! </strong></h2>
+
+                              </div>
+
+                               <h2 style="margin-top: -30px" class="text-danger"><strong>Team Leader </strong><br/>
+                               <small>for</small> <a target="_blank" href="{{action('CampaignController@show','38')}} "> <img src="./public/img/logo_quora.png" width="120"></a></h2>
+
+                              <h5 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Deadline of Submission: <strong class="text-primary"> Apr. 02, 2021 Friday </strong></h5>
+                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Requirements: </p>
+                              <ul class="text-left">
+                                <li>Have stayed with Open Access for at least a period of 6 months</li>
+                                <li>Minimum of 1 year managing a team as OIC or equivalent position</li>
+                                <li>Excellent English communication skills</li>
+                                <li>Must have exemplary Performance (for agents)</li>
+                                <li>Flexible with any schedule</li>
+                                <li>No written warnings and attendance issues</li>
+                              </ul>
+
+                              <p><small>Interested applicants may submit their letter of intent and updated resume to: <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessmarketing.com</a></small><br/>
+                                <strong>Subject: <span class="text-danger"> Team Lead Post for Quora</span></strong></p>
+
+
+            </div>  
+
+            <div class="item text-center" >
                   
                   <h4 class="text-orange" style="line-height: 1.5em" >Employee Communications: <br/><span class="text-primary"><i class="fa fa-info-circle"></i> Business As Usual Amid One-Week Lockdown<br/><small>Mar.29, 2021</small><br/>
                   
