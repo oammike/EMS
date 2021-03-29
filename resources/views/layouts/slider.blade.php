@@ -14,7 +14,7 @@
 
                        
 
-                      In light of the Philippine government’s recent announcement about ramping movement restrictions <strong class="text-success"> starting Monday, March 29 through Friday, April 4, this is to confirm that Open Access BPO operates business as usual</strong>.<br/><br/><br/><br/>
+                      In light of the Philippine government’s recent announcement about ramping movement restrictions <strong class="text-success"> starting Monday, March 29 through Sunday, April 4, this is to confirm that Open Access BPO operates business as usual</strong>.<br/><br/><br/><br/>
 
                        
 
