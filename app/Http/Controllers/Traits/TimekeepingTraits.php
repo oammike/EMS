@@ -5624,7 +5624,7 @@ trait TimekeepingTraits
       {
         $prod = Carbon::parse($userLogOUT[0]['timing'])->format('Y-m-d');
         //we now check if agent has SL VL LWOP to correct the worked hours & UT
-        if($hasSL || $hasVL || $hasLWOP)
+        if($hasSL || $hasVL || $hasLWOP )
         {
 
           /*if($hasVL)
@@ -5812,6 +5812,8 @@ trait TimekeepingTraits
 
               }
               else {
+
+
                 $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
 
                  $minsEarlyOut = $endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila'));
@@ -5847,57 +5849,68 @@ trait TimekeepingTraits
         }
         else
         {
-          $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
-          $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
-          $minsEarlyOut = $endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila'));
 
-          //if ($wh > 5 && !($isPartTimer || $isPartTimerForeign) ) $wh = $wh - 60;
-          
-          //we less 1hr for the break, BUT CHECK FIRST IF PART TIME OR NOT
-          ($isPartTimer || $isPartTimerForeign) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
+          if ($hasVTO)
+          {
 
-          //$workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
-          $billableForOT=0; //$userLogIN[0]['timing']/60;
+            $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+            $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+            $minsEarlyOut = 0; //$endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila'));
 
-          //$stat = User::find($user_id)->status_id;
-          //****** part time user
-
-          if ($isPartTimer || $isPartTimerForeign) {
-
-            ($ptOverride) ? $UT = number_format((480.0 - (($wh-60) - $minsLate) )/60,2) : $UT = number_format((240.0 - ($wh - $minsLate) )/60,2); //number_format((240.0 - $wh)/60,2);
+            $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
             
-          }
-          else {
-            if ($is4x11)
-              $UT = number_format((600.0 - (($wh-60) - ($minsLate+$minsEarlyOut)) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
-            else
-              $UT = number_format( ($minsLate+$minsEarlyOut) /60,2); 
+            //$workedHours = $workedHours1[0]['workedHours'];
+            $UT = number_format($minsLate/60,2);
+            $workedHours = (float)$workedHours1[0]['actualHrs'] - $UT;
+            $workedHours .= "<br/>".$workedHours1[0]['logDeets'];
+            $workedHours .= "<small>( late IN )</small><br/>";
+
+            //$UT = $workedHours1[0]['UT'];
+            $actualHrs = $workedHours1[0]['actualHrs'];
+            
+            
+
+          }//end if has VTO
+
+          else{
+                $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+                $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+                $minsEarlyOut = $endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila'));
+
+                //if ($wh > 5 && !($isPartTimer || $isPartTimerForeign) ) $wh = $wh - 60;
+                
+                //we less 1hr for the break, BUT CHECK FIRST IF PART TIME OR NOT
+                ($isPartTimer || $isPartTimerForeign) ? $workedHours = number_format(($wh)/60,2)."<br/><small>(late IN & early OUT)</small>" : $workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
+
+                //$workedHours = number_format(($wh-60)/60,2)."<br/><small>(late IN & early OUT)</small>";
+                $billableForOT=0; //$userLogIN[0]['timing']/60;
+
+                //$stat = User::find($user_id)->status_id;
+                //****** part time user
+
+                if ($isPartTimer || $isPartTimerForeign) {
+
+                  ($ptOverride) ? $UT = number_format((480.0 - (($wh-60) - $minsLate) )/60,2) : $UT = number_format((240.0 - ($wh - $minsLate) )/60,2); //number_format((240.0 - $wh)/60,2);
+                  
+                }
+                else {
+                  if ($is4x11)
+                    $UT = number_format((600.0 - (($wh-60) - ($minsLate+$minsEarlyOut)) )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
+                  else
+                    $UT = number_format( ($minsLate+$minsEarlyOut) /60,2); 
+
+                }
 
           }
+
+
+          
 
         }
 
         
 
-        if ($hasVTO)
-        {
-          $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
-          $minsEarlyOut = $endOfShift->diffInMinutes(Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila'));
-
-          $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'VTO',false,$wh,$vtoDeet,$hasPendingVTO,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
-          
-          //$workedHours = $workedHours1[0]['workedHours'];
-          $UT = number_format($minsLate+$minsEarlyOut/60,2);
-          $workedHours = (float)$workedHours1[0]['actualHrs'] - $UT;
-          $workedHours .= "<br/>".$workedHours1[0]['logDeets'];
-          $workedHours .= "<small>( late IN )</small><br/>";
-
-          //$UT = $workedHours1[0]['UT'];
-          $actualHrs = $workedHours1[0]['actualHrs'];
-          
-          
-
-        }//end if has VTO
+        
 
 
 
