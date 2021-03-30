@@ -6140,10 +6140,15 @@ trait TimekeepingTraits
               {
                 $UT = 0; //number_format($minsLate/60,2);
                  
-                if ($shifthrs > 4)
-                  $workedHours = ($shifthrs-1) - $UT;
+                if ($shifthrs > 4) {
+                  //check mo muna kung UNPAID VTO
+                  if($vtoDeet->deductFrom == 'LWOP')
+                    $workedHours = number_format((float)$workedHours1[0]['actualHrs'],2); 
+                  else
+                    $workedHours = ($shifthrs-1) - $UT;
+                }
                 else
-                  $workedHours = (float)$workedHours1[0]['actualHrs'] - $UT;
+                  $workedHours = number_format((float)$workedHours1[0]['actualHrs'] - $UT,2);
 
                 $workedHours .= "<br/>".$workedHours1[0]['logDeets'];
 
@@ -7674,8 +7679,13 @@ trait TimekeepingTraits
         {
           if($hasPending)
             {
+
               $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ ".$l."  ] (for approval) </em></small></strong>".$icons;
-              $WHcounter = number_format($wh/60,2);
+               if ($deet->deductFrom == 'LWOP')
+                  $WHcounter = number_format(round(8 - $deet->totalHours),2);
+               else
+                  $WHcounter = number_format($wh/60,2);
+
 
               if ($WHcounter == 9) $WHcounter = $WHcounter - 1.0;
               $workedHours = $WHcounter;
