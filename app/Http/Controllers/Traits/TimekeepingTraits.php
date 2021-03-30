@@ -7427,7 +7427,13 @@ trait TimekeepingTraits
                       $i = "fa-history";
                       $l = "VTO";
                       $label = " Voluntary Time Off ";
-                      $workedHours = round(number_format($wh/60 + $deet->totalHours,2),PHP_ROUND_HALF_DOWN);// 8.0;
+
+                      //but check first if unpaid VTO
+                      if ($deet->deductFrom == 'LWOP')
+                        $workedHours = round(number_format(8 - $deet->totalHours,2),PHP_ROUND_HALF_DOWN);// 8.0;
+                      else
+                        $workedHours = round(number_format($wh/60 + $deet->totalHours,2),PHP_ROUND_HALF_DOWN);// 8.0;
+
 
                       if ($workedHours > 8) $workedHours = $workedHours--;
                       //if ($workedHours > 8) $workedHours = 8.0; //$workedHours--;
@@ -7687,10 +7693,14 @@ trait TimekeepingTraits
 
             }else
             {
+
               $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ ".$deet->totalHours." hr VTO  ] </em></small></strong>".$icons;
 
-             
-              $WHcounter = number_format(round($wh/60 + $deet->totalHours),2);
+              //but check first if unpaid VTO
+              if ($deet->deductFrom == 'LWOP')
+                  $WHcounter = number_format(round(8 - $deet->totalHours),2);
+              else
+                  $WHcounter = number_format(round($wh/60 + $deet->totalHours),2);
 
               //if ($WHcounter == 9) $WHcounter = $WHcounter - 1.0;
               if ($WHcounter > 8) $WHcounter = 8.00;
