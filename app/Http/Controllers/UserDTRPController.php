@@ -82,10 +82,16 @@ class UserDTRPController extends Controller
         if (count($theNotif) > 0)
             DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
 
+        
+
+        //check mo rin kung may log override
+        $over = User_LogOverride::where('user_id',$owner->id)->where('affectedBio',$theDTRP->biometrics_id)->where('logType_id',$theDTRP->logType_id)->get();
+        if (count($over) > 0)
+            DB::table('user_logOverride')->where('user_id',$owner->id)->where('affectedBio',$theDTRP->biometrics_id)->where('logType_id',$theDTRP->logType_id)->delete();
+        
         $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
                 fwrite($file, "-------------------\n Delete DTRP of [".$owner->id."] on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);
-        
 
 
 
@@ -531,6 +537,18 @@ class UserDTRPController extends Controller
                 $o->created_at = $correct->format('Y-m-d H:i:s');
                 $o->updated_at = $correct->format('Y-m-d H:i:s');
                 $o->save();
+
+                //add LOG as well
+                $lg = new Logs;
+                $lg->biometrics_id = $o->affectedBio;
+                $lg->user_id = $dtrp->user_id;
+                $lg->logTime = $dtrp->logTime;
+                $lg->logType_id = $dtrp->logType_id;
+                $lg->manual = false;
+                $lg->created_at = $correct->format('Y-m-d H:i:s');
+                $lg->updated_at = $correct->format('Y-m-d H:i:s');
+                $lg->save();
+
 
                 
 
