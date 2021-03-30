@@ -6143,7 +6143,7 @@ trait TimekeepingTraits
                 if ($shifthrs > 4) {
                   //check mo muna kung UNPAID VTO
                   if($vtoDeet->deductFrom == 'LWOP')
-                    $workedHours = number_format((float)$workedHours1[0]['actualHrs'],2); 
+                    $workedHours = number_format((float)$workedHours1[0]['workedHours'],2); // number_format((float)$workedHours1[0]['actualHrs'],2); 
                   else
                     $workedHours = ($shifthrs-1) - $UT;
                 }
@@ -7708,7 +7708,7 @@ trait TimekeepingTraits
 
               //but check first if unpaid VTO
               if ($deet->deductFrom == 'LWOP')
-                  $WHcounter = number_format(round(8 - $deet->totalHours),2);
+                  $WHcounter = number_format((8 - $deet->totalHours),2);
               else
                   $WHcounter = number_format(round($wh/60 + $deet->totalHours),2);
 
