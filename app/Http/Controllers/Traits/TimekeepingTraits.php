@@ -5145,6 +5145,8 @@ trait TimekeepingTraits
     //$thisPayrollDate = Biometrics::where(find($biometrics->id)->productionDate;
     //**** Hack for Davao holiday
 
+    $bioID = Biometrics::where('productionDate',$payday)->first();
+
     $hol = Holiday::where('holidate', $payday)->get();
     (Team::where('user_id',$user->id)->first()->floor_id == 9) ? $isDavao=true : $isDavao=false;
 
@@ -5517,14 +5519,28 @@ trait TimekeepingTraits
         //     if (earlier than shift) startOT from startng Shift
         //     else startOT from timeiN
 
-        if( Carbon::parse($userLogIN[0]['timing'],'Asia/Manila') < $scheduleStart->format('Y-m-d H:i'))
-        {
-          $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes($scheduleStart);
+        //check mo muna kung may approved HD OT
+        $mayOT = User_OT::where('user_id',$user->id)->where('biometrics_id',$bioID->id)->where('isApproved',1)->get();
 
-        }else
+        if(count($mayOT) > 0)
         {
-          $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+          $wh = number_format($mayOT->first()->filed_hours*60,2);
+
         }
+        else
+        {
+            if( Carbon::parse($userLogIN[0]['timing'],'Asia/Manila') < $scheduleStart->format('Y-m-d H:i'))
+            {
+              $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes($scheduleStart);
+
+            }else
+            {
+              $wh = Carbon::parse($userLogOUT[0]['timing'],'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
+            }
+
+        }
+
+        
         
         goto proceedWithNormal;
       }
