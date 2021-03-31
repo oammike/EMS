@@ -3,6 +3,30 @@
 
               
             <div class="item active text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/holyweek_2021.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-plus"></i> Holy Week <span class="text-primary"> 2021 <i class="fa fa-plus"></i><br/><small>Apr. 01-03 , 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      The Christian community is spending the Holy Week for the second year in quarantine. May we remember to take care of ourselves and those around us as we celebrate this solemn week.<br/><br/>
+
+                      Check out <a href="https://buff.ly/3sFpQvc" target="_blank">https://buff.ly/3sFpQvc</a> for #HolyWeek resources.<br/><br/>
+
+                      Please avoid going out unless absolutely necessary. If you need to, observe health and safety protocols properly.<br/><br/>
+
+                      #WeSpeakYourLanguage #OAHolidays<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/openaccessbpolife/photos/a.660550144001490/3995353447187793/"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/dtrp.gif" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Did You Know: <span class="text-primary"><i class="fa fa-info-circle"></i> DTRP<br/><small>Mar.31, 2021</small><br/>
