@@ -6537,6 +6537,8 @@ class DTRController extends Controller
              // ---------------------------
              
              $endp = count($payrollPeriod)-1; 
+             //return response()->json(['p'=>$payrollPeriod,'cutoffStart'=>$cutoffStart,'end'=>$cutoffEnd]);
+
              $groupedFixedSched = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->groupBy('schedEffectivity');
              $monthlyScheds = DB::table('monthly_schedules')->where('user_id',$user->id)->where('productionDate','>=',$payrollPeriod[0])->where('productionDate','<=',$payrollPeriod[$endp])->orderBy('created_at','DESC')->get();
 

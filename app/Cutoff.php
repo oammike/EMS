@@ -120,8 +120,8 @@ class Cutoff extends Model
 
 
             
-            $to = date('Y')."-";
-            $to .= (date('m'))."-";
+            $to = $ngayon->format('Y')."-";
+            $to .= $ngayon->format('m')."-";
             $to .= ($this->first);
             
         } else if (($today > $this->first)&&($today <= $this->second) || $today == ($this->first + $this->paydayInterval) ) //+ $this->paydayInterval
