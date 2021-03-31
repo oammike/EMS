@@ -6415,7 +6415,7 @@ class DTRController extends Controller
 
             //Timekeeping trait getCutoffStartEnd()
             $cData = $this->getCutoffStartEnd();
-            $cutoffStart = $cData['cutoffStart'];//->cutoffStart;
+            $cutoffStart = Carbon::parse($cData['currentPeriod'][0],'Asia/Manila');//->cutoffStart;
             $cutoffEnd = $cData['cutoffEnd'];
             $cutoffID = $cData['cutoffID'];
             $currentPeriod[0]= $cData['currentPeriod'][0];
@@ -6440,7 +6440,7 @@ class DTRController extends Controller
           //return $cData;
 
               
-           $getday = explode('-',$currentPeriod[0]);
+           $getday = explode('-',$currentPeriod[0]); 
            if ($getday[2] < Cutoff::first()->second)
             {
               //$prevF= Carbon::createFromDate(null,date('m',strtotime($currentPeriod[0])),Cutoff::first()->second+1);
@@ -6476,7 +6476,8 @@ class DTRController extends Controller
              $noWorkSched = false;
 
              //Timekeeping Trait
-             $payrollPeriod = $this->getPayrollPeriod($cutoffStart,$cutoffEnd); //return response()->json(['s'=>$cutoffStart,'e'=>$cutoffEnd]); //$payrollPeriod;
+             $payrollPeriod = $this->getPayrollPeriod($cutoffStart,$cutoffEnd); 
+             //return response()->json(['cData'=>$cData, 's'=>$cutoffStart,'e'=>$cutoffEnd, 'payrollPeriod'=>$payrollPeriod]); //$payrollPeriod;
             
 
              // ---------------------------  INITIALIZATIONS

@@ -2167,8 +2167,8 @@ trait TimekeepingTraits
     $currentPeriod = explode('_', $currPeriod);
     
 
-    $cutoffStart = new Carbon($currentPeriod[0],'Asia/Manila'); //(Cutoff::first()->startingPeriod());
-    $cutoffEnd = new Carbon($currentPeriod[1],'Asia/Manila'); //(Cutoff::first()->endingPeriod());
+    $cutoffStart = Carbon::parse($currentPeriod[0]." 00:00:00",'Asia/Manila'); //(Cutoff::first()->startingPeriod());
+    $cutoffEnd = Carbon::parse($currentPeriod[1]." 00:00:00",'Asia/Manila'); //(Cutoff::first()->endingPeriod());
     //$cutoffID = Paycutoff::where('fromDate',$currentPeriod[0])->first()->id;
 
     $cID = Paycutoff::where('fromDate',$currentPeriod[0])->get();
@@ -2190,7 +2190,7 @@ trait TimekeepingTraits
 
     }
 
-    return collect(['currentPeriod'=>$currentPeriod, 'cutoffStart'=>$cutoffStart,'cutoffEnd'=>$cutoffEnd,'cutoffID'=>$cutoffID]);
+    return collect(['currPeriod'=>$currPeriod, 'currentPeriod'=>$currentPeriod, 'cutoffStart'=>$cutoffStart,'cutoffEnd'=>$cutoffEnd,'cutoffID'=>$cutoffID]);
   }
 
 

@@ -158,7 +158,7 @@ class Cutoff extends Model
                 {
                     $to = date('Y')."-";
                     //$m = date('m')+1;
-                    $m = Carbon::now('GMT+8')->addMonth(1)->format('m');
+                    $m = Carbon::now('GMT+8')->addDay()->format('m');
                     $to .= $m."-";
                     $to .= ($this->first);
                 
