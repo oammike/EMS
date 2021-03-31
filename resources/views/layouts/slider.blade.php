@@ -2,7 +2,76 @@
 
 
               
-             <div class="item active text-center" >
+            <div class="item active text-center" >
+                  
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/dtrp.gif" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Did You Know: <span class="text-primary"><i class="fa fa-info-circle"></i> DTRP<br/><small>Mar.31, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-left">
+                       <span style="font-size: 3em" class="text-primary">DTRP</span> is an acronym of <strong> Daily Time Record Problem</strong> which refers to the issues encountered that affect an employee’s timesheet or daily time record.<br/><br/>
+
+ 
+
+                        <strong class="text-danger">What are the common reasons for DTRP?</strong><br/><br/>
+
+                         
+
+                        <strong class="text-success">Connectivity Issues –</strong> these refer to electrical or power source issues, internet connection issues, power outage, and VPN connection issues.<br/><br/>
+
+                         
+
+                        <strong class="text-success">System Issues –</strong> these refer to issues encountered in our timekeeping tools like biometric device, Bundy.ph, and EMS<br/><br/>
+
+                         
+
+                        <strong class="text-success">Negligence/ Human Error – </strong>it pertains to personal exigencies, personal oversight, unintentional error<br/><br/>
+
+                         
+
+                        <strong class="text-success">Other Reasons –</strong> these refer to other issues not falling under the above 3 categories (e.g. business exigencies, new hire employee, technical issues)<br/><br/><br/><br/>
+
+                         
+
+                         
+
+                        <strong class="text-danger"> What to do?</strong><br/><br/>
+
+                         
+
+                        <strong class="text-success">DTRP Due to Connectivity Issues –</strong> The employee should inform his supervisor about any ongoing connectivity issue and provide supporting documents for validation (e.g. service interruption announcement from ISP, internet speed check result, IT Ops – Service Ticket reference number, CCTV footage if onsite).  On the other note, Bundy can be accessed even without a VPN.  The employee may opt to not use it to avoid unnecessary DTRP filings due to VPN issues.<br/><br/>
+
+                         
+
+                        <strong class="text-success">DTRP Due to System issues – </strong>if Bundy.ph and EMS have any issues, the employee should provide screenshots from the company’s timekeeping tool. These are all subject for approval.<br/><br/>
+
+                         
+
+                        <strong class="text-success">DTRP Due to Negligence/ Human Error –</strong> Depending on the number of instances and the reason for such negligence, supervisors can request for Disciplinary Action or Incident Report to be issued to the affected employees. Supporting documents are required. For instances such as incorrect use of device (IN instead of OUT or vice-versa), logs not properly loaded to the system, etc., Data Management will immediately adjust and correct entries for the selected employee/s. If the issue was caused by negligence on the employee’s part, supervisors are advised to properly coach them to avoid repeated errors. Program tools that are approved by management can also be used as source for any missing logs.<br/><br/>
+
+
+                        <strong class="text-success">DTRP Due to Other Reasons –</strong> Supervisors can seek assistance from the Data Management team to validate if there are indeed no logs or there was just an error occurred while uploading the logs to the system.<br/><br/>
+
+
+
+                        The employee <strong>should send the screenshot</strong> of their secondary timekeeping validation tool to <strong class="text-primary">performancemanagement@openaccessbpo.com </strong> showing his login/ logout time in order for the DTRP filing to be approved.
+                     
+                    </p>
+
+                       
+
+                       
+
+                    
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
 
                               <img src="./public/img/ana.jpg" style="z-index: 2" />
 
@@ -154,85 +223,11 @@
                     
             </div>
 
-            <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_waterday.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Today is <br/> <span class="text-primary"> <i class="fa fa-tint"></i> World Water Day <i class="fa fa-tint"></i><br/><small>Mar. 22, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Water plays a vital role in keeping us safe and healthy through this pandemic. Remember these tips to boost your protection against #COVID19. <br/><br/>
-                      Happy #WorldWaterDay! 💧<br/>
-                      #WeSpeakYourLanguage #OAonWaterDay #OneForHealth<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/openaccessbpolife/photos/pcb.3958055310917607/3958054554251016/"><i class="fa fa-facebook-square"></i> View Facebook post</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
-
-             <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_waterday2.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Today is <br/> <span class="text-primary"> <i class="fa fa-tint"></i> World Water Day <i class="fa fa-tint"></i><br/><small>Mar. 22, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Water plays a vital role in keeping us safe and healthy through this pandemic. Remember these tips to boost your protection against #COVID19. <br/><br/>
-                      Happy #WorldWaterDay! 💧<br/>
-                      #WeSpeakYourLanguage #OAonWaterDay #OneForHealth<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/openaccessbpolife/photos/pcb.3958055310917607/3958054554251016/"><i class="fa fa-facebook-square"></i> View Facebook post</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
-
-             <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_waterday3.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Today is <br/> <span class="text-primary"> <i class="fa fa-tint"></i> World Water Day <i class="fa fa-tint"></i><br/><small>Mar. 22, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Water plays a vital role in keeping us safe and healthy through this pandemic. Remember these tips to boost your protection against #COVID19. <br/><br/>
-                      Happy #WorldWaterDay! 💧<br/>
-                      #WeSpeakYourLanguage #OAonWaterDay #OneForHealth<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/openaccessbpolife/photos/pcb.3958055310917607/3958054554251016/"><i class="fa fa-facebook-square"></i> View Facebook post</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
+          
 
             
             
-             <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/winner_womenMonth.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >CONGRATULATIONS <br/> <span class="text-primary"> <i class="fa fa-female"></i>Women's Month Challenge Winners <i class="fa fa-female"></i><br/><small>Mar. 17, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Thank you to all who also posted their entries! <br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',45)}}"><i class="fa fa-th-large"></i> View Wall</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
+            
 
             <div class="item text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/clutch.jpg" width="100%" />
@@ -271,150 +266,7 @@
                     
             </div>
 
-            <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/vaccineSurvey.png" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Pulse Survey:  <br/> <span class="text-primary"> <i class="fa fa-medkit"></i> COVID-19 Vaccine 2021 <i class="fa fa-medkit"></i><br/><small>Mar. 09, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Dear All,<br/><br/>
-
-                      Vaccines for COVID-19 are critical tools for helping bring the pandemic under control combined with existing prevention measures. With this, we would like to know each one's thoughts and feelings by going through the pulse survey.
-
-                      Please click on the link below to access:<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="https://docs.google.com/forms/d/1okZcFF3FsuMvDe0lROdwcGJlMijJ43k-qomWpHqaCKk/viewform?edit_requested=true" target="_blank"><i class="fa fa-external-link"></i> View Survey</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
-
             
-
-            <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_1.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >#ChooseToChallenge <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Happy #InternationalWomensDay!<br/>
-                      Women inspire change that continue to help make the world better. We at Open Access BPO #ChooseToChallenge inequality, gender bias, and lack of diversity when celebrating their successes.<br/><br/>
-                      Let's help our family, friends, and colleagues elevate their voices in this society and create an inclusive world.
-                      #WeSpeakYourLanguage #OAonIWD2021<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/media/set/?vanity=openaccessbpolife&set=a.3928066303916508"><i class="fa fa-facebook-square"></i> View Facebook post</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
-             <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_2.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >#ChooseToChallenge <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Happy #InternationalWomensDay!<br/>
-                      Women inspire change that continue to help make the world better. We at Open Access BPO #ChooseToChallenge inequality, gender bias, and lack of diversity when celebrating their successes.<br/><br/>
-                      Let's help our family, friends, and colleagues elevate their voices in this society and create an inclusive world.
-                      #WeSpeakYourLanguage #OAonIWD2021<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/media/set/?vanity=openaccessbpolife&set=a.3928066303916508"><i class="fa fa-facebook-square"></i> View Facebook post</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
-             <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_3.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >#ChooseToChallenge <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Happy #InternationalWomensDay!<br/>
-                      Women inspire change that continue to help make the world better. We at Open Access BPO #ChooseToChallenge inequality, gender bias, and lack of diversity when celebrating their successes.<br/><br/>
-                      Let's help our family, friends, and colleagues elevate their voices in this society and create an inclusive world.
-                      #WeSpeakYourLanguage #OAonIWD2021<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/media/set/?vanity=openaccessbpolife&set=a.3928066303916508"><i class="fa fa-facebook-square"></i> View Facebook post</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
-             <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_4.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >#ChooseToChallenge <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Happy #InternationalWomensDay!<br/>
-                      Women inspire change that continue to help make the world better. We at Open Access BPO #ChooseToChallenge inequality, gender bias, and lack of diversity when celebrating their successes.<br/><br/>
-                      Let's help our family, friends, and colleagues elevate their voices in this society and create an inclusive world.
-                      #WeSpeakYourLanguage #OAonIWD2021<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/media/set/?vanity=openaccessbpolife&set=a.3928066303916508"><i class="fa fa-facebook-square"></i> View Facebook post</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
-             <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_5.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >#ChooseToChallenge <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Happy #InternationalWomensDay!<br/>
-                      Women inspire change that continue to help make the world better. We at Open Access BPO #ChooseToChallenge inequality, gender bias, and lack of diversity when celebrating their successes.<br/><br/>
-                      Let's help our family, friends, and colleagues elevate their voices in this society and create an inclusive world.
-                      #WeSpeakYourLanguage #OAonIWD2021<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/media/set/?vanity=openaccessbpolife&set=a.3928066303916508"><i class="fa fa-facebook-square"></i> View Facebook post</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
-             <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_6.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >#ChooseToChallenge <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Happy #InternationalWomensDay!<br/>
-                      Women inspire change that continue to help make the world better. We at Open Access BPO #ChooseToChallenge inequality, gender bias, and lack of diversity when celebrating their successes.<br/><br/>
-                      Let's help our family, friends, and colleagues elevate their voices in this society and create an inclusive world.
-                      #WeSpeakYourLanguage #OAonIWD2021<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/media/set/?vanity=openaccessbpolife&set=a.3928066303916508"><i class="fa fa-facebook-square"></i> View Facebook post</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
 
 
 
@@ -426,18 +278,18 @@
                     <p style="padding: 30px;" class="text-left">
                     We are glad to announce that the company has arranged for ITR assistance to our employees who are NOT qualified for substituted filing.  An engagement with a third-party vendor has been done to make this possible.<br/><br/>
 
-If you opt to avail of this service, please submit your BIR Form 2316 and other pertinent details (see attached flowchart) to employeeitr@openaccessbpo.com as a starting point for the computation of your annual income tax return.  The assistance of the third-party vendor is up to the filing of ITR only.  It is the responsibility of the employee to pay his income tax if he has tax payable.<br/><br/>
+                    If you opt to avail of this service, please submit your BIR Form 2316 and other pertinent details (see attached flowchart) to employeeitr@openaccessbpo.com as a starting point for the computation of your annual income tax return.  The assistance of the third-party vendor is up to the filing of ITR only.  It is the responsibility of the employee to pay his income tax if he has tax payable.<br/><br/>
 
-Please be informed that the assistance of our third-party vendor is until April 15, 2021.  You can send questions or clarifications up to that date only.<br/><br/>
+                    Please be informed that the assistance of our third-party vendor is until April 15, 2021.  You can send questions or clarifications up to that date only.<br/><br/>
 
-Below is the summary of activities:<br/><br/>
+                    Below is the summary of activities:<br/><br/>
 
-1.  The employee will send the 2316 and other pertinent details to the third-party vendor (see attached flowchart).<br/><br/>
-2.  Upon receipt of 2316, the third-party vendor will compute and send the income tax computation to the employee.<br/><br/>
-3.  If the employee confirms and agrees to the computation, the third-party vendor will proceed to file the ITR (BIR Form 1700) via eBIRForms.  BIR will send a Confirmation Receipt once the filed ITR was received.  Afterwards, the third-party vendor will send the ITR (BIR Form 1700) and Confirmation Receipt to the employee. On the other hand, the employee should send an email to employeeitr@openaccessbpo.com if he does not want to proceed in availing the service of our third-party vendor.<br/><br/>
-If with tax payable, the employee will print the ITR (BIR Form 1700) and its Confirmation Receipt and pay the corresponding amount to any payment accredited center (e.g. bank, GCash, etc.) on or before April 15, 2021.  End of process.<br/><br/>
-If no tax payable, the third-party vendor will bring the printed ITR (BIR Form 1700)  to the BIR for stamping on or before April 15, 2021.  The finance department will distribute these hard copies (stamped BIR Form 1700) to employees.  Please wait for further communication.  End of process.<br/><br/>
-4.  On the other hand, the employee should send an email to employeeitr@openaccessbpo.com if he does not want to proceed in availing the service of our third-party vendor.<br/><br/>
+                    1.  The employee will send the 2316 and other pertinent details to the third-party vendor (see attached flowchart).<br/><br/>
+                    2.  Upon receipt of 2316, the third-party vendor will compute and send the income tax computation to the employee.<br/><br/>
+                    3.  If the employee confirms and agrees to the computation, the third-party vendor will proceed to file the ITR (BIR Form 1700) via eBIRForms.  BIR will send a Confirmation Receipt once the filed ITR was received.  Afterwards, the third-party vendor will send the ITR (BIR Form 1700) and Confirmation Receipt to the employee. On the other hand, the employee should send an email to employeeitr@openaccessbpo.com if he does not want to proceed in availing the service of our third-party vendor.<br/><br/>
+                    If with tax payable, the employee will print the ITR (BIR Form 1700) and its Confirmation Receipt and pay the corresponding amount to any payment accredited center (e.g. bank, GCash, etc.) on or before April 15, 2021.  End of process.<br/><br/>
+                    If no tax payable, the third-party vendor will bring the printed ITR (BIR Form 1700)  to the BIR for stamping on or before April 15, 2021.  The finance department will distribute these hard copies (stamped BIR Form 1700) to employees.  Please wait for further communication.  End of process.<br/><br/>
+                    4.  On the other hand, the employee should send an email to employeeitr@openaccessbpo.com if he does not want to proceed in availing the service of our third-party vendor.<br/><br/>
 
                     <a class="btn btn-sm btn-success" target="_blank" href="https://internal.openaccess.bpo/EMS/public/storage/uploads/ITR_assistance.pdf">View Process Flowchart</a>
 
@@ -10827,6 +10679,227 @@ If you have any payroll-related inquiries and concerns, please log in to our Pay
  
                     
               </div>
+                <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_waterday.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Today is <br/> <span class="text-primary"> <i class="fa fa-tint"></i> World Water Day <i class="fa fa-tint"></i><br/><small>Mar. 22, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Water plays a vital role in keeping us safe and healthy through this pandemic. Remember these tips to boost your protection against #COVID19. <br/><br/>
+                      Happy #WorldWaterDay! 💧<br/>
+                      #WeSpeakYourLanguage #OAonWaterDay #OneForHealth<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/openaccessbpolife/photos/pcb.3958055310917607/3958054554251016/"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+             <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_waterday2.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Today is <br/> <span class="text-primary"> <i class="fa fa-tint"></i> World Water Day <i class="fa fa-tint"></i><br/><small>Mar. 22, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Water plays a vital role in keeping us safe and healthy through this pandemic. Remember these tips to boost your protection against #COVID19. <br/><br/>
+                      Happy #WorldWaterDay! 💧<br/>
+                      #WeSpeakYourLanguage #OAonWaterDay #OneForHealth<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/openaccessbpolife/photos/pcb.3958055310917607/3958054554251016/"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+             <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_waterday3.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Today is <br/> <span class="text-primary"> <i class="fa fa-tint"></i> World Water Day <i class="fa fa-tint"></i><br/><small>Mar. 22, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Water plays a vital role in keeping us safe and healthy through this pandemic. Remember these tips to boost your protection against #COVID19. <br/><br/>
+                      Happy #WorldWaterDay! 💧<br/>
+                      #WeSpeakYourLanguage #OAonWaterDay #OneForHealth<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/openaccessbpolife/photos/pcb.3958055310917607/3958054554251016/"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+             <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/winner_womenMonth.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >CONGRATULATIONS <br/> <span class="text-primary"> <i class="fa fa-female"></i>Women's Month Challenge Winners <i class="fa fa-female"></i><br/><small>Mar. 17, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Thank you to all who also posted their entries! <br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',45)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/vaccineSurvey.png" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Pulse Survey:  <br/> <span class="text-primary"> <i class="fa fa-medkit"></i> COVID-19 Vaccine 2021 <i class="fa fa-medkit"></i><br/><small>Mar. 09, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Dear All,<br/><br/>
+
+                      Vaccines for COVID-19 are critical tools for helping bring the pandemic under control combined with existing prevention measures. With this, we would like to know each one's thoughts and feelings by going through the pulse survey.
+
+                      Please click on the link below to access:<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://docs.google.com/forms/d/1okZcFF3FsuMvDe0lROdwcGJlMijJ43k-qomWpHqaCKk/viewform?edit_requested=true" target="_blank"><i class="fa fa-external-link"></i> View Survey</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            
+
+            <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_1.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >#ChooseToChallenge <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Happy #InternationalWomensDay!<br/>
+                      Women inspire change that continue to help make the world better. We at Open Access BPO #ChooseToChallenge inequality, gender bias, and lack of diversity when celebrating their successes.<br/><br/>
+                      Let's help our family, friends, and colleagues elevate their voices in this society and create an inclusive world.
+                      #WeSpeakYourLanguage #OAonIWD2021<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/media/set/?vanity=openaccessbpolife&set=a.3928066303916508"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+             <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_2.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >#ChooseToChallenge <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Happy #InternationalWomensDay!<br/>
+                      Women inspire change that continue to help make the world better. We at Open Access BPO #ChooseToChallenge inequality, gender bias, and lack of diversity when celebrating their successes.<br/><br/>
+                      Let's help our family, friends, and colleagues elevate their voices in this society and create an inclusive world.
+                      #WeSpeakYourLanguage #OAonIWD2021<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/media/set/?vanity=openaccessbpolife&set=a.3928066303916508"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+             <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_3.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >#ChooseToChallenge <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Happy #InternationalWomensDay!<br/>
+                      Women inspire change that continue to help make the world better. We at Open Access BPO #ChooseToChallenge inequality, gender bias, and lack of diversity when celebrating their successes.<br/><br/>
+                      Let's help our family, friends, and colleagues elevate their voices in this society and create an inclusive world.
+                      #WeSpeakYourLanguage #OAonIWD2021<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/media/set/?vanity=openaccessbpolife&set=a.3928066303916508"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+             <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_4.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >#ChooseToChallenge <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Happy #InternationalWomensDay!<br/>
+                      Women inspire change that continue to help make the world better. We at Open Access BPO #ChooseToChallenge inequality, gender bias, and lack of diversity when celebrating their successes.<br/><br/>
+                      Let's help our family, friends, and colleagues elevate their voices in this society and create an inclusive world.
+                      #WeSpeakYourLanguage #OAonIWD2021<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/media/set/?vanity=openaccessbpolife&set=a.3928066303916508"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+             <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_5.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >#ChooseToChallenge <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Happy #InternationalWomensDay!<br/>
+                      Women inspire change that continue to help make the world better. We at Open Access BPO #ChooseToChallenge inequality, gender bias, and lack of diversity when celebrating their successes.<br/><br/>
+                      Let's help our family, friends, and colleagues elevate their voices in this society and create an inclusive world.
+                      #WeSpeakYourLanguage #OAonIWD2021<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/media/set/?vanity=openaccessbpolife&set=a.3928066303916508"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+             <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/women2021_6.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >#ChooseToChallenge <br/> <span class="text-primary"> <i class="fa fa-female"></i> International Women's Day <i class="fa fa-female"></i><br/><small>Mar. 08, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Happy #InternationalWomensDay!<br/>
+                      Women inspire change that continue to help make the world better. We at Open Access BPO #ChooseToChallenge inequality, gender bias, and lack of diversity when celebrating their successes.<br/><br/>
+                      Let's help our family, friends, and colleagues elevate their voices in this society and create an inclusive world.
+                      #WeSpeakYourLanguage #OAonIWD2021<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/media/set/?vanity=openaccessbpolife&set=a.3928066303916508"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
 
 
 
