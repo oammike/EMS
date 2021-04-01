@@ -354,13 +354,27 @@ class UserFamilyleaveController extends Controller
                     $v = $vl_from->format('Y-m-d');
                     $schedForTheDay = $this->getWorkSchedForTheDay1($user,$v,$mayExisting,false);
 
-
-                    if ( $schedForTheDay->timeStart !== $schedForTheDay->timeEnd && !$schedForTheDay->isRD ) //is_null($schedForTheDay->isApproved) &&
+                    if(is_object($schedForTheDay))
                     {
-                        $credits++;
-                        //** means mag credit ka lang pag sched na wala nang approval at hindi RD
+                        if ( $schedForTheDay->timeStart !== $schedForTheDay->timeEnd && !$schedForTheDay->isRD ) //is_null($schedForTheDay->isApproved) &&
+                        {
+                            $credits++;
+                            //** means mag credit ka lang pag sched na wala nang approval at hindi RD
+                        }
+
+
+                    }else
+                    {
+                        if ( $schedForTheDay['timeStart'] !== $schedForTheDay['timeEnd'] && !$schedForTheDay['isRD'] ) //is_null($schedForTheDay->isApproved) &&
+                        {
+                            $credits++;
+                            //** means mag credit ka lang pag sched na wala nang approval at hindi RD
+                        }
+
                     }
 
+
+                    
                     if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) $holidays++;
 
                     //$colldates->push(['ct'=>$ct, 'credits'=>$credits, 'isRD'=>$schedForTheDay->isRD,'schedForTheDay'=>$schedForTheDay]);
