@@ -496,11 +496,10 @@ class UserFamilyleaveController extends Controller
     public function item($id)
     {
         $item = User_Familyleave::find($id);
-        if (count($item)>0)
-        return response()->file(storage_path('uploads/'.$item->attachments));
-        else 
+        if (count( (array)$item ) <= 0 )
             return view('empty');
-
+        else return response()->file(storage_path('uploads/'.$item->attachments));
+            
     }
 
 

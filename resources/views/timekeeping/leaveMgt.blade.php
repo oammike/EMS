@@ -320,6 +320,9 @@
                                                     <p><strong> {{$vl->totalCredits}} </strong></p>
                                                   </div>
                                                   <div class="col-sm-6">
+                                                    @if($type=='FL' && $vl->attachments !== null)
+                                                    <a href="user_fl/requirements/{{$vl->leaveID}}" class="btn btn-xs btn-default pull-right"><i class="fa fa-paperclip"></i> View Attachment(s)</a>
+                                                    @endif
                                                    <p>{{$vl->notes}} </p>
                                                   </div>
 
