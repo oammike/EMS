@@ -119,35 +119,43 @@ class UserDTRPController extends Controller
       $canCredit =  ($roles->contains('UPDATE_LEAVES')) ? '1':'0';*/
       $canManage =  ($roles->contains('UPLOAD_BIOMETRICS') || $roles->contains('ADMIN_DTRP_MANAGEMENT')) ? '1':'0';
 
-      if(!$canManage){
+      $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->
+                          select('user_specialPowers_programs.program_id')->get();
+        
+      (count($specialChild) > 0) ? $hasAccess=1 : $hasAccess=0;
+
+
+
+      if(!$canManage && !$hasAccess){
         $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
                 fwrite($file, "-------------------\n Tried DTRP MGT on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);return view('access-denied');
       } 
 
-      $allDTRP = $this->getDTRPs($from,$to,$type);
+      $allDTRP = $this->getDTRPs($from,$to,$type,$this->user);
       
-      $allOld = $this->getDTRPs($from,$to,"OLD");
+      $allOld = $this->getDTRPs($from,$to,"OLD",$this->user);
 
       if($type=="IN") { 
             $allPendings = count(collect($allDTRP)->where('validated',null)); 
-            $allDTRPOut = $this->getDTRPs($from,$to,"OUT");
+            $allDTRPOut = $this->getDTRPs($from,$to,"OUT",$this->user);
             $allIns = count(collect($allDTRP)->where('validated',null));
             $allOuts = count(collect($allDTRPOut)->where('validated',null));
        }
       else if($type=="OUT"){ 
             //$allPendings = count(collect($allDTRP)->where('isApproved',null)); 
             $allPendings = count(collect($allDTRP)->where('validated',null)); 
-            $allDTRPIn = $this->getDTRPs($from,$to,"IN"); 
-            $allDTRPOut = $this->getDTRPs($from,$to,"OUT"); 
+            $allDTRPIn = $this->getDTRPs($from,$to,"IN",$this->user); 
+            $allDTRPOut = $this->getDTRPs($from,$to,"OUT",$this->user); 
             $allIns = count(collect($allDTRPIn)->where('validated',null));
             $allOuts =count(collect($allDTRP)->where('validated',null)); 
         }
        else
         {
             $allPendings = count(collect($allDTRP)->where('isApproved',null)); 
-            $allIns = count(collect($this->getDTRPs($from,$to,"IN"))->where('validated',null));
-            $allOuts =count(collect($this->getDTRPs($from,$to,"OUT"))->where('validated',null));
+            $allIns = count(collect($this->getDTRPs($from,$to,"IN",$this->user))->where('validated',null));
+            $allOuts =count(collect($this->getDTRPs($from,$to,"OUT",$this->user))->where('validated',null));
 
         }
       
@@ -277,7 +285,7 @@ class UserDTRPController extends Controller
               })->export('xls'); return "Download";
      
         }
-      else return view('timekeeping.dtrpMgt',compact('canManage', 'from','to','type','label', 'deleteLink','notifType','allDTRP','allPendings','allIns', 'allOuts','allOlds','storageLoc','leaders'));
+      else return view('timekeeping.dtrpMgt',compact('canManage','hasAccess', 'from','to','type','label', 'deleteLink','notifType','allDTRP','allPendings','allIns', 'allOuts','allOlds','storageLoc','leaders'));
 
     }
 

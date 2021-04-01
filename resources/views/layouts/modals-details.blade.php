@@ -100,7 +100,11 @@
 
         
         
-         @if(!$isBackoffice)<p style="font-size: small;" class="text-success"><br/>* CWS requests from all Operations personnel will be processed by WFM team.</p> @endif
+         @if(!$isBackoffice)<p style="font-size: small;" class="text-success text-right"><br/><i class="fa fa-info-circle"></i> NOTE: CWS requests are being managed by the following: <br/><br/>
+          <strong>assigned approver(s)</strong> - <em>for all back office personnel</em><br/>
+          <strong>WFM team</strong> - <em>for all Operations personnel</em> <br/>
+          <strong>Lothar Mckenzie</strong> - <em>for SS&C Advent program</em><br/></p>
+           @endif
 
          <button type="button" class="btn btn-default btn-sm pull-right" data-dismiss="modal"style="margin-right:5px; margin-top:50px" > <i class="fa fa-times" ></i> Close </button>
 

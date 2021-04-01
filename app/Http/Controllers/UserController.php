@@ -2010,43 +2010,56 @@ class UserController extends Controller
       $isAdmin =  ($roles->contains('ADMIN_LEAVE_MANAGEMENT')) ? '1':'0';
       $canCredit =  ($roles->contains('UPDATE_LEAVES')) ? '1':'0';
 
-      if(!$isAdmin){
+      $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+      (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
+
+      
+
+      
+
+      $allL = $this->getLeaves($from,$to,$type,$this->user);
+
+      //return $allL;
+      //return response()->json(['isAdmin'=>$isAdmin, 'hasAccess'=>$hasAccess]);
+      if(!$isAdmin && !$hasAccess){
         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                 fwrite($file, "-------------------\n Tried lmgt_".$type." on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);return view('access-denied');
       } 
+      else{
+            $allLeave =$allL['leaves'];
+            $pending_VL = $allL['pending_VL'];
+            $pending_SL = $allL['pending_SL'];
+            $pending_LWOP = $allL['pending_LWOP'];
+            $pending_FL = $allL['pending_FL'];
+            $pending_VTO = $allL['pending_VTO'];
 
-      
+            $update_credits=null;$update_periods=null;
 
-      $allL = $this->getLeaves($from,$to,$type);
-      $allLeave =$allL['leaves'];
-      $pending_VL = $allL['pending_VL'];
-      $pending_SL = $allL['pending_SL'];
-      $pending_LWOP = $allL['pending_LWOP'];
-      $pending_FL = $allL['pending_FL'];
-      $pending_VTO = $allL['pending_VTO'];
-
-      $update_credits=null;$update_periods=null;
-
-      switch ($type) {
-        case 'VL':{  $label = "Vacation Leave" ;  $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10; $u_c = DB::table('vlupdate')->where('period','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->orderBy('period','DESC')->get();$update_credits = collect($u_c)->groupBy('period'); $update_periods = collect($u_c)->pluck('period')->unique();} break;
-        case 'VTO':{  $label = "Voluntary Time Off" ;  $deleteLink = url('/')."/user_vl/deleteThisVTO/"; $notifType = 21;} break;
-        case 'SL':{ $label = "Sick Leave" ;  $deleteLink = url('/')."/user_sl/deleteThisSL/"; $notifType = 11;} break;
-        case 'LWOP':{ $label = "Leave Without Pay" ;  $deleteLink = url('/')."/user_lwop/deleteThisLWOP/"; $notifType = 12;} break;
-        case 'FL':{ $label = "ML / PL / SPL / MC " ;  $deleteLink = url('/')."/user_fl/deleteThisSL"; $notifType = 16;} break;
-        default: { $label = "Vacation Leave";   $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10;} break;
-      }
-
-      if($this->user->id !== 564 ) {
-              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n LeaveMGT_".$type." on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
-                fclose($file);
+            switch ($type) {
+              case 'VL':{  $label = "Vacation Leave" ;  $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10; $u_c = DB::table('vlupdate')->where('period','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->orderBy('period','DESC')->get();$update_credits = collect($u_c)->groupBy('period'); $update_periods = collect($u_c)->pluck('period')->unique();} break;
+              case 'VTO':{  $label = "Voluntary Time Off" ;  $deleteLink = url('/')."/user_vl/deleteThisVTO/"; $notifType = 21;} break;
+              case 'SL':{ $label = "Sick Leave" ;  $deleteLink = url('/')."/user_sl/deleteThisSL/"; $notifType = 11;} break;
+              case 'LWOP':{ $label = "Leave Without Pay" ;  $deleteLink = url('/')."/user_lwop/deleteThisLWOP/"; $notifType = 12;} break;
+              case 'FL':{ $label = "ML / PL / SPL / MC " ;  $deleteLink = url('/')."/user_fl/deleteThisSL"; $notifType = 16;} break;
+              default: { $label = "Vacation Leave";   $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10;} break;
             }
 
+            if($this->user->id !== 564 ) {
+                    $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                      fwrite($file, "-------------------\n LeaveMGT_".$type." on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                      fclose($file);
+                  }
 
-     
 
-      return view('timekeeping.leaveMgt',compact('canCredit', 'isAdmin','from','to','allLeave','type','label','pending_VL','pending_SL','pending_LWOP','pending_FL','pending_VTO', 'deleteLink','notifType','update_periods','update_credits'));
+           
+
+            return view('timekeeping.leaveMgt',compact('canCredit', 'isAdmin','hasAccess', 'from','to','allLeave','type','label','pending_VL','pending_SL','pending_LWOP','pending_FL','pending_VTO', 'deleteLink','notifType','update_periods','update_credits'));
+
+      }
+
+      
 
     }
 
@@ -2075,7 +2088,7 @@ class UserController extends Controller
 
       
 
-      $allL = $this->getLeaves($from,$to,$type);
+      $allL = $this->getLeaves($from,$to,$type,$this->user);
       $earnings = $this->getLeaveEarnings($from,$to,$type,$emp);
 
 
@@ -3892,7 +3905,15 @@ class UserController extends Controller
       $isAdmin =  ($roles->contains('ADMIN_LEAVE_MANAGEMENT')) ? '1':'0';
       $canCredit =  ($roles->contains('UPDATE_LEAVES')) ? '1':'0';
 
-      if(!$isAdmin){
+       $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+      (count($specialChild) > 0) ? $hasAccess=1 : $hasAccess=0;
+
+      
+
+      
+
+      if(!$isAdmin && !$hasAccess){
         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                 fwrite($file, "-------------------\n tried SchedMGT_".$type." on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);return view('access-denied');
@@ -3905,11 +3926,11 @@ class UserController extends Controller
       $update_credits=null;$update_periods=null;$pending_DTRP=null;$pending_OT=null;$pending_CWS=null;
 
       switch ($type) {
-        case 'CWS':{  $allLeave = $this->getCWS($from,$to,$type);
+        case 'CWS':{  $allLeave = $this->getCWS($from,$to,$type, $this->user);
                       $pending_CWS = collect($allLeave)->where('isApproved',null);
                       $label = "Change Work Schedule" ;  $deleteLink = url('/')."/user_cws/deleteThisCWS/"; $notifType = 6;} break;
         case 'OT':{   $cutoff = Carbon::parse($from,'Asia/Manila')->format('Y-m-d')."_".Carbon::parse($to,'Asia/Manila')->format('Y-m-d');
-                      $allLeave1 = $this->getAllOT($cutoff,false);
+                      $allLeave1 = $this->getAllOT($cutoff,false,$this->user);
                       $allLeave = collect($allLeave1)->flatten();
                       $pending_OT = collect($allLeave)->where('isApproved',null);
                       //$pending_OT = new Collection;
@@ -3932,7 +3953,7 @@ class UserController extends Controller
 
       //return response()->json(['pendings'=>$pending_OT, 'all'=>$allLeave]);
 
-      return view('timekeeping.schedMgt',compact('canCredit', 'isAdmin','from','to','allLeave','type','label','pending_CWS','pending_OT', 'pending_DTRP','deleteLink','notifType')); 
+      return view('timekeeping.schedMgt',compact('canCredit', 'isAdmin','hasAccess', 'from','to','allLeave','type','label','pending_CWS','pending_OT', 'pending_DTRP','deleteLink','notifType')); 
 
     }
 
@@ -4524,6 +4545,16 @@ class UserController extends Controller
         $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
         $viewOthers =  ($roles->contains('VIEW_OTHER_DTR')) ? '1':'0';
 
+        $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->
+                          select('user_specialPowers_programs.program_id')->get();
+        
+        if (count($specialChild) > 0){
+          $sc = collect($specialChild)->pluck('program_id')->toArray();
+
+          (in_array($user->supervisor->campaign_id, $sc)) ? $hasAccess=1 : $hasAccess=0;
+        }else $hasAccess=0;
+
 
          $correct = Carbon::now('GMT+8');
         //log access
@@ -4535,7 +4566,7 @@ class UserController extends Controller
                     } 
 
 
-        if ($canView || $this->user->id == $id || ($isWorkforce && !$isBackoffice) || $viewOthers)
+        if ($canView || $this->user->id == $id || ($isWorkforce && !$isBackoffice) || $viewOthers || $hasAccess)
           return view('people.myRequests',['user'=>$user,'forOthers'=>true,'anApprover'=>$canView,'isWorkforce'=>$isWorkforce,'isBackoffice'=>$isBackoffice]);
         else
           return view('access-denied');

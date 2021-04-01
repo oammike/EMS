@@ -1,5 +1,8 @@
 <?php $u = OAMPI_Eval\User::find(Auth::user()->id);
 
+            $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',Auth::user()->id)->get();
+            (count($specialChild) > 0) ? $hasSpecialAccess = 1 : $hasSpecialAccess = 0;
+
             $lengthOfservice = \Carbon\Carbon::parse($u->dateHired,"Asia/Manila")->diffInMonths();
             //why?? because of the freaking server setting na di maayos ni IT
             $phY = \Carbon\Carbon::now('GMT+8')->format('Y');
@@ -388,7 +391,7 @@
         <li><a href="{{action('HomeController@healthForm')}}" ><i class="fa fa-2x fa-medkit"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  <span>Health Form</span></a></li>
 
         <li class="treeview @if (Request::is('user_forms*') ) active @endif">
-          <a href="#" class="text-yellow"><i class="fa fa-2x fa-file-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>My BIR 2316 </span>
+          <a href="#" ><i class="fa fa-2x fa-file-o"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>My BIR 2316 </span>
 
             <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
@@ -536,6 +539,14 @@
             <li style="padding-left:20px"><a href="{{action('HomeController@module')}}"><i class="fa fa-tachometer"></i> OT / UT</a></li>
             <li style="padding-left:20px"><a href="{{action('HomeController@module')}}"><i class="fa fa-calendar-times-o"></i> File DTRP</a></li> -->
              <li style="padding-left:20px" @if ( Request::is('user_vl*') ) class="active" @endif ><a href="{{action('UserVLController@showCredits',Auth::user()->id)}}"><i class="fa fa-bar-chart"></i> Leave Credits</a></li>
+             @if($hasSpecialAccess)
+               <li style="padding-left:20px" @if ( Request::is('DTRP_management*') ) class="active" @endif ><a href="{{action('UserDTRPController@manage')}}" class="text-yellow"><i class="fa fa-info-circle"></i> DTRP Management</a></li>
+
+              <li style="padding-left:20px" @if ( Request::is('leave_management*') ) class="active" @endif ><a href="{{action('UserController@leaveMgt')}}" class="text-yellow"><i class="fa fa-calendar"></i> Leave Management</a></li>
+
+              <li style="padding-left:20px" @if ( Request::is('schedule_management*') ) class="active" @endif ><a href="{{action('UserController@schedMgt')}}" class="text-yellow"><i class="fa fa-history"></i> Schedule Management</a></li>
+             @endif
+
           </ul>
         </li>
 

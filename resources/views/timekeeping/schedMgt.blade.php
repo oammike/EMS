@@ -678,7 +678,7 @@
 
 <!-- Page script <small> '+full.employeeNumber+'</small> -->
 
- <?php if($isAdmin) { ?> 
+ <?php if($isAdmin || $hasAccess) { ?> 
  <script type="text/javascript">
 
  $(function () {

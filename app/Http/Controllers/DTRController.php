@@ -3666,7 +3666,7 @@ class DTRController extends Controller
     {
       //------ Template type 1= OT | 2= Leaves | 3= CWS | 4=Work sched
       switch ($request->template) {
-        case 1: $result = $this->getAllOT($request->cutoff,1); break;
+        case 1: $result = $this->getAllOT($request->cutoff,1,$this->user); break;
         case 2: $result = $this->getAllLeaves($request->cutoff,1); break;
         case 3: ($request->DTRsummary) ? $result = $this->getAllCWS($request->cutoff,1,1) : $result = $this->getAllCWS($request->cutoff,1,null); break;
         case 4: $result = $this->getAllWorksched($request->cutoff,1); break;
@@ -3693,7 +3693,7 @@ class DTRController extends Controller
 
       //------ Template type 1= OT | 2= Leaves | 3= CWS
       switch ($request->template) {
-        case '1': $result = $this->getAllOT($cutoff,0); break;
+        case '1': $result = $this->getAllOT($cutoff,0,$this->user); break;
         case '2': $result = $this->getAllLeaves($cutoff,0); break;
         case '3': { ($request->DTRsummary) ? $result = $this->getAllCWS($cutoff,0,1) : $result = $this->getAllCWS($cutoff,0,null); } break;
         case '4': $result = $this->getAllWorksched($cutoff,0); break;
@@ -6392,6 +6392,16 @@ class DTRController extends Controller
         $isWorkforce = in_array($this->user->id, $wfm->toArray());
         $employeeisBackoffice = $isBackoffice; // ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
 
+        $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->
+                          select('user_specialPowers_programs.program_id')->get();
+        
+        if (count($specialChild) > 0){
+          $sc = collect($specialChild)->pluck('program_id')->toArray();
+
+          (in_array($user->supervisor->campaign_id, $sc)) ? $hasAccess=1 : $hasAccess=0;
+        }else $hasAccess=0;
+
         
        
 
@@ -6403,7 +6413,7 @@ class DTRController extends Controller
         $anApprover = $this->checkIfAnApprover($approvers, $this->user);
         $fromYr = Carbon::parse($user->dateHired)->addMonths(6)->format('Y');
         
-        if ( ($isWorkforce && !$isBackoffice) || $canViewOtherDTR || $anApprover || $this->user->id == $id 
+        if ( ($isWorkforce && !$isBackoffice) || $canViewOtherDTR || $anApprover || $this->user->id == $id || $hasAccess 
         || ($theImmediateHead 
         || $this->user->employeeNumber==$leader_L1->employeeNumber
         || $this->user->employeeNumber==$leader_L0->employeeNumber 
@@ -7636,7 +7646,7 @@ class DTRController extends Controller
            //return response()->json(['currentVLbalance'=>$currentVLbalance,'currentSLbalance'=>$currentSLbalance]);
 
            
-           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','isFinance', 'canPreshift', 'isBackoffice','vlEarnings','slEarnings','isParttimer','canVL','canSL','isNDY','cp0','cp1','isExempt','exemptEmp','paystart','payend'));
+           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','isFinance', 'canPreshift', 'isBackoffice','vlEarnings','slEarnings','isParttimer','hasAccess', 'canVL','canSL','isNDY','cp0','cp1','isExempt','exemptEmp','paystart','payend'));
 
 
         } else return view('access-denied');

@@ -191,7 +191,7 @@
                                               
                                               @if(count($payrollPeriod) > 1 && ( count($myDTR) >= count($payrollPeriod) ) )
                                               
-                                                @if( ($isFinance || $isWorkforce || $anApprover) && (count($verifiedDTR) !== count($myDTR)) )
+                                                @if( ($isFinance || $isWorkforce || $anApprover || $hasAccess) && (count($verifiedDTR) !== count($myDTR)) )
                                                 <a id="lockDTR" class="btn btn-danger btn-md pull-left"><i class="fa fa-unlock"></i> Lock Entire DTR Sheet </a>
                                                 @endif
 
@@ -210,7 +210,7 @@
                                               <!-- ********** DTR BUTTONS ************** -->
                                               <!-- ********** DTR BUTTONS ************** -->
 
-                                              @if ($anApprover || (!$isBackoffice && $isWorkforce) || $isFinance )
+                                              @if ($anApprover || (!$isBackoffice && $isWorkforce) || $isFinance || $hasAccess )
 
                                               <h5 class="pull-left text-danger">
 

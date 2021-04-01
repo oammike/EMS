@@ -1153,7 +1153,7 @@ trait TimekeepingTraits
 
   }
 
-  public function getAllOT($c, $json)
+  public function getAllOT($c, $json,$user)
   {
     $cutoff = explode('_', $c); //return $cutoff;
     $startCutoff = $cutoff[0]; //Biometrics::where('productionDate',$cutoff[0])->first();
@@ -1164,18 +1164,50 @@ trait TimekeepingTraits
     $allOTs = new Collection;
     $total = 0;
 
-    foreach ($period as $p) {
-       $ot = DB::table('user_ot')->where([ 
-                    ['user_ot.biometrics_id',$p->id]
-                    ])->join('users','users.id','=','user_ot.user_id')->
-                    leftJoin('team','team.user_id','=','user_ot.user_id')->
-                    leftJoin('campaign','campaign.id','=','team.campaign_id')->
-                    join('biometrics','user_ot.biometrics_id','=','biometrics.id')->
-                  select('biometrics.productionDate','user_ot.id as leaveID', 'user_ot.isApproved','user_ot.filed_hours','user_ot.billable_hours', 'user_ot.timeStart','user_ot.timeEnd','user_ot.reason as notes', 'users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.nickname', 'users.firstname','campaign.name as program','campaign.id as programID')->get();
-      if (count($ot) > 0) {
-        $allOTs->push($ot);
-        $total += count($ot);
-      }
+    $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+    (count($specialChild) > 0) ? $hasAccess=1 : $hasAccess=0;
+
+
+
+   
+
+      if($hasAccess){
+
+            $ot = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->
+                          leftJoin('campaign','user_specialPowers_programs.program_id','=','campaign.id')->
+                          leftJoin('team','user_specialPowers_programs.program_id','=','team.campaign_id')->
+                          leftJoin('users','team.user_id','=','users.id')->
+                          leftJoin('user_ot','user_ot.user_id','=','users.id')->
+                          leftJoin('biometrics','biometrics.id','=','user_ot.biometrics_id')->
+                          select('biometrics.productionDate','user_ot.id as leaveID', 'user_ot.isApproved','user_ot.filed_hours','user_ot.billable_hours', 'user_ot.timeStart','user_ot.timeEnd','user_ot.reason as notes', 'users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.nickname', 'users.firstname','campaign.name as program','campaign.id as programID')->
+                          where('biometrics.productionDate','<=',$endCutoff)->
+                          where('biometrics.productionDate','>=',$startCutoff)->orderBy('user_ot.isApproved','ASC')->get();
+
+                $allOTs->push($ot);
+                $total += count($ot);
+
+       
+      }else{ 
+
+          foreach ($period as $p) {
+
+              $ot = DB::table('user_ot')->where([ 
+                          ['user_ot.biometrics_id',$p->id]
+                          ])->join('users','users.id','=','user_ot.user_id')->
+                          leftJoin('team','team.user_id','=','user_ot.user_id')->
+                          leftJoin('campaign','campaign.id','=','team.campaign_id')->
+                          join('biometrics','user_ot.biometrics_id','=','biometrics.id')->
+                        select('biometrics.productionDate','user_ot.id as leaveID', 'user_ot.isApproved','user_ot.filed_hours','user_ot.billable_hours', 'user_ot.timeStart','user_ot.timeEnd','user_ot.reason as notes', 'users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.nickname', 'users.firstname','campaign.name as program','campaign.id as programID')->get();
+
+              if (count($ot) > 0) {
+                $allOTs->push($ot);
+                $total += count($ot);
+              }
+
+          }
+      
         
     }
 
@@ -1362,7 +1394,7 @@ trait TimekeepingTraits
 
   }
 
-  public function getCWS($from, $to,$type)
+  public function getCWS($from, $to,$type,$user)
   {
     
     $startCutoff = Carbon::parse($from,'Asia/Manila'); 
@@ -1371,17 +1403,37 @@ trait TimekeepingTraits
     $startCutoffb = Biometrics::where('productionDate',$startCutoff->format('Y-m-d'))->get();
     $endCutoffb = Biometrics::where('productionDate',$endCutoff->format('Y-m-d'))->get();
 
-
+    $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+    (count($specialChild) > 0) ? $hasAccess=1 : $hasAccess=0;
 
 
     DB::connection()->disableQueryLog();
-    $leaves = DB::table('user_cws')->where([ 
+    if($hasAccess){
+
+            $leaves = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->
+                          leftJoin('campaign','user_specialPowers_programs.program_id','=','campaign.id')->
+                          leftJoin('team','user_specialPowers_programs.program_id','=','team.campaign_id')->
+                          leftJoin('users','team.user_id','=','users.id')->
+                          leftJoin('user_cws','user_cws.user_id','=','users.id')->
+                          leftJoin('biometrics','biometrics.id','=','user_cws.biometrics_id')->
+                          select('user_cws.isRD', 'user_cws.id as leaveID','biometrics.productionDate', 'user_cws.biometrics_id', 'user_cws.timeStart','user_cws.timeEnd','user_cws.timeStart_old','user_cws.timeEnd_old','user_cws.isApproved','user_cws.approver', 'user_cws.created_at', 'user_cws.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->
+                          where('biometrics.productionDate','<=',$endCutoffb->first()->productionDate)->
+                          where('biometrics.productionDate','>=',$startCutoffb->first()->productionDate)->orderBy('user_cws.isApproved','ASC')->get();
+
+    }else{
+             $leaves = DB::table('user_cws')->where([ 
                   ['user_cws.biometrics_id','>=', $startCutoffb->first()->id],
                   //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
                   ])->join('users','users.id','=','user_cws.user_id')->
                   leftJoin('team','team.user_id','=','users.id')->
                   leftJoin('biometrics','biometrics.id','=','user_cws.biometrics_id')->
                   leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_cws.isRD', 'user_cws.id as leaveID','biometrics.productionDate', 'user_cws.biometrics_id', 'user_cws.timeStart','user_cws.timeEnd','user_cws.timeStart_old','user_cws.timeEnd_old','user_cws.isApproved','user_cws.approver', 'user_cws.created_at', 'user_cws.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->where('user_cws.biometrics_id','<=',$endCutoffb->first()->id)->orderBy('user_cws.isApproved','ASC')->get();
+
+
+    }
+   
 
          
 
@@ -1391,11 +1443,15 @@ trait TimekeepingTraits
 
   }
 
-  public function getLeaves($from, $to,$type)
+  public function getLeaves($from, $to,$type,$user)
   {
     
     $startCutoff = Carbon::parse($from,'Asia/Manila'); 
     $endCutoff = Carbon::parse($to,'Asia/Manila');
+
+    $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+    (count($specialChild) > 0) ? $hasAccess=1 : $hasAccess=0;
 
 
     DB::connection()->disableQueryLog();
@@ -1404,12 +1460,37 @@ trait TimekeepingTraits
     {
       case 'VL':
       {
-         $leaves = DB::table('user_vl')->where([ 
+         if($hasAccess){
+
+                $leaves = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->
+                          leftJoin('campaign','user_specialPowers_programs.program_id','=','campaign.id')->
+                          leftJoin('team','user_specialPowers_programs.program_id','=','team.campaign_id')->
+                          leftJoin('users','team.user_id','=','users.id')->
+                          leftJoin('user_vl','user_vl.user_id','=','users.id')->
+                          select('user_vl.id as leaveID','user_vl.productionDate', 'user_vl.leaveStart','user_vl.leaveEnd','user_vl.isApproved','user_vl.totalCredits','user_vl.halfdayFrom','user_vl.halfdayTo', 'user_vl.created_at', 'user_vl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->
+                          where([ 
+                                  ['user_vl.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00"],
+                                  //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
+                                  ])->get();
+
+                /*$leaves = DB::table('user_vl')->where([ 
+                  ['user_vl.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00"],
+                  //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
+                  ])->join('users','users.id','=','user_vl.user_id')->
+                  leftJoin('team','team.user_id','=','users.id')->
+                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_vl.id as leaveID','user_vl.productionDate', 'user_vl.leaveStart','user_vl.leaveEnd','user_vl.isApproved','user_vl.totalCredits','user_vl.halfdayFrom','user_vl.halfdayTo', 'user_vl.created_at', 'user_vl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->where('user_vl.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->orderBy('user_vl.isApproved','ASC')->
+                  where('team.campaign_id','=',$specialChild[0]->program_id)->get();*/
+
+         }else{
+                $leaves = DB::table('user_vl')->where([ 
                   ['user_vl.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00"],
                   //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
                   ])->join('users','users.id','=','user_vl.user_id')->
                   leftJoin('team','team.user_id','=','users.id')->
                   leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_vl.id as leaveID','user_vl.productionDate', 'user_vl.leaveStart','user_vl.leaveEnd','user_vl.isApproved','user_vl.totalCredits','user_vl.halfdayFrom','user_vl.halfdayTo', 'user_vl.created_at', 'user_vl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->where('user_vl.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->orderBy('user_vl.isApproved','ASC')->get();
+         }
+          
 
          $pending_VL = count(collect($leaves)->where('isApproved',null));
 
@@ -1430,12 +1511,26 @@ trait TimekeepingTraits
 
       case 'VTO':
       {
-         $leaves = DB::table('user_vto')->where([ 
+         if($hasAccess){
+
+                $leaves = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$user->id)->
+                              leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->
+                              leftJoin('campaign','user_specialPowers_programs.program_id','=','campaign.id')->
+                              leftJoin('team','user_specialPowers_programs.program_id','=','team.campaign_id')->
+                              leftJoin('users','team.user_id','=','users.id')->
+                              leftJoin('user_vto','user_vto.user_id','=','users.id')->
+                              select('user_vto.id as leaveID','user_vto.productionDate', 'user_vto.startTime as leaveStart','user_vto.endTime as leaveEnd','user_vto.isApproved','user_vto.totalHours as totalCredits', 'user_vto.created_at', 'user_vto.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID','user_vto.deductFrom')->where('user_vto.productionDate','<=',$endCutoff->format('Y-m-d'))->orderBy('user_vto.isApproved','ASC')->get();
+         }else{
+
+                $leaves = DB::table('user_vto')->where([ 
                   ['user_vto.productionDate','>=', $startCutoff->format('Y-m-d')],
                   //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
                   ])->join('users','users.id','=','user_vto.user_id')->
                   leftJoin('team','team.user_id','=','users.id')->
                   leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_vto.id as leaveID','user_vto.productionDate', 'user_vto.startTime as leaveStart','user_vto.endTime as leaveEnd','user_vto.isApproved','user_vto.totalHours as totalCredits', 'user_vto.created_at', 'user_vto.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID','user_vto.deductFrom')->where('user_vto.productionDate','<=',$endCutoff->format('Y-m-d'))->orderBy('user_vto.isApproved','ASC')->get();
+
+         }
+          
 
          $pending_VTO = count(collect($leaves)->where('isApproved',null));
 
@@ -1456,13 +1551,28 @@ trait TimekeepingTraits
 
       case 'SL':
       {
-          $leaves = DB::table('user_sl')->where([ 
-                  ['user_sl.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00"],
-                  //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
-                  ])->join('users','users.id','=','user_sl.user_id')->
-                  leftJoin('team','team.user_id','=','users.id')->
-                  leftJoin('campaign','campaign.id','=','team.campaign_id')->
-                  select('user_sl.id as leaveID','user_sl.productionDate', 'user_sl.leaveStart','user_sl.leaveEnd','user_sl.isApproved','user_sl.totalCredits','user_sl.halfdayFrom','user_sl.halfdayTo', 'user_sl.created_at', 'user_sl.notes','users.employeeCode as accesscode', 'users.nickname', 'users.id as userID','users.lastname','users.firstname','campaign.name as program', 'campaign.id as programID')->where('user_sl.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->orderBy('user_sl.isApproved','ASC')->get();
+          if($hasAccess){
+                  $leaves = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->
+                          leftJoin('campaign','user_specialPowers_programs.program_id','=','campaign.id')->
+                          leftJoin('team','user_specialPowers_programs.program_id','=','team.campaign_id')->
+                          leftJoin('users','team.user_id','=','users.id')->
+                          leftJoin('user_sl','user_sl.user_id','=','users.id')->
+                          select('user_sl.id as leaveID','user_sl.productionDate', 'user_sl.leaveStart','user_sl.leaveEnd','user_sl.isApproved','user_sl.totalCredits','user_sl.attachments', 'user_sl.halfdayFrom','user_sl.halfdayTo', 'user_sl.created_at', 'user_sl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->where('user_sl.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->
+                          where('user_sl.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00")->orderBy('user_sl.isApproved','ASC')->get();
+
+          }else{
+
+                    $leaves = DB::table('user_sl')->where([ 
+                    ['user_sl.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00"],
+                    //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
+                    ])->join('users','users.id','=','user_sl.user_id')->
+                    leftJoin('team','team.user_id','=','users.id')->
+                    leftJoin('campaign','campaign.id','=','team.campaign_id')->
+                    select('user_sl.id as leaveID','user_sl.productionDate', 'user_sl.leaveStart','user_sl.leaveEnd','user_sl.isApproved','user_sl.totalCredits','user_sl.halfdayFrom','user_sl.halfdayTo', 'user_sl.created_at', 'user_sl.notes','users.employeeCode as accesscode', 'users.nickname', 'users.id as userID','users.lastname','users.firstname','campaign.name as program', 'campaign.id as programID')->where('user_sl.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->orderBy('user_sl.isApproved','ASC')->get();
+
+          }
+          
         
 
           $pending_SL = count(collect($leaves)->where('isApproved',null));
@@ -1485,12 +1595,29 @@ trait TimekeepingTraits
 
       case 'LWOP':
       {
-        $leaves = DB::table('user_lwop')->where([ 
-                  ['user_lwop.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00"],
-                  //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
-                  ])->join('users','users.id','=','user_lwop.user_id')->
-                  leftJoin('team','team.user_id','=','users.id')->
-                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_lwop.id as leaveID','user_lwop.productionDate', 'user_lwop.leaveStart','user_lwop.leaveEnd','user_lwop.isApproved','user_lwop.totalCredits','user_lwop.halfdayFrom','user_lwop.halfdayTo', 'user_lwop.created_at', 'user_lwop.notes','users.employeeCode as accesscode', 'users.id as userID','users.nickname', 'users.lastname','users.firstname','campaign.name as program', 'campaign.id as programID')->where('user_lwop.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->orderBy('user_lwop.isApproved','ASC')->get();
+        if($hasAccess){
+
+              $leaves = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$user->id)->
+                              leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->
+                              leftJoin('campaign','user_specialPowers_programs.program_id','=','campaign.id')->
+                              leftJoin('team','user_specialPowers_programs.program_id','=','team.campaign_id')->
+                              leftJoin('users','team.user_id','=','users.id')->
+                              leftJoin('user_lwop','user_lwop.user_id','=','users.id')->
+                              select('user_lwop.id as leaveID','user_lwop.productionDate', 'user_lwop.leaveStart','user_lwop.leaveEnd','user_lwop.isApproved','user_lwop.totalCredits','user_lwop.halfdayFrom','user_lwop.halfdayTo', 'user_lwop.created_at', 'user_lwop.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->where('user_lwop.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->
+                              where('user_lwop.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00")->orderBy('user_lwop.isApproved','ASC')->get();
+
+
+        }else{
+
+                $leaves = DB::table('user_lwop')->where([ 
+                        ['user_lwop.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00"],
+                        //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
+                        ])->join('users','users.id','=','user_lwop.user_id')->
+                        leftJoin('team','team.user_id','=','users.id')->
+                        leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_lwop.id as leaveID','user_lwop.productionDate', 'user_lwop.leaveStart','user_lwop.leaveEnd','user_lwop.isApproved','user_lwop.totalCredits','user_lwop.halfdayFrom','user_lwop.halfdayTo', 'user_lwop.created_at', 'user_lwop.notes','users.employeeCode as accesscode', 'users.id as userID','users.nickname', 'users.lastname','users.firstname','campaign.name as program', 'campaign.id as programID')->where('user_lwop.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->orderBy('user_lwop.isApproved','ASC')->get();
+
+        }
+        
 
 
         $pending_LWOP = count(collect($leaves)->where('isApproved',null));
@@ -1512,12 +1639,25 @@ trait TimekeepingTraits
 
       case 'FL':
       {
-        $leaves = DB::table('user_familyleaves')->where([ 
+        if($hasAccess){
+          $leaves = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$user->id)->
+                              leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->
+                              leftJoin('campaign','user_specialPowers_programs.program_id','=','campaign.id')->
+                              leftJoin('team','user_specialPowers_programs.program_id','=','team.campaign_id')->
+                              leftJoin('users','team.user_id','=','users.id')->
+                              leftJoin('user_familyleaves','user_familyleaves.user_id','=','users.id')->
+                              select('user_familyleaves.id as leaveID','user_familyleaves.productionDate', 'user_familyleaves.leaveStart','user_familyleaves.leaveEnd','user_familyleaves.isApproved','user_familyleaves.attachments', 'user_familyleaves.totalCredits','user_familyleaves.halfdayFrom','user_familyleaves.halfdayTo', 'user_familyleaves.created_at', 'user_familyleaves.notes','user_familyleaves.leaveType as FLtype','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->where('user_familyleaves.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->orderBy('user_familyleaves.isApproved','ASC')->get();
+
+        }else{
+          $leaves = DB::table('user_familyleaves')->where([ 
                   ['user_familyleaves.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00"],
                   //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
                   ])->join('users','users.id','=','user_familyleaves.user_id')->
                   leftJoin('team','team.user_id','=','users.id')->
                   leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_familyleaves.id as leaveID','user_familyleaves.productionDate', 'user_familyleaves.leaveStart','user_familyleaves.leaveEnd','user_familyleaves.isApproved','user_familyleaves.totalCredits','user_familyleaves.halfdayFrom','user_familyleaves.halfdayTo', 'user_familyleaves.created_at', 'user_familyleaves.notes','user_familyleaves.attachments', 'users.employeeCode as accesscode','users.nickname',  'users.id as userID','users.lastname','users.firstname','campaign.name as program','user_familyleaves.leaveType as FLtype', 'campaign.id as programID')->where('user_familyleaves.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->orderBy('user_familyleaves.isApproved','ASC')->get();
+
+        }
+        
         $pending_FL = count(collect($leaves)->where('isApproved',null));
 
         $psl = $this->getPendings('SL',$startCutoff,$endCutoff);
@@ -2194,10 +2334,14 @@ trait TimekeepingTraits
   }
 
 
-  public function getDTRPs($from,$to,$type)
+  public function getDTRPs($from,$to,$type,$user)
   {
     $f = Biometrics::where('productionDate',date('Y-m-d', strtotime($from)))->get();
     $t = Biometrics::where('productionDate',date('Y-m-d', strtotime($to)))->get();
+
+    $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+    (count($specialChild) > 0) ? $hasAccess=1 : $hasAccess=0;
 
     switch ($type) {
       case 'IN':{
@@ -2235,13 +2379,33 @@ trait TimekeepingTraits
         break;
 
       case 'OLD': {
-                    $all = DB::table('user_dtrp')->where('user_dtrp.biometrics_id','>=',$f->first()->id)->
-                    where('user_dtrp.biometrics_id','<=',$t->first()->id)->
-                    join('biometrics','biometrics.id','=','user_dtrp.biometrics_id')->
-                    leftJoin('users','user_dtrp.user_id','=','users.id')->
-                    leftJoin('team','team.user_id','=','users.id')->
-                    leftJoin('campaign','campaign.id','=','team.campaign_id')->
-                    select('user_dtrp.actualLogdate','user_dtrp.id','user_dtrp.biometrics_id','users.employeeCode', 'user_dtrp.user_id','user_dtrp.notes','user_dtrp.logTime','user_dtrp.logType_id','user_dtrp.isApproved','user_dtrp.approvedBy','users.nickname','users.firstname','users.lastname','campaign.name as program','campaign.id as programID','biometrics.productionDate','user_dtrp.isApproved','user_dtrp.reviewed','team.immediateHead_Campaigns_id as ihID')->get();
+
+                    if($hasAccess){
+
+
+                          $all = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->
+                          leftJoin('campaign','user_specialPowers_programs.program_id','=','campaign.id')->
+                          leftJoin('team','user_specialPowers_programs.program_id','=','team.campaign_id')->
+                          leftJoin('users','team.user_id','=','users.id')->
+                          leftJoin('user_dtrp','user_dtrp.user_id','=','users.id')->
+                          leftJoin('biometrics','biometrics.id','=','user_dtrp.biometrics_id')->
+                          select('user_dtrp.actualLogdate','user_dtrp.id','user_dtrp.biometrics_id','users.employeeCode', 'user_dtrp.user_id','user_dtrp.notes','user_dtrp.logTime','user_dtrp.logType_id','user_dtrp.isApproved','user_dtrp.approvedBy','users.nickname','users.firstname','users.lastname','campaign.name as program','campaign.id as programID','biometrics.productionDate','user_dtrp.isApproved','user_dtrp.reviewed','team.immediateHead_Campaigns_id as ihID')->
+                          where('biometrics.productionDate','<=',$t->first()->productionDate)->
+                          where('biometrics.productionDate','>=',$f->first()->productionDate)->orderBy('user_dtrp.isApproved','ASC')->get();//
+
+                    }else{
+
+                          $all = DB::table('user_dtrp')->where('user_dtrp.biometrics_id','>=',$f->first()->id)->
+                          where('user_dtrp.biometrics_id','<=',$t->first()->id)->
+                          join('biometrics','biometrics.id','=','user_dtrp.biometrics_id')->
+                          leftJoin('users','user_dtrp.user_id','=','users.id')->
+                          leftJoin('team','team.user_id','=','users.id')->
+                          leftJoin('campaign','campaign.id','=','team.campaign_id')->
+                          select('user_dtrp.actualLogdate','user_dtrp.id','user_dtrp.biometrics_id','users.employeeCode', 'user_dtrp.user_id','user_dtrp.notes','user_dtrp.logTime','user_dtrp.logType_id','user_dtrp.isApproved','user_dtrp.approvedBy','users.nickname','users.firstname','users.lastname','campaign.name as program','campaign.id as programID','biometrics.productionDate','user_dtrp.isApproved','user_dtrp.reviewed','team.immediateHead_Campaigns_id as ihID')->get();
+
+                    }
+                    
       }
         # code...
         break;
