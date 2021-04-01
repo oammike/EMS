@@ -597,6 +597,60 @@ select:-webkit-autofill:focus {
     
    startTime();
 
+   /*------------- TIMEKEEPING --------------*/
+     //QUORA
+     // MOUS
+     // AVA
+     // WORLDVENTURES
+     // OPS
+     
+
+
+    $('.timekeeping').on('click', function(){
+      var logtype_id = $(this).attr('data-timetype');
+      var btn = $(this);
+      var _token = "{{ csrf_token() }}";
+      var clocktime = $('#clock').text();
+      $.ajax({
+          url: "{{action('LogsController@saveDashboardLog')}}",
+          type:'POST',
+          data:{ 
+            'logtype_id': logtype_id,
+            'clocktime': clocktime,
+            '_token':_token
+          },
+          success: function(res){
+                  console.log(res);
+                  switch(logtype_id){
+                    case '1': {
+                                  $.notify("System CHECK IN successful. \n\nYou may check your DTR Sheet to verify.\nShould you find any form of data discrepancy, kindy submit a DTRP for approval.",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
+                                  btn.fadeOut("slow");
+                                } break;
+                    case '2': { 
+                                  $.notify("System CHECK OUT successful. \n\nDon't forget to sign out from E.M.S as well. See you later, and take care.",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
+                                  btn.fadeOut("slow");
+                              }break;
+                    case '3': { 
+                                  $.notify("End Breaktime. \n\n",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
+                                  btn.attr('disabled',true);
+                                  $('#btn_breakin').attr('disabled',false);
+                              }break;
+                    case '4': { 
+                              btn.attr("disabled",'disabled');
+                              $('#btn_breakout').attr('disabled',false);
+                              $.notify("BREAKTIME. \n\nDon't forget to click the Breaktime END button once you get back from your break.",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} ); }break;
+                  }
+                  
+                  
+          },
+          error: function(res){
+                $.notify("Sorry, an error occured while saving your logs. \n\nPlease try again later.",{className:"error",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
+          }
+        }); 
+    });
+
+
+
    /* ---- VIDEO PLAYER -------- */
    // var vid = document.getElementById("teaser");
    // vid.onplay = function() {
@@ -659,57 +713,9 @@ select:-webkit-autofill:focus {
      // });
      // * endif
 
-     /*------------- TIMEKEEPING --------------*/
-     //QUORA
-     // MOUS
-     // AVA
-     // WORLDVENTURES
-     // OPS
+
+
      
-
-
-    $('.timekeeping').on('click', function(){
-      var logtype_id = $(this).attr('data-timetype');
-      var btn = $(this);
-      var _token = "{{ csrf_token() }}";
-      var clocktime = $('#clock').text();
-      $.ajax({
-          url: "{{action('LogsController@saveDashboardLog')}}",
-          type:'POST',
-          data:{ 
-            'logtype_id': logtype_id,
-            'clocktime': clocktime,
-            '_token':_token
-          },
-          success: function(res){
-                  console.log(res);
-                  switch(logtype_id){
-                    case '1': {
-                                  $.notify("System CHECK IN successful. \n\nYou may check your DTR Sheet to verify.\nShould you find any form of data discrepancy, kindy submit a DTRP for approval.",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
-                                  btn.fadeOut("slow");
-                                } break;
-                    case '2': { 
-                                  $.notify("System CHECK OUT successful. \n\nDon't forget to sign out from E.M.S as well. See you later, and take care.",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
-                                  btn.fadeOut("slow");
-                              }break;
-                    case '3': { 
-                                  $.notify("End Breaktime. \n\n",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
-                                  btn.attr('disabled',true);
-                                  $('#btn_breakin').attr('disabled',false);
-                              }break;
-                    case '4': { 
-                              btn.attr("disabled",'disabled');
-                              $('#btn_breakout').attr('disabled',false);
-                              $.notify("BREAKTIME. \n\nDon't forget to click the Breaktime END button once you get back from your break.",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} ); }break;
-                  }
-                  
-                  
-          },
-          error: function(res){
-                $.notify("Sorry, an error occured while saving your logs. \n\nPlease try again later.",{className:"error",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
-          }
-        }); 
-    });
 
      
 
@@ -1401,657 +1407,657 @@ select:-webkit-autofill:focus {
                               var modalcode = '<div class="modal fade" id="myModal_DTRP'+data+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><h4 class="modal-title text-black" id="myModalLabel"><i class="fa '+icon+'"></i> '+full.type+'</h4></div> <div class="modal-body-upload" style="padding:20px;">';
 
                               modalcode += '<!-- DIRECT CHAT PRIMARY -->';
-          modalcode += '<div class="box box-default direct-chat">';
+                              modalcode += '<div class="box box-default direct-chat">';
 
-          modalcode += '  <div class="box-body">';
-          modalcode += '    <!-- Conversations are loaded here -->';
-          modalcode += '    <div class="direct-chat-messages">';
-          modalcode += '      <!-- Message. Default to the left -->';
-          modalcode += '      <div class="direct-chat-msg">';
-          modalcode += '        <div class="direct-chat-info clearfix">';
-          modalcode += '          <span class="direct-chat-name pull-left">'+full.nickname+'<br/>'+ full.program+'</span>';
-          modalcode += '          <span class="direct-chat-timestamp pull-right">'+formattedDate+'</span>';
-          modalcode += '        </div>';
-          modalcode += '        <!-- /.direct-chat-info -->';
-          modalcode += '        <a href="./user/'+full.requestor+'" target="_blank"><img src="'+profileimg+'" class="img-circle pull-left" alt="User Image" width="70" /></a>';
-          modalcode += '        <div class="direct-chat-text" style="width:85%; left:30px; background-color:#fcfdfd">';
-          
+                              modalcode += '  <div class="box-body">';
+                              modalcode += '    <!-- Conversations are loaded here -->';
+                              modalcode += '    <div class="direct-chat-messages">';
+                              modalcode += '      <!-- Message. Default to the left -->';
+                              modalcode += '      <div class="direct-chat-msg">';
+                              modalcode += '        <div class="direct-chat-info clearfix">';
+                              modalcode += '          <span class="direct-chat-name pull-left">'+full.nickname+'<br/>'+ full.program+'</span>';
+                              modalcode += '          <span class="direct-chat-timestamp pull-right">'+formattedDate+'</span>';
+                              modalcode += '        </div>';
+                              modalcode += '        <!-- /.direct-chat-info -->';
+                              modalcode += '        <a href="./user/'+full.requestor+'" target="_blank"><img src="'+profileimg+'" class="img-circle pull-left" alt="User Image" width="70" /></a>';
+                              modalcode += '        <div class="direct-chat-text" style="width:85%; left:30px; background-color:#fcfdfd">';
                               
-                              var mc1 ="";
-                              var delModal ='<div class="modal fade" id="myModal'+full.id+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><h4 class="modal-title" id="myModalLabel"> Delete '+full.type+'</h4></div><div class="modal-body">Are you sure you want to delete this?</div><div class="modal-footer no-border"><form action="./user_notification/deleteRequest/'+full.id+'" method="POST" class="btn-outline pull-right" id="deleteReq"><input type="hidden" name="notifType" value="'+full.typeID+'" /><button type="submit" class="btn btn-primary glyphicon-trash glyphicon ">Yes</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><input type="hidden" name="_token" value="'+_token+'" /> </div></div></div></div>';
+                                                  
+                                                  var mc1 ="";
+                                                  var delModal ='<div class="modal fade" id="myModal'+full.id+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><h4 class="modal-title" id="myModalLabel"> Delete '+full.type+'</h4></div><div class="modal-body">Are you sure you want to delete this?</div><div class="modal-footer no-border"><form action="./user_notification/deleteRequest/'+full.id+'" method="POST" class="btn-outline pull-right" id="deleteReq"><input type="hidden" name="notifType" value="'+full.typeID+'" /><button type="submit" class="btn btn-primary glyphicon-trash glyphicon ">Yes</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><input type="hidden" name="_token" value="'+_token+'" /> </div></div></div></div>';
 
-                              
+                                                  
 
-                                        
-                              switch (full.typeID)
+                                                            
+                                                  switch (full.typeID)
+                                                  {
+                                                    //CWS
+                                                    case 6: { 
+                                                               var shiftStart_new = new Date(full.productionDate+ " "+full.deets.timeStart).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
+                                                               var shiftEnd_new = new Date(full.productionDate+ " "+full.deets.timeEnd).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
+                                                               modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
+                                                                modalcode += 'I would like to request a <strong>CHANGE OF WORK SCHEDULE</strong>. <br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
+                                                                modalcode += '<div class="row"><div class="col-sm-12"> <div class="row"><div class="col-sm-4"><h5 class="text-primary">Production Date</h5><p style="font-weight:bold">'+full.productionDate+'<br/> ['+full.productionDay+']</p></div>';
+                                                                modalcode += '<div class="col-sm-4"><h5 class="text-primary">Old Schedule:</h5></div><div class="col-sm-4"><h5 class="text-primary">New Schedule</h5></div>';
+                                                                var shiftStart = new Date(full.productionDate+ " "+full.deets.timeStart_old).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
+                                                                var shiftEnd = new Date(full.productionDate+ " "+full.deets.timeEnd_old).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
+
+                                                                mc1 += '<div class="col-sm-4" style="font-size: 12px">';
+
+                                                                if(full.deets.timeStart_old == "00:00:00" && full.deets.timeEnd_old== "00:00:00")
+                                                                  mc1 += '<p>Shift: <br/><strong>Rest Day </strong></p>';
+                                                                else
+                                                                  mc1 += '<p>Shift: <br/><strong>'+shiftStart+'  -  '+shiftEnd+' </strong></p>';
+
+                                                                mc1 += '</div><div class="col-sm-4" style="font-size: 12px">';
+
+                                                                if(full.deets.timeStart == "00:00:00" && full.deets.timeEnd=="00:00:00")
+                                                                  mc1 += '<p>Shift: <br/><strong>Rest Day </strong></p></div>';
+                                                                else
+                                                                  mc1 += '<p>Shift: <br/><strong>'+shiftStart_new+' -  '+shiftEnd_new+'</strong></p></div>';
+
+                                                              //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                                          } break;
+
+                                                    case 7: {
+                                                                var shiftStart_new = new Date(full.productionDate+ " "+full.deets.timeStart).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
+                                                                var shiftEnd_new = new Date(full.productionDate+ " "+full.deets.timeEnd).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
+
+                                                                modalcode += '<p class="text-left">Hi {{$greeting}} ! ';
+                                                                modalcode += 'I would like to file an <strong>OT </strong> for <strong>'+full.productionDate+' ['+full.productionDay+']</strong></p>';
+                                                                modalcode += '<div class="row">';
+
+                                                                modalcode +='<div class="col-sm-6" style="font-size: 12px"><h5 class="text-primary">OT Details:</h5>';
+                                                                modalcode +=' <p class="text-left"><strong>Start: </strong>'+full.deets.timeStart;
+                                                                modalcode +='<br/><strong>End : </strong>'+full.deets.timeEnd;
+                                                                modalcode += '<br/><strong>Billable Hours: </strong>'+full.deets.billable_hours;
+                                                                modalcode += '<br/><strong>Filed Hours worked: </strong>'+full.deets.filed_hours;
+
+                                                                if (full.deets.billedType == '1')
+                                                                modalcode += '<br/><strong>OT Type: </strong> Billed';
+                                                                else if (full.deets.billedType == '2')
+                                                                  modalcode += '<br/><strong>OT Type: </strong> Non-Billed';
+                                                                else if (full.deets.billedType == '3')
+                                                                  modalcode += '<br/><strong>OT Type: </strong> Patch';
+                                                                else modalcode += '<br/><strong>OT Type: </strong> Billed';
+
+                                                                modalcode += '</p></div> <div class="col-sm-5" style="font-size: 12px"><h5 class="text-primary">Reason:</h5>';
+                                                                modalcode += '<p class="text-left"><em>'+full.deets.reason+'</em></p> </div>';
+                                                            };break;
+                                                    
+                                                    // ---- DTRP IN
+                                                    case 8: { 
+                                                              var shiftStart_new = new Date(full.productionDate+ " "+full.deets.timeStart).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
+                                                              var shiftEnd_new = new Date(full.productionDate+ " "+full.deets.timeEnd).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
+
+                                                              modalcode += '<p class="text-left">Hi {{$greeting}} ! ';
+                                                              modalcode += 'I would like to file a <strong>DTRP IN</strong>. See details below:</p>';
+                                                              modalcode += '<div class="row"><div class="col-sm-12"> <div class="row"><div class="col-sm-4" style="font-size: 12px"><h5 class="text-primary">Production Date</h5><p style="font-weight:bold">'+full.productionDate+'<br/> ['+full.productionDay+']</p></div>';
+                                                              modalcode += '<div class="col-sm-4" style="font-size: 12px"><h5 class="text-primary">Log IN Time</h5>';
+                                                                      modalcode += '<p><br/><strong>'+full.deets.logTime +'</strong></p></div><div class="col-sm-4"><h5 class="text-primary">Notes</h5>';
+
+                                                                      modalcode += '<p><br/><em>'+full.deets.notes+'</em></p></div>';};break;
+
+                                                    // ---- DTRP OUT
+                                                    case 9: { 
+
+                                                             var shiftStart_new = new Date(full.productionDate+ " "+full.deets.timeStart).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
+                                                             var shiftEnd_new = new Date(full.productionDate+ " "+full.deets.timeEnd).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
+
+                                                              modalcode += '<p class="text-left">Hi {{$greeting}} ! ';
+                                                              modalcode += 'I would like to file a <strong>DTRP OUT</strong>. See details below:</p>';
+                                                              modalcode += '<div class="row"><div class="col-sm-12"> <div class="row"><div class="col-sm-4" style="font-size: 12px"><h5 class="text-primary">Production Date</h5><p style="font-weight:bold">'+full.productionDate+'<br/> ['+full.productionDay+']</p></div>';
+
+                                                              modalcode += '<div class="col-sm-4 style="font-size: 12px""><h5 class="text-primary">Log OUT Time</h5>';
+                                                                      modalcode += '<p><br/><strong>'+full.deets.logTime +'</strong></p></div><div class="col-sm-4"><h5 class="text-primary">Notes</h5>';
+                                                                      modalcode += '<p><br/><em>'+full.deets.notes+'</em></p></div>';
+                                                          };break;
+
+                                                    //VACATION LEAVE
+                                                    case 10: { 
+
+                                                              var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
+                                                              var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
+                                                              var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                                              var hours = duration.asHours();
+                                                              
+
+                                                              if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
+                                                              else{
+
+                                                                if(full.deets.totalCredits == '0.50') var totalcreds = "half";
+                                                                  else var totalcreds = full.deets.totalCredits;
+                                                                }
+
+                                                              modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
+
+                                                              if(full.deets.forced == '1')
+                                                                 modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>FORCED VACATION LEAVE &nbsp;&nbsp;</strong><br/><br/>';
+                                                             
+                                                              else
+                                                                 modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>VACATION LEAVE &nbsp;&nbsp;</strong><br/><br/>';
+
+                                                             
+
+                                                             // modalcode += '<strong>VL credits used: </strong><span class="text-danger">'+full.deets.totalCredits+'</span><br/>';
+                                                              modalcode += '<strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
+                                                              modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                                              modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
+
+                                                                   
+
+
+                                                                      mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                                                      
+                                                                      mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
+
+                                                                      mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+                                                                      mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
+
+                                                                      //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                                                } break;
+
+
+                                                    
+                                                    //SICK LEAVE
+                                                    case 11: { 
+
+                                                              var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
+                                                              var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
+                                                              var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                                              var hours = duration.asHours();
+                                                              
+
+                                                              if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
+                                                              else{
+
+                                                                if(full.deets.totalCredits == '0.50') var totalcreds = "half";
+                                                                  else var totalcreds = full.deets.totalCredits;
+                                                                }
+
+                                                              modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
+                                                              if(full.deets.forced == '1')
+                                                                modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>FORCED SICK LEAVE &nbsp;&nbsp;</strong>';
+                                                              else
+                                                                modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>SICK LEAVE &nbsp;&nbsp;</strong>';
+                                                              
+                                                             
+
+                                                              if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
+                                                              modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_sl/medCert/'+full.deets.id+'" target="_blank">Medical Certificate <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
+
+                                                              modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
+                                                              modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                                              modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
+
+                                                                   
+
+
+                                                                      mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                                                      
+                                                                      mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
+
+                                                                      mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+                                                                      mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
+
+                                                                      //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                                                } break;
+
+
+                                                    
+
+                                                    //LWOP LEAVE
+                                                    case 12: { 
+
+                                                              var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
+                                                              var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
+                                                              var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                                              var hours = duration.asHours();
+                                                              
+
+                                                              if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
+                                                              else{
+
+                                                                if(full.deets.totalCredits == '0.50') var totalcreds = "half";
+                                                                  else var totalcreds = full.deets.totalCredits;
+                                                                }
+
+                                                              modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
+
+                                                              if (full.deets.forced == '1')
+                                                                modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>FORCED LEAVE WITHOUT PAY &nbsp;&nbsp;</strong><br/><br/>';
+                                                              else
+                                                                 modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>LEAVE WITHOUT PAY &nbsp;&nbsp;</strong><br/><br/>';
+                                                             
+                                                             
+
+                                                             // modalcode += '<strong>VL credits used: </strong><span class="text-danger">'+full.deets.totalCredits+'</span><br/>';
+                                                              modalcode += '<strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
+                                                              modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                                              modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
+
+                                                                   
+
+
+                                                                      mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                                                      
+                                                                      mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
+
+                                                                      mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+                                                                      mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
+
+                                                                      //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                                                } break;
+
+                                                    
+
+                                                    //OBT LEAVE
+                                                    case 13: { 
+
+                                                              var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
+                                                              var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
+                                                              var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                                              var hours = duration.asHours();
+                                                              
+
+                                                              if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
+                                                              else{
+
+                                                                if(full.deets.totalCredits == '0.50') var totalcreds = "half";
+                                                                  else var totalcreds = full.deets.totalCredits;
+                                                                }
+
+                                                              modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
+                                                              modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>OFFICIAL BUSINESS TRIP &nbsp;&nbsp;</strong><br/><br/>';
+                                                             
+
+                                                             // modalcode += '<strong>VL credits used: </strong><span class="text-danger">'+full.deets.totalCredits+'</span><br/>';
+                                                              modalcode += '<strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
+                                                              modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                                              modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
+
+                                                                   
+
+
+                                                                      mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                                                      
+                                                                      mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
+
+                                                                      mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+                                                                      mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
+
+                                                                      //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                                                } break;
+
+                                                      
+
+                                                       
+
+                                                      //DTR UNLOCK
+                                                    case 14: { 
+
+                                                              var prodFrom = moment(full.productionFrom);
+                                                              var prodTo = moment(full.productionTo);
+
+
+                                                              modalcode += '<p class="text-left">Hi {{$greeting}} !</p> <br/>';
+                                                              modalcode += '<p class="text-center">I would like to file to have my  <strong>DTR Sheet</strong> from <br/><span class="text-danger">'+prodFrom.format("MMM. DD YYYY - ddd")+'</span> to <span class="text-danger">'+prodTo.format("MMM. DD YYYY - ddd")+'</span> <strong><br/>UNLOCKED</strong><br/><br/><a href="./seen-unlockRequest/'+full.notification_id+'?seen=true" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR Sheet<a><br/></p>';
+                                                             
+
+                                                            
+                                                              modalcode += '<div class="row"><div class="col-sm-12">';
+                                                              modalcode += '<div class="col-sm-6"></div><div class="col-sm-6"></div>';
+
+                                                                   
+
+
+                                                                      mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                                                      
+                                                                      mc1 += '<p><strong> </strong></p>';
+
+                                                                      mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+                                                                      mc1 += '<p><strong></strong></p></div>';
+
+                                                                      //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                                                } break;
+
+                                                    //PRE SHIFT OT 
+                                                    case 15: { 
+                                                                var billedType=" ";
+
+                                                                if(full.deets.billedType == '1') billedType="Billed";
+                                                                else if (full.deets.billedType == '2') billedType="Non-Billed";
+                                                                else if (full.deets.billedType == '3') billedType="Patch";
+                                                                else billedType="Billed";
+
+
+                                                                var shiftStart_new = new Date(full.productionDate+ " "+full.deets.timeStart).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
+                                                                var shiftEnd_new = new Date(full.productionDate+ " "+full.deets.timeEnd).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
+
+                                                                modalcode += '<p class="text-left">Hi {{$greeting}} ! ';
+                                                                modalcode += 'I would like to file a <strong>Pre-Shift OT </strong> for <strong>'+full.productionDate+' ['+full.productionDay+']</strong></p>';
+                                                                modalcode += '<div class="row">';
+
+                                                                modalcode +='<div class="col-sm-6" style="font-size: 12px"><h5 class="text-primary">Pre-shift OT Details:</h5>';
+                                                                modalcode +=' <p class="text-left"><strong>Start: </strong>'+full.deets.timeStart;
+                                                                modalcode +='<br/><strong>End : </strong>'+full.deets.timeEnd;
+                                                                modalcode += '<br/><strong>Billable Hours: </strong>'+full.deets.billable_hours;
+                                                                modalcode += '<br/><strong>Filed Hours worked: </strong>'+full.deets.filed_hours;
+                                                                modalcode += '<br/><strong>Type: </strong><span class="text-danger" style="font-size:larger">'+billedType;
+                                                                modalcode += '<span></p></div> <div class="col-sm-5" style="font-size: 12px"><h5 class="text-primary">Reason:</h5>';
+                                                                modalcode += '<p class="text-left"><em>'+full.deets.reason+'</em></p> </div>';
+
+
+
+                                                  
+
+                                                                      //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                                                } break;
+
+                                                     //ML
+                                                    case 16: { 
+
+                                                              var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
+                                                              var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
+                                                              var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                                              var hours = duration.asHours();
+                                                              
+
+                                                              if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
+                                                              else{
+
+                                                                if(full.deets.totalCredits == '0.50') var totalcreds = "half";
+                                                                  else var totalcreds = full.deets.totalCredits;
+                                                                }
+
+                                                              modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
+                                                              modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>MATERNITY LEAVE &nbsp;&nbsp;</strong>';
+                                                             
+
+                                                              if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
+                                                              modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
+
+                                                              modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
+                                                              modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                                              modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
+
+                                                                   
+
+
+                                                                      mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                                                      
+                                                                      mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
+
+                                                                      mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+                                                                      mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
+
+                                                                      //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                                                } break;
+
+                                                      //PL
+                                                    case 17: { 
+
+                                                              var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
+                                                              var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
+                                                              var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                                              var hours = duration.asHours();
+                                                              
+
+                                                              if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
+                                                              else{
+
+                                                                if(full.deets.totalCredits == '0.50') var totalcreds = "half";
+                                                                  else var totalcreds = full.deets.totalCredits;
+                                                                }
+
+                                                              modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
+                                                              modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>PATERNITY LEAVE &nbsp;&nbsp;</strong>';
+                                                             
+
+                                                              if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
+                                                              modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
+
+                                                              modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
+                                                              modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                                              modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
+
+                                                                   
+
+
+                                                                      mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                                                      
+                                                                      mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
+
+                                                                      mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+                                                                      mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
+
+                                                                      //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                                                } break;
+
+                                                     //SPL
+                                                    case 18: { 
+
+                                                              var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
+                                                              var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
+                                                              var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                                              var hours = duration.asHours();
+                                                              
+
+                                                              if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
+                                                              else{
+
+                                                                if(full.deets.totalCredits == '0.50') var totalcreds = "half";
+                                                                  else var totalcreds = full.deets.totalCredits;
+                                                                }
+
+                                                              modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
+                                                              modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>SINGLE-PARENT LEAVE &nbsp;&nbsp;</strong>';
+                                                             
+
+                                                              if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
+                                                              modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
+
+                                                              modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
+                                                              modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                                              modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
+
+                                                                   
+
+
+                                                                      mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                                                      
+                                                                      mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
+
+                                                                      mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+                                                                      mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
+
+                                                                      //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                                                } break;
+
+                                                      //DTR Specific UNLOCK
+                                                    case 19: { 
+
+                                                              var prodFrom = moment(full.productionFrom);
+                                                              var prodTo = moment(full.productionTo);
+
+
+                                                              modalcode += '<p class="text-left">Hi {{$greeting}} !</p> <br/>';
+                                                              modalcode += '<p class="text-center">I would like to file to have my  <strong>DTR Sheet</strong> from <br/>Production Date: <span class="text-danger">'+prodFrom.format("MMM. DD YYYY - ddd")+'</span> <strong><br/>UNLOCKED</strong><br/><br/><a href="./seen-unlockPDRequest/'+full.notification_id+'?seen=true" class="btn btn-xs btn-primary"><i class="fa fa-unlock"></i> Unlock Now<a><br/></p>';
+                                                             
+
+                                                            
+                                                              modalcode += '<div class="row"><div class="col-sm-12">';
+                                                              modalcode += '<div class="col-sm-6"></div><div class="col-sm-6"></div>';
+
+                                                                   
+
+
+                                                                      mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                                                      
+                                                                      mc1 += '<p><strong> </strong></p>';
+
+                                                                      mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+                                                                      mc1 += '<p><strong></strong></p></div>';
+
+                                                                      //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                                                } break;
+
+                                                    
+                                                    // VTO 
+                                                    case 21: { 
+
+                                                              var leaveStart = moment(full.deets.productionDate+' '+full.deets.startTime); //,"MM/D/YYYY h:m A");
+                                                              var leaveEnd = moment(full.deets.productionDate+' '+full.deets.endTime); //,"MM/D/YYYY h:m A");
+                                                              //var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                                              var hours = full.deets.totalHours; //moment(full.deets.totalHours).asHours(); // duration.asHours();
+                                                              var totalcreds = full.deets.totalHours*0.125;
+                                                              
+
+                                                             
+
+                                                              modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
+
+                                                              if (full.deets.forced == '1')
+                                                                modalcode += 'I would like to file a (<strong class="text-danger">'+totalcreds+') </strong><strong>FORCED VTO &nbsp;&nbsp;</strong>[ use: '+full.deets.deductFrom +' ]<br/><br/>';
+                                                              else
+                                                                modalcode += 'I would like to file a (<strong class="text-danger">'+totalcreds+') </strong><strong>VTO &nbsp;&nbsp;</strong>[ use: '+full.deets.deductFrom +' ]<br/><br/>';
+                                                             
+
+
+                                                            
+                                                              modalcode += '<strong>Total hours: </strong><em>'+full.deets.totalHours+'</em><br/>';
+                                                              modalcode += '<strong>&nbsp;&nbsp;Notes: </strong><em>'+full.deets.notes+'</em></p>';
+                                                              modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                                              modalcode += '<div class="col-sm-4"><h5 class="text-primary">Production Date: </h5></div>';
+                                                              modalcode += '<div class="col-sm-4"><h5 class="text-primary">From: </h5></div><div class="col-sm-4"><h5 class="text-primary">Until: </h5></div>';
+
+                                                                   
+
+
+                                                                      mc1 += '<div class="col-sm-4" style="font-size: 12px">';
+                                                                      mc1 += '<p><strong>'+full.deets.productionDate+' </strong></p></div>';
+                                                                      mc1 += '<div class="col-sm-4" style="font-size: 12px">';
+
+                                                                      
+                                                                      mc1 += '<p><strong>'+leaveStart.format("hh:mm A")+' </strong></p>';
+
+                                                                      mc1 += '</div><div class="col-sm-4" style="font-size: 12px">';
+                                                                      mc1 += '<p><strong>'+leaveEnd.format("hh:mm A")+'</strong></p></div>';
+
+                                                                      //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                                                } break;
+
+
+                                                    
+                                                    //MAGNA CARTA
+                                                    case 22: { 
+
+                                                              var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
+                                                              var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
+                                                              var duration = moment.duration(leaveEnd.diff(leaveStart));
+                                                              var hours = duration.asHours();
+                                                              
+
+                                                              if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
+                                                              else{
+
+                                                                if(full.deets.totalCredits == '0.50') var totalcreds = "half";
+                                                                  else var totalcreds = full.deets.totalCredits;
+                                                                }
+
+                                                              modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
+                                                              modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>MAGNA CARTA FOR WOMEN LEAVE &nbsp;&nbsp;</strong>';
+                                                             
+
+                                                              if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
+                                                              modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
+
+                                                              modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
+                                                              modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
+                                                              modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
+
+                                                                   
+
+
+                                                                      mc1 += '<div class="col-sm-6" style="font-size: 12px">';
+
+                                                                      
+                                                                      mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
+
+                                                                      mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
+                                                                      mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
+
+                                                                      //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
+                                                                } break;
+
+                                                      //PL
+
+
+                                                  }
+
+                                                  //modalcode += '</div><div class="row"><div class="col-sm-4"> '+full.productionDate+'<br/> ['+full.productionDay+'] </div>';
+                                                  modalcode += mc1;
+                                                  modalcode += '<div class="col-sm-3"> </div></div></div></div>    </div>';
+
+                                                  modalcode += '        </div>';
+                              modalcode += '        <!-- /.direct-chat-text -->';
+                              modalcode += '      </div>';
+                              modalcode += '      <!-- /.direct-chat-msg -->';
+
+                              if(full.typeID != 14 && full.typeID != 19) //do this only if NON UNLOCK DTR request
                               {
-                                //CWS
-                                case 6: { 
-                                           var shiftStart_new = new Date(full.productionDate+ " "+full.deets.timeStart).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
-                                           var shiftEnd_new = new Date(full.productionDate+ " "+full.deets.timeEnd).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
-                                           modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
-                                            modalcode += 'I would like to request a <strong>CHANGE OF WORK SCHEDULE</strong>. <br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
-                                            modalcode += '<div class="row"><div class="col-sm-12"> <div class="row"><div class="col-sm-4"><h5 class="text-primary">Production Date</h5><p style="font-weight:bold">'+full.productionDate+'<br/> ['+full.productionDay+']</p></div>';
-                                            modalcode += '<div class="col-sm-4"><h5 class="text-primary">Old Schedule:</h5></div><div class="col-sm-4"><h5 class="text-primary">New Schedule</h5></div>';
-                                            var shiftStart = new Date(full.productionDate+ " "+full.deets.timeStart_old).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
-                                            var shiftEnd = new Date(full.productionDate+ " "+full.deets.timeEnd_old).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
-
-                                            mc1 += '<div class="col-sm-4" style="font-size: 12px">';
-
-                                            if(full.deets.timeStart_old == "00:00:00" && full.deets.timeEnd_old== "00:00:00")
-                                              mc1 += '<p>Shift: <br/><strong>Rest Day </strong></p>';
-                                            else
-                                              mc1 += '<p>Shift: <br/><strong>'+shiftStart+'  -  '+shiftEnd+' </strong></p>';
-
-                                            mc1 += '</div><div class="col-sm-4" style="font-size: 12px">';
-
-                                            if(full.deets.timeStart == "00:00:00" && full.deets.timeEnd=="00:00:00")
-                                              mc1 += '<p>Shift: <br/><strong>Rest Day </strong></p></div>';
-                                            else
-                                              mc1 += '<p>Shift: <br/><strong>'+shiftStart_new+' -  '+shiftEnd_new+'</strong></p></div>';
-
-                                          //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
-                                      } break;
-
-                                case 7: {
-                                            var shiftStart_new = new Date(full.productionDate+ " "+full.deets.timeStart).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
-                                            var shiftEnd_new = new Date(full.productionDate+ " "+full.deets.timeEnd).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
-
-                                            modalcode += '<p class="text-left">Hi {{$greeting}} ! ';
-                                            modalcode += 'I would like to file an <strong>OT </strong> for <strong>'+full.productionDate+' ['+full.productionDay+']</strong></p>';
-                                            modalcode += '<div class="row">';
-
-                                            modalcode +='<div class="col-sm-6" style="font-size: 12px"><h5 class="text-primary">OT Details:</h5>';
-                                            modalcode +=' <p class="text-left"><strong>Start: </strong>'+full.deets.timeStart;
-                                            modalcode +='<br/><strong>End : </strong>'+full.deets.timeEnd;
-                                            modalcode += '<br/><strong>Billable Hours: </strong>'+full.deets.billable_hours;
-                                            modalcode += '<br/><strong>Filed Hours worked: </strong>'+full.deets.filed_hours;
-
-                                            if (full.deets.billedType == '1')
-                                            modalcode += '<br/><strong>OT Type: </strong> Billed';
-                                            else if (full.deets.billedType == '2')
-                                              modalcode += '<br/><strong>OT Type: </strong> Non-Billed';
-                                            else if (full.deets.billedType == '3')
-                                              modalcode += '<br/><strong>OT Type: </strong> Patch';
-                                            else modalcode += '<br/><strong>OT Type: </strong> Billed';
-
-                                            modalcode += '</p></div> <div class="col-sm-5" style="font-size: 12px"><h5 class="text-primary">Reason:</h5>';
-                                            modalcode += '<p class="text-left"><em>'+full.deets.reason+'</em></p> </div>';
-                                        };break;
-                                
-                                // ---- DTRP IN
-                                case 8: { 
-                                          var shiftStart_new = new Date(full.productionDate+ " "+full.deets.timeStart).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
-                                          var shiftEnd_new = new Date(full.productionDate+ " "+full.deets.timeEnd).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
-
-                                          modalcode += '<p class="text-left">Hi {{$greeting}} ! ';
-                                          modalcode += 'I would like to file a <strong>DTRP IN</strong>. See details below:</p>';
-                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row"><div class="col-sm-4" style="font-size: 12px"><h5 class="text-primary">Production Date</h5><p style="font-weight:bold">'+full.productionDate+'<br/> ['+full.productionDay+']</p></div>';
-                                          modalcode += '<div class="col-sm-4" style="font-size: 12px"><h5 class="text-primary">Log IN Time</h5>';
-                                                  modalcode += '<p><br/><strong>'+full.deets.logTime +'</strong></p></div><div class="col-sm-4"><h5 class="text-primary">Notes</h5>';
-
-                                                  modalcode += '<p><br/><em>'+full.deets.notes+'</em></p></div>';};break;
-
-                                // ---- DTRP OUT
-                                case 9: { 
-
-                                         var shiftStart_new = new Date(full.productionDate+ " "+full.deets.timeStart).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
-                                         var shiftEnd_new = new Date(full.productionDate+ " "+full.deets.timeEnd).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
-
-                                          modalcode += '<p class="text-left">Hi {{$greeting}} ! ';
-                                          modalcode += 'I would like to file a <strong>DTRP OUT</strong>. See details below:</p>';
-                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row"><div class="col-sm-4" style="font-size: 12px"><h5 class="text-primary">Production Date</h5><p style="font-weight:bold">'+full.productionDate+'<br/> ['+full.productionDay+']</p></div>';
-
-                                          modalcode += '<div class="col-sm-4 style="font-size: 12px""><h5 class="text-primary">Log OUT Time</h5>';
-                                                  modalcode += '<p><br/><strong>'+full.deets.logTime +'</strong></p></div><div class="col-sm-4"><h5 class="text-primary">Notes</h5>';
-                                                  modalcode += '<p><br/><em>'+full.deets.notes+'</em></p></div>';
-                                      };break;
-
-                                //VACATION LEAVE
-                                case 10: { 
-
-                                          var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
-                                          var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
-                                          var duration = moment.duration(leaveEnd.diff(leaveStart));
-                                          var hours = duration.asHours();
-                                          
-
-                                          if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
-                                          else{
-
-                                            if(full.deets.totalCredits == '0.50') var totalcreds = "half";
-                                              else var totalcreds = full.deets.totalCredits;
-                                            }
-
-                                          modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
-
-                                          if(full.deets.forced == '1')
-                                             modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>FORCED VACATION LEAVE &nbsp;&nbsp;</strong><br/><br/>';
-                                         
-                                          else
-                                             modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>VACATION LEAVE &nbsp;&nbsp;</strong><br/><br/>';
-
-                                         
-
-                                         // modalcode += '<strong>VL credits used: </strong><span class="text-danger">'+full.deets.totalCredits+'</span><br/>';
-                                          modalcode += '<strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
-                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
-                                          modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
-
-                                               
-
-
-                                                  mc1 += '<div class="col-sm-6" style="font-size: 12px">';
-
-                                                  
-                                                  mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
-
-                                                  mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
-                                                  mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
-
-                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
-                                            } break;
-
-
-                                
-                                //SICK LEAVE
-                                case 11: { 
-
-                                          var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
-                                          var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
-                                          var duration = moment.duration(leaveEnd.diff(leaveStart));
-                                          var hours = duration.asHours();
-                                          
-
-                                          if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
-                                          else{
-
-                                            if(full.deets.totalCredits == '0.50') var totalcreds = "half";
-                                              else var totalcreds = full.deets.totalCredits;
-                                            }
-
-                                          modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
-                                          if(full.deets.forced == '1')
-                                            modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>FORCED SICK LEAVE &nbsp;&nbsp;</strong>';
-                                          else
-                                            modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>SICK LEAVE &nbsp;&nbsp;</strong>';
-                                          
-                                         
-
-                                          if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
-                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_sl/medCert/'+full.deets.id+'" target="_blank">Medical Certificate <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
-
-                                          modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
-                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
-                                          modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
-
-                                               
-
-
-                                                  mc1 += '<div class="col-sm-6" style="font-size: 12px">';
-
-                                                  
-                                                  mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
-
-                                                  mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
-                                                  mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
-
-                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
-                                            } break;
-
-
-                                
-
-                                //LWOP LEAVE
-                                case 12: { 
-
-                                          var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
-                                          var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
-                                          var duration = moment.duration(leaveEnd.diff(leaveStart));
-                                          var hours = duration.asHours();
-                                          
-
-                                          if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
-                                          else{
-
-                                            if(full.deets.totalCredits == '0.50') var totalcreds = "half";
-                                              else var totalcreds = full.deets.totalCredits;
-                                            }
-
-                                          modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
-
-                                          if (full.deets.forced == '1')
-                                            modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>FORCED LEAVE WITHOUT PAY &nbsp;&nbsp;</strong><br/><br/>';
-                                          else
-                                             modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>LEAVE WITHOUT PAY &nbsp;&nbsp;</strong><br/><br/>';
-                                         
-                                         
-
-                                         // modalcode += '<strong>VL credits used: </strong><span class="text-danger">'+full.deets.totalCredits+'</span><br/>';
-                                          modalcode += '<strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
-                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
-                                          modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
-
-                                               
-
-
-                                                  mc1 += '<div class="col-sm-6" style="font-size: 12px">';
-
-                                                  
-                                                  mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
-
-                                                  mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
-                                                  mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
-
-                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
-                                            } break;
-
-                                
-
-                                //OBT LEAVE
-                                case 13: { 
-
-                                          var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
-                                          var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
-                                          var duration = moment.duration(leaveEnd.diff(leaveStart));
-                                          var hours = duration.asHours();
-                                          
-
-                                          if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
-                                          else{
-
-                                            if(full.deets.totalCredits == '0.50') var totalcreds = "half";
-                                              else var totalcreds = full.deets.totalCredits;
-                                            }
-
-                                          modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
-                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>OFFICIAL BUSINESS TRIP &nbsp;&nbsp;</strong><br/><br/>';
-                                         
-
-                                         // modalcode += '<strong>VL credits used: </strong><span class="text-danger">'+full.deets.totalCredits+'</span><br/>';
-                                          modalcode += '<strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
-                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
-                                          modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
-
-                                               
-
-
-                                                  mc1 += '<div class="col-sm-6" style="font-size: 12px">';
-
-                                                  
-                                                  mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
-
-                                                  mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
-                                                  mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
-
-                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
-                                            } break;
-
+                                  modalcode += '      <!-- Message to the right -->';
+                                  modalcode += '      <div class="direct-chat-msg right" style="margin-top:50px">';
+                                  modalcode += '        <div class="direct-chat-default clearfix">';
+                                  modalcode += '          <span class="direct-chat-name pull-right"></span>';
+                                  modalcode += '          <span class="direct-chat-timestamp pull-left"> </span>';
+                                  modalcode += '        </div>';
+                                  modalcode += '        <!-- /.direct-chat-info -->';
+                                  modalcode += '        <img class="direct-chat-img" src="'+userimg+'" alt="Message User Image"><!-- /.direct-chat-img -->';
+                                  modalcode += '        <div class="direct-chat-text direct-chat-default" style="background-color:#d2d6de" >'; //style="background-color:#fff;border-color:#ddd"
+
+                                  modalcode += '<a href="#" class="process btn btn-flat btn-sm pull-right btn-danger" data-notifType="'+full.typeID+'" data-action="0" data-notifID="'+full.id+'" data-id="'+full.deets.id+'" data-dismiss="modal"style="margin-right:5px;" > <i class="fa fa-thumbs-down" ></i> Deny </a><a href="#" class="process btn btn-flat btn-success btn-sm pull-right " data-notifType="'+full.typeID+'" data-action="1" data-notifID="'+data+'" data-id="'+full.deets.id+'" data-dismiss="modal"style="margin-right:5px;" > <i class="fa fa-thumbs-up" ></i> Approve </a><div class="clearfix"></div>';
                                   
-
-                                   
-
-                                  //DTR UNLOCK
-                                case 14: { 
-
-                                          var prodFrom = moment(full.productionFrom);
-                                          var prodTo = moment(full.productionTo);
-
-
-                                          modalcode += '<p class="text-left">Hi {{$greeting}} !</p> <br/>';
-                                          modalcode += '<p class="text-center">I would like to file to have my  <strong>DTR Sheet</strong> from <br/><span class="text-danger">'+prodFrom.format("MMM. DD YYYY - ddd")+'</span> to <span class="text-danger">'+prodTo.format("MMM. DD YYYY - ddd")+'</span> <strong><br/>UNLOCKED</strong><br/><br/><a href="./seen-unlockRequest/'+full.notification_id+'?seen=true" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR Sheet<a><br/></p>';
-                                         
-
-                                        
-                                          modalcode += '<div class="row"><div class="col-sm-12">';
-                                          modalcode += '<div class="col-sm-6"></div><div class="col-sm-6"></div>';
-
-                                               
-
-
-                                                  mc1 += '<div class="col-sm-6" style="font-size: 12px">';
-
-                                                  
-                                                  mc1 += '<p><strong> </strong></p>';
-
-                                                  mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
-                                                  mc1 += '<p><strong></strong></p></div>';
-
-                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
-                                            } break;
-
-                                //PRE SHIFT OT 
-                                case 15: { 
-                                            var billedType=" ";
-
-                                            if(full.deets.billedType == '1') billedType="Billed";
-                                            else if (full.deets.billedType == '2') billedType="Non-Billed";
-                                            else if (full.deets.billedType == '3') billedType="Patch";
-                                            else billedType="Billed";
-
-
-                                            var shiftStart_new = new Date(full.productionDate+ " "+full.deets.timeStart).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
-                                            var shiftEnd_new = new Date(full.productionDate+ " "+full.deets.timeEnd).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
-
-                                            modalcode += '<p class="text-left">Hi {{$greeting}} ! ';
-                                            modalcode += 'I would like to file a <strong>Pre-Shift OT </strong> for <strong>'+full.productionDate+' ['+full.productionDay+']</strong></p>';
-                                            modalcode += '<div class="row">';
-
-                                            modalcode +='<div class="col-sm-6" style="font-size: 12px"><h5 class="text-primary">Pre-shift OT Details:</h5>';
-                                            modalcode +=' <p class="text-left"><strong>Start: </strong>'+full.deets.timeStart;
-                                            modalcode +='<br/><strong>End : </strong>'+full.deets.timeEnd;
-                                            modalcode += '<br/><strong>Billable Hours: </strong>'+full.deets.billable_hours;
-                                            modalcode += '<br/><strong>Filed Hours worked: </strong>'+full.deets.filed_hours;
-                                            modalcode += '<br/><strong>Type: </strong><span class="text-danger" style="font-size:larger">'+billedType;
-                                            modalcode += '<span></p></div> <div class="col-sm-5" style="font-size: 12px"><h5 class="text-primary">Reason:</h5>';
-                                            modalcode += '<p class="text-left"><em>'+full.deets.reason+'</em></p> </div>';
-
-
-
-                              
-
-                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
-                                            } break;
-
-                                 //ML
-                                case 16: { 
-
-                                          var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
-                                          var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
-                                          var duration = moment.duration(leaveEnd.diff(leaveStart));
-                                          var hours = duration.asHours();
-                                          
-
-                                          if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
-                                          else{
-
-                                            if(full.deets.totalCredits == '0.50') var totalcreds = "half";
-                                              else var totalcreds = full.deets.totalCredits;
-                                            }
-
-                                          modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
-                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>MATERNITY LEAVE &nbsp;&nbsp;</strong>';
-                                         
-
-                                          if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
-                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
-
-                                          modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
-                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
-                                          modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
-
-                                               
-
-
-                                                  mc1 += '<div class="col-sm-6" style="font-size: 12px">';
-
-                                                  
-                                                  mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
-
-                                                  mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
-                                                  mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
-
-                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
-                                            } break;
-
-                                  //PL
-                                case 17: { 
-
-                                          var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
-                                          var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
-                                          var duration = moment.duration(leaveEnd.diff(leaveStart));
-                                          var hours = duration.asHours();
-                                          
-
-                                          if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
-                                          else{
-
-                                            if(full.deets.totalCredits == '0.50') var totalcreds = "half";
-                                              else var totalcreds = full.deets.totalCredits;
-                                            }
-
-                                          modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
-                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>PATERNITY LEAVE &nbsp;&nbsp;</strong>';
-                                         
-
-                                          if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
-                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
-
-                                          modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
-                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
-                                          modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
-
-                                               
-
-
-                                                  mc1 += '<div class="col-sm-6" style="font-size: 12px">';
-
-                                                  
-                                                  mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
-
-                                                  mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
-                                                  mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
-
-                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
-                                            } break;
-
-                                 //SPL
-                                case 18: { 
-
-                                          var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
-                                          var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
-                                          var duration = moment.duration(leaveEnd.diff(leaveStart));
-                                          var hours = duration.asHours();
-                                          
-
-                                          if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
-                                          else{
-
-                                            if(full.deets.totalCredits == '0.50') var totalcreds = "half";
-                                              else var totalcreds = full.deets.totalCredits;
-                                            }
-
-                                          modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
-                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>SINGLE-PARENT LEAVE &nbsp;&nbsp;</strong>';
-                                         
-
-                                          if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
-                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
-
-                                          modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
-                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
-                                          modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
-
-                                               
-
-
-                                                  mc1 += '<div class="col-sm-6" style="font-size: 12px">';
-
-                                                  
-                                                  mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
-
-                                                  mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
-                                                  mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
-
-                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
-                                            } break;
-
-                                  //DTR Specific UNLOCK
-                                case 19: { 
-
-                                          var prodFrom = moment(full.productionFrom);
-                                          var prodTo = moment(full.productionTo);
-
-
-                                          modalcode += '<p class="text-left">Hi {{$greeting}} !</p> <br/>';
-                                          modalcode += '<p class="text-center">I would like to file to have my  <strong>DTR Sheet</strong> from <br/>Production Date: <span class="text-danger">'+prodFrom.format("MMM. DD YYYY - ddd")+'</span> <strong><br/>UNLOCKED</strong><br/><br/><a href="./seen-unlockPDRequest/'+full.notification_id+'?seen=true" class="btn btn-xs btn-primary"><i class="fa fa-unlock"></i> Unlock Now<a><br/></p>';
-                                         
-
-                                        
-                                          modalcode += '<div class="row"><div class="col-sm-12">';
-                                          modalcode += '<div class="col-sm-6"></div><div class="col-sm-6"></div>';
-
-                                               
-
-
-                                                  mc1 += '<div class="col-sm-6" style="font-size: 12px">';
-
-                                                  
-                                                  mc1 += '<p><strong> </strong></p>';
-
-                                                  mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
-                                                  mc1 += '<p><strong></strong></p></div>';
-
-                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
-                                            } break;
-
-                                
-                                // VTO 
-                                case 21: { 
-
-                                          var leaveStart = moment(full.deets.productionDate+' '+full.deets.startTime); //,"MM/D/YYYY h:m A");
-                                          var leaveEnd = moment(full.deets.productionDate+' '+full.deets.endTime); //,"MM/D/YYYY h:m A");
-                                          //var duration = moment.duration(leaveEnd.diff(leaveStart));
-                                          var hours = full.deets.totalHours; //moment(full.deets.totalHours).asHours(); // duration.asHours();
-                                          var totalcreds = full.deets.totalHours*0.125;
-                                          
-
-                                         
-
-                                          modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
-
-                                          if (full.deets.forced == '1')
-                                            modalcode += 'I would like to file a (<strong class="text-danger">'+totalcreds+') </strong><strong>FORCED VTO &nbsp;&nbsp;</strong>[ use: '+full.deets.deductFrom +' ]<br/><br/>';
-                                          else
-                                            modalcode += 'I would like to file a (<strong class="text-danger">'+totalcreds+') </strong><strong>VTO &nbsp;&nbsp;</strong>[ use: '+full.deets.deductFrom +' ]<br/><br/>';
-                                         
-
-
-                                        
-                                          modalcode += '<strong>Total hours: </strong><em>'+full.deets.totalHours+'</em><br/>';
-                                          modalcode += '<strong>&nbsp;&nbsp;Notes: </strong><em>'+full.deets.notes+'</em></p>';
-                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
-                                          modalcode += '<div class="col-sm-4"><h5 class="text-primary">Production Date: </h5></div>';
-                                          modalcode += '<div class="col-sm-4"><h5 class="text-primary">From: </h5></div><div class="col-sm-4"><h5 class="text-primary">Until: </h5></div>';
-
-                                               
-
-
-                                                  mc1 += '<div class="col-sm-4" style="font-size: 12px">';
-                                                  mc1 += '<p><strong>'+full.deets.productionDate+' </strong></p></div>';
-                                                  mc1 += '<div class="col-sm-4" style="font-size: 12px">';
-
-                                                  
-                                                  mc1 += '<p><strong>'+leaveStart.format("hh:mm A")+' </strong></p>';
-
-                                                  mc1 += '</div><div class="col-sm-4" style="font-size: 12px">';
-                                                  mc1 += '<p><strong>'+leaveEnd.format("hh:mm A")+'</strong></p></div>';
-
-                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
-                                            } break;
-
-
-                                
-                                //MAGNA CARTA
-                                case 22: { 
-
-                                          var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
-                                          var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
-                                          var duration = moment.duration(leaveEnd.diff(leaveStart));
-                                          var hours = duration.asHours();
-                                          
-
-                                          if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
-                                          else{
-
-                                            if(full.deets.totalCredits == '0.50') var totalcreds = "half";
-                                              else var totalcreds = full.deets.totalCredits;
-                                            }
-
-                                          modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
-                                          modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>MAGNA CARTA FOR WOMEN LEAVE &nbsp;&nbsp;</strong>';
-                                         
-
-                                          if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
-                                          modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
-
-                                          modalcode += '<br/><br/><strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
-                                          modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
-                                          modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
-
-                                               
-
-
-                                                  mc1 += '<div class="col-sm-6" style="font-size: 12px">';
-
-                                                  
-                                                  mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
-
-                                                  mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
-                                                  mc1 += '<p><strong>'+leaveEnd.format("MMM DD, ddd hh:mm A")+'</strong></p></div>';
-
-                                                  //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
-                                            } break;
-
-                                  //PL
-
-
+                                  modalcode += '        </div>';
+                                  modalcode += '        <!-- /.direct-chat-text -->';
+                                  modalcode += '      </div>';
+                                  modalcode += '      <!-- /.direct-chat-msg -->';
+                                  modalcode += '    </div>';
+                                  modalcode += '    <!--/.direct-chat-messages-->';
                               }
 
-                              //modalcode += '</div><div class="row"><div class="col-sm-4"> '+full.productionDate+'<br/> ['+full.productionDay+'] </div>';
-                              modalcode += mc1;
-                              modalcode += '<div class="col-sm-3"> </div></div></div></div>    </div>';
 
-                              modalcode += '        </div>';
-          modalcode += '        <!-- /.direct-chat-text -->';
-          modalcode += '      </div>';
-          modalcode += '      <!-- /.direct-chat-msg -->';
+                              modalcode += '  </div>';
+                              modalcode += '  <!-- /.box-body -->';
+                              
+                              modalcode += '</div>';
+                              modalcode += '<!--/.direct-chat -->';
 
-          if(full.typeID != 14 && full.typeID != 19) //do this only if NON UNLOCK DTR request
-          {
-              modalcode += '      <!-- Message to the right -->';
-              modalcode += '      <div class="direct-chat-msg right" style="margin-top:50px">';
-              modalcode += '        <div class="direct-chat-default clearfix">';
-              modalcode += '          <span class="direct-chat-name pull-right"></span>';
-              modalcode += '          <span class="direct-chat-timestamp pull-left"> </span>';
-              modalcode += '        </div>';
-              modalcode += '        <!-- /.direct-chat-info -->';
-              modalcode += '        <img class="direct-chat-img" src="'+userimg+'" alt="Message User Image"><!-- /.direct-chat-img -->';
-              modalcode += '        <div class="direct-chat-text direct-chat-default" style="background-color:#d2d6de" >'; //style="background-color:#fff;border-color:#ddd"
+                                                  modalcode +=' <div class="modal-footer no-border">';
 
-              modalcode += '<a href="#" class="process btn btn-flat btn-sm pull-right btn-danger" data-notifType="'+full.typeID+'" data-action="0" data-notifID="'+full.id+'" data-id="'+full.deets.id+'" data-dismiss="modal"style="margin-right:5px;" > <i class="fa fa-thumbs-down" ></i> Deny </a><a href="#" class="process btn btn-flat btn-success btn-sm pull-right " data-notifType="'+full.typeID+'" data-action="1" data-notifID="'+data+'" data-id="'+full.deets.id+'" data-dismiss="modal"style="margin-right:5px;" > <i class="fa fa-thumbs-up" ></i> Approve </a><div class="clearfix"></div>';
-              
-              modalcode += '        </div>';
-              modalcode += '        <!-- /.direct-chat-text -->';
-              modalcode += '      </div>';
-              modalcode += '      <!-- /.direct-chat-msg -->';
-              modalcode += '    </div>';
-              modalcode += '    <!--/.direct-chat-messages-->';
-          }
+                                                  modalcode +='</div></div></div></div>'+ delModal;
 
 
-          modalcode += '  </div>';
-          modalcode += '  <!-- /.box-body -->';
-          
-          modalcode += '</div>';
-          modalcode += '<!--/.direct-chat -->';
+                                                  //********* UNLOCK DTR has a different set of action buttons eh
+                                                  if(full.typeID == 14)
+                                                    
+                                                    return '<a href="./seen-unlockRequest/'+full.notification_id+'?seen=true" class="btn btn-flat btn-xs text-primary"><i class="fa fa-calendar"></i> Open DTR Sheet</a>'+modalcode;
 
-                              modalcode +=' <div class="modal-footer no-border">';
+                                                  else if(full.typeID == 19)
+                                                    
+                                                    return '<a href="./seen-unlockPDRequest/'+full.notification_id+'?seen=true" class="btn btn-flat btn-xs text-primary"><i class="fa fa-unlock"></i> Unlock Production Date Now</a>'+modalcode;                         
 
-                              modalcode +='</div></div></div></div>'+ delModal;
-
-
-                              //********* UNLOCK DTR has a different set of action buttons eh
-                              if(full.typeID == 14)
-                                
-                                return '<a href="./seen-unlockRequest/'+full.notification_id+'?seen=true" class="btn btn-flat btn-xs text-primary"><i class="fa fa-calendar"></i> Open DTR Sheet</a>'+modalcode;
-
-                              else if(full.typeID == 19)
-                                
-                                return '<a href="./seen-unlockPDRequest/'+full.notification_id+'?seen=true" class="btn btn-flat btn-xs text-primary"><i class="fa fa-unlock"></i> Unlock Production Date Now</a>'+modalcode;                         
-
-                              else
-                              return '<a data-notifType="'+full.typeID+'" data-action="1" data-notifID="'+full.id+'" data-id="'+full.deets.id+'" href="#" class="process btn btn-flat btn-xs text-success"><i class="fa fa-thumbs-up"></i> Approve</a><a data-notifType="'+full.typeID+'" data-action="0" data-notifID="'+full.id+'" data-id="'+full.deets.id+'" href="#" class="process btn btn-flat btn-xs text-danger"><i class="fa fa-thumbs-down"></i> Deny</a><a data-toggle="modal" data-target="#myModal'+full.id+'"  href="#" class="btn btn-flat btn-xs text-default"><i class="fa fa-trash"></i> Delete</a>'+modalcode;}}
+                                                  else
+                                                  return '<a data-notifType="'+full.typeID+'" data-action="1" data-notifID="'+full.id+'" data-id="'+full.deets.id+'" href="#" class="process btn btn-flat btn-xs text-success"><i class="fa fa-thumbs-up"></i> Approve</a><a data-notifType="'+full.typeID+'" data-action="0" data-notifID="'+full.id+'" data-id="'+full.deets.id+'" href="#" class="process btn btn-flat btn-xs text-danger"><i class="fa fa-thumbs-down"></i> Deny</a><a data-toggle="modal" data-target="#myModal'+full.id+'"  href="#" class="btn btn-flat btn-xs text-default"><i class="fa fa-trash"></i> Delete</a>'+modalcode;}}
                             
 
                         ],
