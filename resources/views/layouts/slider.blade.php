@@ -95,34 +95,39 @@
                     
             </div>
 
+           
+
             <div class="item text-center" >
+                  
+                  <h4 class="text-orange" style="line-height: 1.5em" >New Leadership Development Course <br/><span class="text-primary"><i class="fa fa-users"></i> Understanding Core Competencies<br/> and Rating Criteria <br/><small>Mar.24, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-left">
+                     Hi leaders,<br/><br/>
+ 
+                      It's finally here!<br/><br/>
+                       
+                      As part of rolling out our new corporate approach to performance management and development this year, we are happy to announce that our course for understanding our core competencies and criteria for rating performance is now available in Rise 360.<br/><br/>
+                       
+                      This mandatory course provides instruction and insights on performance management, and discusses the working definitions for the essential skills and competencies for our jobs and how they can be developed. It is vital for leaders to have a clear understanding and an aligned implementation of these across the board, as we set performance standards and assess how we're doing all year-round. This will help us advance them as well as evaluate them as one Open Access BPO team.<br/><br/>
+                       
+                      This is also designed to equip people managers to competently care for the development of our people and will be an accessible reference all year long. Through this valuable toolkit we can coach, guide, set goals for, and make thrive our most valuable resources --- our talents, our people.<br/><br/> 
+                       
+                      Please self-register in LMS today and take <strong class="text-primary">How to Rate Performance: Understanding Our Core Competencies and Rating Criteria.</strong>  All people managers and individual support contributors are required to complete this <strong class="text-success"> on or before April 15, 2021.</strong>
+                       
+                      <br/><br/>
 
-                              <img src="./public/img/ana.jpg" style="z-index: 2" />
-
-                              <div class="text-gray text-right" style="position: relative;width:90%; right:0px;top:-200px; z-index: 999; height: 20px">
-                                 <h2><img src="./public/img/white_logo_small.png" width="40" style="margin-right: 30px" /><br/> <strong>Internal<br/>Hiring! </strong></h2>
-
-                              </div>
-
-                               <h2 style="margin-top: -30px" class="text-danger"><strong>Team Leader </strong><br/>
-                               <small>for</small> <a target="_blank" href="{{action('CampaignController@show','38')}} "> <img src="./public/img/logo_quora.png" width="120"></a></h2>
-
-                              <h5 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Deadline of Submission: <strong class="text-primary"> Apr. 02, 2021 Friday </strong></h5>
-                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Requirements: </p>
-                              <ul class="text-left">
-                                <li>Have stayed with Open Access for at least a period of 6 months</li>
-                                <li>Minimum of 1 year managing a team as OIC or equivalent position</li>
-                                <li>Excellent English communication skills</li>
-                                <li>Must have exemplary Performance (for agents)</li>
-                                <li>Flexible with any schedule</li>
-                                <li>No written warnings and attendance issues</li>
-                              </ul>
-
-                              <p><small>Interested applicants may submit their letter of intent and updated resume to: <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessmarketing.com</a></small><br/>
-                                <strong>Subject: <span class="text-danger"> Team Lead Post for Quora</span></strong></p>
-
-
-            </div>  
+                      <strong>ENROLL NOW!</strong><br/>
+                       <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://open-access.training-online.eu/catalog/" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                  </p>
+                    
+                   
+                    
+                    
+            </div>
 
             <div class="item text-center" >
                   
@@ -197,57 +202,9 @@
                     
             </div>
 
-            <div class="item text-center" >
-                  
-                  <h4 class="text-orange" style="line-height: 1.5em" >New Leadership Development Course <br/><span class="text-primary"><i class="fa fa-users"></i> Understanding Core Competencies<br/> and Rating Criteria <br/><small>Mar.24, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-left">
-                     Hi leaders,<br/><br/>
- 
-                      It's finally here!<br/><br/>
-                       
-                      As part of rolling out our new corporate approach to performance management and development this year, we are happy to announce that our course for understanding our core competencies and criteria for rating performance is now available in Rise 360.<br/><br/>
-                       
-                      This mandatory course provides instruction and insights on performance management, and discusses the working definitions for the essential skills and competencies for our jobs and how they can be developed. It is vital for leaders to have a clear understanding and an aligned implementation of these across the board, as we set performance standards and assess how we're doing all year-round. This will help us advance them as well as evaluate them as one Open Access BPO team.<br/><br/>
-                       
-                      This is also designed to equip people managers to competently care for the development of our people and will be an accessible reference all year long. Through this valuable toolkit we can coach, guide, set goals for, and make thrive our most valuable resources --- our talents, our people.<br/><br/> 
-                       
-                      Please self-register in LMS today and take <strong class="text-primary">How to Rate Performance: Understanding Our Core Competencies and Rating Criteria.</strong>  All people managers and individual support contributors are required to complete this <strong class="text-success"> on or before April 15, 2021.</strong>
-                       
-                      <br/><br/>
+           
 
-                      <strong>ENROLL NOW!</strong><br/>
-                       <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://open-access.training-online.eu/catalog/" />
-                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
-                  </p>
-                    
-                   
-                    
-                    
-            </div>
-
-            <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_03_22_wall.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"><i class="fa fa-pagelines"></i> Earth Hour 2021 <i class="fa fa-pagelines"></i><br/><small>Mar. 22, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Leonardo di Caprio is not only a Hollywood actor but a known environmentalist. <br/><em>‘We only get one planet. This is the most urgent of times, and the most urgent of messages’,</em> he once said. <br/><br/><strong>What small act are you doing for our mother Earth these days? </strong><br/>March 27 is Earth Hour, let’s do our part OABPO family! <br/> Earn 20 points for your post, visit EMS now! <br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',47)}}"><i class="fa fa-th-large"></i> View Wall</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
-
-          
+           
 
             
             
@@ -290,164 +247,7 @@
                     
             </div>
 
-            
-
-
-
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>  Income Tax Return (ITR) Assistance<br/><small>Mar. 04, 2021</small><br/>
-
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                    We are glad to announce that the company has arranged for ITR assistance to our employees who are NOT qualified for substituted filing.  An engagement with a third-party vendor has been done to make this possible.<br/><br/>
-
-                    If you opt to avail of this service, please submit your BIR Form 2316 and other pertinent details (see attached flowchart) to employeeitr@openaccessbpo.com as a starting point for the computation of your annual income tax return.  The assistance of the third-party vendor is up to the filing of ITR only.  It is the responsibility of the employee to pay his income tax if he has tax payable.<br/><br/>
-
-                    Please be informed that the assistance of our third-party vendor is until April 15, 2021.  You can send questions or clarifications up to that date only.<br/><br/>
-
-                    Below is the summary of activities:<br/><br/>
-
-                    1.  The employee will send the 2316 and other pertinent details to the third-party vendor (see attached flowchart).<br/><br/>
-                    2.  Upon receipt of 2316, the third-party vendor will compute and send the income tax computation to the employee.<br/><br/>
-                    3.  If the employee confirms and agrees to the computation, the third-party vendor will proceed to file the ITR (BIR Form 1700) via eBIRForms.  BIR will send a Confirmation Receipt once the filed ITR was received.  Afterwards, the third-party vendor will send the ITR (BIR Form 1700) and Confirmation Receipt to the employee. On the other hand, the employee should send an email to employeeitr@openaccessbpo.com if he does not want to proceed in availing the service of our third-party vendor.<br/><br/>
-                    If with tax payable, the employee will print the ITR (BIR Form 1700) and its Confirmation Receipt and pay the corresponding amount to any payment accredited center (e.g. bank, GCash, etc.) on or before April 15, 2021.  End of process.<br/><br/>
-                    If no tax payable, the third-party vendor will bring the printed ITR (BIR Form 1700)  to the BIR for stamping on or before April 15, 2021.  The finance department will distribute these hard copies (stamped BIR Form 1700) to employees.  Please wait for further communication.  End of process.<br/><br/>
-                    4.  On the other hand, the employee should send an email to employeeitr@openaccessbpo.com if he does not want to proceed in availing the service of our third-party vendor.<br/><br/>
-
-                    <a class="btn btn-sm btn-success" target="_blank" href="https://internal.openaccess.bpo/EMS/public/storage/uploads/ITR_assistance.pdf">View Process Flowchart</a>
-
-                  </p>
-
- 
-                    
-              </div>
-
-
-               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from OA Transport: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>  Critical Reminders<br/><small>Mar. 02, 2021</small><br/>
-
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                    <strong>We would like to reiterate the following REQUIRED daily protocols if you are taking the shuttle service:</strong><br/>
-                    <br/><br/>
-                    
-                    <strong class="text-primary">BRING YOUR OWN PEN  </strong><br/>
-                    Before you enter the company shuttle, (along with your face mask and shield, and completing the HDF) be sure to bring your own pen for signing the official Passenger Log to confirm the start and completion of your ride. This is to limit the possible transmission of germs and viruses from shared pens. This is also in compliance with our HR Health and Safety Protocols. Starting March 5, our drivers will no longer lend pens to shuttlers.<br/><br/>
-
-                     <strong class="text-primary">DON’T TALK ON THE PHONE IN PUBLIC TRANSPORT </strong> <br/>
-                    Not only is it polite to wait until you’re in a more private area before engaging in a call, but it also limits the spread of droplets in an enclosed space. This applies in public transport as well as in our company vehicles. Stay courteous as well as safe. Don’t make or receive phone calls while in our company vehicles.<br/><br/>
-                      
-                     <strong class="text-primary">5-MINUTE GRACE PERIOD   </strong><br/>
-                    In keeping with courtesy, professionalism, and punctuality, please be in your designated pickup place early or on time (early is of course better).  As ours is a rideshare transport model, our drivers have trip queues and schedules they need to critically maintain. Do not wait for an SMS message as drivers are not obligated to send these because your official ride confirmation is sent via your Trip Notification Email. Your ride details are specified there and confirms both your home and office pickup. As a courtesy to your co-passengers and driver, please be prompt. Lateness is tracked and may negatively affect shuttler privilege status.<br/><br/>
-
-                    Please do not cause delays, as these may negatively impact your and others' attendance status as well our trip queue and business operations.<br/><br/>
-
-                    <strong class="text-primary">KNOW THE OA TRANSPORT PROTOCOLS  </strong><br/>
-                    The OA Company Shuttle is a free transport service and passenger support process Open Access BPO has graciously provided for you, our onsite workers.  The transport service provider is a fleet of professional drivers outsourced by the company to meet your transport needs during this pandemic.  They deliver competent and licensed service and are answerable to the company, hence they are not to be treated as personal chauffeurs or Grab drivers. Please do your part by knowing and observing our policies and procedures, and respecting our drivers, your co-riders, and our process.<br/><br/>
-
-                    For your compliance. Thank you.
-
-                  </p>
-
- 
-                    
-              </div>
-
-
-
-               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from OA Transport: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>  STRICTER IMPLEMENTATION <br/>OF 5-MINUTE WAITING PERIOD<br/><small>Mar. 02, 2021</small><br/>
-
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">Starting last month, Ayala traffic management has been stricter with the vehicles' holding period in the un/loading slot by the ADP entrance along West Street. They actively send away cars if they are caught waiting for several minutes, sometimes even less than 5 minutes. <br/><br/>
-
-
-
-                    <strong class="text-primary">Less than 5 Minutes and Car Asked to Leave = Proceed to Landmark Palm Drive Parking Slot </strong><br/>
-                    If traffic patrol directs the driver to leave the waiting area before the grace period is due, the driver will have to leave ADP but will wait for you for the remaining duration of the waiting period in the Landmark Parking Slot along Palm Drive cor West St. Please head there as soon as you can because when 5 minutes is up, the driver will have to leave for the next pickup.<br/><br/>
-
-
-                    <strong class="text-primary">After 5 Minutes = Leave Without Warning: No Show</strong><br/>
-                    To comply with this new zone procedure, we will more stringently keep to our 5-minute grace period prescribed in our transport guidelines, and no longer grant exceptions.  As stated in our policy, if you are not in the vehicle within 5 minutes, the driver may leave without warning and you will be penalized as a No Show and which will cause your shuttle privilege status to be red flagged.<br/><br/>
-
-
-                    For your guidance. Thank you.
-
-                  </p>
-
- 
-                    
-              </div>
-
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from HR: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>  Dress Code<br/>Company Policy<br/><small>Mar. 01, 2021</small><br/>
-
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <p style="padding: 30px;" class="text-left">
-                    <strong>REMINDER TO ALL ONSITE EMPLOYEES:</strong><br/>
-                    Effective March 01, 2021, please be advised that we will revert to our standard Dress Code policy.<br/><br/>
-                    
-                    <strong class="text-primary">Brief </strong><br/>This dress code policy defines how we as employees are expected to dress at work. We should be aware that our  appearance matters and contributes to shaping the overall image of the company. Besides our performance, our  appearance is included in representing our business to clients and other parties. We, therefore, should be mindful to  dress in a manner that is respectful of others and creates a positive impression and reflection of the Open Access  culture. <br/><br/>
-
-                    <strong class="text-primary">Scope  </strong><br/><br/>
-                    This policy applies to all our employees. <br/><br/><br/><br/>
-                   
-                    <strong class="text-primary">Casual Dress Code  </strong><br/><br/>
-                    Our company’s official dress code is Casual. See the policy elements and guidelines below for what casual office  dressing comprises. For special events, we may prescribe employees to wear attire with varying degrees of formality  or style. An employee’s position and function may additionally inform their dress code. If they frequently meet with  clients or prospects, they should dress appropriately to represent Open Access BPO positively.  <br/><br/><br/><br/>
-
-                    <strong class="text-primary">Policy Elements  </strong><br/><br/>
-                    Enumerated below are specific parameters to help us understand and follow our dress code rules. These guidelines  will always apply: 
-                    <br/><br/>
-
-                    <strong>All employees must be clean and tidy.</strong> <br/><br/>
-                    ● We as employees must maintain basic grooming and hygiene as these ensure personal and workplace safety and  sanitation. <br/><br/>
-                    ● Dressing styles dictated by ethnicity and religion are not restricted. <br/><br/><br/><br/>
-
-                    <strong>All clothes must project professionalism.</strong> <br/><br/>
-                    ● Clothes not appropriate to a place of business are not allowed. <br/><br/>
-                    ● Guidelines for what are considered unsuitable or indecorous: <br/><br/>
-
-                    Clothing articles whose design and/or material overly expose skin, or the form of the body are prohibited. (e.g.: forearms, upper thighs, cleavage, lower back, navel, etc.) <br/><br/><br/><br/>
-
-                    <strong>All clothes must be office appropriate.</strong> <br/><br/>
-                    ● Clothing pieces containing profanity and offensive language are not allowed. <br/><br/>
-                    ● Overly informal or form-fitting outfits and gym gear are not permitted, even on weekends.  
-                     (e.g.: shorts, sleeveless jerseys, crop or open-back tops, cutout or mesh leggings, etc.) <br/><br/>
-                    ● During bad weather, bring a change of clothes if you anticipate your commute to be particularly rough, then change  in the office. <br/><br/>
-
-                    Examples of inadmissible office clothing:  <br/><br/>
-                    slippers, flip flops, shorts, sleeveless tops, cropped tops. miniskirts, etc. <br/><br/>
-                    All clothes must be well-kept and in *good condition. <br/><br/>
-
-                    *Ripped jeans and other similar items (causing no undue skin exposure) are allowed for style expression, as long as  the overall look is still dressed up and office appropriate. 
-                    <br/><br/>
-
-                    <strong class="text-primary"> Disciplinary Consequences  </strong><br/>
-                    Employees are required to respect and follow our dress code. When an employee disregards these dress code  regulations and guidelines, their immediate head must remind, reprimand or coach for behavior improvement, and  report for *appropriate disciplinary action. In some cases, management may ask employees to return home to  change.  <br/><br/>
-
-                    Employees may face more severe consequences up to and including termination, if: <br/>
-                    • Their appearance causes irreparable damage, like the loss of a business or client. <br/><br/>
-                    • Violations are repeated. <br/><br/><br/><br/>
-
-                    Nonadherence to this policy will result in disciplinary action which may lead up to termination: Schedule of Discipline - Office Protocol and Decorum Rule VIII Section 1  <br/><br/>
-                    1st offense: Verbal Warning <br/><br/>
-                    2nd offense: Written Warning <br/><br/>
-                    3rd offense: Final Warning <br/><br/>
-                    4th offense: Termination 
-
-                  </p>
-
- 
-                    
-              </div>
-
-             
-
-              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-calendar"></i>   2021 Regular and Special <br/>Non-Working Holidays <br/>(Proclamation Order No. 986)<br/><small>Feb.23, 2021</small><br/>
 
                     <img src="storage/uploads/divider.png" />
@@ -591,35 +391,19 @@
 
  
                     
-              </div>
+            </div>
 
             
              
 
            
 
-            <div class="item text-center" >
-                  <img src="storage/uploads/newRewards.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Rewards:  <br/><span class="text-primary"><i class="fa fa-gift"></i> New Items for 2021 <i class="fa fa-gift"></i><br/><small>Feb.11, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      We couldn't thank you enough for continuing the AWESOME work do!<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="{{action('RewardsHomeController@rewards_catalog') }}"><i class="fa fa-gift"></i> View Rewards Catalog</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
+           
 
 
            
 
-               <div class="item text-center" >
+            <div class="item text-center" >
                   <img src="storage/uploads/myth.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Message from Open Access Nurses:  <br/><span class="text-primary"><i class="fa fa-user-md"></i> COVID19 Vaccine Myths Debunked <br/><small>Feb.09, 2021</small><br/>
                   
@@ -670,37 +454,9 @@
              
            
            
+        
+
          <div class="item text-center" >
-                  <img src="storage/uploads/donationposter.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Share Your Points <br/><span class="text-primary"> <small>A little compassion goes a long way</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4> 
-                    <p  style="padding: 30px;" class="text-center">
-                     For a minimum of <strong>50 points,</strong>you can help our healthcare providers and frontliners who have been called to serve in the fight against the spread of COVID-19 </p>
-
-                   
-                    <a class="btn btn-success btn-md" href="{{action('RewardsHomeController@rewards_catalog')}}#donatenow"> Donate Now</a>
-                    
-                    
-            </div>
-
-           
-            
-
-           
-              
-          
-
-
-
-           
-
-
-           
-
-
-              <div class="item text-center" >
                
                     <img src="storage/uploads/linkedinoam_1.jpg" width="100%" />
                     <p style="padding: 30px;" class="text-left">
@@ -715,7 +471,7 @@
 
                    
                     
-              </div>
+          </div>
 
 
               
@@ -793,7 +549,7 @@
 
                             @endforeach
 
-                   @endif 
+              @endif 
 
                  
 
@@ -801,37 +557,7 @@
 
             
 
-               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
-                  <h4 class="text-orange" ><i class="fa fa-exclamation-triangle"> </i> REMINDER TO ALL  <br/> <span class="text-primary">ONSITE EMPLOYEES: <br/>
-                    <small>Sep.16, 2020</small><br/><br/>
-                <img src="storage/uploads/safetyfirst.png" width="40%" /><br/>
-                    <img src="storage/uploads/divider.png" /><br/>
-                    
-                    <!-- <h3 class="text-danger"><i class="fa fa-medkit"></i> Health Alert <i class="fa fa-medkit"></i> </h3> -->
-                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
-                    
-
-                    Employees reporting to the office must follow the following protocols:<br/><br/>
-
-                    <strong class="text-primary"> Prior to entering the office premises: </strong><br/>
-                    <strong>1. Health Declaration Form - </strong> To be accomplished daily.  If you're sick, stay home. <br/>
-                    <strong>2. Thermal Scan -</strong> If temperature is more than 37.5C, you'll be sent home.<br/>
-                    <strong>3.  No Face Mask and Face Shield, No Entry.  - </strong>Face masks and face shields must be worn at all times except when eating/drinking.  Face masks and face shields are required to be worn while inside the shuttle service.<br/><br/>
-
-                    <strong class="text-primary"> While In the office:</strong><br/>
-                    <strong>1. Social Distancing - </strong>keep at least one (1) meter physical distance.<br/>
-                    <strong>2. Respiratory Etiquette -</strong> any act or behavior that may spread the virus or cause anxiety/concern related to COVID-19 is prohibited.<br/>
-                    <strong>3. Personal Hygiene - </strong> frequent handwashing/use of hand sanitizer is encouraged. <br/><br/>
-                    <br/>
-
-                    For strict compliance.
-                  </p>
-
-                    
-                    
-
-                    
-              </div>
+               
 
               
            
@@ -843,37 +569,6 @@
 
             
 
-
-            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"> Your Payroll Help Desk is Here! <br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4><img src="storage/uploads/payrollHelpdesk.jpg" width="98%" />
-                    <p style="padding: 30px;" class="text-left">
-                     
-                    Hello everyone,<br/><br/>
-
-                    We are officially introducing Payroll Help Desk today. Getting assistance on your payroll-related inquiries is now more convenient and systematic.<br/><br/>
-
-                    Please access the user guide here to find out how to use it:
-                    <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value=" https://rise.articulate.com/share/R7DUt2qkI--qHon-LOtel335dgZHDs26" />
-                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
-                     <br/><br/>
-                     
-                    
-
-                   
-
-                   
-
-                    </p> 
-
-
- 
-                    
-            </div>
-
-           
 
 
           
@@ -887,87 +582,7 @@
 
               
 
-              <div class="item text-center">
-                
-                  <h4 class="text-orange" style="line-height: 1.5em" >Reminders from<br/><span class="text-primary">Clinical Services</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-
-                    <img src="storage/uploads/who_1.png" width="100%" /><br/>
-                    <img src="storage/uploads/who_2.jpg" width="100%" /><br/>
-
-                    
-                    
- 
- 
-                    
-              </div>
-
-              <div class="item text-center">
-                
-                  <h4 class="text-orange" style="line-height: 1.5em" >Reminders from<br/><span class="text-primary">Clinical Services</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-
-                    <img src="storage/uploads/who_3.jpg" width="100%" /><br/>
-                    <img src="storage/uploads/who_4.jpg" width="100%" /><br/>
-                   
-                    
-                    
- 
- 
-                    
-              </div>
-
-              <div class="item text-center">
-                
-                  <h4 class="text-orange" style="line-height: 1.5em" >Reminders from<br/><span class="text-primary">Clinical Services</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-
-                    <img src="storage/uploads/who_5.png" width="100%" /><br/>
-                    <img src="storage/uploads/who_6.png" width="100%" /><br/>
-                   
-                    
-                    
- 
- 
-                    
-              </div>
-
-            
-
-              <div class="item text-center" >
-                
-                  <h4 class="text-orange" style="line-height: 1.5em" >Infographic:<br/><span class="text-primary">Enabling Continuous Operations <br/>During Covid-19</span>
-                  <br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    <img src="storage/uploads/infographic_covid.jpg" width="100%" />
-                    <br/> <a class="btn btn-primary" href="https://www.openaccessbpo.com/blog/infographic-how-open-access-bpo-is-ensuring-continuous-ops-during-covid-19/" target="_blank"> <i class="fa fa-external-link"></i> Read Blog Post</a>
-              </div>
-
-             
-
-              
-             
-
-       
-
-              
-
-             
-              
-
-             
-
-             
-            
-
-              
+        
 
               <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Feature Article: <br/> <span class="text-primary"><i class="fa fa-newspaper"></i>   The Wall Street Journal (May 15, 2020) <br/><br/>
@@ -1047,46 +662,6 @@
                     
               </div>
 
-              
-
-            
-
-             
-
-             
-
-            
-              
-
-             
-
-              <div class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders: <br/> <span class="text-primary"><i class="fa fa-newspaper"></i>   Tips and Tricks on How to Stay Productive
-                  <br/>
-                  <img src="storage/uploads/remotework.jpg" width="100%" /><br/><br/>
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                    
-                    <p style="padding: 30px;" class="text-left">
-                     
-                   
-                      Reminding everyone that the deadline for completing <a href="https://rise.articulate.com/share/OZZ5OikfamvlE5SqiPqAnRwJYJl0cf4P#/" target="_blank"> Remote Work: Tips and Tricks on How to Stay Productive</a> is this coming Sunday, April 27, 2020.<br/><br/>
-
-                      Take note that you need to respond to the chatbot LEIA before ending the module so we can capture your completion information. Refer to the image below.<br/><br/>
-
-                      Kudos to the following teams for leading the completion ranking per group:<br/><br/>
-                      <strong><a target="_blank" href="{{action('CampaignController@show',19)}}"> Data Management</a> </strong>- 90% <br/>
-                      <strong><a target="_blank" href="{{action('CampaignController@show',15)}}"> Workforce</a></strong> - 77.78% <br/>
-                      <strong><a target="_blank" href="{{action('CampaignController@show',16)}}"> Marketing</a></strong> - 75% <br/><br/>
-                      Happy weekend everyone. Stay safe!</p> 
-
-
-
-                    
- 
-                    
-              </div>
-
               <div class="item text-center" >
                   <h4 class="text-orange" style="line-height: 1.5em" > Feature Article: <br/> <span class="text-primary"><i class="fa fa-newspaper"></i>   The Wall Street Journal <br/>Apr.23, 2020 <br/><br/>
                   <img src="storage/uploads/wsj.png" width="30%" />
@@ -1145,21 +720,6 @@
  
                     
               </div>
-
-              
-
-              
-
-
-             
-
-
-             
-
-              
-
-              
-             
 
               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
 
@@ -1280,57 +840,6 @@
                     
                 </div>
 
-             
-
-      
-
-                
-
-                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" >Attention: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>All Shuttle/Carpool Riders<br/> <br/>
-                   
-                   
-                  
-                    <img src="storage/uploads/facemask.png" width="80%" /><br/> 
-                    <img src="storage/uploads/divider.png" /><br/>
-                    </h4>
-                    
-                    <p style="padding: 50px;" class="text-left">
-                      <strong class="text-danger"><i class="fa fa-exclamation-triangle"></i> FACIAL MASKS ARE REQUIRED TO GET INTO THE VEHICLE</strong> --- LGU'S have made it mandatory for citizens to wear masks when in public so this will be inspected in checkpoints.  Hence our company is enforcing this in the office as well as in our company shuttles on the way to our workplace.<br/><br/>
-
-                      For strict compliance.  Please comply and come prepared - so as not to endanger others or delay your shared trip.<br/><br/>
-
-                      Washable masks are available at our clinic. Request for one, if needed.
-
-
-
-                    </p>
-
-                   
-                    
-                </div>
-
-               
-
-                
-
-               
-
-              
-
-
-             
-
-              
-
-                
-
-
-                  
-                
-
-                 
-
                    @if (count($newHires) >= 1)
                         <!-- **** NEW HIRES ******************** -->
                         <div class="item text-center">
@@ -1404,14 +913,26 @@
 
                     @endif
 
+           <div class="item text-center" >
+                  <img src="storage/uploads/newRewards.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Rewards:  <br/><span class="text-primary"><i class="fa fa-gift"></i> New Items for 2021 <i class="fa fa-gift"></i><br/><small>Feb.11, 2021</small><br/>
                   
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      We couldn't thank you enough for continuing the AWESOME work do!<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('RewardsHomeController@rewards_catalog') }}"><i class="fa fa-gift"></i> View Rewards Catalog</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
 
 
-               
-              
-
-
-                    <div class="item text-center" style="background-color: #fff" >
+            <div class="item text-center" style="background-color: #fff" >
                       
                               <!-- <h4 class="text-orange" >Monday <span class="text-primary"> Motivation </span></h4> -->
                               <img src="./storage/uploads/OALife.jpg" style="z-index: 2" />
@@ -1435,142 +956,27 @@
 
                     </div>
 
+            
+            <div class="item text-center" >
+                  <img src="storage/uploads/donationposter.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Share Your Points <br/><span class="text-primary"> <small>A little compassion goes a long way</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4> 
+                    <p  style="padding: 30px;" class="text-center">
+                     For a minimum of <strong>50 points,</strong>you can help our healthcare providers and frontliners who have been called to serve in the fight against the spread of COVID-19 </p>
+
+                   
+                    <a class="btn btn-success btn-md" href="{{action('RewardsHomeController@rewards_catalog')}}#donatenow"> Donate Now</a>
+            </div>
+
           
 
 
 
                     
 
-                      <div style="padding:0px" class="item  text-center" >
-                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                         <img src="storage/uploads/safehome_1.jpg" width="100%"><br/>
-                          <img src="storage/uploads/divider.png" />
-                          </h4>
-                          <p style="padding: 30px;" class="text-left">
-                           
-                           Let's be #OneForHealth to stop the spread of the COVID-19 virus. Follow these tips to protect yourself and your loved ones!<br/><br/><strong>#WeSpeakYourLanguage</strong>
-                          
-
-                          </p>  
-                          
-                    </div>
-
-                    <div style="padding:0px" class="item  text-center" >
-                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                         <img src="storage/uploads/safehome_2.jpg" width="100%"><br/>
-                          <img src="storage/uploads/divider.png" />
-                          </h4>
-                           <strong class="text-primary"> DISINFECTING PRACTICES</strong><br/>
-                            - Remove and disinfect your footwear before entering your home<br/><br/>
-                            - Segregate your used faced masks and gloves from the rest of your trash<br/><br/>
-                            - Put the items you used outside (such as bags, phone, glasses, spare change, and keys) in a separate container and disinfect each)<br/><br/>
-                          
-
-                          </p>  
-                          
-                    </div>
-
-                    <div style="padding:0px" class="item  text-center" >
-                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                         <img src="storage/uploads/safehome_3.jpg" width="100%"><br/>
-                          <img src="storage/uploads/divider.png" />
-                          </h4>
-                           <strong class="text-primary">HYGIENE & LAUNDRY ROUTINE</strong><br/>
-                            - Avoid touching surfaces and sitting on chairs or beds if you haven’t washed up<br/><br/>
-                            - Soak your used clothes in soapy water or wash them with bleach or disinfectant<br/><br/>
-                            - Shower and change your clothes immediately<br/><br/>
-                          
-
-                          </p>  
-                          
-                    </div>
-
-
-                    <div style="padding:0px" class="item  text-center" >
-                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                         <img src="storage/uploads/safehome_4.jpg" width="100%"><br/>
-                          <img src="storage/uploads/divider.png" />
-                          </h4>
-                           <strong class="text-primary">CLEAN UP DRILLS</strong><br/>
-                            - Use bleach solution or disinfectant to mop floors, clean frequently touched spots, and wipe toilet areas<br/><br/>
-                            - Open windows to ventilate your home during clean-ups and whenever possible<br/><br/>
-                            - Continue practiciing frequent hand washing<br/><br/>
-                          
-
-                          </p>  
-                          
-                    </div>
-
-                    
-
-                      <div style="padding:0px" class="item  text-center" >
-                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                         <img src="storage/uploads/grocery_1.png" width="100%"><br/>
-                          <img src="storage/uploads/divider.png" />
-                          </h4>
-                          <p style="padding: 30px;" class="text-left">
-                           
-                           Let's be #OneForHealth to stop the spread of the COVID-19 virus. Follow these tips to protect yourself and your loved ones!<br/><br/><strong>#WeSpeakYourLanguage</strong>
-                          
-
-                          </p>  
-                          
-                    </div>
-
-                    <div style="padding:0px" class="item  text-center" >
-                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                         <img src="storage/uploads/grocery_2.png" width="100%"><br/>
-                          <img src="storage/uploads/divider.png" />
-                          </h4>
-                          <p style="padding: 30px;" class="text-left">
-                           
-                          <strong class="text-primary"> BEFORE SHOPPING</strong><br/>
-                            - Take stock of what you already have and plan your daily meals around that<br/><br/>
-                            - Make a grocery list of what you’ll need in the next two or three weeks so you don’t have to go out frequently<br/><br/>
-                            - Avoid going out if you have respiratory or flu-like symptoms<br/><br/>
-                          
-
-                          </p>  
-                          
-                    </div>
-
-                    <div style="padding:0px" class="item  text-center" >
-                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                         <img src="storage/uploads/grocery_3.png" width="100%"><br/>
-                          <img src="storage/uploads/divider.png" />
-                          </h4>
-                          <p style="padding: 30px;" class="text-left">
-                           
-                          <strong class="text-primary"> WHILE SHOPPING</strong><br/>
-                            - Wear a face mask and gloves<br/><br/>
-                            - Always observe social distancing<br/><br/>
-                            - Wipe down your shopping cart handle<br/><br/>
-                            - Avoid putting back items you’ve already touched<br/><br/>
-                          
-
-                          </p>  
-                          
-                    </div>
-
-
-                    <div style="padding:0px" class="item  text-center" >
-                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
-                         <img src="storage/uploads/grocery_4.png" width="100%"><br/>
-                          <img src="storage/uploads/divider.png" />
-                          </h4>
-                          <p style="padding: 30px;" class="text-left">
-                           
-                          <strong class="text-primary"> AFTER SHOPPING</strong><br/>
-                            - Dispose of your used face mask and gloves before entering your home<br/><br/>
-                            - Disinfect all surfaces that may have come in contact with your groceries<br/><br/>
-                            - Remove unnecessary external packaging and move the items to storage containers<br/><br/>
-                            - Wash all fruits and vegetables before storing them
-                            - Heat food before eating whenever possible<br/><br/>
-                          
-
-                          </p>  
-                          
-                    </div>
+                     
 
 
                      
@@ -10924,6 +10330,507 @@ If you have any payroll-related inquiries and concerns, please log in to our Pay
                     
                     
             </div>
+             <div class="item text-center" >
+
+                              <img src="./public/img/ana.jpg" style="z-index: 2" />
+
+                              <div class="text-gray text-right" style="position: relative;width:90%; right:0px;top:-200px; z-index: 999; height: 20px">
+                                 <h2><img src="./public/img/white_logo_small.png" width="40" style="margin-right: 30px" /><br/> <strong>Internal<br/>Hiring! </strong></h2>
+
+                              </div>
+
+                               <h2 style="margin-top: -30px" class="text-danger"><strong>Team Leader </strong><br/>
+                               <small>for</small> <a target="_blank" href="{{action('CampaignController@show','38')}} "> <img src="./public/img/logo_quora.png" width="120"></a></h2>
+
+                              <h5 class="text-danger"><i class="fa fa-exclamation-triangle"></i> Deadline of Submission: <strong class="text-primary"> Apr. 02, 2021 Friday </strong></h5>
+                              <p class="text-left" style="padding-left: 30px; font-weight: bolder;">Requirements: </p>
+                              <ul class="text-left">
+                                <li>Have stayed with Open Access for at least a period of 6 months</li>
+                                <li>Minimum of 1 year managing a team as OIC or equivalent position</li>
+                                <li>Excellent English communication skills</li>
+                                <li>Must have exemplary Performance (for agents)</li>
+                                <li>Flexible with any schedule</li>
+                                <li>No written warnings and attendance issues</li>
+                              </ul>
+
+                              <p><small>Interested applicants may submit their letter of intent and updated resume to: <a href="mailto:recruitment@openaccessmarketing.com">recruitment@openaccessmarketing.com</a></small><br/>
+                                <strong>Subject: <span class="text-danger"> Team Lead Post for Quora</span></strong></p>
+
+
+            </div>  
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>  Income Tax Return (ITR) Assistance<br/><small>Mar. 04, 2021</small><br/>
+
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                    We are glad to announce that the company has arranged for ITR assistance to our employees who are NOT qualified for substituted filing.  An engagement with a third-party vendor has been done to make this possible.<br/><br/>
+
+                    If you opt to avail of this service, please submit your BIR Form 2316 and other pertinent details (see attached flowchart) to employeeitr@openaccessbpo.com as a starting point for the computation of your annual income tax return.  The assistance of the third-party vendor is up to the filing of ITR only.  It is the responsibility of the employee to pay his income tax if he has tax payable.<br/><br/>
+
+                    Please be informed that the assistance of our third-party vendor is until April 15, 2021.  You can send questions or clarifications up to that date only.<br/><br/>
+
+                    Below is the summary of activities:<br/><br/>
+
+                    1.  The employee will send the 2316 and other pertinent details to the third-party vendor (see attached flowchart).<br/><br/>
+                    2.  Upon receipt of 2316, the third-party vendor will compute and send the income tax computation to the employee.<br/><br/>
+                    3.  If the employee confirms and agrees to the computation, the third-party vendor will proceed to file the ITR (BIR Form 1700) via eBIRForms.  BIR will send a Confirmation Receipt once the filed ITR was received.  Afterwards, the third-party vendor will send the ITR (BIR Form 1700) and Confirmation Receipt to the employee. On the other hand, the employee should send an email to employeeitr@openaccessbpo.com if he does not want to proceed in availing the service of our third-party vendor.<br/><br/>
+                    If with tax payable, the employee will print the ITR (BIR Form 1700) and its Confirmation Receipt and pay the corresponding amount to any payment accredited center (e.g. bank, GCash, etc.) on or before April 15, 2021.  End of process.<br/><br/>
+                    If no tax payable, the third-party vendor will bring the printed ITR (BIR Form 1700)  to the BIR for stamping on or before April 15, 2021.  The finance department will distribute these hard copies (stamped BIR Form 1700) to employees.  Please wait for further communication.  End of process.<br/><br/>
+                    4.  On the other hand, the employee should send an email to employeeitr@openaccessbpo.com if he does not want to proceed in availing the service of our third-party vendor.<br/><br/>
+
+                    <a class="btn btn-sm btn-success" target="_blank" href="https://internal.openaccess.bpo/EMS/public/storage/uploads/ITR_assistance.pdf">View Process Flowchart</a>
+
+                  </p>
+
+ 
+                    
+              </div>
+               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from OA Transport: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>  Critical Reminders<br/><small>Mar. 02, 2021</small><br/>
+
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                    <strong>We would like to reiterate the following REQUIRED daily protocols if you are taking the shuttle service:</strong><br/>
+                    <br/><br/>
+                    
+                    <strong class="text-primary">BRING YOUR OWN PEN  </strong><br/>
+                    Before you enter the company shuttle, (along with your face mask and shield, and completing the HDF) be sure to bring your own pen for signing the official Passenger Log to confirm the start and completion of your ride. This is to limit the possible transmission of germs and viruses from shared pens. This is also in compliance with our HR Health and Safety Protocols. Starting March 5, our drivers will no longer lend pens to shuttlers.<br/><br/>
+
+                     <strong class="text-primary">DON’T TALK ON THE PHONE IN PUBLIC TRANSPORT </strong> <br/>
+                    Not only is it polite to wait until you’re in a more private area before engaging in a call, but it also limits the spread of droplets in an enclosed space. This applies in public transport as well as in our company vehicles. Stay courteous as well as safe. Don’t make or receive phone calls while in our company vehicles.<br/><br/>
+                      
+                     <strong class="text-primary">5-MINUTE GRACE PERIOD   </strong><br/>
+                    In keeping with courtesy, professionalism, and punctuality, please be in your designated pickup place early or on time (early is of course better).  As ours is a rideshare transport model, our drivers have trip queues and schedules they need to critically maintain. Do not wait for an SMS message as drivers are not obligated to send these because your official ride confirmation is sent via your Trip Notification Email. Your ride details are specified there and confirms both your home and office pickup. As a courtesy to your co-passengers and driver, please be prompt. Lateness is tracked and may negatively affect shuttler privilege status.<br/><br/>
+
+                    Please do not cause delays, as these may negatively impact your and others' attendance status as well our trip queue and business operations.<br/><br/>
+
+                    <strong class="text-primary">KNOW THE OA TRANSPORT PROTOCOLS  </strong><br/>
+                    The OA Company Shuttle is a free transport service and passenger support process Open Access BPO has graciously provided for you, our onsite workers.  The transport service provider is a fleet of professional drivers outsourced by the company to meet your transport needs during this pandemic.  They deliver competent and licensed service and are answerable to the company, hence they are not to be treated as personal chauffeurs or Grab drivers. Please do your part by knowing and observing our policies and procedures, and respecting our drivers, your co-riders, and our process.<br/><br/>
+
+                    For your compliance. Thank you.
+
+                  </p>
+
+ 
+                    
+              </div>
+
+
+
+               <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from OA Transport: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>  STRICTER IMPLEMENTATION <br/>OF 5-MINUTE WAITING PERIOD<br/><small>Mar. 02, 2021</small><br/>
+
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">Starting last month, Ayala traffic management has been stricter with the vehicles' holding period in the un/loading slot by the ADP entrance along West Street. They actively send away cars if they are caught waiting for several minutes, sometimes even less than 5 minutes. <br/><br/>
+
+
+
+                    <strong class="text-primary">Less than 5 Minutes and Car Asked to Leave = Proceed to Landmark Palm Drive Parking Slot </strong><br/>
+                    If traffic patrol directs the driver to leave the waiting area before the grace period is due, the driver will have to leave ADP but will wait for you for the remaining duration of the waiting period in the Landmark Parking Slot along Palm Drive cor West St. Please head there as soon as you can because when 5 minutes is up, the driver will have to leave for the next pickup.<br/><br/>
+
+
+                    <strong class="text-primary">After 5 Minutes = Leave Without Warning: No Show</strong><br/>
+                    To comply with this new zone procedure, we will more stringently keep to our 5-minute grace period prescribed in our transport guidelines, and no longer grant exceptions.  As stated in our policy, if you are not in the vehicle within 5 minutes, the driver may leave without warning and you will be penalized as a No Show and which will cause your shuttle privilege status to be red flagged.<br/><br/>
+
+
+                    For your guidance. Thank you.
+
+                  </p>
+
+ 
+                    
+              </div>
+
+              
+
+              <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from HR: <br/> <span class="text-primary"><i class="fa fa-info-circle"></i>  Dress Code<br/>Company Policy<br/><small>Mar. 01, 2021</small><br/>
+
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                    <strong>REMINDER TO ALL ONSITE EMPLOYEES:</strong><br/>
+                    Effective March 01, 2021, please be advised that we will revert to our standard Dress Code policy.<br/><br/>
+                    
+                    <strong class="text-primary">Brief </strong><br/>This dress code policy defines how we as employees are expected to dress at work. We should be aware that our  appearance matters and contributes to shaping the overall image of the company. Besides our performance, our  appearance is included in representing our business to clients and other parties. We, therefore, should be mindful to  dress in a manner that is respectful of others and creates a positive impression and reflection of the Open Access  culture. <br/><br/>
+
+                    <strong class="text-primary">Scope  </strong><br/><br/>
+                    This policy applies to all our employees. <br/><br/><br/><br/>
+                   
+                    <strong class="text-primary">Casual Dress Code  </strong><br/><br/>
+                    Our company’s official dress code is Casual. See the policy elements and guidelines below for what casual office  dressing comprises. For special events, we may prescribe employees to wear attire with varying degrees of formality  or style. An employee’s position and function may additionally inform their dress code. If they frequently meet with  clients or prospects, they should dress appropriately to represent Open Access BPO positively.  <br/><br/><br/><br/>
+
+                    <strong class="text-primary">Policy Elements  </strong><br/><br/>
+                    Enumerated below are specific parameters to help us understand and follow our dress code rules. These guidelines  will always apply: 
+                    <br/><br/>
+
+                    <strong>All employees must be clean and tidy.</strong> <br/><br/>
+                    ● We as employees must maintain basic grooming and hygiene as these ensure personal and workplace safety and  sanitation. <br/><br/>
+                    ● Dressing styles dictated by ethnicity and religion are not restricted. <br/><br/><br/><br/>
+
+                    <strong>All clothes must project professionalism.</strong> <br/><br/>
+                    ● Clothes not appropriate to a place of business are not allowed. <br/><br/>
+                    ● Guidelines for what are considered unsuitable or indecorous: <br/><br/>
+
+                    Clothing articles whose design and/or material overly expose skin, or the form of the body are prohibited. (e.g.: forearms, upper thighs, cleavage, lower back, navel, etc.) <br/><br/><br/><br/>
+
+                    <strong>All clothes must be office appropriate.</strong> <br/><br/>
+                    ● Clothing pieces containing profanity and offensive language are not allowed. <br/><br/>
+                    ● Overly informal or form-fitting outfits and gym gear are not permitted, even on weekends.  
+                     (e.g.: shorts, sleeveless jerseys, crop or open-back tops, cutout or mesh leggings, etc.) <br/><br/>
+                    ● During bad weather, bring a change of clothes if you anticipate your commute to be particularly rough, then change  in the office. <br/><br/>
+
+                    Examples of inadmissible office clothing:  <br/><br/>
+                    slippers, flip flops, shorts, sleeveless tops, cropped tops. miniskirts, etc. <br/><br/>
+                    All clothes must be well-kept and in *good condition. <br/><br/>
+
+                    *Ripped jeans and other similar items (causing no undue skin exposure) are allowed for style expression, as long as  the overall look is still dressed up and office appropriate. 
+                    <br/><br/>
+
+                    <strong class="text-primary"> Disciplinary Consequences  </strong><br/>
+                    Employees are required to respect and follow our dress code. When an employee disregards these dress code  regulations and guidelines, their immediate head must remind, reprimand or coach for behavior improvement, and  report for *appropriate disciplinary action. In some cases, management may ask employees to return home to  change.  <br/><br/>
+
+                    Employees may face more severe consequences up to and including termination, if: <br/>
+                    • Their appearance causes irreparable damage, like the loss of a business or client. <br/><br/>
+                    • Violations are repeated. <br/><br/><br/><br/>
+
+                    Nonadherence to this policy will result in disciplinary action which may lead up to termination: Schedule of Discipline - Office Protocol and Decorum Rule VIII Section 1  <br/><br/>
+                    1st offense: Verbal Warning <br/><br/>
+                    2nd offense: Written Warning <br/><br/>
+                    3rd offense: Final Warning <br/><br/>
+                    4th offense: Termination 
+
+                  </p>
+
+ 
+                    
+              </div>
+               <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_03_22_wall.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"><i class="fa fa-pagelines"></i> Earth Hour 2021 <i class="fa fa-pagelines"></i><br/><small>Mar. 22, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Leonardo di Caprio is not only a Hollywood actor but a known environmentalist. <br/><em>‘We only get one planet. This is the most urgent of times, and the most urgent of messages’,</em> he once said. <br/><br/><strong>What small act are you doing for our mother Earth these days? </strong><br/>March 27 is Earth Hour, let’s do our part OABPO family! <br/> Earn 20 points for your post, visit EMS now! <br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',47)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Message from Finance: <br/> <span class="text-primary"> Your Payroll Help Desk is Here! <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4><img src="storage/uploads/payrollHelpdesk.jpg" width="98%" />
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Hello everyone,<br/><br/>
+
+                    We are officially introducing Payroll Help Desk today. Getting assistance on your payroll-related inquiries is now more convenient and systematic.<br/><br/>
+
+                    Please access the user guide here to find out how to use it:
+                    <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value=" https://rise.articulate.com/share/R7DUt2qkI--qHon-LOtel335dgZHDs26" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                     <br/><br/>
+                     
+                    
+
+                   
+
+                   
+
+                    </p> 
+
+
+ 
+                    
+            </div>
+             <div class="item text-center" >
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Infographic:<br/><span class="text-primary">Enabling Continuous Operations <br/>During Covid-19</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <img src="storage/uploads/infographic_covid.jpg" width="100%" />
+                    <br/> <a class="btn btn-primary" href="https://www.openaccessbpo.com/blog/infographic-how-open-access-bpo-is-ensuring-continuous-ops-during-covid-19/" target="_blank"> <i class="fa fa-external-link"></i> Read Blog Post</a>
+              </div>
+
+              <div class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders: <br/> <span class="text-primary"><i class="fa fa-newspaper"></i>   Tips and Tricks on How to Stay Productive
+                  <br/>
+                  <img src="storage/uploads/remotework.jpg" width="100%" /><br/><br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    
+                    <p style="padding: 30px;" class="text-left">
+                     
+                   
+                      Reminding everyone that the deadline for completing <a href="https://rise.articulate.com/share/OZZ5OikfamvlE5SqiPqAnRwJYJl0cf4P#/" target="_blank"> Remote Work: Tips and Tricks on How to Stay Productive</a> is this coming Sunday, April 27, 2020.<br/><br/>
+
+                      Take note that you need to respond to the chatbot LEIA before ending the module so we can capture your completion information. Refer to the image below.<br/><br/>
+
+                      Kudos to the following teams for leading the completion ranking per group:<br/><br/>
+                      <strong><a target="_blank" href="{{action('CampaignController@show',19)}}"> Data Management</a> </strong>- 90% <br/>
+                      <strong><a target="_blank" href="{{action('CampaignController@show',15)}}"> Workforce</a></strong> - 77.78% <br/>
+                      <strong><a target="_blank" href="{{action('CampaignController@show',16)}}"> Marketing</a></strong> - 75% <br/><br/>
+                      Happy weekend everyone. Stay safe!</p> 
+
+
+
+                    
+ 
+                    
+              </div>
+                <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" >Attention: <br/> <span class="text-primary"> <i class="fa fa-info-circle-o"></i>All Shuttle/Carpool Riders<br/> <br/>
+                   
+                   
+                  
+                    <img src="storage/uploads/facemask.png" width="80%" /><br/> 
+                    <img src="storage/uploads/divider.png" /><br/>
+                    </h4>
+                    
+                    <p style="padding: 50px;" class="text-left">
+                      <strong class="text-danger"><i class="fa fa-exclamation-triangle"></i> FACIAL MASKS ARE REQUIRED TO GET INTO THE VEHICLE</strong> --- LGU'S have made it mandatory for citizens to wear masks when in public so this will be inspected in checkpoints.  Hence our company is enforcing this in the office as well as in our company shuttles on the way to our workplace.<br/><br/>
+
+                      For strict compliance.  Please comply and come prepared - so as not to endanger others or delay your shared trip.<br/><br/>
+
+                      Washable masks are available at our clinic. Request for one, if needed.
+
+
+
+                    </p>
+
+                   
+                    
+                </div>
+                      <div class="item text-center">
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Reminders from<br/><span class="text-primary">Clinical Services</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                    <img src="storage/uploads/who_1.png" width="100%" /><br/>
+                    <img src="storage/uploads/who_2.jpg" width="100%" /><br/>
+
+                    
+                    
+ 
+ 
+                    
+              </div>
+
+              <div class="item text-center">
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Reminders from<br/><span class="text-primary">Clinical Services</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                    <img src="storage/uploads/who_3.jpg" width="100%" /><br/>
+                    <img src="storage/uploads/who_4.jpg" width="100%" /><br/>
+                   
+                    
+                    
+ 
+ 
+                    
+              </div>
+
+              <div class="item text-center">
+                
+                  <h4 class="text-orange" style="line-height: 1.5em" >Reminders from<br/><span class="text-primary">Clinical Services</span>
+                  <br/>
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+
+                    <img src="storage/uploads/who_5.png" width="100%" /><br/>
+                    <img src="storage/uploads/who_6.png" width="100%" /><br/>
+                   
+                    
+                    
+ 
+ 
+                    
+              </div>
+               <div style="padding:0px" class="item  text-center" >
+                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                         <img src="storage/uploads/safehome_1.jpg" width="100%"><br/>
+                          <img src="storage/uploads/divider.png" />
+                          </h4>
+                          <p style="padding: 30px;" class="text-left">
+                           
+                           Let's be #OneForHealth to stop the spread of the COVID-19 virus. Follow these tips to protect yourself and your loved ones!<br/><br/><strong>#WeSpeakYourLanguage</strong>
+                          
+
+                          </p>  
+                          
+                    </div>
+
+                    <div style="padding:0px" class="item  text-center" >
+                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                         <img src="storage/uploads/safehome_2.jpg" width="100%"><br/>
+                          <img src="storage/uploads/divider.png" />
+                          </h4>
+                           <strong class="text-primary"> DISINFECTING PRACTICES</strong><br/>
+                            - Remove and disinfect your footwear before entering your home<br/><br/>
+                            - Segregate your used faced masks and gloves from the rest of your trash<br/><br/>
+                            - Put the items you used outside (such as bags, phone, glasses, spare change, and keys) in a separate container and disinfect each)<br/><br/>
+                          
+
+                          </p>  
+                          
+                    </div>
+
+                    <div style="padding:0px" class="item  text-center" >
+                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                         <img src="storage/uploads/safehome_3.jpg" width="100%"><br/>
+                          <img src="storage/uploads/divider.png" />
+                          </h4>
+                           <strong class="text-primary">HYGIENE & LAUNDRY ROUTINE</strong><br/>
+                            - Avoid touching surfaces and sitting on chairs or beds if you haven’t washed up<br/><br/>
+                            - Soak your used clothes in soapy water or wash them with bleach or disinfectant<br/><br/>
+                            - Shower and change your clothes immediately<br/><br/>
+                          
+
+                          </p>  
+                          
+                    </div>
+
+
+                    <div style="padding:0px" class="item  text-center" >
+                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                         <img src="storage/uploads/safehome_4.jpg" width="100%"><br/>
+                          <img src="storage/uploads/divider.png" />
+                          </h4>
+                           <strong class="text-primary">CLEAN UP DRILLS</strong><br/>
+                            - Use bleach solution or disinfectant to mop floors, clean frequently touched spots, and wipe toilet areas<br/><br/>
+                            - Open windows to ventilate your home during clean-ups and whenever possible<br/><br/>
+                            - Continue practiciing frequent hand washing<br/><br/>
+                          
+
+                          </p>  
+                          
+                    </div>
+
+                    
+
+                      <div style="padding:0px" class="item  text-center" >
+                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                         <img src="storage/uploads/grocery_1.png" width="100%"><br/>
+                          <img src="storage/uploads/divider.png" />
+                          </h4>
+                          <p style="padding: 30px;" class="text-left">
+                           
+                           Let's be #OneForHealth to stop the spread of the COVID-19 virus. Follow these tips to protect yourself and your loved ones!<br/><br/><strong>#WeSpeakYourLanguage</strong>
+                          
+
+                          </p>  
+                          
+                    </div>
+
+                    <div style="padding:0px" class="item  text-center" >
+                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                         <img src="storage/uploads/grocery_2.png" width="100%"><br/>
+                          <img src="storage/uploads/divider.png" />
+                          </h4>
+                          <p style="padding: 30px;" class="text-left">
+                           
+                          <strong class="text-primary"> BEFORE SHOPPING</strong><br/>
+                            - Take stock of what you already have and plan your daily meals around that<br/><br/>
+                            - Make a grocery list of what you’ll need in the next two or three weeks so you don’t have to go out frequently<br/><br/>
+                            - Avoid going out if you have respiratory or flu-like symptoms<br/><br/>
+                          
+
+                          </p>  
+                          
+                    </div>
+
+                    <div style="padding:0px" class="item  text-center" >
+                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                         <img src="storage/uploads/grocery_3.png" width="100%"><br/>
+                          <img src="storage/uploads/divider.png" />
+                          </h4>
+                          <p style="padding: 30px;" class="text-left">
+                           
+                          <strong class="text-primary"> WHILE SHOPPING</strong><br/>
+                            - Wear a face mask and gloves<br/><br/>
+                            - Always observe social distancing<br/><br/>
+                            - Wipe down your shopping cart handle<br/><br/>
+                            - Avoid putting back items you’ve already touched<br/><br/>
+                          
+
+                          </p>  
+                          
+                    </div>
+
+
+                    <div style="padding:0px" class="item  text-center" >
+                        <h4 class="text-orange" style="line-height: 1.6em" > Reminders: <br/> <span class="text-primary">Be #OneForHealth<br/>
+                         <img src="storage/uploads/grocery_4.png" width="100%"><br/>
+                          <img src="storage/uploads/divider.png" />
+                          </h4>
+                          <p style="padding: 30px;" class="text-left">
+                           
+                          <strong class="text-primary"> AFTER SHOPPING</strong><br/>
+                            - Dispose of your used face mask and gloves before entering your home<br/><br/>
+                            - Disinfect all surfaces that may have come in contact with your groceries<br/><br/>
+                            - Remove unnecessary external packaging and move the items to storage containers<br/><br/>
+                            - Wash all fruits and vegetables before storing them
+                            - Heat food before eating whenever possible<br/><br/>
+                          
+
+                          </p>  
+                          
+                    </div>
+                    <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item  text-center" >
+                  <h4 class="text-orange" ><i class="fa fa-exclamation-triangle"> </i> REMINDER TO ALL  <br/> <span class="text-primary">ONSITE EMPLOYEES: <br/>
+                    <small>Sep.16, 2020</small><br/><br/>
+                    <img src="storage/uploads/safetyfirst.png" width="40%" /><br/>
+                    <img src="storage/uploads/divider.png" /><br/>
+                    
+                    
+                    <p style="padding: 50px;font-size: smaller;line-height: 1.2em" class="text-left">
+                    
+
+                    Employees reporting to the office must follow the following protocols:<br/><br/>
+
+                    <strong class="text-primary"> Prior to entering the office premises: </strong><br/>
+                    <strong>1. Health Declaration Form - </strong> To be accomplished daily.  If you're sick, stay home. <br/>
+                    <strong>2. Thermal Scan -</strong> If temperature is more than 37.5C, you'll be sent home.<br/>
+                    <strong>3.  No Face Mask and Face Shield, No Entry.  - </strong>Face masks and face shields must be worn at all times except when eating/drinking.  Face masks and face shields are required to be worn while inside the shuttle service.<br/><br/>
+
+                    <strong class="text-primary"> While In the office:</strong><br/>
+                    <strong>1. Social Distancing - </strong>keep at least one (1) meter physical distance.<br/>
+                    <strong>2. Respiratory Etiquette -</strong> any act or behavior that may spread the virus or cause anxiety/concern related to COVID-19 is prohibited.<br/>
+                    <strong>3. Personal Hygiene - </strong> frequent handwashing/use of hand sanitizer is encouraged. <br/><br/>
+                    <br/>
+
+                    For strict compliance.
+                  </p>
+
+                    
+                    
+
+                    
+              </div>
+
+
+
+           
+
+
+          
 
 
 
