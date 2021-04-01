@@ -355,7 +355,7 @@ class UserFamilyleaveController extends Controller
                     $schedForTheDay = $this->getWorkSchedForTheDay1($user,$v,$mayExisting,false);
 
 
-                    if (is_null($schedForTheDay->isApproved) && $schedForTheDay->timeStart !== $schedForTheDay->timeEnd && !$schedForTheDay->isRD)
+                    if ( $schedForTheDay->timeStart !== $schedForTheDay->timeEnd && !$schedForTheDay->isRD ) //is_null($schedForTheDay->isApproved) &&
                     {
                         $credits++;
                         //** means mag credit ka lang pag sched na wala nang approval at hindi RD
