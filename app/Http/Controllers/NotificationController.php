@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Http\Request;
 use Yajra\Datatables\Facades\Datatables;
 use \Mail;
+use \DB;
 use Carbon\Carbon;
 
 use OAMPI_Eval\Http\Requests;
@@ -66,7 +67,21 @@ class NotificationController extends Controller
     {
         //get all user's notif
         $allNotifs = new Collection;
-        $yourNotif = $this->user->notifications->sortByDesc('id');
+        $now = Carbon::now('GMT+8');
+        $till = Carbon::now('GMT+8')->addMonth(-1);
+        $yourNotif = DB::table('user_Notification')->where('user_Notification.user_id',$this->user->id)->
+                          join('notification','notification.id','=','user_Notification.notification_id')->
+                          select('notification.id','user_Notification.seen', 'notification.from','notification.relatedModelID','notification.type','notification.created_at')->
+                          where('user_Notification.created_at','>=',$till->format('Y-m-d H:i:s'))->get();
+
+        //->where('created_at','>=',$till->format('Y-m-d H:i:s'))->get();
+        //$this->user->notifications->sortByDesc('id');
+        //$this->user->notifications->whereInLoose('created_at',['2018-01-26 03:01:11','2019-01-26 03:01:11'])->sortByDesc('id');
+        //$till->format('Y-m-d H:i:s'),$now->format('Y-m-d H:i:s') 
+        //DB::table('user_Notification')->where('user_Notification.user_id',$this->user->id)->where('created_at','>=',$till->format('Y-m-d H:i:s'))->get();
+        ////>->where('created_at','>=',$till->format('Y-m-d H:i:s'))->
+
+        //return $yourNotif;
         $coll=new Collection;
         $ownNotif = null;
         $message =" ";
@@ -76,14 +91,17 @@ class NotificationController extends Controller
         $yourNotifs = new Collection;
         
         //return $yourNotif;
-        foreach($yourNotif->take(50) as $notif){
+        foreach($yourNotif as $notif){
 
-          if($notif->detail->from !== null)
+          //if($notif->from !== null)
+          if($notif->from !== null)
           { // ****** if notif has an actual requestor
 
-              if ($notif->detail->type == 5){ //if New Regularization eval, use ImmediateHeadCamp_id
-                    //$fromData =ImmediateHead::find(ImmediateHead_Campaign::find($notif->detail->from)->immediateHead_id);
-                    $ev = EvalForm::find($notif->detail->relatedModelID);
+              //if ($notif->type == 5){ //if New Regularization eval, use ImmediateHeadCamp_id
+              if ($notif->type == 5){
+                    //$fromData =ImmediateHead::find(ImmediateHead_Campaign::find($notif->from)->immediateHead_id);
+                    //$ev = EvalForm::find($notif->relatedModelID);
+                    $ev = EvalForm::find($notif->relatedModelID);
 
                     if (count($ev)>0){
                       $fromData = User::find($ev->user_id);
@@ -104,13 +122,19 @@ class NotificationController extends Controller
 
                     /************** 6:CWS, 7:OT, 8:DTRPin, 9:DTRPout, 10:VL, 11:SL, 14:Unlock, 19:PRodDate Unlock *************/
               }
-              else if ($notif->detail->type == 6 || $notif->detail->type == 7 || 
-                       $notif->detail->type == 8 || $notif->detail->type == 9 || 
-                       $notif->detail->type == 10 || $notif->detail->type == 11 ||
-                       $notif->detail->type == 12 || $notif->detail->type == 13 || 
-                       $notif->detail->type == 14 || $notif->detail->type == 19 || $notif->detail->type == 21){ //if  request
+              // else if ($notif->type == 6 || $notif->type == 7 || 
+              //          $notif->type == 8 || $notif->type == 9 || 
+              //          $notif->type == 10 || $notif->type == 11 ||
+              //          $notif->type == 12 || $notif->type == 13 || 
+              //          $notif->type == 14 || $notif->type == 19 || $notif->type == 21){ //if  request
+                else if ($notif->type == 6 || $notif->type == 7 || 
+                       $notif->type == 8 || $notif->type == 9 || 
+                       $notif->type == 10 || $notif->type == 11 ||
+                       $notif->type == 12 || $notif->type == 13 || 
+                       $notif->type == 14 || $notif->type == 19 || $notif->type == 21){ //if  request
 
-                $fromData = User::find($notif->detail->from);
+                //$fromData = User::find($notif->from);
+                $fromData = User::find($notif->from);
                 
                 ($fromData->id == $this->user->id) ? $ownNotif=true : $ownNotif=false;
 
@@ -119,23 +143,27 @@ class NotificationController extends Controller
 
                     if ($ownNotif) //show the TL who approved instead
                     {
-                      switch ($notif->detail->type) {
+                      //switch ($notif->type) {
+                      switch ($notif->type) {
                         case '6': {
-                                      $ih = ImmediateHead_Campaign::find(User_CWS::find($notif->detail->relatedModelID)->approver);
+                                      //$ih = ImmediateHead_Campaign::find(User_CWS::find($notif->relatedModelID)->approver);
+                                      $ih = ImmediateHead_Campaign::find(User_CWS::find($notif->relatedModelID)->approver);
                                       if ( count((array)$ih) > 0 ){
 
                                         $fromData =ImmediateHead::find($ih->immediateHead_id);
                                       }else{
-                                        $fromData = User::find(User_CWS::find($notif->detail->relatedModelID)->user_id)->id;
+                                        //$fromData = User::find(User_CWS::find($notif->relatedModelID)->user_id)->id;
+                                        $fromData = User::find(User_CWS::find($notif->relatedModelID)->user_id)->id;
                                         $hasIssue = true;
 
                                       }
 
-                                      //$fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_CWS::find($notif->detail->relatedModelID)->approver)->immediateHead_id);break;
+                                      //$fromData =ImmediateHead::find(ImmediateHead_Campaign::find(User_CWS::find($notif->relatedModelID)->approver)->immediateHead_id);break;
 
                         } 
                         case '7': { 
-                                    $otdetail = User_OT::find($notif->detail->relatedModelID);
+                                    //$otdetail = User_OT::find($notif->relatedModelID);
+                                    $otdetail = User_OT::find($notif->relatedModelID);
 
                                     if ($otdetail)
                                     {
@@ -144,7 +172,8 @@ class NotificationController extends Controller
 
                                         $fromData =ImmediateHead::find($ih->immediateHead_id);
                                       }else{
-                                        $fromData = User::find(User_OT::find($notif->detail->relatedModelID)->user_id)->id;
+                                        //$fromData = User::find(User_OT::find($notif->relatedModelID)->user_id)->id;
+                                        $fromData = User::find(User_OT::find($notif->relatedModelID)->user_id)->id;
                                         $hasIssue = true;
 
                                       }
@@ -157,14 +186,16 @@ class NotificationController extends Controller
                                   }
                                   break;
                         case '8': {
-                                    $ap = ImmediateHead_Campaign::find(User_DTRP::find($notif->detail->relatedModelID)->approvedBy);
+                                    //$ap = ImmediateHead_Campaign::find(User_DTRP::find($notif->relatedModelID)->approvedBy);
+                                    $ap = ImmediateHead_Campaign::find(User_DTRP::find($notif->relatedModelID)->approvedBy);
                                     if (count((array)$ap) > 0)
                                     {
                                       $fromData =ImmediateHead::find($ap->immediateHead_id);
 
                                     }else
                                     {
-                                      $fromData = User::find(User_DTRP::find($notif->detail->relatedModelID)->user_id)->id;
+                                      //$fromData = User::find(User_DTRP::find($notif->relatedModelID)->user_id)->id;
+                                      $fromData = User::find(User_DTRP::find($notif->relatedModelID)->user_id)->id;
                                       $hasIssue = true;
 
                                     }
@@ -174,14 +205,16 @@ class NotificationController extends Controller
                          
                         }
                         case '9':{
-                                    $ap = ImmediateHead_Campaign::find(User_DTRP::find($notif->detail->relatedModelID)->approvedBy);
+                                    //$ap = ImmediateHead_Campaign::find(User_DTRP::find($notif->relatedModelID)->approvedBy);
+                                    $ap = ImmediateHead_Campaign::find(User_DTRP::find($notif->relatedModelID)->approvedBy);
                                     if (count((array)$ap) > 0)
                                     {
                                       $fromData =ImmediateHead::find($ap->immediateHead_id);
 
                                     }else
                                     {
-                                      $fromData = User::find(User_DTRP::find($notif->detail->relatedModelID)->user_id)->id;
+                                      //$fromData = User::find(User_DTRP::find($notif->relatedModelID)->user_id)->id;
+                                      $fromData = User::find(User_DTRP::find($notif->relatedModelID)->user_id)->id;
                                       $hasIssue = true;
 
                                     }
@@ -189,12 +222,12 @@ class NotificationController extends Controller
                         }
                         case '10': {
 
-                                    $ih = ImmediateHead_Campaign::find(User_VL::find($notif->detail->relatedModelID)->approver);
+                                    $ih = ImmediateHead_Campaign::find(User_VL::find($notif->relatedModelID)->approver);
                                     if ( count((array)$ih) > 0 ){
 
                                       $fromData =ImmediateHead::find($ih->immediateHead_id);
                                     }else{
-                                      $fromData = User::find(User_VL::find($notif->detail->relatedModelID)->user_id)->id;
+                                      $fromData = User::find(User_VL::find($notif->relatedModelID)->user_id)->id;
                                       $hasIssue = true;
 
                                     }
@@ -203,12 +236,12 @@ class NotificationController extends Controller
 
                         case '11': {
 
-                                    $ih = ImmediateHead_Campaign::find(User_SL::find($notif->detail->relatedModelID)->approver);
+                                    $ih = ImmediateHead_Campaign::find(User_SL::find($notif->relatedModelID)->approver);
                                     if ( count((array)$ih) > 0 ){
 
                                       $fromData =ImmediateHead::find($ih->immediateHead_id);
                                     }else{
-                                      $fromData = User::find(User_SL::find($notif->detail->relatedModelID)->user_id)->id;
+                                      $fromData = User::find(User_SL::find($notif->relatedModelID)->user_id)->id;
                                       $hasIssue = true;
 
                                     }
@@ -219,12 +252,12 @@ class NotificationController extends Controller
                                    
                         case '12': {
 
-                                    $ih = ImmediateHead_Campaign::find(User_LWOP::find($notif->detail->relatedModelID)->approver);
+                                    $ih = ImmediateHead_Campaign::find(User_LWOP::find($notif->relatedModelID)->approver);
                                     if ( count((array)$ih) > 0 ){
 
                                       $fromData =ImmediateHead::find($ih->immediateHead_id);
                                     }else{
-                                      $fromData = User::find(User_LWOP::find($notif->detail->relatedModelID)->user_id)->id;
+                                      $fromData = User::find(User_LWOP::find($notif->relatedModelID)->user_id)->id;
                                       $hasIssue = true;
 
                                     }
@@ -234,12 +267,12 @@ class NotificationController extends Controller
                                   
                         case '13': {
 
-                                    $ih = ImmediateHead_Campaign::find(User_OBT::find($notif->detail->relatedModelID)->approver);
+                                    $ih = ImmediateHead_Campaign::find(User_OBT::find($notif->relatedModelID)->approver);
                                     if ( count((array)$ih) > 0 ){
 
                                       $fromData =ImmediateHead::find($ih->immediateHead_id);
                                     }else{
-                                      $fromData = User::find(User_OBT::find($notif->detail->relatedModelID)->user_id)->id;
+                                      $fromData = User::find(User_OBT::find($notif->relatedModelID)->user_id)->id;
                                       $hasIssue = true;
 
                                     }
@@ -247,28 +280,28 @@ class NotificationController extends Controller
 
                                   } break;
                         case '14': $fromData = null; break;
-                        case '15': $fromData = User::find(User_OT::find($notif->detail->relatedModelID)->approver)->id;break;
+                        case '15': $fromData = User::find(User_OT::find($notif->relatedModelID)->approver)->id;break;
 
                         //MATERNITY
-                        case '16': $fromData =User::find(User_Familyleave::find($notif->detail->relatedModelID)->approver)->id;break;
+                        case '16': $fromData =User::find(User_Familyleave::find($notif->relatedModelID)->approver)->id;break;
                         
-                        case '17': $fromData =User::find(User_Familyleave::find($notif->detail->relatedModelID)->approver)->id;break;
-                        case '18': $fromData =User::find(User_Familyleave::find($notif->detail->relatedModelID)->approver)->id;break;
+                        case '17': $fromData =User::find(User_Familyleave::find($notif->relatedModelID)->approver)->id;break;
+                        case '18': $fromData =User::find(User_Familyleave::find($notif->relatedModelID)->approver)->id;break;
                         case '19': $fromData = null; break;
                         case '21': {
-                                    $ap = User_VTO::find($notif->detail->relatedModelID);
+                                    $ap = User_VTO::find($notif->relatedModelID);
                                     if (is_null($ap))
                                     {
                                       $fromData = null; $hasIssue = true;
 
                                     }else
                                     {
-                                      $ih = ImmediateHead_Campaign::find(User_VTO::find($notif->detail->relatedModelID)->approver);
+                                      $ih = ImmediateHead_Campaign::find(User_VTO::find($notif->relatedModelID)->approver);
                                       if ( count((array)$ih) > 0 ){
 
                                         $fromData =ImmediateHead::find($ih->immediateHead_id);
                                       }else{
-                                        $fromData = User::find(User_VTO::find($notif->detail->relatedModelID)->user_id)->id;
+                                        $fromData = User::find(User_VTO::find($notif->relatedModelID)->user_id)->id;
                                         $hasIssue = true;
 
                                       }
@@ -279,7 +312,7 @@ class NotificationController extends Controller
                                   } break;
 
                         // MAGNA CARTA
-                        case '22': $fromData =User::find(User_Familyleave::find($notif->detail->relatedModelID)->approver)->id;break;
+                        case '22': $fromData =User::find(User_Familyleave::find($notif->relatedModelID)->approver)->id;break;
 
                       }
                       
@@ -288,10 +321,10 @@ class NotificationController extends Controller
                         $campaign = Campaign::find(Team::where('user_id', $fromData->userData->id)->first()->campaign_id)->name;
                         $fromDataID = $fromData->userData->id;
 
-                      } else { $position=null; $campaign=null; $fromDataID=$notif->detail->from; }
+                      } else { $position=null; $campaign=null; $fromDataID=$notif->from; /*$fromDataID=$notif->from; */}
 
 
-                      if ( ($notif->detail->type !== 14 && $notif->detail->type !== 19) && !$hasIssue) //because UNLOCK DTR has no immediate head data
+                      if ( ($notif->type !== 14 && $notif->type !== 19) && !$hasIssue) //because UNLOCK DTR has no immediate head data
                       {
                         ( is_null($fromData->userData->nickname) ) ? $from = $fromData->userData->firstname." ".$fromData->userData->lastname : $from = $fromData->userData->nickname." ".$fromData->userData->lastname;
 
@@ -335,14 +368,14 @@ class NotificationController extends Controller
                      
                     }
 
-             // }else if($notif->detail->type == 10 ){
+             // }else if($notif->type == 10 ){
 
               }else{
 
                     // PRESHIFT OT | ML | MAGNA | PL | SPL
-                    if ($notif->detail->type == 15 || $notif->detail->type == 16 || $notif->detail->type == 22 || $notif->detail->type == 17 || $notif->detail->type == 18) //problema gawa ni WFM
+                    if ($notif->type == 15 || $notif->type == 16 || $notif->type == 22 || $notif->type == 17 || $notif->type == 18) //problema gawa ni WFM
                     {
-                      $fromData= User::find($notif->detail->from);
+                      $fromData= User::find($notif->from);
                       $fromDataID = $fromData->id;
                       $position = Position::find($fromData->position_id)->name;
                       $camp = Campaign::where('id',Team::where('user_id',$fromData->id)->first()->campaign_id)->get();
@@ -352,8 +385,8 @@ class NotificationController extends Controller
 
                     }else{
 
-                      if (empty(ImmediateHead::find($notif->detail->from)) ){
-                        $fromData= User::find($notif->detail->from);
+                      if (empty(ImmediateHead::find($notif->from)) ){
+                        $fromData= User::find($notif->from);
                         $fromDataID = $fromData->id;
                         $position = Position::find($fromData->position_id)->name;
                         $camp = Campaign::where('id',Team::where('user_id',$fromData->id)->first()->campaign_id)->get();
@@ -372,7 +405,7 @@ class NotificationController extends Controller
 
                       }
                       else{
-                        $fromData = ImmediateHead::find($notif->detail->from);
+                        $fromData = ImmediateHead::find($notif->from);
                         $fromDataID = $fromData->userData->id;
                         $position = Position::find($fromData->userData->position_id)->name;
                         $camp = $fromData->campaigns;
@@ -410,7 +443,7 @@ class NotificationController extends Controller
 
                      // TL requestor
 
-                      if ($notif->detail->type == 15 || $notif->detail->type == 16 || $notif->detail->type == 22 || $notif->detail->type == 17 || $notif->detail->type == 18) //problema gawa ni WFM
+                      if ($notif->type == 15 || $notif->type == 16 || $notif->type == 22 || $notif->type == 17 || $notif->type == 18) //problema gawa ni WFM
                       {
                         
 
@@ -431,7 +464,7 @@ class NotificationController extends Controller
 
             
 
-          switch($notif->detail->type)
+          switch($notif->type)
             {
                 case 1: { $actionlink = action('UserController@changePassword'); 
                       $message = "Kindly update your default password for security purposes. Thank you."; 
@@ -448,19 +481,19 @@ class NotificationController extends Controller
                           // $tlConcerned = null;
                           // $actionlink = null;
                           // $fromImage = null;
-                          $mvt = Movement::find($notif->detail->relatedModelID);
+                          $mvt = Movement::find($notif->relatedModelID);
                           if (count((array)$mvt)>0) 
                           {
                             $tlConcerned = ImmediateHead_Campaign::find($mvt->immediateHead_details->imHeadCampID_new);
                             $personConcerned = ImmediateHead::find($tlConcerned->immediateHead_id);
 
-                                     //$personConcerned =  ImmediateHead::find(Movement::find($notif->detail->relatedModelID)->immediateHead_details->imHeadCampID_new);
+                                     //$personConcerned =  ImmediateHead::find(Movement::find($notif->relatedModelID)->immediateHead_details->imHeadCampID_new);
                              
                              if($this->user->employeeNumber == $personConcerned->employeeNumber)
                              {
 
                                   $message = " has been transfered to your team. Click on the link above to learn more. ";
-                                  $transfered = User::find(Movement::find($notif->detail->relatedModelID)->user_id);
+                                  $transfered = User::find(Movement::find($notif->relatedModelID)->user_id);
                                   $fromDataID = $transfered->id;
                                   $from = $transfered->firstname." ".$transfered->lastname;
                                   $position = $transfered->position->name;
@@ -481,9 +514,9 @@ class NotificationController extends Controller
                              // if not then needs approval first
 
                              $canApprove = UserType::find($this->user->userType_id)->roles->where('label','APPROVE_MOVEMENTS')->first();
-                             $actionlink = route('movement.show', array('id' => $notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen' => true )); 
+                             $actionlink = route('movement.show', array('id' => $notif->relatedModelID, 'notif'=>$notif->id, 'seen' => true )); 
                             // else 
-                            //     $actionlink = route('movement.show', array('id' => $notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen' => true )); 
+                            //     $actionlink = route('movement.show', array('id' => $notif->relatedModelID, 'notif'=>$notif->id, 'seen' => true )); 
                           } else $actionlink = "";
 
                           break; 
@@ -491,8 +524,8 @@ class NotificationController extends Controller
 
                       
 
-                case 3: { $actionlink = action('MovementController@show',$notif->detail->relatedModelID ); 
-                            $mvtDeets = Movement::find($notif->detail->relatedModelID); 
+                case 3: { $actionlink = action('MovementController@show',$notif->relatedModelID ); 
+                            $mvtDeets = Movement::find($notif->relatedModelID); 
 
                             if (count((array)$mvtDeets)>0)
                             {
@@ -502,7 +535,7 @@ class NotificationController extends Controller
                                {
 
                                   $message = " has updated your position/job title";
-                                  $transfered = User::find(Movement::find($notif->detail->relatedModelID)->notedBy);
+                                  $transfered = User::find(Movement::find($notif->relatedModelID)->notedBy);
                                   $fromDataID = $transfered->id;
 
                                   $from = $transfered->firstname." ".$transfered->lastname;
@@ -521,7 +554,7 @@ class NotificationController extends Controller
                               } else if ( $this->user->employeeNumber == $requestor->employeeNumber ){ //if it's the TL who did the request
 
                                   $message = " has approved your submitted PCN ";
-                                  $transfered = User::find(Movement::find($notif->detail->relatedModelID)->notedBy);
+                                  $transfered = User::find(Movement::find($notif->relatedModelID)->notedBy);
                                   $fromDataID = $transfered->id;
 
                                   $from = $transfered->firstname." ".$transfered->lastname;
@@ -544,8 +577,8 @@ class NotificationController extends Controller
                         break; 
 
                         } //change position
-                case 4: {   $actionlink = action('MovementController@show',$notif->detail->id );
-                            $mvtDeets = Movement::find($notif->detail->relatedModelID); 
+                case 4: {   $actionlink = action('MovementController@show',$notif->id );
+                            $mvtDeets = Movement::find($notif->relatedModelID); 
 
                             if (count((array)$mvtDeets)>0)
                             {
@@ -555,7 +588,7 @@ class NotificationController extends Controller
                                {
 
                                   $message = " has updated your employement status ";
-                                  $transfered = User::find(Movement::find($notif->detail->relatedModelID)->notedBy);
+                                  $transfered = User::find(Movement::find($notif->relatedModelID)->notedBy);
                                   $fromDataID = $transfered->id;
 
                                   $from = $transfered->firstname." ".$transfered->lastname;
@@ -574,7 +607,7 @@ class NotificationController extends Controller
                               } else if ( $this->user->employeeNumber == $requestor->employeeNumber ){ //if it's the TL who did the request
 
                                   $message = " has approved your submitted PCN ";
-                                  $transfered = User::find(Movement::find($notif->detail->relatedModelID)->notedBy);
+                                  $transfered = User::find(Movement::find($notif->relatedModelID)->notedBy);
                                   $fromDataID = $transfered->id;
 
                                   $from = $transfered->firstname." ".$transfered->lastname;
@@ -598,7 +631,7 @@ class NotificationController extends Controller
 
 
                 // up for EMPLOYEE STATUS UPDATE
-                case 5: {   $actionlink = "";//action('EvalFormController@show',['id'=>$notif->detail->relatedModelID, 'evaluatedBy'=>EvalForm::find($notif->detail->relatedModelID)->evaluatedBy, 'updateStatus'=>'true' ] ); //new Regularization eval
+                case 5: {   $actionlink = "";//action('EvalFormController@show',['id'=>$notif->relatedModelID, 'evaluatedBy'=>EvalForm::find($notif->relatedModelID)->evaluatedBy, 'updateStatus'=>'true' ] ); //new Regularization eval
                             
                             $img = "";//asset('public/img/employees/'.$fromData->id.'.jpg');
                             $fromImage = '<img src="'.$img.'" class="user-image img-circle" alt="User Image" width="30"/> ';
@@ -607,8 +640,8 @@ class NotificationController extends Controller
                             break; 
                           }
 
-                case 6: {   $actionlink = action('UserCWSController@show',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); //new CWS
-                            $thereq =User_CWS::find($notif->detail->relatedModelID);
+                case 6: {   $actionlink = action('UserCWSController@show',['id'=>$notif->relatedModelID, 'notif'=>$notif->id, 'seen'=>'true' ] ); //new CWS
+                            $thereq =User_CWS::find($notif->relatedModelID);
 
                             if (is_null($thereq))
                             {
@@ -636,9 +669,9 @@ class NotificationController extends Controller
 
                 // new OT REQUEST
                 case 7: {   
-                            $actionlink = action('UserOTController@show',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); //new overtime
+                            $actionlink = action('UserOTController@show',['id'=>$notif->relatedModelID, 'notif'=>$notif->id, 'seen'=>'true' ] ); //new overtime
 
-                            $thereq =User_OT::find($notif->detail->relatedModelID);
+                            $thereq =User_OT::find($notif->relatedModelID);
 
                             if (is_null($thereq))
                             {
@@ -663,8 +696,8 @@ class NotificationController extends Controller
                             break; 
                           }
                 case 8: {   // DTRP LOG IN
-                            $actionlink = action('UserDTRPController@show',['id'=>$notif->detail->relatedModelID,'notif'=>$notif->detail->id,'seen'=>'true']);
-                            $thereq = User_DTRP::find($notif->detail->relatedModelID);
+                            $actionlink = action('UserDTRPController@show',['id'=>$notif->relatedModelID,'notif'=>$notif->id,'seen'=>'true']);
+                            $thereq = User_DTRP::find($notif->relatedModelID);
                             if (is_null($thereq))
                             {
                               $theBio=null;
@@ -692,8 +725,8 @@ class NotificationController extends Controller
 
                // DTRP OUT
                 case 9: {   
-                            $actionlink = action('UserDTRPController@show',['id'=>$notif->detail->relatedModelID,'notif'=>$notif->detail->id,'seen'=>'true']);
-                            $thereq = User_DTRP::find($notif->detail->relatedModelID);
+                            $actionlink = action('UserDTRPController@show',['id'=>$notif->relatedModelID,'notif'=>$notif->id,'seen'=>'true']);
+                            $thereq = User_DTRP::find($notif->relatedModelID);
 
                             if(is_null($thereq))
                             {
@@ -723,8 +756,8 @@ class NotificationController extends Controller
 
                 // VACATION LEAVE
                 case 10: {
-                            $actionlink = action('UserVLController@show',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); 
-                            $thereq =User_VL::find($notif->detail->relatedModelID);
+                            $actionlink = action('UserVLController@show',['id'=>$notif->relatedModelID, 'notif'=>$notif->id, 'seen'=>'true' ] ); 
+                            $thereq =User_VL::find($notif->relatedModelID);
                             if (is_null($thereq)){
                               $theBio = null;
                               $message=" filed a <strong>VACATION LEAVE</strong>";
@@ -761,8 +794,8 @@ class NotificationController extends Controller
 
                 // SICK LEAVE
                 case 11: {
-                            $actionlink = action('UserSLController@show',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); 
-                            $thereq =User_SL::find($notif->detail->relatedModelID);
+                            $actionlink = action('UserSLController@show',['id'=>$notif->relatedModelID, 'notif'=>$notif->id, 'seen'=>'true' ] ); 
+                            $thereq =User_SL::find($notif->relatedModelID);
                             if (is_null($thereq)){
                               $theBio = null;
                               $message=" filed a <strong>SICK LEAVE</strong>";
@@ -795,8 +828,8 @@ class NotificationController extends Controller
 
                 // LWOP LEAVE
                 case 12: {
-                            $actionlink = action('UserLWOPController@show',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); 
-                            $thereq =User_LWOP::find($notif->detail->relatedModelID);
+                            $actionlink = action('UserLWOPController@show',['id'=>$notif->relatedModelID, 'notif'=>$notif->id, 'seen'=>'true' ] ); 
+                            $thereq =User_LWOP::find($notif->relatedModelID);
                             if (is_null($thereq)){
                               $theBio = null;
                               $message=" filed a <strong>LEAVE WITHOUT PAY</strong>";
@@ -826,8 +859,8 @@ class NotificationController extends Controller
 
                 // OBT LEAVE
                 case 13: {
-                            $actionlink = action('UserOBTController@show',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); 
-                            $thereq =User_OBT::find($notif->detail->relatedModelID);
+                            $actionlink = action('UserOBTController@show',['id'=>$notif->relatedModelID, 'notif'=>$notif->id, 'seen'=>'true' ] ); 
+                            $thereq =User_OBT::find($notif->relatedModelID);
                             if (is_null($thereq)){
                               $theBio = null;
                               $message=" filed a <strong>OFFICIAL BUSINESS TRIP</strong>";
@@ -857,8 +890,8 @@ class NotificationController extends Controller
 
                 // UNLOCK
                 case 14: {   
-                            $actionlink = action('DTRController@seenzoned',['id'=>$notif->detail->id, 'seen'=>'true' ] ); 
-                            $thereq =User_DTR::find($notif->detail->relatedModelID);
+                            $actionlink = action('DTRController@seenzoned',['id'=>$notif->id, 'seen'=>'true' ] ); 
+                            $thereq =User_DTR::find($notif->relatedModelID);
 
                             if (is_null($thereq))
                             {
@@ -888,8 +921,8 @@ class NotificationController extends Controller
 
                 // PSOT
                 case 15: {
-                            $actionlink = action('UserOTController@show',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); 
-                            $thereq =User_OT::find($notif->detail->relatedModelID);
+                            $actionlink = action('UserOTController@show',['id'=>$notif->relatedModelID, 'notif'=>$notif->id, 'seen'=>'true' ] ); 
+                            $thereq =User_OT::find($notif->relatedModelID);
                             if (is_null($thereq)){
                               $theBio = null;
                               $message=" filed a <strong>Pre-Shift OT</strong>";
@@ -920,8 +953,8 @@ class NotificationController extends Controller
 
                 // ML
                 case 16: {
-                            $actionlink = action('UserFamilyleaveController@show',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); 
-                            $thereq =User_Familyleave::find($notif->detail->relatedModelID);
+                            $actionlink = action('UserFamilyleaveController@show',['id'=>$notif->relatedModelID, 'notif'=>$notif->id, 'seen'=>'true' ] ); 
+                            $thereq =User_Familyleave::find($notif->relatedModelID);
                             if (is_null($thereq)){
                               $theBio = null;
                               $message=" filed a <strong>Maternity Leave</strong>";
@@ -951,8 +984,8 @@ class NotificationController extends Controller
 
                 // PL
                 case 17: {
-                            $actionlink = action('UserFamilyleaveController@show',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); 
-                            $thereq =User_Familyleave::find($notif->detail->relatedModelID);
+                            $actionlink = action('UserFamilyleaveController@show',['id'=>$notif->relatedModelID, 'notif'=>$notif->id, 'seen'=>'true' ] ); 
+                            $thereq =User_Familyleave::find($notif->relatedModelID);
                             if (is_null($thereq)){
                               $theBio = null;
                               $message=" filed a <strong>Paternity Leave</strong>";
@@ -982,8 +1015,8 @@ class NotificationController extends Controller
 
                 // SPL
                 case 18: {
-                            $actionlink = action('UserFamilyleaveController@show',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); 
-                            $thereq =User_Familyleave::find($notif->detail->relatedModelID);
+                            $actionlink = action('UserFamilyleaveController@show',['id'=>$notif->relatedModelID, 'notif'=>$notif->id, 'seen'=>'true' ] ); 
+                            $thereq =User_Familyleave::find($notif->relatedModelID);
                             if (is_null($thereq)){
                               $theBio = null;
                               $message=" filed a <strong>Single-Parent Leave</strong>";
@@ -1013,8 +1046,8 @@ class NotificationController extends Controller
 
                 // UNLOCK Productiondate
                 case 19: {   
-                            $actionlink = action('DTRController@seenzonedPD',['id'=>$notif->detail->id, 'seen'=>'true' ] ); 
-                            $thereq = User_DTR::find($notif->detail->relatedModelID);//Biometrics::find($notif->detail->relatedModelID); //
+                            $actionlink = action('DTRController@seenzonedPD',['id'=>$notif->id, 'seen'=>'true' ] ); 
+                            $thereq = User_DTR::find($notif->relatedModelID);//Biometrics::find($notif->relatedModelID); //
 
                             if (count((array)$thereq) > 0)
                             {
@@ -1023,7 +1056,7 @@ class NotificationController extends Controller
 
                             }else{
                               //$theBio = Biometrics::where('productionDate', date('Y-m-d',strtotime($thereq->productionDate)));
-                              $thereq = Biometrics::find($notif->detail->relatedModelID); //
+                              $thereq = Biometrics::find($notif->relatedModelID); //
 
                               if (empty($thereq))
                               {
@@ -1055,8 +1088,8 @@ class NotificationController extends Controller
 
                 // VTO 
                 case 21: {
-                            $actionlink = action('UserVLController@showVTO',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); 
-                            $thereq =User_VTO::find($notif->detail->relatedModelID);
+                            $actionlink = action('UserVLController@showVTO',['id'=>$notif->relatedModelID, 'notif'=>$notif->id, 'seen'=>'true' ] ); 
+                            $thereq =User_VTO::find($notif->relatedModelID);
                             if (is_null($thereq)){
                               $theBio = null;
                               $message=" filed a <strong>VTO</strong>";
@@ -1086,8 +1119,8 @@ class NotificationController extends Controller
                           }break;
 
                 case 22: {
-                            $actionlink = action('UserFamilyleaveController@show',['id'=>$notif->detail->relatedModelID, 'notif'=>$notif->detail->id, 'seen'=>'true' ] ); 
-                            $thereq =User_Familyleave::find($notif->detail->relatedModelID);
+                            $actionlink = action('UserFamilyleaveController@show',['id'=>$notif->relatedModelID, 'notif'=>$notif->id, 'seen'=>'true' ] ); 
+                            $thereq =User_Familyleave::find($notif->relatedModelID);
                             if (is_null($thereq)){
                               $theBio = null;
                               $message=" filed a <strong>Magna Carta for Women Leave</strong>";
@@ -1119,7 +1152,7 @@ class NotificationController extends Controller
             }
 
               //if (is_null($thereq->isApproved)){
-                $notifT=NotifType::find($notif->detail->type);
+                $notifT=NotifType::find($notif->type);
                 $yourNotifs->push(['id'=>$notif->id, 'seen'=> $notif->seen, 
                   'title'=> $notifT->title, 
                   'icon' => $notifT->icon, 
@@ -1129,7 +1162,7 @@ class NotificationController extends Controller
                   'message' =>$message,
                   'position'=>$position,  
                   'campaign'=> $campaign,
-                  'created_at'=>$notif->created_at->format('M d,Y'),
+                  'created_at'=>date('M d,Y', strtotime($notif->created_at)),
                   'ago'=>Carbon::now()->diffForHumans($notif->created_at, true), 
                   'actionlink'=>$actionlink]);
 
