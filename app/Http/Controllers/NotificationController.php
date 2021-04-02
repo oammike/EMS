@@ -72,7 +72,7 @@ class NotificationController extends Controller
         $yourNotif = DB::table('user_Notification')->where('user_Notification.user_id',$this->user->id)->
                           join('notification','notification.id','=','user_Notification.notification_id')->
                           select('notification.id','user_Notification.seen', 'notification.from','notification.relatedModelID','notification.type','notification.created_at')->
-                          where('user_Notification.created_at','>=',$till->format('Y-m-d H:i:s'))->get();
+                          where('user_Notification.created_at','>=',$till->format('Y-m-d H:i:s'))->orderby('user_Notification.created_at','DESC')->get();
 
         //->where('created_at','>=',$till->format('Y-m-d H:i:s'))->get();
         //$this->user->notifications->sortByDesc('id');
