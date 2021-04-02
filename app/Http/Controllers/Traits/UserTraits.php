@@ -83,7 +83,9 @@ trait UserTraits
 
   public function getDashboardNotifs()
   {
-       $notifs = User_Notification::where('user_id',$this->user->id)->orderBy('created_at','DESC')->get(); 
+       $now = Carbon::now('GMT+8');
+       $till = Carbon::now('GMT+8')->addMonth(-1);
+       $notifs = User_Notification::where('user_id',$this->user->id)->where('created_at','<=',$now->format('Y-m-d H:i:s'))->where('created_at','>=',$till->format('Y-m-d'))->orderBy('created_at','DESC')->get(); 
        $coll = new Collection;
        $forApprovals = new Collection;
 

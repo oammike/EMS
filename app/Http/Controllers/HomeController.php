@@ -1486,21 +1486,21 @@ class HomeController extends Controller
         $idolIDs = [ 1585, 40, 2277, 3175, 2328, 531,3112, 2708, 3027, 685, 3260, 2723];
         $top3s = [1686,674,829];
 
-        foreach ($top3s as $i) {
-          $u = DB::table('users')->where('users.id',$i)->join('positions','users.position_id','=','positions.id')->
-                    join('team','team.user_id','=','users.id')->join('campaign','team.campaign_id','=','campaign.id')->
-                    leftJoin('campaign_logos','campaign_logos.campaign_id','=','team.campaign_id')->
-                    select('users.id', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','campaign_logos.filename')->get();
-          $top3->push($u[0]);
-        }
+        // foreach ($top3s as $i) {
+        //   $u = DB::table('users')->where('users.id',$i)->join('positions','users.position_id','=','positions.id')->
+        //             join('team','team.user_id','=','users.id')->join('campaign','team.campaign_id','=','campaign.id')->
+        //             leftJoin('campaign_logos','campaign_logos.campaign_id','=','team.campaign_id')->
+        //             select('users.id', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','campaign_logos.filename')->get();
+        //   $top3->push($u[0]);
+        // }
 
-        foreach ($idolIDs as $i) {
-          $u = DB::table('users')->where('users.id',$i)->join('positions','users.position_id','=','positions.id')->
-                    join('team','team.user_id','=','users.id')->join('campaign','team.campaign_id','=','campaign.id')->
-                    leftJoin('campaign_logos','campaign_logos.campaign_id','=','team.campaign_id')->
-                    select('users.id', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','campaign_logos.filename')->get();
-          $idols->push($u[0]);
-        }
+        // foreach ($idolIDs as $i) {
+        //   $u = DB::table('users')->where('users.id',$i)->join('positions','users.position_id','=','positions.id')->
+        //             join('team','team.user_id','=','users.id')->join('campaign','team.campaign_id','=','campaign.id')->
+        //             leftJoin('campaign_logos','campaign_logos.campaign_id','=','team.campaign_id')->
+        //             select('users.id', 'users.firstname','users.nickname','users.lastname','positions.name as jobTitle','campaign.name as program','campaign_logos.filename')->get();
+        //   $idols->push($u[0]);
+        // }
 
         $ct1=0; $songs = ["There's No Easy Way","Rolling in the Deep","Be My Lady"]; 
         $titles=[" to our very first <br/><strong>Open Access Idol Winner!</strong> "," to our <strong>Open Access Idol <br/>2nd Placer</strong>"," to our <strong>Open Access Idol <br/>3rd Placer</strong>"]; 

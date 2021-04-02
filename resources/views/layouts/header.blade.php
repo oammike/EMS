@@ -65,7 +65,9 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <i class="fa fa-bell-o"></i>
               <?php $notifications = OAMPI_Eval\User::find(Auth::user()->id)->notifications;
-                    $unseenNotifs = OAMPI_Eval\User_Notification::where('user_id',Auth::user()->id)->where('seen',false)->orderBy('created_at','DESC')->get(); ?>
+                    $now = \Carbon\Carbon::now('GMT+8');
+                    $till = \Carbon\Carbon::now('GMT+8')->addMonth(-1);
+                    $unseenNotifs = OAMPI_Eval\User_Notification::where('user_id',Auth::user()->id)->where('seen',false)->where('created_at','<=',$now->format('Y-m-d H:i:s'))->where('created_at','>=',$till->format('Y-m-d'))->orderBy('created_at','DESC')->get(); ?>
 
                @if (!Auth::user()->updatedPass)
 
@@ -86,7 +88,7 @@
             </a>
             <ul class="dropdown-menu">
               <?php if ( count($unseenNotifs) > 0 ){ ?>
-              <li class="header">You have notifications</li>
+              <li class="header">Notifications within the last 30 days:</li>
               <li>
                 <!-- Inner Menu: contains the notifications -->
                 <ul class="menu">
