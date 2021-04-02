@@ -5865,7 +5865,7 @@ class DTRController extends Controller
       else send notif to all approvers
       ------------------------------*/
 
-      $dtr = User_DTR::where('user_id',$user->id)->where('productionDate',$payrollPeriod[0])->get();
+      $dtr = User_DTR::where('user_id',$user->id)->where('productionDate',Carbon::parse($payrollPeriod[0],'Asia/Manila')->format('Y-m-d'))->get();
 
       if(count($dtr)<= 0)
       {
@@ -6412,12 +6412,13 @@ class DTRController extends Controller
         //Timekeeping Trait
         $anApprover = $this->checkIfAnApprover($approvers, $this->user);
         $fromYr = Carbon::parse($user->dateHired)->addMonths(6)->format('Y');
+
+        ($this->user->employeeNumber==$leader_L1->employeeNumber) ? $leader_lv1=1 : $leader_lv1=0;
+        ($this->user->employeeNumber==$leader_L0->employeeNumber) ? $leader_lv2=1 : $leader_lv2=0; 
+        ($this->user->employeeNumber==$leader_PM->employeeNumber) ? $leader_lv3=1 : $leader_lv3=0;
         
         if ( ($isWorkforce && !$isBackoffice) || $canViewOtherDTR || $anApprover || $this->user->id == $id || $hasAccess 
-        || ($theImmediateHead 
-        || $this->user->employeeNumber==$leader_L1->employeeNumber
-        || $this->user->employeeNumber==$leader_L0->employeeNumber 
-        || $this->user->employeeNumber==$leader_PM->employeeNumber ) && $canViewTeamDTR )  //($this->user->userType_id == 1 || $this->user->userType_id == 2)
+        || ($theImmediateHead || $leader_lv1 || $leader_lv2 || $leader_lv3 ) && $canViewTeamDTR )  
         {     
           if(empty($request->from) && empty($request->to) )
           {
@@ -7646,7 +7647,7 @@ class DTRController extends Controller
            //return response()->json(['currentVLbalance'=>$currentVLbalance,'currentSLbalance'=>$currentSLbalance]);
 
            
-           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves', 'anApprover', 'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isWorkforce','isFinance', 'canPreshift', 'isBackoffice','vlEarnings','slEarnings','isParttimer','hasAccess', 'canVL','canSL','isNDY','cp0','cp1','isExempt','exemptEmp','paystart','payend'));
+           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves',  'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isFinance', 'canPreshift', 'vlEarnings','slEarnings','isParttimer', 'canVL','canSL','isNDY','cp0','cp1','isExempt','exemptEmp','paystart','payend','anApprover','hasAccess','isWorkforce','isBackoffice','leader_lv1','leader_lv2','leader_lv3','canViewTeamDTR','canViewOtherDTR'));
 
 
         } else return view('access-denied');
@@ -7721,6 +7722,33 @@ class DTRController extends Controller
      
 
 
+
+    }
+
+    public function unlockByApprover($id, Request $request)
+    {
+      $user = User::find($id);
+      $payrollPeriod = $request->payrollPeriod;
+      foreach ($payrollPeriod as $key) {
+
+        $existingUnlock = User_Unlocks::where('user_id',$user->id)->where('productionDate',$key)->get();
+
+          if(count($existingUnlock) <= 0)
+          {
+            $unl = new User_Unlocks;
+            $unl->user_id = $user->id;
+            $unl->productionDate = $key;
+            $unl->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+            $unl->save();
+
+          }
+
+         $dtr = User_DTR::where('user_id',$user->id)->where('productionDate',$key)->delete();
+         
+         //if (count($dtr)>0){ $dtr->delete();} 
+      }
+
+      return response()->json(['success'=>'1', 'message'=>"DTR is now unlocked."]);
 
     }
 

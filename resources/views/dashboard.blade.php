@@ -2056,7 +2056,7 @@ select:-webkit-autofill:focus {
 
                                                   else if(full.typeID == 19)
                                                     
-                                                    return '<a href="./seen-unlockPDRequest/'+full.notification_id+'?seen=true" class="btn btn-flat btn-xs text-primary"><i class="fa fa-unlock"></i> Unlock Production Date Now</a>'+modalcode;                         
+                                                    return '<a target="_blank" href="./seen-unlockPDRequest/'+full.notification_id+'?seen=true" class="btn btn-flat btn-xs text-primary"><i class="fa fa-external-link"></i> Launch DTR to Unlock</a>'+modalcode;                         
 
                                                   else
                                                   return '<a data-notifType="'+full.typeID+'" data-action="1" data-notifID="'+full.id+'" data-id="'+full.deets.id+'" href="#" class="process btn btn-flat btn-xs text-success"><i class="fa fa-thumbs-up"></i> Approve</a><a data-notifType="'+full.typeID+'" data-action="0" data-notifID="'+full.id+'" data-id="'+full.deets.id+'" href="#" class="process btn btn-flat btn-xs text-danger"><i class="fa fa-thumbs-down"></i> Deny</a><a data-toggle="modal" data-target="#myModal'+full.id+'"  href="#" class="btn btn-flat btn-xs text-default"><i class="fa fa-trash"></i> Delete</a>'+modalcode;}}

@@ -986,6 +986,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'user_dtr.requestUnlock',
       'uses'=>'DTRController@requestUnlock') );
 
+      Route::post('/unlockByApprover/{id}', array(
+      'as'=> 'user_dtr.unlockByApprover',
+      'uses'=>'DTRController@unlockByApprover') );
+
+
       Route::post('/userPreshift/{id}', array(
       'as'=> 'user_dtr.usePreshift',
       'uses'=>'DTRController@usePreshift') );
