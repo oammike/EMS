@@ -597,6 +597,12 @@ select:-webkit-autofill:focus {
     
    startTime();
 
+    @if($enableClock)
+    $('#btn_timein, #btn_timeout,#btn_breakin, #btn_breakout').fadeIn();
+    @else
+    $('#btn_breakin, #btn_breakout').fadeIn();
+    @endif
+
    /*------------- TIMEKEEPING --------------*/
      //QUORA
      // MOUS
@@ -673,11 +679,7 @@ select:-webkit-autofill:focus {
       getNewNotifications();
       $('#wait').fadeOut();
       
-      @if($enableClock)
-        $('#btn_timein, #btn_timeout,#btn_breakin, #btn_breakout').fadeIn();
-      @else
-        $('#btn_breakin, #btn_breakout').fadeIn();
-      @endif
+     
       
 
      // ********* temporarily disable memo EES ************** 

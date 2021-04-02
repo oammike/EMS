@@ -428,6 +428,62 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
 
    startTime();
 
+    @if($enableClock)
+        $('#btn_timein, #btn_timeout,#btn_breakin, #btn_breakout').fadeIn();
+    @else
+    $('#btn_breakin, #btn_breakout').fadeIn();
+    @endif
+
+    /*------------- TIMEKEEPING --------------*/
+   //QUORA
+   // MOUS
+   // AVA
+   // WORLDVENTURES
+   // OPS
+   
+  $('.timekeeping').on('click', function(){
+    var logtype_id = $(this).attr('data-timetype');
+    var btn = $(this);
+    var _token = "{{ csrf_token() }}";
+    var clocktime = $('#clock').text();
+    $.ajax({
+        url: "{{action('LogsController@saveDashboardLog')}}",
+        type:'POST',
+        data:{ 
+          'logtype_id': logtype_id,
+          'clocktime': clocktime,
+          '_token':_token
+        },
+        success: function(res){
+                console.log(res);
+                switch(logtype_id){
+                  case '1': {
+                                $.notify("System CHECK IN successful. \n\nYou may check your DTR Sheet to verify.\nShould you find any form of data discrepancy, kindy submit a DTRP for approval.",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
+                                btn.fadeOut("slow");
+                              } break;
+                  case '2': { 
+                                $.notify("System CHECK OUT successful. \n\nDon't forget to sign out from E.M.S as well. See you later, and take care.",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
+                                btn.fadeOut("slow");
+                            }break;
+                  case '3': { 
+                                $.notify("End Breaktime. \n\nLet's get back to work.",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
+                                btn.attr('disabled',true);
+                                $('#btn_breakin').attr('disabled',false);
+                            }break;
+                  case '4': { 
+                            btn.attr("disabled",'disabled');
+                            $('#btn_breakout').attr('disabled',false);
+                            $.notify("BREAKTIME. \n\nDon't forget to click the Breaktime END button once you get back from your break.",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} ); }break;
+                }
+                
+                
+        },
+        error: function(res){
+              $.notify("Sorry, an error occured while saving your logs. \n\nPlease try again later.",{className:"error",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
+        }
+      });
+  });
+
     /* ---- VIDEO PLAYER -------- */
    // var vid = document.getElementById("teaser");
    // vid.onplay = function() {
@@ -452,11 +508,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
 
       $('#wait').fadeOut();
 
-      @if($enableClock)
-        $('#btn_timein, #btn_timeout,#btn_breakin, #btn_breakout').fadeIn();
-      @else
-        $('#btn_breakin, #btn_breakout').fadeIn();
-      @endif
+      
 
        
 
@@ -519,55 +571,7 @@ Include the following hashtags in your caption: #WeSpeakYourLanguage #OAonIMLD #
    @endif
 
    
-   /*------------- TIMEKEEPING --------------*/
-   //QUORA
-   // MOUS
-   // AVA
-   // WORLDVENTURES
-   // OPS
-   
-  $('.timekeeping').on('click', function(){
-    var logtype_id = $(this).attr('data-timetype');
-    var btn = $(this);
-    var _token = "{{ csrf_token() }}";
-    var clocktime = $('#clock').text();
-    $.ajax({
-        url: "{{action('LogsController@saveDashboardLog')}}",
-        type:'POST',
-        data:{ 
-          'logtype_id': logtype_id,
-          'clocktime': clocktime,
-          '_token':_token
-        },
-        success: function(res){
-                console.log(res);
-                switch(logtype_id){
-                  case '1': {
-                                $.notify("System CHECK IN successful. \n\nYou may check your DTR Sheet to verify.\nShould you find any form of data discrepancy, kindy submit a DTRP for approval.",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
-                                btn.fadeOut("slow");
-                              } break;
-                  case '2': { 
-                                $.notify("System CHECK OUT successful. \n\nDon't forget to sign out from E.M.S as well. See you later, and take care.",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
-                                btn.fadeOut("slow");
-                            }break;
-                  case '3': { 
-                                $.notify("End Breaktime. \n\nLet's get back to work.",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
-                                btn.attr('disabled',true);
-                                $('#btn_breakin').attr('disabled',false);
-                            }break;
-                  case '4': { 
-                            btn.attr("disabled",'disabled');
-                            $('#btn_breakout').attr('disabled',false);
-                            $.notify("BREAKTIME. \n\nDon't forget to click the Breaktime END button once you get back from your break.",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} ); }break;
-                }
-                
-                
-        },
-        error: function(res){
-              $.notify("Sorry, an error occured while saving your logs. \n\nPlease try again later.",{className:"error",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
-        }
-      });
-  });
+  
 
 
   /*---------- NDY WIDGET ----------- */
