@@ -3,6 +3,30 @@
 
               
             <div class="item active text-center" >
+                  
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/nurses_2021_04_03.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Reminders from <br/><span class="text-primary"><i class="fa fa-medkit"></i> OAM Nurses <i class="fa fa-medkit"></i><br/><small>Apr. 03, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-left">
+                     Hi all,<br/><br/>
+                     Regardless of our religion/belief, let us pray for strength, health and guidance. Healthcare workers need our support to help themselves and to help us stop the spread of COVID19
+
+                       
+
+
+
+                  </p>
+                    
+                   
+                    
+                    
+            </div>
+
+
+            <div class="item text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/holyweek_2021.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-plus"></i> Holy Week <span class="text-primary"> 2021 <i class="fa fa-plus"></i><br/><small>Apr. 01-03 , 2021</small><br/>
                   
