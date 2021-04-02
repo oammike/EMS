@@ -1163,7 +1163,7 @@ class NotificationController extends Controller
                   'position'=>$position,  
                   'campaign'=> $campaign,
                   'created_at'=>date('M d,Y', strtotime($notif->created_at)),
-                  'ago'=>Carbon::now()->diffForHumans($notif->created_at, true), 
+                  'ago'=>Carbon::now()->diffForHumans(Carbon::parse($notif->created_at,'Asia/Manila'), true), 
                   'actionlink'=>$actionlink]);
 
              // }
