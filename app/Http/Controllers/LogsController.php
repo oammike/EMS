@@ -71,6 +71,9 @@ class LogsController extends Controller
         return redirect()->back();
     }
 
+
+
+
     public function allLogs()
     {
         $user = $this->user;
@@ -335,6 +338,261 @@ class LogsController extends Controller
         
 
                         
+
+    }
+
+
+
+    public function emsAccess()
+    {
+        $user = $this->user;
+        if (Input::get('date'))
+            $start = Carbon::parse(Input::get('date'),'Asia/Manila');
+        else
+            $start = Carbon::now('GMT+8');
+
+        $end = Carbon::parse($start->format('Y-m-d'),'Asia/Manila')->addDays(15);
+        $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+        if($this->user->id !== 564 ) {
+        $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+        fwrite($file, "-------------------\n EMSaccess track on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+        fclose($file);
+        } 
+
+        
+        return view('timekeeping.emsAccess',compact('user','start','end'));
+    }
+
+    public function emsAccess_download()
+    {
+        DB::connection()->disableQueryLog();
+        $correct = Carbon::now('GMT+8');
+        //$canAdminister = ( count(UserType::find($this->user->userType_id)->roles->where('label','QUERY_REPORTS'))>0 ) ? true : false;
+
+        $from = Input::get('from');
+        
+        $download = Input::get('dl');
+
+        $rawData = new Collection;
+
+        if (is_null(Input::get('from')))
+        {
+            $daystart = Carbon::now('GMT+8')->startOfDay(); $dayend = Carbon::now('GMT+8')->endOfDay();
+        }
+        else {
+            $daystart = Carbon::parse(Input::get('from'),'Asia/Manila')->startOfDay(); 
+            $dayend = Carbon::parse(Input::get('from'),'Asia/Manila')->endOfDay();
+        }
+
+        $bio = Biometrics::where('productionDate',$daystart->format('Y-m-d'))->get();
+        if (count($bio) > 0)
+        {
+            $form = DB::table('user_cctv')-> //where('biometrics_id',$bio->first()->id)->
+                    //leftJoin('logType','logs.logType_id','=','logType.id')->
+                    leftJoin('users','user_cctv.user_id','=','users.id')->
+                    leftJoin('team','users.id','=','team.user_id')->
+                    leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                    select('users.id', 'users.accesscode','users.employeeCode', 'users.firstname','users.lastname','campaign.name as program','user_cctv.created_at as logTime', 'user_cctv.logType')->
+                    where('user_cctv.created_at','>=',$daystart->format('Y-m-d H:i:s'))->
+                    where('user_cctv.created_at','<=',$dayend->format('Y-m-d H:i:s'))->
+                    orderBy('users.lastname')->get();
+
+            $activeUsers = DB::table('campaign')->where('campaign.hidden',NULL)->
+                            where([
+                            ['campaign.id', '!=','26'], //wv
+                            ['campaign.id', '!=','35'], //ceb
+
+                          ])->
+                            join('team','team.campaign_id','=','campaign.id')->
+                            join('users','team.user_id','=','users.id')->
+                            select('users.id','users.accesscode','users.employeeCode', 'users.lastname','users.firstname','campaign.name as program')->
+                            where('users.status_id','!=',6)->
+                            where('users.status_id','!=',7)->
+                            where('users.status_id','!=',8)->
+                            where('users.status_id','!=',9)->
+                            where('users.status_id','!=',16)->
+                            orderBy('users.lastname')->get();
+            $allsubs = collect($form)->pluck('id')->unique();
+            $allactives = collect($activeUsers)->pluck('id')->unique();
+            $diff = $allactives->diff($allsubs);
+
+
+           
+
+            // $q = collect($allECQ)->where('user_id',1097);
+            // return $q;
+
+            //return collect($activeUsers)->where('id',564);// $diff;
+
+
+            $allDTRPs = DB::table('user_dtrp')->where('user_dtrp.biometrics_id',$bio->first()->id)->
+                        leftJoin('logType','user_dtrp.logType_id','=','logType.id')->
+                        leftJoin('users','user_dtrp.user_id','=','users.id')->
+                        leftJoin('team','users.id','=','team.user_id')->
+                        leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                        select('users.id', 'users.accesscode','users.employeeCode', 'users.firstname','users.lastname','campaign.name as program', 'user_dtrp.logTime','logType.name as logType','user_dtrp.isApproved','user_dtrp.notes', 'user_dtrp.created_at as submitted','user_dtrp.updated_at as updated' )->
+                        orderBy('users.lastname')->get();
+        
+            $allUnlocks = DB::table('user_unlocks')->where('user_unlocks.productionDate',$bio->first()->productionDate)-> 
+                        leftJoin('users','user_unlocks.user_id','=','users.id')->
+                        leftJoin('team','users.id','=','team.user_id')->
+                        leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                        select('users.id', 'users.accesscode','users.employeeCode', 'users.firstname','users.lastname','campaign.name as program','user_unlocks.created_at as submitted' )->
+                        orderBy('users.lastname')->get();
+
+
+        
+            $headers = array("EmployeeCode","AccessCode", "Last Name","First Name","Program","Recorded Timestamp","Log Type");
+            $headers2 = array("EmployeeCode","AccessCode", "Last Name","First Name","Program","Log Time","Log Type","Approved","Notes","Submitted","Updated");
+            $headers3 = array("EmployeeCode","AccessCode", "Last Name","First Name","Program","Requested");
+            $headers4 = array("EmployeeCode","AccessCode", "Last Name","First Name","Program");
+            $sheetTitle = "System Access Tracker [".$daystart->format('M d l')."]";
+            $description = " ". $sheetTitle;
+
+            if($this->user->id !== 564 ) {
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n DL_EMSaccess_csv [".$daystart->format('Y-m-d')."] " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+            } 
+
+            //return $allDTRPs;
+            
+            
+
+
+           Excel::create($sheetTitle,function($excel) use($form,$diff,$activeUsers,$allDTRPs, $allUnlocks, $sheetTitle, $headers,$headers2,$headers3,$headers4,$description,$daystart) 
+           {
+                  $excel->setTitle($sheetTitle.' Summary Report');
+
+                  // Chain the setters
+                  $excel->setCreator('Programming Team')
+                        ->setCompany('OpenAccess');
+
+                  // Call them separately
+                  $excel->setDescription($description);
+                  $excel->sheet($daystart->format('M d l'), function($sheet) use ($form, $headers)
+                  {
+                    $sheet->appendRow($headers);
+                    foreach($form as $item)
+                    {
+                        $arr = array($item->employeeCode, 
+                                     $item->accesscode, 
+                                     $item->lastname,
+                                     $item->firstname,
+                                     $item->program, 
+                                     $item->logTime,
+                                     $item->logType,
+                                     
+                                     
+
+                                     );
+                        $sheet->appendRow($arr);
+
+                    }
+                    
+                 });//end sheet1
+
+
+                  $excel->sheet('All DTRPs', function($sheet) use ($allDTRPs,$headers2)
+                  {
+                    $sheet->appendRow($headers2);
+                    foreach($allDTRPs as $item)
+                    {
+                        $t = Carbon::parse($item->submitted);
+                        $t2 = Carbon::parse($item->updated);
+
+                       if($item->isApproved == null)
+                            $a="Pending Approval";
+                       else if($item->isApproved == 1)
+                            $a="Yes";
+                       else $a="No";
+                        
+                        $arr = array($item->employeeCode,
+                                     $item->accesscode, 
+                                     $item->lastname,
+                                     $item->firstname,
+                                     $item->program, //ID
+                                     $item->logTime, //plan number
+                                     $item->logType,
+                                     $a,
+                                     $item->notes,
+                                     $t->format('M d, H:i:s'),
+                                     $t2->format('M d, H:i:s'),
+                                     
+
+                                     );
+                        $sheet->appendRow($arr);
+
+                    }
+                    
+                 });//end sheet2
+
+
+                  $excel->sheet('Unlocks', function($sheet) use ($allUnlocks,$headers3)
+                  {
+                    $sheet->appendRow($headers3);
+                    foreach($allUnlocks as $item)
+                    {
+                        $t = Carbon::parse($item->submitted);
+
+                      
+                        
+                        $arr = array($item->employeeCode, 
+                                     $item->accesscode,
+                                     $item->lastname,
+                                     $item->firstname,
+                                     $item->program, //ID
+                                     $t->format('M d, h:i A'),
+                                     );
+                        $sheet->appendRow($arr);
+
+                    }
+                    
+                 });//end sheet2
+
+
+                  
+
+           })->export('xls');
+
+           return "Download";
+
+        }else
+        {
+            return view('empty');
+        }
+
+        
+
+                        
+
+    }
+
+    public function getAllEMSaccess()
+    {
+        if (Input::get('date'))
+            $productionDate = Carbon::parse(Input::get('date'),'Asia/Manila');
+        else
+            $productionDate = Carbon::now('GMT+8');
+
+          $start = Carbon::parse($productionDate->format('Y-m-d'),'Asia/Manila')->startOfDay();
+          $end = Carbon::parse($productionDate->format('Y-m-d'),'Asia/Manila')->endOfDay();
+
+        
+            $allLogs = DB::table('user_cctv')-> //->where('biometrics_id',$bio->first()->id)->
+            leftJoin('users','user_cctv.user_id','=','users.id')->
+            leftJoin('team','team.user_id','=','users.id')->
+            leftJoin('campaign','team.campaign_id','=','campaign.id')->
+            select('users.id as userID', 'users.lastname','users.accesscode','users.employeeCode','users.firstname','campaign.name as program','user_cctv.logType','user_cctv.created_at')->
+            where('user_cctv.created_at','>=',$start->format('Y-m-d H:i:s'))->
+            where('user_cctv.created_at','<=',$end->format('Y-m-d H:i:s'))->orderBy('users.lastname','ASC')->get();
+
+        
+
+        
+
+        return response()->json(['data'=>$allLogs, 'count'=>count($allLogs)]);
 
     }
 

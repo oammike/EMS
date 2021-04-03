@@ -490,9 +490,21 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
         'as'=> 'logs.allLogs',
         'uses'=>'LogsController@allLogs') );
 
+       Route::get('/track_EMSaccess', array(
+        'as'=> 'logs.emsAccess',
+        'uses'=>'LogsController@emsAccess') );
+
+        Route::get('/getAllEMSaccess', array(
+        'as'=> 'logs.getAllEMSaccess',
+        'uses'=>'LogsController@getAllEMSaccess') );
+
       Route::get('/allLogs_download', array(
         'as'=> 'logs.allLogs_download',
         'uses'=>'LogsController@allLogs_download') );
+
+      Route::get('/emsAccess_download', array(
+        'as'=> 'logs.emsAccess_download',
+        'uses'=>'LogsController@emsAccess_download') );
 
        Route::get('/getWFH', array(
         'as'=> 'logs.getWFH',

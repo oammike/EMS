@@ -650,7 +650,7 @@
 
 
 
-         <li class="treeview  @if ( Request::is('user_dtr*') || Request::is('user_vl*') || Request::is('user_sl*') || Request::is('DTRlockReport*') ) active @endif ">
+         <li class="treeview  @if ( Request::is('user_dtr*') || Request::is('user_vl*') || Request::is('user_sl*') || Request::is('DTRlockReport*') || Request::is('track_EMSaccess') ) active @endif ">
           <a href="#" class="text-yellow">
             <i class="fa fa-clock-o"></i> <span>Timekeeping</span>
             <i class="fa fa-angle-left pull-right"></i>
@@ -673,6 +673,8 @@
             <li style="padding-left:20px" @if ( Request::is('leave_management*') ) class="active" @endif ><a href="{{action('UserController@leaveMgt')}}"><i class="fa fa-calendar"></i> Leave Management</a></li>
 
             <li style="padding-left:20px" @if ( Request::is('schedule_management*') ) class="active" @endif ><a href="{{action('UserController@schedMgt')}}"><i class="fa fa-history"></i> Schedule Management</a></li>
+
+            <li style="padding-left:20px" @if ( Request::is('track_EMSaccess') ) class="active" @endif ><a href="{{action('LogsController@emsAccess')}}" class="text-yellow"><i class="fa fa-user-secret"></i> System Access Tracker</a></li>
 
 
 
