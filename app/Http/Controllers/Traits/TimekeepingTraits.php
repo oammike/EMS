@@ -5322,18 +5322,18 @@ trait TimekeepingTraits
       {
         if($isDavao)
           {
-            $holidayToday =Holiday::where('holidate', $payday)->get();
+            $holidayToday = $hol; //Holiday::where('holidate', $payday)->get();
             $hasHolidayToday = true;
 
           } 
           else { $holidayToday=null; }
       }
       else {
-        $holidayToday = Holiday::where('holidate', $payday)->get(); $hasHolidayToday = true;
+        $holidayToday = $hol;  $hasHolidayToday = true; //Holiday::where('holidate', $payday)->get();
       }
 
     }else
-      $holidayToday = Holiday::where('holidate', $payday)->get();
+      $holidayToday = $hol; //Holiday::where('holidate', $payday)->get();
 
     
 
@@ -5688,7 +5688,7 @@ trait TimekeepingTraits
 
         if(count($mayOT) > 0)
         {
-          $wh = number_format($mayOT->first()->filed_hours*60,2);
+          $wh = $mayOT->first()->filed_hours*60; //number_format($mayOT->first()->filed_hours*60,2);
 
         }
         else
@@ -6686,9 +6686,15 @@ trait TimekeepingTraits
                     if($hasHolidayToday && $isBackoffice)
                     {
                       $UT = 0;
-                      if ($wh >= 300) $wh = $wh-60;
-                      $workedHours = number_format($wh/60,2); 
-                      
+                      //additional check kung may approved OT time na eh di yun dapat ang lalabas
+                      if(count($mayOT) > 0)
+                        $workedHours = $mayOT->first()->filed_hours; //number_format($wh/60,2); 
+
+                      else{
+                            if ($wh >= 300) $wh = $wh-60;
+                            $workedHours = number_format($wh/60,2); 
+
+                      }
 
                     }else
                     {
@@ -6729,25 +6735,25 @@ trait TimekeepingTraits
 
                  if(strlen($userLogOUT[0]['logTxt']) >= 18) //hack for LogOUT with date
                  {
-                  $t = Carbon::parse($userLogOUT[0]['logTxt'],'Asia/Manila');
+                    $t = Carbon::parse($userLogOUT[0]['logTxt'],'Asia/Manila');
 
-                  if($hasHolidayToday && $isBackoffice)
-                    $totalbill = $workedHours; //number_format($wh/60,2);//number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
-                  
-                  elseif ($isPartTimer || $isPartTimerForeign)
-                  {
-                        if($ptOverride)
-                          $totalbill = number_format(($wh - 480)/60,2);
-                        else
-                        {
-                          ($wh > 480) ? $totalbill = number_format(($wh - 480)/60,2) : $totalbill=0;
-                        } 
-                  } else{
+                    if($hasHolidayToday && $isBackoffice)
+                      $totalbill = $workedHours; //number_format($wh/60,2);//number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                    
+                    elseif ($isPartTimer || $isPartTimerForeign)
+                    {
+                          if($ptOverride)
+                            $totalbill = number_format(($wh - 480)/60,2);
+                          else
+                          {
+                            ($wh > 480) ? $totalbill = number_format(($wh - 480)/60,2) : $totalbill=0;
+                          } 
+                    } else{
 
-                    if($isExempt) $totalbill = 0;
-                    else
-                      $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
-                  } 
+                      if($isExempt) $totalbill = 0;
+                      else
+                        $totalbill = number_format( $endOfShift->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                    } 
 
                  } 
                  else{ 
@@ -6800,7 +6806,9 @@ trait TimekeepingTraits
                       }
 
 
-                }else if($wh >= 240 && $wh < 300) //more than 4hr work
+                }
+
+                else if($wh >= 240 && $wh < 300) //more than 4hr work
                 {
                   if ($isPartTimer || $ptSched || $isPartTimerForeign)
                   {
@@ -6812,8 +6820,14 @@ trait TimekeepingTraits
 
                     if($hasHolidayToday && $isBackoffice)
                     {
-                      if ($wh >= 300) $wh = $wh-60;
-                      $workedHours = number_format($wh/60,2);
+                       //additional check kung may approved OT time na eh di yun dapat ang lalabas
+                      if(count($mayOT) > 0)
+                        $workedHours = $mayOT->first()->filed_hours; //number_format($wh/60,2); 
+                      else{
+                            if ($wh >= 300) $wh = $wh-60;
+                            $workedHours = number_format($wh/60,2);
+                      }
+                      
                       $UT = 0;
 
                     }
@@ -6904,10 +6918,19 @@ trait TimekeepingTraits
                   if($hasHolidayToday && $isBackoffice)
                   {
 
-                      $workedHours = number_format($wh/60,2); 
+                      //additional check kung may approved OT time na eh di yun dapat ang lalabas
+                      if(count($mayOT) > 0){
+                        $workedHours = $mayOT->first()->filed_hours; // 
+                        $billableForOT = $mayOT->first()->filed_hours; //number_format($wh/60,2);
+                      }
+                      else {
+                        $workedHours = number_format($wh/60,2); //$wh;
+                        $billableForOT = number_format($wh/60,2); 
+                      }
+
                       $icons = "<a id=\"OT_".$payday."\"  data-toggle=\"modal\" data-target=\"#myModal_OT".$payday."\"  title=\"File this Holiday OT\" class=\"pull-right\" style=\"font-size:1.2em;\" href=\"#\"><i class=\"fa fa-credit-card\"></i></a>"; 
                       
-                      $billableForOT = number_format($wh/60,2); 
+                      
                       $workedHours .= "<br/> <strong>[* ". $holidayToday->first()->name. " *]</strong>";
                       $OTattribute = $icons;
                       $UT=0;
