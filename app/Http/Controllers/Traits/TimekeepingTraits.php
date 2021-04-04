@@ -1260,40 +1260,321 @@ trait TimekeepingTraits
 
   }
 
-  public function getPendings($type,$startCutoff,$endCutoff)
+  public function getAllWorksched($c, $json,$regardless)
   {
+    $cutoff = explode('_', $c); //return $cutoff;
+    $startCutoff = $cutoff[0]; //Biometrics::where('productionDate',$cutoff[0])->first();
+    $endCutoff = $cutoff[1]; //Biometrics::where('productionDate',$cutoff[1])->first();
+    $period = Biometrics::where('productionDate','>=',$startCutoff)->where('productionDate','<=',$endCutoff)->get();
+    //return response()->json(['s'=>$startCutoff,'e'=>$endCutoff]);// $period;
+    $hybridSched_WS_fixed = null;$hybridSched_WS_monthly = null;$hybridSched_RD_fixed = null;$hybridSched_RD_monthly=null;$hybridSched=null;
 
-    switch ($type) {
-      case 'VL': $t = 'user_vl'; break;
-      case 'VTO': $t = 'user_vto'; break;
-      case 'SL': $t = 'user_sl'; break;
-      case 'LWOP': $t = 'user_lwop'; break;
-      case 'FL': $t = 'user_familyleaves'; break;
+    $allOTs = new Collection;
+    $total = 0;
+    $keme = new Collection;
+    
+
+    //gawin mo lang to kung need pati kunin regardless kung locked or unlocked
+    if($regardless)
+    {
+      DB::connection()->disableQueryLog();
+      $allUsers = DB::table('users')->
+                  join('team','team.user_id','=','users.id')->
+                  join('campaign','campaign.id','=','team.campaign_id')->
+                  leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                  leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                  leftJoin('positions','users.position_id','=','positions.id')->
+                  leftJoin('floor','team.floor_id','=','floor.id')->
+                  select('users.accesscode','users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','users.employeeCode', 'floor.name as location','floor.id as floorID')->
+                  where([
+                  ['users.status_id', '!=', 7],
+                  ['users.status_id', '!=', 8],
+                  ['users.status_id', '!=', 9],
+                  ['users.status_id', '!=', 13],
+                  ['users.status_id', '!=', 16],
+                  ['users.id','!=', 1], //Ben
+                  ['users.id','!=', 184], //Henry
+                  ['floor.id', '!=', 10], //taipei
+                  ['floor.id', '!=', 11], //xiamen
+                  ['campaign.hidden',null],
+                  ])->orderBy('users.lastname')->get();
+
+      $allEmp = collect($allUsers)->pluck('id')->toArray();
+      $allLocked = DB::table('user_dtr')->where([ 
+                ['user_dtr.productionDate','>=',$startCutoff],
+                ['user_dtr.productionDate','<=',$endCutoff]
+                ])->join('users','users.id','=','user_dtr.user_id')->select('user_dtr.productionDate','user_dtr.workshift','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+
+      
+      foreach ($period as $p) 
+      {
+         $col = new Collection;
+
+          // once na makuha lahat ng ng naglock, we need to check each employees na hindi naglock for each production date
+          // *** this was taken out from DTR show
+          
+          $mgaMeron = collect($allLocked)->where('productionDate',$p->productionDate)->pluck('userID')->toArray();
+          $hanapan = array_diff($allEmp, $mgaMeron);
+          $bioForTheDay = Biometrics::where('productionDate', $p->productionDate)->first();
+          
+          // foreach ($hanapan as $id) {
+
+                
+          //       //$user = User::find($u);
+          //       $monthlyScheds = DB::table('monthly_schedules')->where('user_id',$id)->where('productionDate','>=',$startCutoff)->where('productionDate','<=',$endCutoff)->orderBy('created_at','DESC')->get();
+          //        // if (count($monthlyScheds) > 0)
+          //        // {
+          //        //    if ( $user->fixedSchedule->isEmpty() )
+          //        //    {
+
+                   
+          //        //      /*$workSched = MonthlySchedules::where('user_id',$id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',0)->get(); //Collection::make($monthlySched->where('isRD',0)->all());
+          //        //      $RDsched = MonthlySchedules::where('user_id',$id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',1)->get();  //$monthlySched->where('isRD',1)->all();*/
+
+          //        //      $workSched = collect($monthlyScheds)->where('isRD',0);
+          //        //      $RDsched = collect($monthlyScheds)->where('isRD',1);
+          //        //      $isFixedSched = false;
+          //        //      $noWorkSched = false;
+          //        //      $hybridSched = false;
+
+          //        //    }else //------------------------- HYBRID SCHED ------------------
+          //        //    {
+
+          //        //      $hybridSched = true;
+          //        //      $noWorkSched = false;
+          //        //      $isFixedSched = false;
+
+                      
+
+          //        //      $hybridSched_WS_fixed = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->
+          //        //                              where('isRD',0)->groupBy('schedEffectivity');
+          //        //      $hybridSched_WS_monthly = collect($monthlyScheds)->sortByDesc('created_at')->where('isRD',0);
+          //        //      $hybridSched_RD_fixed = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->
+          //        //                              where('isRD',1)->groupBy('schedEffectivity');
+          //        //      $hybridSched_RD_monthly = collect($monthlyScheds)->sortByDesc('created_at')->where('isRD',1);
+
+          //        //      $RDsched=null;
+          //        //      $workSched=null;
+
+          //        //      /*--- and then compare which is the latest of those 2 scheds --*/
+
+
+          //        //    }
+
+          //        // } 
+          //        // else
+          //        // {
+          //        //    if (count($user->fixedSchedule) > 0)
+          //        //    {
+                        
+
+          //        //        $workSched = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->where('isRD',0)->groupBy('schedEffectivity');
+          //        //        $RDsched = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->where('isRD',1)->groupBy('schedEffectivity');
+          //        //        $isFixedSched =true;
+          //        //        $noWorkSched = false;
+          //        //        $workdays = new Collection;
+                        
+
+          //        //    } else
+          //        //    {
+          //        //        $noWorkSched = true;
+          //        //        $workSched = null;
+          //        //        $RDsched = null;
+          //        //        $isFixedSched = false;
+                        
+          //        //    }
+          //        // }
+
+          //       // $approvedCWS  = User_CWS::where('user_id',$user->id)->where('biometrics_id',$bioForTheDay->id)->where('isApproved',1)->orderBy('updated_at','DESC')->get();
+
+
+          //       //$actualSchedToday = $this->getActualSchedForToday($user,null,$p->productionDate,null, $hybridSched,$isFixedSched,$hybridSched_WS_fixed,$hybridSched_WS_monthly, $hybridSched_RD_fixed, $hybridSched_RD_monthly, $workSched, $RDsched, $approvedCWS);
+          //       $col->push(['id'=>$id,'monthlyScheds'=>$monthlyScheds]);//, 'user'=>$user->lastname.", ".$user->firstname
+
+          //       // $isRDToday = $actualSchedToday->isRDToday;
+          //       // $actualSchedToday1 = $actualSchedToday;
+          //       // $schedForToday =  $actualSchedToday->schedForToday;
+
+            
+            
+          // }
+          //$keme->push(['mgaMeron'=>$mgaMeron,'lahat'=>$allEmp, 'hanapan'=>count($hanapan), 'productionDate'=>$p->productionDate, 'allUsers'=>$allUsers]);
+          // if (count($ot) > 0) {
+          //   $allOTs->push($ot);
+
+          //   $total += count($ot);
+          // }
+          $keme->push(['date'=>$p->productionDate,'meron'=>$mgaMeron, 'hanapan#'=>count($hanapan), 'sino'=>$hanapan]);
+          
+      }//end foreach
+
+
+
+      if ($json)
+        return response()->json(['keme'=>$keme, 'CWS'=>$allLocked, 'all'=>count($allEmp), 'name'=>'Work Schedule', 'cutoffstart'=>$startCutoff,'cutoffend'=>$endCutoff]);
+      else
+        return $allLocked;
 
     }
-
-    if($type=='VTO')
+    else
     {
-      $leaves = DB::table($t)->where([ 
-                  [$t.'.productionDate','>=', $startCutoff->format('Y-m-d')],
-                  ])->join('users','users.id','=',$t.'.user_id')->
-                  leftJoin('team','team.user_id','=','users.id')->
-                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select($t.'.startTime as leaveStart',$t.'.endTime as leaveEnd',$t.'.isApproved',$t.'.totalHours as totalCredits', $t.'.created_at', $t.'.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program')->where($t.'.productionDate','<=',$endCutoff->format('Y-m-d'))->get();
+      foreach ($period as $p) {
+         $ot = DB::table('user_dtr')->where([ 
+                      ['user_dtr.productionDate',$p->productionDate]
+                      ])->join('users','users.id','=','user_dtr.user_id')->
+                      
+                    select('user_dtr.productionDate','user_dtr.workshift','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+        if (count($ot) > 0) {
+          $allOTs->push($ot);
+          $total += count($ot);
+        }
+          
+      }
+      if ($json)
+        return response()->json(['CWS'=>$allOTs, 'total'=>$total, 'name'=>'Work Schedule', 'cutoffstart'=>$startCutoff,'cutoffend'=>$endCutoff]);
+      else
+        return $allOTs;
+
+    }
+    
+
+  }
+
+  public function getAllWorkedHolidays($c,$json)
+  {
+    $cutoff = explode('_', $c); 
+    $startCutoff = $cutoff[0];
+    $endCutoff = $cutoff[1];
+
+    $allHolidays = Holiday::where('holidate','>=',$startCutoff)->where('holidate','<=',$endCutoff)->get();
+
+    if (count($allHolidays) > 0)
+    {
+      $period = Biometrics::where('productionDate','>=',$startCutoff)->where('productionDate','<=',$endCutoff)->get();
+      //return response()->json(['s'=>$startCutoff,'e'=>$endCutoff]);// $period;
+
+      $allWorkedHolidays = new Collection;
+      $total = 0;
+
+      foreach ($allHolidays as $p) {
+
+         $allops = DB::table('campaign')->where('campaign.isBackoffice',null)->
+                      join('team','team.campaign_id','=','campaign.id')->
+                      join('users','team.user_id','=','users.id')->
+                      
+                      where([
+                          ['users.status_id', '!=', 6],
+                          ['users.status_id', '!=', 7],
+                          ['users.status_id', '!=', 8],
+                          ['users.status_id', '!=', 9],
+                          ['users.status_id', '!=', 13],
+                          ['users.status_id', '!=', 16],
+                      ])->orderBy('users.lastname')->
+                      join('user_dtr','user_dtr.user_id','=','users.id')->
+                      where('user_dtr.productionDate',$p->holidate)->
+                      select('user_dtr.productionDate','user_dtr.OT_approved as filed_hours','user_dtr.OT_billable','user_dtr.timeIN as timeStart','user_dtr.timeOUT as timeEnd','users.employeeCode as accesscode','users.id as userID','users.lastname', 'users.firstname','campaign.name as program','user_dtr.hoursWorked','user_dtr.workshift','users.status_id')->
+                      where('user_dtr.OT_approved','=','0.00')->
+                      where([
+                          ['user_dtr.timeIN','!=','<strong class="text-danger"> N / A </strong><a tit'],
+                          ['user_dtr.timeIN','!=','<strong class="text-danger">No IN</strong><a title'],
+                          ['user_dtr.timeIN','!=','LWOP'],
+                          ['user_dtr.timeIN','!=','* RD *'],
+                          ['user_dtr.timeIN','!=','SL'],
+                          ['user_dtr.timeIN','!=','VL'],
+                          ['user_dtr.timeIN','!=','ML'],
+                          ['user_dtr.timeIN','!=','PL'],
+                          ['user_dtr.timeIN','!=','SPL'],
+                          ['user_dtr.timeIN','!=','VTO'],
+                          ['user_dtr.timeIN','!=','LWOP for approval'],
+                          ['user_dtr.timeIN','!=','LWOP denied'],
+                          ['user_dtr.timeIN','!=','SL for approval'],
+                          ['user_dtr.timeIN','!=','SL denied'],
+                          ['user_dtr.timeIN','!=','VL for approval'],
+                          ['user_dtr.timeIN','!=','VL denied'],
+                          ['user_dtr.timeIN','!=','ML for approval'],
+                          ['user_dtr.timeIN','!=','ML denied'],
+                          ['user_dtr.timeIN','!=','PL for approval'],
+                          ['user_dtr.timeIN','!=','PL denied'],
+                          ['user_dtr.timeIN','!=','SPL for approval'],
+                          ['user_dtr.timeIN','!=','SPL denied'],
+                          ['user_dtr.timeIN','!=','VTO for approval'],
+                          ['user_dtr.timeIN','!=','VTO denied']
+                        ])->get();
+
+         
+        
+          $allWorkedHolidays->push($allops);
+          $total += count($allops);
+        
+          
+      }
+
+  
+      
+      if ($json)
+        return response()->json(['WorkedHDs'=>$allWorkedHolidays,  'total'=>$total, 'name'=>'Worked Holidays', 'cutoffstart'=>$startCutoff,'cutoffend'=>$endCutoff]);
+      else
+        return $allWorkedHolidays;
+
+    }
+    else
+    {
+       return $allHolidays;
+
+    }
+    
+
+  }
+
+  public function getCWS($from, $to,$type,$user)
+  {
+    
+    $startCutoff = Carbon::parse($from,'Asia/Manila'); 
+    $endCutoff = Carbon::parse($to,'Asia/Manila');
+
+    $startCutoffb = Biometrics::where('productionDate',$startCutoff->format('Y-m-d'))->get();
+    $endCutoffb = Biometrics::where('productionDate',$endCutoff->format('Y-m-d'))->get();
+
+    $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+    (count($specialChild) > 0) ? $hasAccess=1 : $hasAccess=0;
+
+
+    DB::connection()->disableQueryLog();
+    if($hasAccess){
+
+            $leaves = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->
+                          leftJoin('campaign','user_specialPowers_programs.program_id','=','campaign.id')->
+                          leftJoin('team','user_specialPowers_programs.program_id','=','team.campaign_id')->
+                          leftJoin('users','team.user_id','=','users.id')->
+                          leftJoin('user_cws','user_cws.user_id','=','users.id')->
+                          leftJoin('biometrics','biometrics.id','=','user_cws.biometrics_id')->
+                          select('user_cws.isRD', 'user_cws.id as leaveID','biometrics.productionDate', 'user_cws.biometrics_id', 'user_cws.timeStart','user_cws.timeEnd','user_cws.timeStart_old','user_cws.timeEnd_old','user_cws.isApproved','user_cws.approver', 'user_cws.created_at', 'user_cws.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->
+                          where('biometrics.productionDate','<=',$endCutoffb->first()->productionDate)->
+                          where('biometrics.productionDate','>=',$startCutoffb->first()->productionDate)->orderBy('user_cws.isApproved','ASC')->get();
 
     }else{
-      $leaves = DB::table($t)->where([ 
-                  [$t.'.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00"],
+             $leaves = DB::table('user_cws')->where([ 
+                  ['user_cws.biometrics_id','>=', $startCutoffb->first()->id],
                   //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
-                  ])->join('users','users.id','=',$t.'.user_id')->
+                  ])->join('users','users.id','=','user_cws.user_id')->
                   leftJoin('team','team.user_id','=','users.id')->
-                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select($t.'.leaveStart',$t.'.leaveEnd',$t.'.isApproved',$t.'.totalCredits',$t.'.halfdayFrom',$t.'.halfdayTo', $t.'.created_at', $t.'.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program')->where($t.'.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->get();
+                  leftJoin('biometrics','biometrics.id','=','user_cws.biometrics_id')->
+                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_cws.isRD', 'user_cws.id as leaveID','biometrics.productionDate', 'user_cws.biometrics_id', 'user_cws.timeStart','user_cws.timeEnd','user_cws.timeStart_old','user_cws.timeEnd_old','user_cws.isApproved','user_cws.approver', 'user_cws.created_at', 'user_cws.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->where('user_cws.biometrics_id','<=',$endCutoffb->first()->id)->orderBy('user_cws.isApproved','ASC')->get();
+
 
     }
+   
 
-    
+         
+
+   
+   
     return $leaves;
 
   }
+
 
   public function getLeaveEarnings($from, $to,$type,$emp)
   {
@@ -1394,54 +1675,7 @@ trait TimekeepingTraits
 
   }
 
-  public function getCWS($from, $to,$type,$user)
-  {
-    
-    $startCutoff = Carbon::parse($from,'Asia/Manila'); 
-    $endCutoff = Carbon::parse($to,'Asia/Manila');
-
-    $startCutoffb = Biometrics::where('productionDate',$startCutoff->format('Y-m-d'))->get();
-    $endCutoffb = Biometrics::where('productionDate',$endCutoff->format('Y-m-d'))->get();
-
-    $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$user->id)->
-                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
-    (count($specialChild) > 0) ? $hasAccess=1 : $hasAccess=0;
-
-
-    DB::connection()->disableQueryLog();
-    if($hasAccess){
-
-            $leaves = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$user->id)->
-                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->
-                          leftJoin('campaign','user_specialPowers_programs.program_id','=','campaign.id')->
-                          leftJoin('team','user_specialPowers_programs.program_id','=','team.campaign_id')->
-                          leftJoin('users','team.user_id','=','users.id')->
-                          leftJoin('user_cws','user_cws.user_id','=','users.id')->
-                          leftJoin('biometrics','biometrics.id','=','user_cws.biometrics_id')->
-                          select('user_cws.isRD', 'user_cws.id as leaveID','biometrics.productionDate', 'user_cws.biometrics_id', 'user_cws.timeStart','user_cws.timeEnd','user_cws.timeStart_old','user_cws.timeEnd_old','user_cws.isApproved','user_cws.approver', 'user_cws.created_at', 'user_cws.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->
-                          where('biometrics.productionDate','<=',$endCutoffb->first()->productionDate)->
-                          where('biometrics.productionDate','>=',$startCutoffb->first()->productionDate)->orderBy('user_cws.isApproved','ASC')->get();
-
-    }else{
-             $leaves = DB::table('user_cws')->where([ 
-                  ['user_cws.biometrics_id','>=', $startCutoffb->first()->id],
-                  //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
-                  ])->join('users','users.id','=','user_cws.user_id')->
-                  leftJoin('team','team.user_id','=','users.id')->
-                  leftJoin('biometrics','biometrics.id','=','user_cws.biometrics_id')->
-                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_cws.isRD', 'user_cws.id as leaveID','biometrics.productionDate', 'user_cws.biometrics_id', 'user_cws.timeStart','user_cws.timeEnd','user_cws.timeStart_old','user_cws.timeEnd_old','user_cws.isApproved','user_cws.approver', 'user_cws.created_at', 'user_cws.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->where('user_cws.biometrics_id','<=',$endCutoffb->first()->id)->orderBy('user_cws.isApproved','ASC')->get();
-
-
-    }
-   
-
-         
-
-   
-   
-    return $leaves;
-
-  }
+  
 
   public function getLeaves($from, $to,$type,$user)
   {
@@ -1682,273 +1916,46 @@ trait TimekeepingTraits
 
   }
 
-  
-
-  public function getAllWorksched($c, $json,$regardless)
+  public function getPendings($type,$startCutoff,$endCutoff)
   {
-    $cutoff = explode('_', $c); //return $cutoff;
-    $startCutoff = $cutoff[0]; //Biometrics::where('productionDate',$cutoff[0])->first();
-    $endCutoff = $cutoff[1]; //Biometrics::where('productionDate',$cutoff[1])->first();
-    $period = Biometrics::where('productionDate','>=',$startCutoff)->where('productionDate','<=',$endCutoff)->get();
-    //return response()->json(['s'=>$startCutoff,'e'=>$endCutoff]);// $period;
-    $hybridSched_WS_fixed = null;$hybridSched_WS_monthly = null;$hybridSched_RD_fixed = null;$hybridSched_RD_monthly=null;$hybridSched=null;
 
-    $allOTs = new Collection;
-    $total = 0;
-    $keme = new Collection;
-    
-
-    //gawin mo lang to kung need pati kunin regardless kung locked or unlocked
-    if($regardless)
-    {
-      DB::connection()->disableQueryLog();
-      $allUsers = DB::table('users')->
-                  join('team','team.user_id','=','users.id')->
-                  join('campaign','campaign.id','=','team.campaign_id')->
-                  leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
-                  leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
-                  leftJoin('positions','users.position_id','=','positions.id')->
-                  leftJoin('floor','team.floor_id','=','floor.id')->
-                  select('users.accesscode','users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','users.employeeCode', 'floor.name as location','floor.id as floorID')->
-                  where([
-                  ['users.status_id', '!=', 7],
-                  ['users.status_id', '!=', 8],
-                  ['users.status_id', '!=', 9],
-                  ['users.status_id', '!=', 13],
-                  ['users.status_id', '!=', 16],
-                  ['users.id','!=', 1], //Ben
-                  ['users.id','!=', 184], //Henry
-                  ['floor.id', '!=', 10], //taipei
-                  ['floor.id', '!=', 11], //xiamen
-                  ['campaign.hidden',null],
-                  ])->orderBy('users.lastname')->get();
-
-      $allEmp = collect($allUsers)->pluck('id')->toArray();
-      $allLocked = DB::table('user_dtr')->where([ 
-                ['user_dtr.productionDate','>=',$startCutoff],
-                ['user_dtr.productionDate','<=',$endCutoff]
-                ])->join('users','users.id','=','user_dtr.user_id')->select('user_dtr.productionDate','user_dtr.workshift','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
-
-      
-      foreach ($period as $p) 
-      {
-         $col = new Collection;
-
-          // once na makuha lahat ng ng naglock, we need to check each employees na hindi naglock for each production date
-          // *** this was taken out from DTR show
-          
-          $mgaMeron = collect($allLocked)->where('productionDate',$p->productionDate)->pluck('userID')->toArray();
-          $hanapan = array_diff($allEmp, $mgaMeron);
-          $bioForTheDay = Biometrics::where('productionDate', $p->productionDate)->first();
-          
-          // foreach ($hanapan as $id) {
-
-                
-          //       //$user = User::find($u);
-          //       $monthlyScheds = DB::table('monthly_schedules')->where('user_id',$id)->where('productionDate','>=',$startCutoff)->where('productionDate','<=',$endCutoff)->orderBy('created_at','DESC')->get();
-          //        // if (count($monthlyScheds) > 0)
-          //        // {
-          //        //    if ( $user->fixedSchedule->isEmpty() )
-          //        //    {
-
-                   
-          //        //      /*$workSched = MonthlySchedules::where('user_id',$id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',0)->get(); //Collection::make($monthlySched->where('isRD',0)->all());
-          //        //      $RDsched = MonthlySchedules::where('user_id',$id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',1)->get();  //$monthlySched->where('isRD',1)->all();*/
-
-          //        //      $workSched = collect($monthlyScheds)->where('isRD',0);
-          //        //      $RDsched = collect($monthlyScheds)->where('isRD',1);
-          //        //      $isFixedSched = false;
-          //        //      $noWorkSched = false;
-          //        //      $hybridSched = false;
-
-          //        //    }else //------------------------- HYBRID SCHED ------------------
-          //        //    {
-
-          //        //      $hybridSched = true;
-          //        //      $noWorkSched = false;
-          //        //      $isFixedSched = false;
-
-                      
-
-          //        //      $hybridSched_WS_fixed = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->
-          //        //                              where('isRD',0)->groupBy('schedEffectivity');
-          //        //      $hybridSched_WS_monthly = collect($monthlyScheds)->sortByDesc('created_at')->where('isRD',0);
-          //        //      $hybridSched_RD_fixed = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->
-          //        //                              where('isRD',1)->groupBy('schedEffectivity');
-          //        //      $hybridSched_RD_monthly = collect($monthlyScheds)->sortByDesc('created_at')->where('isRD',1);
-
-          //        //      $RDsched=null;
-          //        //      $workSched=null;
-
-          //        //      /*--- and then compare which is the latest of those 2 scheds --*/
-
-
-          //        //    }
-
-          //        // } 
-          //        // else
-          //        // {
-          //        //    if (count($user->fixedSchedule) > 0)
-          //        //    {
-                        
-
-          //        //        $workSched = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->where('isRD',0)->groupBy('schedEffectivity');
-          //        //        $RDsched = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->where('isRD',1)->groupBy('schedEffectivity');
-          //        //        $isFixedSched =true;
-          //        //        $noWorkSched = false;
-          //        //        $workdays = new Collection;
-                        
-
-          //        //    } else
-          //        //    {
-          //        //        $noWorkSched = true;
-          //        //        $workSched = null;
-          //        //        $RDsched = null;
-          //        //        $isFixedSched = false;
-                        
-          //        //    }
-          //        // }
-
-          //       // $approvedCWS  = User_CWS::where('user_id',$user->id)->where('biometrics_id',$bioForTheDay->id)->where('isApproved',1)->orderBy('updated_at','DESC')->get();
-
-
-          //       //$actualSchedToday = $this->getActualSchedForToday($user,null,$p->productionDate,null, $hybridSched,$isFixedSched,$hybridSched_WS_fixed,$hybridSched_WS_monthly, $hybridSched_RD_fixed, $hybridSched_RD_monthly, $workSched, $RDsched, $approvedCWS);
-          //       $col->push(['id'=>$id,'monthlyScheds'=>$monthlyScheds]);//, 'user'=>$user->lastname.", ".$user->firstname
-
-          //       // $isRDToday = $actualSchedToday->isRDToday;
-          //       // $actualSchedToday1 = $actualSchedToday;
-          //       // $schedForToday =  $actualSchedToday->schedForToday;
-
-            
-            
-          // }
-          //$keme->push(['mgaMeron'=>$mgaMeron,'lahat'=>$allEmp, 'hanapan'=>count($hanapan), 'productionDate'=>$p->productionDate, 'allUsers'=>$allUsers]);
-          // if (count($ot) > 0) {
-          //   $allOTs->push($ot);
-
-          //   $total += count($ot);
-          // }
-          $keme->push(['date'=>$p->productionDate,'meron'=>$mgaMeron, 'hinanapan'=>count($hanapan)]);
-          
-      }//end foreach
-
-
-
-      if ($json)
-        return response()->json(['keme'=>$keme, 'CWS'=>$allLocked, 'all'=>count($allEmp), 'name'=>'Work Schedule', 'cutoffstart'=>$startCutoff,'cutoffend'=>$endCutoff]);
-      else
-        return $allLocked;
+    switch ($type) {
+      case 'VL': $t = 'user_vl'; break;
+      case 'VTO': $t = 'user_vto'; break;
+      case 'SL': $t = 'user_sl'; break;
+      case 'LWOP': $t = 'user_lwop'; break;
+      case 'FL': $t = 'user_familyleaves'; break;
 
     }
-    else
+
+    if($type=='VTO')
     {
-      foreach ($period as $p) {
-         $ot = DB::table('user_dtr')->where([ 
-                      ['user_dtr.productionDate',$p->productionDate]
-                      ])->join('users','users.id','=','user_dtr.user_id')->
-                      
-                    select('user_dtr.productionDate','user_dtr.workshift','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
-        if (count($ot) > 0) {
-          $allOTs->push($ot);
-          $total += count($ot);
-        }
-          
-      }
-      if ($json)
-        return response()->json(['CWS'=>$allOTs, 'total'=>$total, 'name'=>'Work Schedule', 'cutoffstart'=>$startCutoff,'cutoffend'=>$endCutoff]);
-      else
-        return $allOTs;
+      $leaves = DB::table($t)->where([ 
+                  [$t.'.productionDate','>=', $startCutoff->format('Y-m-d')],
+                  ])->join('users','users.id','=',$t.'.user_id')->
+                  leftJoin('team','team.user_id','=','users.id')->
+                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select($t.'.startTime as leaveStart',$t.'.endTime as leaveEnd',$t.'.isApproved',$t.'.totalHours as totalCredits', $t.'.created_at', $t.'.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program')->where($t.'.productionDate','<=',$endCutoff->format('Y-m-d'))->get();
+
+    }else{
+      $leaves = DB::table($t)->where([ 
+                  [$t.'.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00"],
+                  //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
+                  ])->join('users','users.id','=',$t.'.user_id')->
+                  leftJoin('team','team.user_id','=','users.id')->
+                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select($t.'.leaveStart',$t.'.leaveEnd',$t.'.isApproved',$t.'.totalCredits',$t.'.halfdayFrom',$t.'.halfdayTo', $t.'.created_at', $t.'.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program')->where($t.'.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->get();
 
     }
+
     
+    return $leaves;
 
   }
 
-  public function getAllWorkedHolidays($c,$json)
-  {
-    $cutoff = explode('_', $c); 
-    $startCutoff = $cutoff[0];
-    $endCutoff = $cutoff[1];
-
-    $allHolidays = Holiday::where('holidate','>=',$startCutoff)->where('holidate','<=',$endCutoff)->get();
-
-    if (count($allHolidays) > 0)
-    {
-      $period = Biometrics::where('productionDate','>=',$startCutoff)->where('productionDate','<=',$endCutoff)->get();
-      //return response()->json(['s'=>$startCutoff,'e'=>$endCutoff]);// $period;
-
-      $allWorkedHolidays = new Collection;
-      $total = 0;
-
-      foreach ($allHolidays as $p) {
-
-         $allops = DB::table('campaign')->where('campaign.isBackoffice',null)->
-                      join('team','team.campaign_id','=','campaign.id')->
-                      join('users','team.user_id','=','users.id')->
-                      
-                      where([
-                          ['users.status_id', '!=', 6],
-                          ['users.status_id', '!=', 7],
-                          ['users.status_id', '!=', 8],
-                          ['users.status_id', '!=', 9],
-                          ['users.status_id', '!=', 13],
-                          ['users.status_id', '!=', 16],
-                      ])->orderBy('users.lastname')->
-                      join('user_dtr','user_dtr.user_id','=','users.id')->
-                      where('user_dtr.productionDate',$p->holidate)->
-                      select('user_dtr.productionDate','user_dtr.OT_approved as filed_hours','user_dtr.OT_billable','user_dtr.timeIN as timeStart','user_dtr.timeOUT as timeEnd','users.employeeCode as accesscode','users.id as userID','users.lastname', 'users.firstname','campaign.name as program','user_dtr.hoursWorked','user_dtr.workshift','users.status_id')->
-                      where('user_dtr.OT_approved','=','0.00')->
-                      where([
-                          ['user_dtr.timeIN','!=','<strong class="text-danger"> N / A </strong><a tit'],
-                          ['user_dtr.timeIN','!=','<strong class="text-danger">No IN</strong><a title'],
-                          ['user_dtr.timeIN','!=','LWOP'],
-                          ['user_dtr.timeIN','!=','* RD *'],
-                          ['user_dtr.timeIN','!=','SL'],
-                          ['user_dtr.timeIN','!=','VL'],
-                          ['user_dtr.timeIN','!=','ML'],
-                          ['user_dtr.timeIN','!=','PL'],
-                          ['user_dtr.timeIN','!=','SPL'],
-                          ['user_dtr.timeIN','!=','VTO'],
-                          ['user_dtr.timeIN','!=','LWOP for approval'],
-                          ['user_dtr.timeIN','!=','LWOP denied'],
-                          ['user_dtr.timeIN','!=','SL for approval'],
-                          ['user_dtr.timeIN','!=','SL denied'],
-                          ['user_dtr.timeIN','!=','VL for approval'],
-                          ['user_dtr.timeIN','!=','VL denied'],
-                          ['user_dtr.timeIN','!=','ML for approval'],
-                          ['user_dtr.timeIN','!=','ML denied'],
-                          ['user_dtr.timeIN','!=','PL for approval'],
-                          ['user_dtr.timeIN','!=','PL denied'],
-                          ['user_dtr.timeIN','!=','SPL for approval'],
-                          ['user_dtr.timeIN','!=','SPL denied'],
-                          ['user_dtr.timeIN','!=','VTO for approval'],
-                          ['user_dtr.timeIN','!=','VTO denied']
-                        ])->get();
-
-         
-        
-          $allWorkedHolidays->push($allops);
-          $total += count($allops);
-        
-          
-      }
+  
 
   
-      
-      if ($json)
-        return response()->json(['WorkedHDs'=>$allWorkedHolidays,  'total'=>$total, 'name'=>'Worked Holidays', 'cutoffstart'=>$startCutoff,'cutoffend'=>$endCutoff]);
-      else
-        return $allWorkedHolidays;
 
-    }
-    else
-    {
-       return $allHolidays;
-
-    }
-    
-
-  }
+  
 
   
 
