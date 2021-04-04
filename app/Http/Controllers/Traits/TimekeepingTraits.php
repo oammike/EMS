@@ -1682,34 +1682,185 @@ trait TimekeepingTraits
 
   }
 
+  
 
-  public function getAllWorksched($c, $json)
+  public function getAllWorksched($c, $json,$regardless)
   {
     $cutoff = explode('_', $c); //return $cutoff;
     $startCutoff = $cutoff[0]; //Biometrics::where('productionDate',$cutoff[0])->first();
     $endCutoff = $cutoff[1]; //Biometrics::where('productionDate',$cutoff[1])->first();
     $period = Biometrics::where('productionDate','>=',$startCutoff)->where('productionDate','<=',$endCutoff)->get();
     //return response()->json(['s'=>$startCutoff,'e'=>$endCutoff]);// $period;
+    $hybridSched_WS_fixed = null;$hybridSched_WS_monthly = null;$hybridSched_RD_fixed = null;$hybridSched_RD_monthly=null;$hybridSched=null;
 
     $allOTs = new Collection;
     $total = 0;
+    $keme = new Collection;
+    
 
-    foreach ($period as $p) {
-       $ot = DB::table('user_dtr')->where([ 
-                    ['user_dtr.productionDate',$p->productionDate]
-                    ])->join('users','users.id','=','user_dtr.user_id')->
-                    
-                  select('user_dtr.productionDate','user_dtr.workshift','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
-      if (count($ot) > 0) {
-        $allOTs->push($ot);
-        $total += count($ot);
-      }
-        
+    //gawin mo lang to kung need pati kunin regardless kung locked or unlocked
+    if($regardless)
+    {
+      DB::connection()->disableQueryLog();
+      $allUsers = DB::table('users')->
+                  join('team','team.user_id','=','users.id')->
+                  join('campaign','campaign.id','=','team.campaign_id')->
+                  leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                  leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                  leftJoin('positions','users.position_id','=','positions.id')->
+                  leftJoin('floor','team.floor_id','=','floor.id')->
+                  select('users.accesscode','users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','users.employeeCode', 'floor.name as location','floor.id as floorID')->
+                  where([
+                  ['users.status_id', '!=', 7],
+                  ['users.status_id', '!=', 8],
+                  ['users.status_id', '!=', 9],
+                  ['users.status_id', '!=', 13],
+                  ['users.status_id', '!=', 16],
+                  ['users.id','!=', 1], //Ben
+                  ['users.id','!=', 184], //Henry
+                  ['floor.id', '!=', 10], //taipei
+                  ['floor.id', '!=', 11], //xiamen
+                  ['campaign.hidden',null],
+                  ])->orderBy('users.lastname')->get();
+
+      $allEmp = collect($allUsers)->pluck('id')->toArray();
+      $allLocked = DB::table('user_dtr')->where([ 
+                ['user_dtr.productionDate','>=',$startCutoff],
+                ['user_dtr.productionDate','<=',$endCutoff]
+                ])->join('users','users.id','=','user_dtr.user_id')->select('user_dtr.productionDate','user_dtr.workshift','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+
+      
+      foreach ($period as $p) 
+      {
+         $col = new Collection;
+
+          // once na makuha lahat ng ng naglock, we need to check each employees na hindi naglock for each production date
+          // *** this was taken out from DTR show
+          
+          $mgaMeron = collect($allLocked)->where('productionDate',$p->productionDate)->pluck('userID')->toArray();
+          $hanapan = array_diff($allEmp, $mgaMeron);
+          $bioForTheDay = Biometrics::where('productionDate', $p->productionDate)->first();
+          
+          // foreach ($hanapan as $id) {
+
+                
+          //       //$user = User::find($u);
+          //       $monthlyScheds = DB::table('monthly_schedules')->where('user_id',$id)->where('productionDate','>=',$startCutoff)->where('productionDate','<=',$endCutoff)->orderBy('created_at','DESC')->get();
+          //        // if (count($monthlyScheds) > 0)
+          //        // {
+          //        //    if ( $user->fixedSchedule->isEmpty() )
+          //        //    {
+
+                   
+          //        //      /*$workSched = MonthlySchedules::where('user_id',$id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',0)->get(); //Collection::make($monthlySched->where('isRD',0)->all());
+          //        //      $RDsched = MonthlySchedules::where('user_id',$id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',1)->get();  //$monthlySched->where('isRD',1)->all();*/
+
+          //        //      $workSched = collect($monthlyScheds)->where('isRD',0);
+          //        //      $RDsched = collect($monthlyScheds)->where('isRD',1);
+          //        //      $isFixedSched = false;
+          //        //      $noWorkSched = false;
+          //        //      $hybridSched = false;
+
+          //        //    }else //------------------------- HYBRID SCHED ------------------
+          //        //    {
+
+          //        //      $hybridSched = true;
+          //        //      $noWorkSched = false;
+          //        //      $isFixedSched = false;
+
+                      
+
+          //        //      $hybridSched_WS_fixed = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->
+          //        //                              where('isRD',0)->groupBy('schedEffectivity');
+          //        //      $hybridSched_WS_monthly = collect($monthlyScheds)->sortByDesc('created_at')->where('isRD',0);
+          //        //      $hybridSched_RD_fixed = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->
+          //        //                              where('isRD',1)->groupBy('schedEffectivity');
+          //        //      $hybridSched_RD_monthly = collect($monthlyScheds)->sortByDesc('created_at')->where('isRD',1);
+
+          //        //      $RDsched=null;
+          //        //      $workSched=null;
+
+          //        //      /*--- and then compare which is the latest of those 2 scheds --*/
+
+
+          //        //    }
+
+          //        // } 
+          //        // else
+          //        // {
+          //        //    if (count($user->fixedSchedule) > 0)
+          //        //    {
+                        
+
+          //        //        $workSched = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->where('isRD',0)->groupBy('schedEffectivity');
+          //        //        $RDsched = collect($user->fixedSchedule)->sortByDesc('schedEffectivity')->where('isRD',1)->groupBy('schedEffectivity');
+          //        //        $isFixedSched =true;
+          //        //        $noWorkSched = false;
+          //        //        $workdays = new Collection;
+                        
+
+          //        //    } else
+          //        //    {
+          //        //        $noWorkSched = true;
+          //        //        $workSched = null;
+          //        //        $RDsched = null;
+          //        //        $isFixedSched = false;
+                        
+          //        //    }
+          //        // }
+
+          //       // $approvedCWS  = User_CWS::where('user_id',$user->id)->where('biometrics_id',$bioForTheDay->id)->where('isApproved',1)->orderBy('updated_at','DESC')->get();
+
+
+          //       //$actualSchedToday = $this->getActualSchedForToday($user,null,$p->productionDate,null, $hybridSched,$isFixedSched,$hybridSched_WS_fixed,$hybridSched_WS_monthly, $hybridSched_RD_fixed, $hybridSched_RD_monthly, $workSched, $RDsched, $approvedCWS);
+          //       $col->push(['id'=>$id,'monthlyScheds'=>$monthlyScheds]);//, 'user'=>$user->lastname.", ".$user->firstname
+
+          //       // $isRDToday = $actualSchedToday->isRDToday;
+          //       // $actualSchedToday1 = $actualSchedToday;
+          //       // $schedForToday =  $actualSchedToday->schedForToday;
+
+            
+            
+          // }
+          //$keme->push(['mgaMeron'=>$mgaMeron,'lahat'=>$allEmp, 'hanapan'=>count($hanapan), 'productionDate'=>$p->productionDate, 'allUsers'=>$allUsers]);
+          // if (count($ot) > 0) {
+          //   $allOTs->push($ot);
+
+          //   $total += count($ot);
+          // }
+          $keme->push(['date'=>$p->productionDate,'meron'=>$mgaMeron, 'hinanapan'=>count($hanapan)]);
+          
+      }//end foreach
+
+
+
+      if ($json)
+        return response()->json(['keme'=>$keme, 'CWS'=>$allLocked, 'all'=>count($allEmp), 'name'=>'Work Schedule', 'cutoffstart'=>$startCutoff,'cutoffend'=>$endCutoff]);
+      else
+        return $allLocked;
+
     }
-    if ($json)
-      return response()->json(['CWS'=>$allOTs, 'total'=>$total, 'name'=>'Work Schedule', 'cutoffstart'=>$startCutoff,'cutoffend'=>$endCutoff]);
     else
-      return $allOTs;
+    {
+      foreach ($period as $p) {
+         $ot = DB::table('user_dtr')->where([ 
+                      ['user_dtr.productionDate',$p->productionDate]
+                      ])->join('users','users.id','=','user_dtr.user_id')->
+                      
+                    select('user_dtr.productionDate','user_dtr.workshift','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+        if (count($ot) > 0) {
+          $allOTs->push($ot);
+          $total += count($ot);
+        }
+          
+      }
+      if ($json)
+        return response()->json(['CWS'=>$allOTs, 'total'=>$total, 'name'=>'Work Schedule', 'cutoffstart'=>$startCutoff,'cutoffend'=>$endCutoff]);
+      else
+        return $allOTs;
+
+    }
+    
 
   }
 

@@ -114,7 +114,7 @@
                   { title: "Program", defaultContent: " ", data:'program', width:'180', render:function(data,type,full,meta){
                     return data;
                   }}, 
-                  { title: "Recorded Timestamp", defaultContent: " ", data:'created_at',width:'150',render:function(data){return moment(data,"Y-M-D HH:mm:ss").format('hh:mm:ss A')} }, 
+                  { title: "Recorded Timestamp", defaultContent: " ", data:'created_at',width:'150',render:function(data){return moment(data,"Y-M-D HH:mm:ss").format('HH:mm:ss A')} }, 
                   
                   { title: "DTR sheet", defaultContent: " ", data:'userID',width:'150',render:function(data){
                        
@@ -129,7 +129,7 @@
             "responsive":true,
             //"scrollX":false,
             "dom": '<"col-xs-1"f><"col-xs-11 text-right"l><"clearfix">rt<"bottom"ip><"clear">',
-            "order": [[ 2 ]],
+            "order": [[ 4, 'DESC' ]],
             "lengthChange": true,
             "oLanguage": {
                "sSearch": "<strong>Recorded Logs</strong> <br/><br/>To re-order entries, click the sort icon on the right of column headers. <br/>To filter out results, just type in the search box anything you want to look for:",

@@ -39,6 +39,7 @@
                 @foreach($templates as $p)
                 <option value="{{$p['id']}}" data-name="{{$p['name']}}"> {{$p['name']}} </option>
                 @endforeach
+                <option value="6" data-name="Regardless">_</option>
               </select>
               <br/><br/>
 
