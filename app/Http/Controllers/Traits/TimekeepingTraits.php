@@ -42,6 +42,7 @@ use OAMPI_Eval\User_DTR;
 use OAMPI_Eval\User_DTRP;
 use OAMPI_Eval\User_DTRPinfo;
 use OAMPI_Eval\User_CWS;
+use OAMPI_Eval\User_MustLock;
 use OAMPI_Eval\User_Notification;
 use OAMPI_Eval\Notification;
 use OAMPI_Eval\MonthlySchedules;
@@ -1277,6 +1278,23 @@ trait TimekeepingTraits
           $mgaMeron = collect($allLocked)->where('productionDate',$p->productionDate)->pluck('userID')->toArray();
           $hanapan = array_diff($allEmp, $mgaMeron);
           $bioForTheDay = Biometrics::where('productionDate', $p->productionDate)->first();
+
+          // foreach ($hanapan as $k) {
+
+          //   $exist= User_MustLock::where('user_id',$k)->where('productionDate',$p->productionDate)->get();
+
+          //   if(count($exist) > 0){ }
+          //   else
+          //   {
+          //     $ml = new User_MustLock;
+          //     $ml->user_id = $k;
+          //     $ml->productionDate = $p->productionDate;
+          //     $ml->save();
+
+          //   }
+            
+          //   # code...
+          // }
           
           // foreach ($hanapan as $id) {
 

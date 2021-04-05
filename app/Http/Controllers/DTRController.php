@@ -5649,56 +5649,84 @@ class DTRController extends Controller
         } 
 
         //return $jpsData;
+        $arr=[];
+        $kol = new Collection;
 
-        Excel::create($type."_".$cutoffStart->format('M-d'),function($excel) use($type, $jpsData,$allEmp, $allUsers, $cutoffStart, $cutoffEnd, $headers,$description) 
-              {
-                      $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$type);
-                      $excel->setCreator('Programming Team')
-                            ->setCompany('OpenAccessBPO');
+        // foreach($jpsData as $jps)
+        //                 {
+        //                   $i = 0;
 
-                      
-                      $excel->setDescription($description);
+        //                   //EmployeeCode', 'EmployeeName','Program','Immediate Head','Unlocked Date','DTR Sheet'
 
-                      $excel->sheet("Sheet1", function($sheet) use ($type, $jpsData,$allEmp, $allUsers, $cutoffStart, $cutoffEnd, $headers,$description)
-                      {
-                        $sheet->appendRow($headers);      
+        //                   // kunin mo muna details kung sino from the list of sino sino
+        //                   foreach ($jps['sino'] as $k) 
+        //                   {
+        //                     $emp = collect($allUsers)->where('id',$k);
+        //                     $arr[$i] = $emp->first()->employeeCode; $i++;
+        //                     $arr[$i] = $emp->first()->lastname.", ".$emp->first()->firstname; $i++;
+        //                     $arr[$i] = $emp->first()->program; $i++;
+        //                     $arr[$i] = $emp->first()->leaderFname." ".$emp->first()->leaderLname; $i++;
+        //                     $arr[$i] = $jps['date']; $i++;
+        //                     $arr[$i] = action('DTRController@show',$k); $i++;
+        //                     //$sheet->appendRow($arr);
+        //                     $kol->push($arr);
 
-                        $arr = [];
-
-                        /*jpsData = unlocks{  date: Y-m-d
-                                              meron: [ .. ]
-                                              hanapan: xx
-                                              sino: {}
-                                            }
-                        */
-
-                        foreach($jpsData as $jps)
-                        {
-                          $i = 0;
-
-                          //EmployeeCode', 'EmployeeName','Program','Immediate Head','Unlocked Date','DTR Sheet'
-
-                          // kunin mo muna details kung sino from the list of sino sino
-                          foreach ($jps['sino'] as $k) 
-                          {
-                            $emp = collect($allUsers)->where('id',$k);
-                            $arr[$i] = $emp->first()->employeeCode; $i++;
-                            $arr[$i] = $emp->first()->lastname.", ".$emp->first()->firstname; $i++;
-                            $arr[$i] = $emp->first()->program; $i++;
-                            $arr[$i] = $emp->first()->leaderFname." ".$emp->first()->leaderLname; $i++;
-                            $arr[$i] = $jps['date']; $i++;
-                            $arr[$i] = action('DTRController@show',$k); $i++;
-                            $sheet->appendRow($arr);
-
-                          }
+        //                   }
                           
 
-                        }//end foreach employee
+        //                 }//end foreach employee
+        // return $kol;
+        return $jpsData;
+
+        // Excel::create($type."_".$cutoffStart->format('M-d'),function($excel) use($type, $jpsData,$allEmp, $allUsers, $cutoffStart, $cutoffEnd, $headers,$description) 
+        //       {
+        //               $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$type);
+        //               $excel->setCreator('Programming Team')
+        //                     ->setCompany('OpenAccessBPO');
+
+                      
+        //               $excel->setDescription($description);
+
+        //               $excel->sheet("Sheet1", function($sheet) use ($type, $jpsData,$allEmp, $allUsers, $cutoffStart, $cutoffEnd, $headers,$description)
+        //               {
+        //                 $sheet->appendRow($headers);      
+
+        //                 $arr = [];
+
+        //                 /*jpsData = unlocks{  date: Y-m-d
+        //                                       meron: [ .. ]
+        //                                       hanapan: xx
+        //                                       sino: {}
+        //                                     }
+        //                 */
+
+        //                 foreach($jpsData as $jps)
+        //                 {
+        //                   $i = 0;
+
+        //                   //EmployeeCode', 'EmployeeName','Program','Immediate Head','Unlocked Date','DTR Sheet'
+
+        //                   // kunin mo muna details kung sino from the list of sino sino
+        //                   foreach ($jps['sino'] as $k) 
+        //                   {
+        //                     $emp = collect($allUsers)->where('id',$k);
+        //                     $arr[$i] = $emp->first()->employeeCode; $i++;
+        //                     $arr[$i] = $emp->first()->lastname.", ".$emp->first()->firstname; $i++;
+        //                     $arr[$i] = $emp->first()->program; $i++;
+        //                     $arr[$i] = $emp->first()->leaderFname." ".$emp->first()->leaderLname; $i++;
+        //                     $arr[$i] = $jps['date']; $i++;
+        //                     $arr[$i] = action('DTRController@show',$k); $i++;
+        //                     $sheet->appendRow($arr);
+
+        //                   }
+                          
+
+        //                 }//end foreach employee
 
                         
-                      });//end sheet1
+        //               });//end sheet1
 
-              })->export('xls');return "Download";
+        //       })->export('xls');return "Download";
       }
 
       

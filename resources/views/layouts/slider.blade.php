@@ -2,7 +2,30 @@
 
 
               
-            <div class="item active text-center" >
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> APR. 08, 2021</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our cut-off for Apr.08 payout is Apr 05, 2021. Employee's DTR should be approved and locked in EMS <strong class="text-danger"> on or before TUESDAY 10:00AM of April 06, 2021</strong>.<br/><br/>
+
+                    In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate supervisor to lock your DTR on your behalf.<br/><br/>
+
+                    If you have any payroll-related inquiries and concerns, please log in to our Payroll Help Desk by clicking this link <a href="http://ticketing.openaccess.bpo/" target="_blank">http://ticketing.openaccess.bpo/</a>. You may also access it via EMS. For those employees who are working from home, your VPN should be connected before you can access the Payroll Help Desk.
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/>
+
+ 
+                    
+              </div>
+
+              <div class="item text-center" >
                   
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/nurses_2021_04_03.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Reminders from <br/><span class="text-primary"><i class="fa fa-medkit"></i> OAM Nurses <i class="fa fa-medkit"></i><br/><small>Apr. 03, 2021</small><br/>
@@ -129,7 +152,7 @@
                     </h4>
                    
                     <p style="padding: 30px;" class="text-left">
-                     Hi leaders,<br/><br/>
+                     Hi team,<br/><br/>
  
                       It's finally here!<br/><br/>
                        
