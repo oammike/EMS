@@ -39,7 +39,7 @@
                 @foreach($templates as $p)
                 <option value="{{$p['id']}}" data-name="{{$p['name']}}"> {{$p['name']}} </option>
                 @endforeach
-                <option value="6" data-name="Regardless">_</option>
+                <option value="6" data-name="unlocked">_</option>
               </select>
               <br/><br/>
 
@@ -58,7 +58,7 @@
                 </div>
 
               <div class="notes">
-                <h4>There are <strong><span class="text-danger" id="submitted"></span> <span class="text-danger" id="programName"></span>  </strong> submissions for this cutoff.<br/> 
+                <h4>There are <strong><span class="text-danger" id="submitted"></span> <span class="text-danger" id="programName"></span>  </strong> entries for this cutoff.<br/> 
 
                <!--  </h4>
 
