@@ -23,7 +23,47 @@
 
  
                     
-              </div>
+            </div>
+            <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_04_05_wall.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"><i class="fa fa-plus"></i> Holy Week 2021 <i class="fa fa-pagelines"></i><br/><small>Apr. 05, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      <strong>How did you spend your week during the Holy Week?</strong><br/>
+                       For Catholics, any traditions you did or was not able to do because of the quarantine guidelines? <br/>
+                       For non-Catholics, how was the past week for you?<br/><br/> Share your experience and earn 20 points, visit EMS now! <br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',48)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/easter2021.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >  Happy Easter <span class="text-primary"> 2021 <i class="fa fa-plus"></i><br/><small>Apr.04, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Easter is a symbol of hope and new life. <br/>Let's hope for better days ahead. Happy #Easter!<br/><br/>
+
+                      #WeSpeakYourLanguage #OAHolidays<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/openaccessbpolife/photos/a.660550144001490/4011143098942161"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
 
               <div class="item text-center" >
                   
