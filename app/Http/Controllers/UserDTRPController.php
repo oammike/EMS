@@ -207,7 +207,7 @@ class UserDTRPController extends Controller
                 fclose($file);
             
 
-            $headers = ['EmployeeCode', 'EmployeeName','Program','ImmediateHead','ProductionDate','Log time','Request', 'Approver_Status','Reviewed by DataMgt', 'Details'];
+            $headers = ['EmployeeCode', 'EmployeeName','Program','ImmediateHead','ProductionDate','Log time','Request', 'Approver_Status','Reviewed by DataMgt','Date Reviewed', 'Details'];
             $description = "DTRP Summary for dates: ".$from." to ".$to;
             Excel::create("DTRP_Summary_".$from."-".$to,function($excel) use( $allDTRP, $to, $from, $headers,$description,$leaders) 
               {
@@ -266,7 +266,8 @@ class UserDTRPController extends Controller
                             $arr[$i] = $d; $i++;
 
 
-
+                            //*** Date Reviewed
+                            $arr[$i] = Carbon::createFromFormat('Y-m-d H:i:s',$jps->updated_at)->setTimeZone('Asia/Manila')->format('Y-m-d h:i A'); $i++;
 
                             //*** Details
                             $arr[$i] = $jps->notes; $i++;
