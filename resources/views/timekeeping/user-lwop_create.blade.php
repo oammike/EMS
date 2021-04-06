@@ -395,9 +395,9 @@
                                                       $.notify("LWOP submitted for approval.",{className:"success", globalPosition:'right middle',autoHideDelay:3000, clickToHide:true} );
                                                   
                                                   console.log(response1);
-                                                  // window.setTimeout(function(){
-                                                  //   window.location.href = "{{action('UserController@userRequests',$user->id)}}";
-                                                  // }, 4000);
+                                                  window.setTimeout(function(){
+                                                    window.location.href = "{{action('UserController@userRequests',$user->id)}}";
+                                                  }, 2000);
                                                 }
                                               });
                                               

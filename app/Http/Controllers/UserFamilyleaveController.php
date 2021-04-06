@@ -788,6 +788,22 @@ class UserFamilyleaveController extends Controller
 
         if (!empty($leadershipcheck)){ $camps = $leadershipcheck->campaigns->sortBy('name'); } else $camps = $user->campaign;
 
+         $advent = Team::where('user_id',$user->id)->where('campaign_id',58)->get();
+        (count($advent) > 0) ? $isAdvent = 1 : $isAdvent=0;
+
+        // get WFM
+        $wfm = collect(DB::table('team')->where('campaign_id',50)->
+                    leftJoin('users','team.user_id','=','users.id')->
+                    select('team.user_id')->
+                    where('users.status_id',"!=",7)->
+                    where('users.status_id',"!=",8)->
+                    where('users.status_id',"!=",9)->
+                    where('users.status_id',"!=",13)->get())->pluck('user_id');
+        $isWorkforce = in_array($this->user->id, $wfm->toArray());
+        $employeeisBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+
+
+
         $details = new Collection;
 
         $details->push(['from'=>date('M d - D',strtotime($vl->leaveStart)), 'to'=>date('M d - D',strtotime($vl->leaveEnd)),
@@ -804,7 +820,7 @@ class UserFamilyleaveController extends Controller
             case 'SPL': $icon = "fa fa-street-view"; $leave = "Single-Parent Leave"; break;
             
         }
-        return view('timekeeping.show-FL', compact('user', 'profilePic','camps','icon','leave', 'vl','details','anApprover'));
+        return view('timekeeping.show-FL', compact('user', 'profilePic','camps','icon','leave', 'vl','details','anApprover','isWorkforce','employeeisBackoffice','isAdvent'));
 
 
     }

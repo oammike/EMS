@@ -864,7 +864,7 @@ class UserSLController extends Controller
 
             
                 /* -------------- log updates made --------------------- */
-            $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+            $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
             fwrite($file, "\n-------------------\n New MedCert uploaded : ". $fileName ." ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
             fclose($file);
             
@@ -1009,6 +1009,26 @@ class UserSLController extends Controller
         $approvers = $user->approvers;
         $anApprover = $this->checkIfAnApprover($approvers, $this->user);
 
+        
+
+        $advent = Team::where('user_id',$user->id)->where('campaign_id',58)->get();
+        (count($advent) > 0) ? $isAdvent = 1 : $isAdvent=0;
+
+        // get WFM
+        $wfm = collect(DB::table('team')->where('campaign_id',50)->
+                    leftJoin('users','team.user_id','=','users.id')->
+                    select('team.user_id')->
+                    where('users.status_id',"!=",7)->
+                    where('users.status_id',"!=",8)->
+                    where('users.status_id',"!=",9)->
+                    where('users.status_id',"!=",13)->get())->pluck('user_id');
+        $isWorkforce = in_array($this->user->id, $wfm->toArray());
+        $employeeisBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+
+        
+
+
+
         $details = new Collection;
 
         $details->push(['from'=>date('M d - D',strtotime($vl->leaveStart)), 'to'=>date('M d - D',strtotime($vl->leaveEnd)),
@@ -1020,7 +1040,7 @@ class UserSLController extends Controller
 
         
         //return $details;
-        return view('timekeeping.show-SL', compact('user', 'profilePic','camps', 'vl','details','anApprover'));
+        return view('timekeeping.show-SL', compact('user', 'profilePic','camps', 'vl','details','anApprover','isWorkforce','employeeisBackoffice','isAdvent'));
 
 
     }

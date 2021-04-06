@@ -110,7 +110,11 @@
                                                   <td style="width: 20%">{{$details[0]['notes']}} </td>
 
 
-                                                  @if (is_null($vl->isApproved) && $anApprover)
+                                                  @if ( is_null($vl->isApproved) && ( ($isWorkforce && (\Auth::user()->id !== $user->id) )
+                                                      || ($anApprover && $employeeisBackoffice) 
+                                                      || ($anApprover && $isAdvent)
+                                                      || (!$employeeisBackoffice && $isWorkforce && (\Auth::user()->id !== $user->id) ) ) )
+                                                  
                                                   <td>
                                                     <a href="#" id="approve" data-action="1" class="updateCWS btn btn-xs btn-success pull-right"><i class="fa fa-thumbs-up"></i> Approve</a>
                                                     <a style="margin-right: 5px" href="#" id="reject" data-action="0" class="updateCWS btn btn-xs btn-danger pull-right"><i class="fa fa-thumbs-down"></i> Deny</a>
@@ -121,6 +125,11 @@
                                                   <td>
                                                     @if($vl->isApproved) <h4 class="text-success">Approved</h4>
                                                     @elseif(is_null($vl->isApproved)) <h4 class="text-orange">Pending Approval</h4>
+                                                    <p class="text-left text-success" style="font-size: small;"><i class="fa fa-info-circle"></i> DTR requests are managed by:<br/><br/>
+                                                    <strong>assigned approver(s) - </strong>  <br/><em>for all back office personnel</em><br/><br/>
+                                                    <strong>WFM Team -  </strong> <br/><em>for all Operations personnel</em><br/><br/>
+                                                    <strong>Lothar Mckenzie - </strong>  <br/><em>for all SS&C Advent program</em><br/>
+                                                    </p>
                                                     @else  <h4 class="text-danger">Denied</h4>@endif
 
 

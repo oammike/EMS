@@ -85,7 +85,7 @@ class UserLWOPController extends Controller
         $correct = Carbon::now('GMT+8'); //->timezoneName();
 
                        if($this->user->id !== 564 ) {
-                          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                          $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                             fwrite($file, "-------------------\n Tried [LWOP]: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
                             fclose($file);
                         } 
@@ -455,7 +455,7 @@ class UserLWOPController extends Controller
     {
 
         /* -------------- log updates made --------------------- */
-        $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+        $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
         fwrite($file, "-------------------\n [". $request->id."] LWOP REQUEST \n");
         fclose($file);
 
@@ -478,18 +478,20 @@ class UserLWOPController extends Controller
         
          //**** send notification to the sender
         $theNotif = Notification::where('relatedModelID', $vl->id)->where('type',12)->get();
-
+        $unotif=null;
         //then remove those sent notifs to the approvers since it has already been approved/denied
-        if (count($theNotif) > 0)
+        if (count($theNotif) > 0){
             DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
+            $unotif = $this->notifySender($vl,$theNotif->first(),7);
+        }
 
 
-        $unotif = $this->notifySender($vl,$theNotif->first(),7);
+        
 
         
         
           /* -------------- log updates made --------------------- */
-         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n [". $vl->id."] LWOP update ". date('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
             fclose($file);
 
@@ -539,8 +541,25 @@ class UserLWOPController extends Controller
         $anApprover = $this->checkIfAnApprover($approvers, $this->user);
         $TLapprover = $this->getTLapprover($employee->id, $this->user->id);
 
+        $advent = Team::where('user_id',$employee->id)->where('campaign_id',58)->get();
+        (count($advent) > 0) ? $isAdvent = 1 : $isAdvent=0;
+
+        // get WFM
+        $wfm = collect(DB::table('team')->where('campaign_id',50)->
+                    leftJoin('users','team.user_id','=','users.id')->
+                    select('team.user_id')->
+                    where('users.status_id',"!=",7)->
+                    where('users.status_id',"!=",8)->
+                    where('users.status_id',"!=",9)->
+                    where('users.status_id',"!=",13)->get())->pluck('user_id');
+        $isWorkforce = in_array($this->user->id, $wfm->toArray());
+        $employeeisBackoffice = ( Campaign::find(Team::where('user_id',$employee->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+
         
-        if ($anApprover)
+        if ( ($isWorkforce && ($this->user->id !== $employee->id) )
+            || ($anApprover && $employeeisBackoffice) 
+            || ($anApprover && $isAdvent)
+            || (!$employeeisBackoffice && $isWorkforce && ($this->user->id !== $employee->id) ) )
         {
             $vl->isApproved = true; $TLsubmitted=true; $vl->approver = $TLapprover;
         } else { $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null; }
@@ -563,7 +582,8 @@ class UserLWOPController extends Controller
         $employeeisBackoffice = ( Campaign::find(Team::where('user_id',$employee->id)->first()->campaign_id)->isBackoffice ) ? true : false;
 
 
-        if (!$anApprover) //(!$TLsubmitted && !$canChangeSched)
+        //if (!$anApprover) //(!$TLsubmitted && !$canChangeSched)
+        if ($employeeisBackoffice || $isAdvent)
         {//--- notify the  APPROVERS
 
             $notification = new Notification;
@@ -593,7 +613,7 @@ class UserLWOPController extends Controller
                     $m->to($TL->userData->email, $TL->lastname.", ".$TL->firstname)->subject('New CWS request');     
 
                     
-                         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                             fwrite($file, "-------------------\n Email sent to ". $TL->userData->email."\n");
                             fclose($file);                      
                 
@@ -605,7 +625,9 @@ class UserLWOPController extends Controller
             }
 
             //-- we now notify all WFM
-            if(!$employeeisBackoffice)
+             //-- we now notify all WFM
+            if(!$employeeisBackoffice && !$isAdvent)
+            //if(!$employeeisBackoffice)
             {
                 foreach ($wfm as $approver) {
                     //$TL = ImmediateHead::find($approver->immediateHead_id);
@@ -636,7 +658,7 @@ class UserLWOPController extends Controller
         }
 
          /* -------------- log updates made --------------------- */
-         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n". $employee->id .",". $employee->lastname." LWOP submission ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
             fclose($file);
          
@@ -676,10 +698,24 @@ class UserLWOPController extends Controller
 
         $approvers = $user->approvers;
         $anApprover = $this->checkIfAnApprover($approvers, $this->user);
-        // $date1 = Carbon::parse(Biometrics::find($cws->biometrics_id)->productionDate);
-        // $payrollPeriod = Paycutoff::where('fromDate','>=', strtotime())->get(); //->where('toDate','<=',strtotime(Biometrics::find($cws->biometrics_id)->productionDate))->first();
+        
 
         if (!empty($leadershipcheck)){ $camps = $leadershipcheck->campaigns->sortBy('name'); } else $camps = $user->campaign;
+
+         $advent = Team::where('user_id',$user->id)->where('campaign_id',58)->get();
+        (count($advent) > 0) ? $isAdvent = 1 : $isAdvent=0;
+
+        // get WFM
+        $wfm = collect(DB::table('team')->where('campaign_id',50)->
+                    leftJoin('users','team.user_id','=','users.id')->
+                    select('team.user_id')->
+                    where('users.status_id',"!=",7)->
+                    where('users.status_id',"!=",8)->
+                    where('users.status_id',"!=",9)->
+                    where('users.status_id',"!=",13)->get())->pluck('user_id');
+        $isWorkforce = in_array($this->user->id, $wfm->toArray());
+        $employeeisBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
+
 
         $details = new Collection;
 
@@ -692,7 +728,7 @@ class UserLWOPController extends Controller
 
         
         //return $details;
-        return view('timekeeping.show-LWOP', compact('user', 'profilePic','camps', 'vl','details','anApprover'));
+        return view('timekeeping.show-LWOP', compact('user', 'profilePic','camps', 'vl','details','anApprover','isWorkforce','employeeisBackoffice','isAdvent'));
 
 
     }
