@@ -86,14 +86,18 @@
 
               <div class="row">
                 <div class="col-lg-9">
+                  <form id="dtrform" action="{{action('UserController@leaveMgt_dl')}}" method="POST">
                   <div class="row">
+                    <input type="hidden" name="type" value="{{$type}}" />
+                    <input type="hidden" name="_token" value="{{ csrf_token() }}" />
                     <div class="col-lg-3"> <h4> From: <input id="from"  type="text" name="from" placeholder="{{$from}}" value="{{$from}}" class="datepicker form-control" /></h4> </div>
                     <div class="col-lg-3"> <h4> Until: <input id="to" type="text" name="to" placeholder="{{$to}}" value="{{$to}}" class="datepicker form-control" /></h4> </div>
                     <div class="col-lg-6">
                       <a id="update" style="margin-top: 30px" class="pull-left btn btn-default btn-md">Update Table</a> 
-                      <a id="download" style="margin-top: 30px;margin-left: 5px" class="pull-left btn btn-default btn-md"><i class="fa fa-save"></i> Download CSV</a>
+                      <button type="submit" id="download" style="margin-top: 30px;margin-left: 5px" class="pull-left btn btn-default btn-md"><i class="fa fa-save"></i> Download CSV</button>
                     </div>
                   </div>
+                  </form>
                  
                  
                  
@@ -579,7 +583,8 @@
 
 
    $('#download').on('click',function(){
-      var f = $('#from').val();
+      $.notify("Processing .csv file for download. Please wait...",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+      /*var f = $('#from').val();
       var t = $('#to').val();
       var _token = "{{ csrf_token() }}";
       console.log(f);
@@ -605,13 +610,13 @@
                       {
 
                         console.log(response);
-                        $.notify("Processing .csv file for download. Please wait...",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                        
                         return true;
                        }
 
                           
                       
-                  });
+                  });*/
 
       //window.location.href = "{{url('/')}}/leave_management?type={{$type}}&from="+f+"&to="+t;
 
