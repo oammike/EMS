@@ -418,6 +418,9 @@
                                                           <i class="fa fa-thumbs-up"></i> Approved by Approver</h5> -->
                                                          <div class="clearfix"></div>
                                                          <a target="_blank" class="btn btn-xs btn-default pull-left" href="{{action('DTRController@show',['id'=>$vl->user_id,'from'=>$vl->productionDate,'to'=>date('Y-m-d',strtotime($to))])}}"><i class="fa fa-calendar"></i> View DTR Page </a>
+                                                         <div class="clearfix"></div>
+                                                          <a style="margin-top: 5px" target="_blank" class="btn btn-xs btn-default pull-left" href="{{action('LogsController@emsAccess',['date'=>$vl->productionDate])}}"><i class="fa fa-check"></i> Verify System Access </a>
+                                                          
                                                        </div>
                                                         <div class="col-lg-6">
                                                           <br/><br/>
