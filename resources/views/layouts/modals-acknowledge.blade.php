@@ -14,7 +14,7 @@
         <p> It also signifies that I have  read  and will  devote  to  familiarize myself  with  its contents  and follow  its provisions  to  the best  of  my  ability.</p>
 
         <br/><br/>
-        @if(!empty($signature))<img class="signature" src="{{$signature}}" width="140" style="margin-left: 100px" /><br/>@endif
+        @if(!empty($signature))<!-- <img class="signature" src="{{$signature}}" width="140" style="margin-left: 100px" /> --><br/>@endif
         <strong>Employee Name:</strong> {{$employee->firstname}} {{$employee->lastname}} [{{$employee->employeeNumber}} ]<br/>
         <strong>Position: </strong> {{$employee->position->name}}<br/>
         <strong>Date: </strong> <?php echo date('M d, Y H:i:s')?>
