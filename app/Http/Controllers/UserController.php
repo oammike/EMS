@@ -2054,14 +2054,357 @@ class UserController extends Controller
 
 
            
-
-            return view('timekeeping.leaveMgt',compact('canCredit', 'isAdmin','hasAccess', 'from','to','allLeave','type','label','pending_VL','pending_SL','pending_LWOP','pending_FL','pending_VTO', 'deleteLink','notifType','update_periods','update_credits'));
+            if (Input::get('d'))
+              return $allLeave;
+            else
+              return view('timekeeping.leaveMgt',compact('canCredit', 'isAdmin','hasAccess', 'from','to','allLeave','type','label','pending_VL','pending_SL','pending_LWOP','pending_FL','pending_VTO', 'deleteLink','notifType','update_periods','update_credits'));
 
       }
 
       
 
     }
+
+
+    public function leaveMgt_dl(Request $request)
+    {
+      $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); 
+      ($request->from) ? $from = Carbon::parse($request->from,'Asia/Manila') : $from = Carbon::now()->addDays(-7); 
+      ($request->to) ? $to = Carbon::parse($request->to,'Asia/Manila') : $to = Carbon::now()->endOfMonth()->addDays(14); //date('m/d/Y');
+
+      ($request->type) ? $type = $request->type : $type = 'VL';
+      $stamp = Carbon::now('GMT+8');
+
+      $isAdmin =  ($roles->contains('ADMIN_LEAVE_MANAGEMENT')) ? '1':'0';
+      $canCredit =  ($roles->contains('UPDATE_LEAVES')) ? '1':'0';
+
+      $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+      (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
+
+      
+
+      
+
+      $allL = $this->getLeaves($from,$to,$type,$this->user);
+
+      if(!$isAdmin && !$hasAccess){
+        $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Tried DLlmgt_".$type." on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);return view('access-denied');
+      } 
+      else{
+            $allLeave =$allL['leaves'];
+            switch ($type) {
+              case 'VL':{  $label = "Vacation Leave" ;  $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10; $u_c = DB::table('vlupdate')->where('period','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->orderBy('period','DESC')->get();$update_credits = collect($u_c)->groupBy('period'); $update_periods = collect($u_c)->pluck('period')->unique();} break;
+              case 'VTO':{  $label = "Voluntary Time Off" ;  $deleteLink = url('/')."/user_vl/deleteThisVTO/"; $notifType = 21;} break;
+              case 'SL':{ $label = "Sick Leave" ;  $deleteLink = url('/')."/user_sl/deleteThisSL/"; $notifType = 11;} break;
+              case 'LWOP':{ $label = "Leave Without Pay" ;  $deleteLink = url('/')."/user_lwop/deleteThisLWOP/"; $notifType = 12;} break;
+              case 'FL':{ $label = "ML / PL / SPL / MC " ;  $deleteLink = url('/')."/user_fl/deleteThisSL"; $notifType = 16;} break;
+              default: { $label = "Vacation Leave";   $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10;} break;
+            }
+
+            $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
+                      fwrite($file, "-------------------\n DL_leaveMgt_".$type." on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                      fclose($file);
+            
+
+
+            $headers = ['EmployeeCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks']; 
+            $ftype=$type." Filing";
+            $description = $ftype." from: ".$from->format('M d')." to ".$to->format('M d');
+            
+            Excel::create($type."_".$from->format('M-d'),function($excel) use($type, $allLeave, $from, $to, $headers,$description) 
+              {
+                      $excel->setTitle($from->format('Y-m-d').' to '. $to->format('Y-m-d').'_'.$type);
+                      $excel->setCreator('Programming Team')
+                            ->setCompany('OpenAccessBPO');
+
+                      // Call them separately
+                      $excel->setDescription($description);
+
+                      $excel->sheet("Sheet1", function($sheet) use ($type, $allLeave, $from, $to, $headers,$description)
+                      {
+                        $sheet->appendRow($headers);      
+
+                        $arr = [];
+                        $hasProdate=false;
+
+                        foreach($allLeave as $j)
+                        {
+                            $i = 0;
+                            $c=0;
+                            //AccessCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks
+
+                            //******* we need to check first yung mga more than 1day
+                            if( $type == 'FL' &&  $j->totalCredits > 1)
+                            {
+                              //$c2 = $c;
+                              for($f=0; $f < $j->totalCredits; $f++)
+                              {
+                                //***** verify first kung pasok pa sa cutoff yung date ng leave
+                                $s = Carbon::parse($j->leaveStart,'Asia/Manila')->addDays($f);
+
+                                if( $s->format('Y-m-d') < $from->format('Y-m-d'))
+                                {
+                                  //if start ng leave eh past na ng cutoff start, gawin mong start ung cutoff mismo
+                                  $s = Carbon::parse($from->format('Y-m-d H:i:s'),'Asia/Manila')->addDays($f);
+                                  $e = Carbon::parse($from->format('Y-m-d H:i:s'),'Asia/Manila')->addDays($f)->addHours(9);
+
+                                }else
+                                {
+                                  //pasok within the range yung leave sa cutoff period
+                                  $e = Carbon::parse($from->format('Y-m-d H:i:s'),'Asia/Manila')->addDays($f)->addHours(9);
+                                  //$e =  Carbon::parse($j->leaveEnd,'Asia/Manila');
+
+                                }
+                                
+                                $pd = $s->format('m/d/Y');
+
+
+                                if( $s->format('Y-m-d H:i') <= $to->format('Y-m-d H:i'))
+                                {
+                                  $arr[$c] = $j->accesscode; $c++;
+                                  $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
+
+
+                                  ($type == 'FL') ? $leaveCode = $j->FLtype : $leaveCode = $type;
+                                  $qty = 1; //$j->totalCredits;
+
+                                  
+
+                                  //*** LeaveDate
+                                  $arr[$c] = $pd; $c++; //$s->format('m/d/Y'); $c++;
+
+                                  //*** LeaveCOde
+                                  if($leaveCode == 'ML'){
+                                    $arr[$c] = "SSSML"; $c++;
+                                  }else{
+                                    $arr[$c] = $leaveCode; $c++;
+                                  }
+                                  
+                                  
+
+                                  //*** Quantity
+                                  $arr[$c] = $qty; $c++;
+                                  
+
+                                  //*** Status
+                                  if($j->isApproved == '1') $stat = "Approved";
+                                  else if ($j->isApproved == '0') $stat = "Denied";
+                                  else $stat = "Pending Approval";
+
+                                  $arr[$c] = $stat; $c++;
+
+                                  //*** Comment
+                                  $arr[$c] = $j->notes; $c++;
+
+                                  //*** Date Files
+                                  $arr[$c] = date('m/d/Y', strtotime($j->created_at)); $c++;
+
+                                  //remarks
+                                  $arr[$c] = $stat; $c++;
+                   
+
+                                  $sheet->appendRow($arr);
+                                  $c = 0;
+
+
+                                }//end IF ONLY pasok pa sa cutoff
+
+                                
+
+                              }//end forloop
+
+
+                            }else
+                            {
+                              //-------- check if VTO
+                              if($type == 'VTO')
+                              {
+                                ($j->deductFrom == "AdvSL") ? $leaveCode = "SL" : $leaveCode = $j->deductFrom; 
+
+                                // kunin mo muna worksched
+                                $sched = $this->getUserWorksched($j->userID,$j->productionDate);
+                                if (count($sched) > 0 && ($sched[0]->workshift !== '* RD * - * RD *') )
+                                {
+                                  $wsched = explode('-', $sched[0]->workshift);
+                                  $startShift = Carbon::parse($j->productionDate." ". $wsched[0])->addHours(9);
+
+                                  $s = Carbon::parse($startShift->format('Y-m-d')." ". $j->leaveStart,'Asia/Manila');
+                                  $e = Carbon::parse($startShift->format('Y-m-d')." ". $j->leaveEnd,'Asia/Manila');
+
+                                }
+                                else //walang locked DTR sched
+                                {
+                                  $s = Carbon::parse($j->productionDate." ". $j->leaveStart,'Asia/Manila');
+                                  $e = Carbon::parse($j->productionDate." ". $j->leaveEnd,'Asia/Manila');
+
+                                }
+
+                                $qty = number_format((float)$j->totalCredits*0.125,2);
+                                $pd =  $j->productionDate;
+                                
+
+                              }
+                              else //VL | SL | LWOP | ML | SPL | PL | MC
+                              {
+                                //establish leave COde
+                                ($type == 'FL') ? $leaveCode = $j->FLtype : $leaveCode = $type;
+                                $qty = $j->totalCredits;
+
+                                //gawin mo lang kapag halfday leaves
+                                if ($j->totalCredits <= 0.5 )
+                                {
+                                  $sched = $this->getUserWorksched($j->userID,date('Y-m-d',strtotime($j->leaveStart)));
+                                  if (count($sched) > 0 && ($sched[0]->workshift !== '* RD * - * RD *') )
+                                  {
+                                    //need to check kung 1st half/2nd half of shift
+                                    $wsched = explode('-', $sched[0]->workshift);
+
+                                    if ($j->halfdayFrom == 3)
+                                    {
+                                      //if parttimer
+                                      $u = User::find($j->userID);
+                                      ($u->status_id == 12 || $u->status_id == 14) ? $isParttimer = true : $isParttimer=false;
+
+                                      
+                                      if($j->productionDate){
+                                        $lstart = Carbon::parse($j->productionDate,'Asia/Manila');
+                                        $hasProdate=true;
+                                      }else{
+                                        $lstart = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                      }
+
+                                      if($isParttimer)
+                                      {
+                                        $pt = DB::table('pt_override')->where('user_id',$u->id)->get();
+                                        
+
+                                        if (count($pt) > 0)
+                                        {
+                                          if ( Carbon::parse($pt[0]->overrideEnd,'Asia/Manila') >= $lstart )
+                                          {
+                                            ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
+
+                                          }
+                                          else
+                                          {
+                                            ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
+
+                                          }
+                                        }
+                                        else //partime schedule nga sya for today
+                                        {
+                                          ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
+                                           
+
+                                        }
+                                      }
+                                      
+                                      else
+                                      {
+                                        ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
+                                         
+                                         //$e = Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
+
+                                      }
+
+                                    }
+                                    else //hindi sya start ng 2nd half
+                                    {
+                                      ($j->productionDate) ? $s = Carbon::parse($j->productionDate,'Asia/Manila') : $s = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                      
+                                      $e =  Carbon::parse($j->leaveEnd,'Asia/Manila');
+
+                                    }
+
+                                  }
+                                  else 
+                                  {
+                                    ($j->productionDate) ? $s = Carbon::parse($j->productionDate,'Asia/Manila') : $s = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                    
+                                    $e =  Carbon::parse($j->leaveEnd,'Asia/Manila');//->addHours($jps['data'][0]->filed_hours);
+                                  }
+
+                                }
+                                
+                                else //whole day leaves sya
+                                {
+                                  $s = Carbon::parse($j->leaveStart,'Asia/Manila');
+                                  $e =  Carbon::parse($j->leaveEnd,'Asia/Manila');
+
+                                }
+
+                                $pd = $s->format('m/d/Y');
+
+                                
+                                 
+
+                              }//check mo muna kung pasok sa cutoff
+                              
+                              if( $s->format('Y-m-d') >= $from->format('Y-m-d') && $e->format('Y-m-d') <= $to->format('Y-m-d'))
+                              {
+                                $arr[$c] = $j->accesscode; $c++;
+                                $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
+
+                                 //*** LeaveDate
+                                $arr[$c] = $pd; $c++; //$s->format('m/d/Y'); $c++;
+
+                                //*** LeaveCOde
+                                  if($leaveCode == 'ML'){
+                                    $arr[$c] = "SSSML"; $c++;
+                                  }else{
+                                    $arr[$c] = $leaveCode; $c++;
+                                  }
+
+                                //*** Quantity
+                                $arr[$c] = $qty; $c++;
+                                
+
+                                //*** Status
+                                if($j->isApproved == '1') $stat = "Approved";
+                                else if ($j->isApproved == '0') $stat = "Denied";
+                                else $stat = "Pending Approval";
+
+                                $arr[$c] = $stat; $c++;
+
+                                //*** Comment
+                                $arr[$c] = $j->notes; $c++;
+
+                                //*** Date Files
+                                $arr[$c] = date('m/d/Y', strtotime($j->created_at)); $c++;
+
+                                //remarks
+                                $arr[$c] = $stat; $c++;
+                 
+
+                                $sheet->appendRow($arr);
+
+                              }//end pasok sa cutoff
+                              
+
+                            }//end ng ifelse more than 1 day
+                        }//end foreach allLeave
+
+
+                        
+                      });//end sheet1
+
+              })->export('xls');return "Download";
+
+            /*
+            $sheet = new Collection;
+            $arr = [];$hasProdate=false;
+            return response()->json(['sheet'=>$sheet,'allLeave'=> $allLeave]);*/
+
+      }
+
+      
+
+    }
+
+
 
     public function leaveMgt_earnings()
     {

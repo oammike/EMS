@@ -85,17 +85,20 @@
             <div class="col-lg-12"> <!-- ******************* LEFT COLUMN ***************** -->
 
               <div class="row">
-                <div class="col-lg-6">
+                <div class="col-lg-9">
                   <div class="row">
-                    <div class="col-lg-5"> <h4> From: <input id="from"  type="text" name="from" placeholder="{{$from}}" value="{{$from}}" class="datepicker form-control" /></h4> </div>
-                    <div class="col-lg-5"> <h4> Until: <input id="to" type="text" name="to" placeholder="{{$to}}" value="{{$to}}" class="datepicker form-control" /></h4> </div>
-                    <div class="col-lg-2"><a id="update" style="margin-top: 20px" class="pull-left btn btn-default btn-sm">Update Table</a> </div>
+                    <div class="col-lg-3"> <h4> From: <input id="from"  type="text" name="from" placeholder="{{$from}}" value="{{$from}}" class="datepicker form-control" /></h4> </div>
+                    <div class="col-lg-3"> <h4> Until: <input id="to" type="text" name="to" placeholder="{{$to}}" value="{{$to}}" class="datepicker form-control" /></h4> </div>
+                    <div class="col-lg-6">
+                      <a id="update" style="margin-top: 30px" class="pull-left btn btn-default btn-md">Update Table</a> 
+                      <a id="download" style="margin-top: 30px;margin-left: 5px" class="pull-left btn btn-default btn-md"><i class="fa fa-save"></i> Download CSV</a>
+                    </div>
                   </div>
                  
                  
                  
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-3">
                   <!-- <a class="btn btn-primary pull-right" style="margin-left: 2px"> Export CSV </a> -->
                  
                   
@@ -138,15 +141,15 @@
                   <div class="tab-content">
                     @if($canCredit)
                      
-                     <a href="{{action('UserController@leaveMgt_summary')}}" class="btn btn-default pull-right" style="margin-left: 5px"><i class="fa fa-download"></i>  Summary </a>
+                     <a href="{{action('UserController@leaveMgt_summary')}}" class="btn btn-default pull-right btn-xs" style="margin-left: 5px"><i class="fa fa-download"></i>  Summary </a>
 
-                     <a  data-toggle="modal" data-target="#myModal_giveNewEearning" class="btn btn-default pull-right" style="margin-left: 5px"><i class="fa fa-line-chart"></i> Give Credits </a>
+                     <a  data-toggle="modal" data-target="#myModal_giveNewEearning" class="btn btn-default pull-right btn-xs" style="margin-left: 5px"><i class="fa fa-line-chart"></i> Give Credits </a>
 
-                    <a  data-toggle="modal" data-target="#myModal_addNewEearning" class="btn btn-default pull-right" style="margin-left: 5px"><i class="fa fa-plus"></i> New </a>
+                    <a  data-toggle="modal" data-target="#myModal_addNewEearning" class="btn btn-default pull-right btn-xs" style="margin-left: 5px"><i class="fa fa-plus"></i> New </a>
                      @if($type =='VL')
-                     <a href="{{action('UserController@leaveMgt_earnings',['type'=>'VL','emp'=>'1','from'=>$from,'to'=>$to])}}" class="btn btn-primary pull-right"><i class="fa fa-calendar-check-o"></i> VL Earnings</a>
+                     <a href="{{action('UserController@leaveMgt_earnings',['type'=>'VL','emp'=>'1','from'=>$from,'to'=>$to])}}" class="btn btn-xs btn-primary pull-right"><i class="fa fa-calendar-check-o"></i> VL Earnings</a>
                      @elseif($type =='SL')
-                     <a href="{{action('UserController@leaveMgt_earnings',['type'=>'SL','emp'=>'1','from'=>$from,'to'=>$to])}}" class="btn btn-danger pull-right"><i class="fa fa-calendar-check-o"></i> SL Earnings</a>
+                     <a href="{{action('UserController@leaveMgt_earnings',['type'=>'SL','emp'=>'1','from'=>$from,'to'=>$to])}}" class="btn btn-xs btn-danger pull-right"><i class="fa fa-calendar-check-o"></i> SL Earnings</a>
                      @endif
                     @endif
 
@@ -564,6 +567,58 @@
 
     });
 
+    $('#update').on('click',function(){
+      var f = $('#from').val();
+      var t = $('#to').val();
+      console.log(f);
+      console.log(t);
+
+      window.location.href = "{{url('/')}}/leave_management?type={{$type}}&from="+f+"&to="+t;
+
+   });
+
+
+   $('#download').on('click',function(){
+      var f = $('#from').val();
+      var t = $('#to').val();
+      var _token = "{{ csrf_token() }}";
+      console.log(f);
+      console.log(t);
+
+      $.ajax({
+                      url: "{{action('UserController@leaveMgt_dl')}}",
+                      type:'POST',
+                      data:{
+                        'from':f, 
+                        'to':t, 
+                        'type': "{{$type}}",
+                        '_token':_token},
+                      error: function(response)
+                      {
+                          
+                        console.log("Error saving data: ");
+
+                          
+                          return false;
+                      },
+                      success: function(response)
+                      {
+
+                        console.log(response);
+                        $.notify("Processing .csv file for download. Please wait...",{className:"success",globalPosition:'top right',autoHideDelay:7000, clickToHide:true} );
+                        return true;
+                       }
+
+                          
+                      
+                  });
+
+      //window.location.href = "{{url('/')}}/leave_management?type={{$type}}&from="+f+"&to="+t;
+
+   }); 
+  
+
+
     $("#active").DataTable({
 
                      
@@ -685,16 +740,8 @@
    'use strict';
 
    $( ".datepicker" ).datepicker();
+   
 
-   $('#update').on('click',function(){
-      var f = $('#from').val();
-      var t = $('#to').val();
-      console.log(f);
-      console.log(t);
-
-      window.location.href = "{{url('/')}}/leave_management?type={{$type}}&from="+f+"&to="+t;
-
-   });
   
 
    $('table').on('click','.claimedcard',function(){

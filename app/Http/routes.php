@@ -527,6 +527,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'leaveMgt',
       'uses'=>'UserController@leaveMgt') );
 
+      Route::post('/leave_management_download', array(
+      'as'=> 'leave_management_download',
+      'uses'=>'UserController@leaveMgt_dl') );
+
       Route::get('/leave_management_earnings', array(
       'as'=> 'leaveMgt_earnings',
       'uses'=>'UserController@leaveMgt_earnings') );
