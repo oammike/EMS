@@ -58,52 +58,58 @@
 
                        
                         @foreach($resource['item'] as $res)
-                         <tr>
+
+                          @if($res->hidden)
+                          @else
+
+                              <tr>
                             
-                            <td><strong> {{$res->name}}</strong> </td>
-                            <td> {{$res->description}} </td>
-                            
-                            
-                            <td>
-                              <?php $coll = $employee->viewedResources->where('resource_id', $res->id)->where('agreed',1);
-                              if ( count($coll) > 0 ) { ?>
+                                <td><strong> {{$res->name}}</strong> </td>
+                                <td> {{$res->description}} </td>
+                                
+                                
+                                <td>
+                                  <?php $coll = $employee->viewedResources->where('resource_id', $res->id)->where('agreed',1);
+                                  if ( count($coll) > 0 ) { ?>
 
-                                 <a target="_blank" href="{{action('ResourceController@viewFile',$res->id)}} " class="btn btn-xs btn-primary"  style="margin-top:5px" ><i class="fa fa-search"></i> View {{$res->agreed}}</a>
+                                     <a target="_blank" href="{{action('ResourceController@viewFile',$res->id)}} " class="btn btn-xs btn-primary"  style="margin-top:5px" ><i class="fa fa-search"></i> View {{$res->agreed}}</a>
 
-                              <?php } else { ?>
-                              <a target="_blank" href="#" data-toggle="modal" data-target="#myModalAcknowledge{{$res->id}}" class="btn btn-xs btn-danger"  style="margin-top:5px" ><i class="fa fa-search"></i> View</a>
+                                  <?php } else { ?>
+                                  <a target="_blank" href="#" data-toggle="modal" data-target="#myModalAcknowledge{{$res->id}}" class="btn btn-xs btn-danger"  style="margin-top:5px" ><i class="fa fa-search"></i> View</a>
 
-                              <?php } ?>
+                                  <?php } ?>
 
-                              @if($isAdmin)
-                              <a href="{{action('ResourceController@track',$res->id) }}" class="btn btn-xs btn-primary"  style="margin-top:5px"><i class="fa fa-list"></i> Track</a>
-                              <a href="#"  style="margin-top:5px" class="btn btn-xs btn btn-default" data-toggle="modal" data-target="#myModal{{$res->id}}" ><i class="fa fa-trash"></i> Delete</a>
-                              @endif
-                             <div class="clearfix"></div>
-                             
+                                  @if($isAdmin)
+                                  <a href="{{action('ResourceController@track',$res->id) }}" class="btn btn-xs btn-primary"  style="margin-top:5px"><i class="fa fa-list"></i> Track</a>
+                                  <a href="#"  style="margin-top:5px" class="btn btn-xs btn btn-default" data-toggle="modal" data-target="#myModal{{$res->id}}" ><i class="fa fa-trash"></i> Delete</a>
+                                  @endif
+                                 <div class="clearfix"></div>
+                                 
 
-                            </td>
-                            
-                            
-                         </tr>
+                                </td>
+                                
+                                
+                             </tr>
 
-                                 @include('layouts.modals-acknowledge', [
-                                  'modelRoute'=>'resource.viewItem',
-                                  'modelID' => $res->id, 
-                                  'modelName'=>$res->name, 
-                                  'modalTitle'=>'View', 
-                                  'modalMessage'=> $res->name, 
-                                  'formID'=>'viewResource',
-                                  'icon'=>'glyphicon-check' ])
+                                     @include('layouts.modals-acknowledge', [
+                                      'modelRoute'=>'resource.viewItem',
+                                      'modelID' => $res->id, 
+                                      'modelName'=>$res->name, 
+                                      'modalTitle'=>'View', 
+                                      'modalMessage'=> $res->name, 
+                                      'formID'=>'viewResource',
+                                      'icon'=>'glyphicon-check' ])
 
-                                   @include('layouts.modals', [
-                          'modelRoute'=>'resource.destroy',
-                          'modelID' => $res->id, 
-                          'modelName'=>$res->name, 
-                          'modalTitle'=>'Delete', 
-                          'modalMessage'=>'Are you sure you want to delete this?', 
-                          'formID'=>'deleteEval',
-                          'icon'=>'glyphicon-trash' ])
+                                       @include('layouts.modals', [
+                                      'modelRoute'=>'resource.destroy',
+                                      'modelID' => $res->id, 
+                                      'modelName'=>$res->name, 
+                                      'modalTitle'=>'Delete', 
+                                      'modalMessage'=>'Are you sure you want to delete this?', 
+                                      'formID'=>'deleteEval',
+                                      'icon'=>'glyphicon-trash' ])
+                          @endif
+                         
                      
                       
 

@@ -137,10 +137,11 @@ class ResourceController extends Controller
 
         $employee = $this->user;
             
-            $resources = Resource::all()->sortBy('name');
+            $resources = Resource::where('hidden',null)->orderBy('created_at','DESC')->get();
             $categories = Category::all()->sortBy('name');
             $allResource = new Collection;
             foreach ($categories as $cat) {
+
                $allResource->push(["name"=>$cat->name, "item" => $cat->resources,'id'=>$cat->id]);
             }
 
