@@ -3694,7 +3694,7 @@ class UserController extends Controller
                             $janelle = User::find(222);//User::find(222);
                             $mike = User::find(564);//User::find(222);
 
-                            return $janelleMsg;
+                            //return $janelleMsg;
                             Mail::send('emails.janelle', ['msg' => $janelleMsg,'type'=>1, 'greet'=>"Birthday"], function ($m) use ($janelle,$mike) 
                                  {
                                     $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
