@@ -3619,11 +3619,8 @@ class UserController extends Controller
           case 'BDAY': {
                             $janelleMsg = " ";
 
-                            foreach ($request->recipients as $r) {
-
-                                  
-
-                                  //*** check mo muna baka nabigyan na sya ng bday reward
+                            foreach ($request->recipients as $r) 
+                            {//*** check mo muna baka nabigyan na sya ng bday reward
                                   $w = Reward_Waysto::where('name','Birthday Rewards')->first();
                                   
                                   $already = DB::select(DB::raw("SELECT reward_award.id, reward_award.user_id, reward_award.waysto_id, reward_award.created_at FROM reward_award WHERE reward_award.user_id = :u AND reward_award.waysto_id = :w AND YEAR(reward_award.created_at) = :y"),array(
@@ -3677,7 +3674,7 @@ class UserController extends Controller
                                   //get celebrator details
                                   $celeb = User::find($r);
                                   $dateHired = Carbon::parse($celeb->dateHired,'Asia/Manila');
-                                  $tenure = $dateHired->diffInYears(Carbon::now('GMT+8'))+1;
+                                  $tenure = number_format(($dateHired->diffInMonths(Carbon::now('GMT+8')))/12,2);
                                   $camp = Campaign::find(Team::where('user_id',$r)->first()->campaign_id)->name;
                                   $job = Position::find($celeb->position_id)->name;
 
@@ -3691,39 +3688,29 @@ class UserController extends Controller
 
                                   
                                   
-                                }
+                            }
 
-                               /* if( \Auth::user()->id !== 564 ) {
-                                      $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                                        fwrite($file, "-------------------\n Bday ".$request->points. "pts to {". $collstr. "} on ".$now->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
-                                        fclose($file);
-                                }*/
+                            //send email to Janelle
+                            $janelle = User::find(222);//User::find(222);
+                            $mike = User::find(564);//User::find(222);
 
-                                //send email to Janelle
-                                $janelle = User::find(222);//User::find(222);
-                                $mike = User::find(564);//User::find(222);
-                                 Mail::send('emails.janelle', ['msg' => $janelleMsg,'type'=>1, 'greet'=>"Birthday"], function ($m) use ($janelle,$mike) 
-                                     {
-                                        $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
-                                        $m->to($janelle->email, $janelle->lastname.", ".$janelle->firstname)->subject('OAMPI Bday Celebrators: '.Carbon::now('GMT+8')->format('M d'));     
+                            return $janelleMsg;
+                            Mail::send('emails.janelle', ['msg' => $janelleMsg,'type'=>1, 'greet'=>"Birthday"], function ($m) use ($janelle,$mike) 
+                                 {
+                                    $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
+                                    $m->to($janelle->email, $janelle->lastname.", ".$janelle->firstname)->subject('OAMPI Bday Celebrators: '.Carbon::now('GMT+8')->format('M d'));
+                                    $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                                            fwrite($file, "-------------------\n Bday_EmailRemind sent to ". $janelle->email."\n");
+                                            //fwrite($file, "\n AnnivGreet:  ". $awardee->firstname." ".$awardee->lastname. " tenure: ".$tenure."\n");
+                                            fclose($file);                      
+                                
 
-                                        /* -------------- log updates made --------------------- */
-                                             $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
-                                                fwrite($file, "-------------------\n Bday_EmailRemind sent to ". $janelle->email."\n");
-                                                //fwrite($file, "\n AnnivGreet:  ". $awardee->firstname." ".$awardee->lastname. " tenure: ".$tenure."\n");
-                                                fclose($file);                      
-                                    
-
-                                    }); //end mail
-                                  Mail::send('emails.janelle', ['msg' => $janelleMsg,'type'=>1, 'greet'=>"Birthday"], function ($m) use ($janelle,$mike) 
-                                     {
-                                        $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
-                                        $m->to($mike->email, $mike->lastname.", ".$mike->firstname)->subject('OAMPI Bday Celebrators: '.Carbon::now('GMT+8')->format('M d'));     
-
-                                                  
-                                    
-
-                                    }); //end mail
+                                }); //end mail
+                              Mail::send('emails.janelle', ['msg' => $janelleMsg,'type'=>1, 'greet'=>"Birthday"], function ($m) use ($janelle,$mike) 
+                                 {
+                                    $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
+                                    $m->to($mike->email, $mike->lastname.", ".$mike->firstname)->subject('OAMPI Bday Celebrators: '.Carbon::now('GMT+8')->format('M d'));   
+                                }); //end mail
 
           }break;
 
@@ -3733,9 +3720,6 @@ class UserController extends Controller
                              $janelleMsg = " ";
                              $w = Reward_Waysto::where('name','Work Anniversary')->first();
                             foreach ($request->recipients as $r) {
-
-                                  
-
                                   //*** check mo muna baka nabigyan na sya ng bday reward
                                   
                                   
@@ -3790,6 +3774,7 @@ class UserController extends Controller
                                     $awardee = User::find($r);
                                     $mike = User::find(564);
                                     $dateHired = Carbon::parse($awardee->dateHired,'Asia/Manila');
+
                                     $tenure = $dateHired->diffInYears(Carbon::now('GMT+8'))+1;
                                     
                                     $ddth = $dateHired->format('M d,Y');
