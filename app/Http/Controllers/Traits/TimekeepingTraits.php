@@ -424,6 +424,11 @@ trait TimekeepingTraits
     
     $check_fixed_RD=null;$check_monthly_RD=null;$check_monthly_WS=null;$mc=null;$fc=null;$rd=null;$wd=null;
 
+    $exemptEmp = DB::table('user_schedType')->where('user_id',$user->id)->join('schedType','schedType.id','=','user_schedType.schedType_id')->orderBy('user_schedType.created_at','DESC')->get();
+    
+    
+      
+
     if ($hybridSched)
     {
 
@@ -1011,12 +1016,108 @@ trait TimekeepingTraits
 
     }//end if else
 
-    $c = new Collection;
-    $c->schedForToday =  collect($schedForToday)->toArray();
-    $c->isRDToday = $isRDToday;
-    $c->RDsched = $RDsched1;
-    $c->isFixedSched = $isFixedSched;
-    $c->allRD = $RDsched;
+
+    if (count($exemptEmp) > 0) 
+    {
+      if ($isRDToday)
+       {
+          $isRDToday=true;
+          $schedForToday = array('timeStart'=>'* RD *', 
+                                  'timeEnd'=>'* RD *' ,
+                                  'isFlexitime' => false,
+                                  'isRD'=> true);
+
+       } 
+       else 
+       {
+          
+          $tIN = Logs::where('user_id',$user->id)->where('biometrics_id',$bioForTheDay->id)->where('logType_id',1)->orderBy('id','ASC')->get();
+          if (count($tIN) > 0)
+          {
+
+            //get timein
+            if($exemptEmp[0]->schedType_id == '2') //flexi 8hr
+            {
+                
+
+                $dt = Carbon::parse($bioForTheDay->productionDate." ".$tIN->first()->logTime,'Asia/Manila')->format('H:i:s');
+                $ds = explode(':', $dt);
+                if($ds[1] == '00') {
+
+                  $tstrt = Carbon::parse($payday." ".$ds[0].":00:00",'Asia/Manila')->format('H:i:s');
+                  $tend = Carbon::parse($payday." ".$ds[0].":00:00",'Asia/Manila')->addHour(9)->format('H:i:s');
+                 
+                }
+                elseif($ds[1] > '00' && $ds[1] <= '15'){
+                  $tstrt = Carbon::parse($payday." ".$ds[0].":15:00",'Asia/Manila')->format('H:i:s');
+                  $tend = Carbon::parse($payday." ".$ds[0].":15:00",'Asia/Manila')->addHour(9)->format('H:i:s');
+
+                }
+                elseif($ds[1] > 15 && $ds[1] <=30){
+                  $tstrt = Carbon::parse($payday." ".$ds[0].":30:00",'Asia/Manila')->format('H:i:s');
+                  $tend = Carbon::parse($payday." ".$ds[0].":30:00",'Asia/Manila')->addHour(9)->format('H:i:s');
+
+                }
+                elseif($ds[1] > 30 && $ds[1] <=45){
+                  $tstrt = Carbon::parse($payday." ".$ds[0].":45:00",'Asia/Manila')->format('H:i:s');
+                  $tend = Carbon::parse($payday." ".$ds[0].":45:00",'Asia/Manila')->addHour(9)->format('H:i:s');
+                }
+                elseif($ds[1] > 45){
+                  $tstrt = Carbon::parse($payday." ".($ds[0]+1).":00:00",'Asia/Manila')->format('H:i:s');
+                  $tend = Carbon::parse($payday." ".($ds[0]+1).":00:00",'Asia/Manila')->addHour(9)->format('H:i:s');
+
+                }
+
+
+            }
+            else{
+              $tstrt = $tIN->first()->logTime;
+              $tend = Carbon::parse($bioForTheDay->productionDate." ".$tIN->first()->logTime,'Asia/Manila')->addHours(9)->format('H:i:s');
+
+
+
+            }
+
+
+              $isRDToday=false;
+              $schedForToday = array('timeStart'=>$tstrt, 
+                                    'timeEnd'=>$tend ,
+                                    'isFlexitime' => false,
+                                    'isRD'=> false);
+
+          }
+          else goto ProceedRegSched;
+          
+       }
+       $RDsched1 = $RDsched;
+
+       $c = new Collection;
+       $c->schedForToday =  $schedForToday;
+       $c->isRDToday = $isRDToday;
+       $c->RDsched = $RDsched1;
+       $c->isFixedSched = $isFixedSched;
+       $c->allRD = $RDsched;
+
+    }else
+    {
+      
+      ProceedRegSched:
+
+          $c = new Collection;
+          $c->schedForToday =  collect($schedForToday)->toArray();
+          $c->isRDToday = $isRDToday;
+          $c->RDsched = $RDsched1;
+          $c->isFixedSched = $isFixedSched;
+          $c->allRD = $RDsched;
+
+    }
+
+
+        
+
+    
+
+    
 
     
     // $c->workSched = $workSched;
