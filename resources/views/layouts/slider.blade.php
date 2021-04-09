@@ -5,6 +5,23 @@
             <div class="item active text-center" >
 
                  
+                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_kagitingan.jpg" width="100%" />    
+                   <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-flag"></i> Araw ng <span class="text-primary"> Kagitingan <br/><small>Apr.09, 2021</small><br/> <img src="storage/uploads/divider.png" /><br/><br/>
+                  
+                   
+                    </h4>
+                     <p style="padding: 30px;" class="text-left">We join the country in commemorating the heroes who defended Bataan, Corregidor, and Bessang to bring democracy and freedom to the Philippines during World War II.<br/><br/>
+                      #WeSpeakYourLanguage #OACelebratesHeroes #DayOfValor
+                  </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
+
+                 
                   <h4 class="text-orange" style="line-height: 1.5em" >Make Sure <br/><span class="text-primary"><i class="fa fa-users"></i> Your Team is Aligned <br/><small>Apr.06, 2021</small><br/> <img src="storage/uploads/divider.png" /><br/><br/>
                    <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/teamAligned.png" width="100%" />    
                    
@@ -98,77 +115,7 @@
                     
                     
             </div>
-
-            <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/easter2021.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >  Happy Easter <span class="text-primary"> 2021 <i class="fa fa-plus"></i><br/><small>Apr.04, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      Easter is a symbol of hope and new life. <br/>Let's hope for better days ahead. Happy #Easter!<br/><br/>
-
-                      #WeSpeakYourLanguage #OAHolidays<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/openaccessbpolife/photos/a.660550144001490/4011143098942161"><i class="fa fa-facebook-square"></i> View Facebook post</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
-
-
               <div class="item text-center" >
-                  
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/nurses_2021_04_03.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Reminders from <br/><span class="text-primary"><i class="fa fa-medkit"></i> OAM Nurses <i class="fa fa-medkit"></i><br/><small>Apr. 03, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-left">
-                     Hi all,<br/><br/>
-                     Regardless of our religion/belief, let us pray for strength, health and guidance. Healthcare workers need our support to help themselves and to help us stop the spread of COVID19
-
-                       
-
-
-
-                  </p>
-                    
-                   
-                    
-                    
-            </div>
-
-
-            <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/holyweek_2021.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-plus"></i> Holy Week <span class="text-primary"> 2021 <i class="fa fa-plus"></i><br/><small>Apr. 01-03 , 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      The Christian community is spending the Holy Week for the second year in quarantine. May we remember to take care of ourselves and those around us as we celebrate this solemn week.<br/><br/>
-
-                      Check out <a href="https://buff.ly/3sFpQvc" target="_blank">https://buff.ly/3sFpQvc</a> for #HolyWeek resources.<br/><br/>
-
-                      Please avoid going out unless absolutely necessary. If you need to, observe health and safety protocols properly.<br/><br/>
-
-                      #WeSpeakYourLanguage #OAHolidays<br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/openaccessbpolife/photos/a.660550144001490/3995353447187793/"><i class="fa fa-facebook-square"></i> View Facebook post</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
-
-            <div class="item text-center" >
                   
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/dtrp.gif" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Did You Know: <span class="text-primary"><i class="fa fa-info-circle"></i> DTRP<br/><small>Mar.31, 2021</small><br/>
@@ -237,6 +184,37 @@
                     
             </div>
 
+
+          
+
+
+              <div class="item text-center" >
+                  
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/nurses_2021_04_03.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Reminders from <br/><span class="text-primary"><i class="fa fa-medkit"></i> OAM Nurses <i class="fa fa-medkit"></i><br/><small>Apr. 03, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-left">
+                     Hi all,<br/><br/>
+                     Regardless of our religion/belief, let us pray for strength, health and guidance. Healthcare workers need our support to help themselves and to help us stop the spread of COVID19
+
+                       
+
+
+
+                  </p>
+                    
+                   
+                    
+                    
+            </div>
+
+
+           
+
+          
            
 
            
@@ -10936,10 +10914,51 @@ If you have any payroll-related inquiries and concerns, please log in to our Pay
 
                     
               </div>
+                <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/easter2021.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >  Happy Easter <span class="text-primary"> 2021 <i class="fa fa-plus"></i><br/><small>Apr.04, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      Easter is a symbol of hope and new life. <br/>Let's hope for better days ahead. Happy #Easter!<br/><br/>
+
+                      #WeSpeakYourLanguage #OAHolidays<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/openaccessbpolife/photos/a.660550144001490/4011143098942161"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
 
 
 
-           
+            <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/holyweek_2021.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-plus"></i> Holy Week <span class="text-primary"> 2021 <i class="fa fa-plus"></i><br/><small>Apr. 01-03 , 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      The Christian community is spending the Holy Week for the second year in quarantine. May we remember to take care of ourselves and those around us as we celebrate this solemn week.<br/><br/>
+
+                      Check out <a href="https://buff.ly/3sFpQvc" target="_blank">https://buff.ly/3sFpQvc</a> for #HolyWeek resources.<br/><br/>
+
+                      Please avoid going out unless absolutely necessary. If you need to, observe health and safety protocols properly.<br/><br/>
+
+                      #WeSpeakYourLanguage #OAHolidays<br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="https://www.facebook.com/openaccessbpolife/photos/a.660550144001490/3995353447187793/"><i class="fa fa-facebook-square"></i> View Facebook post</a>
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
 
 
           
