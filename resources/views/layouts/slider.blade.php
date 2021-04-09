@@ -1,4 +1,4 @@
-           
+
 
 
               
@@ -22,8 +22,9 @@
             <div class="item text-center" >
 
                  
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/teamAligned.png" width="100%" /><br/>
                   <h4 class="text-orange" style="line-height: 1.5em" >Make Sure <br/><span class="text-primary"><i class="fa fa-users"></i> Your Team is Aligned <br/><small>Apr.06, 2021</small><br/> <img src="storage/uploads/divider.png" /><br/><br/>
-                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/teamAligned.png" width="100%" />    
+                       
                    
                     </h4>
                    
