@@ -3,21 +3,26 @@
 
               
             <div class="item active text-center" >
-
-                 
-                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_kagitingan.jpg" width="100%" />    
-                   <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-flag"></i> Araw ng <span class="text-primary"> Kagitingan <br/><small>Apr.09, 2021</small><br/> <img src="storage/uploads/divider.png" /><br/><br/>
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_04_12_wall.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"><i class="fa fa-pencil"></i> Poetry Month 2021 <i class="fa fa-book"></i><br/><small>Apr. 12, 2021</small><br/>
                   
-                   
+                    <img src="storage/uploads/divider.png" />
                     </h4>
-                     <p style="padding: 30px;" class="text-left">We join the country in commemorating the heroes who defended Bataan, Corregidor, and Bessang to bring democracy and freedom to the Philippines during World War II.<br/><br/>
-                      #WeSpeakYourLanguage #OACelebratesHeroes #DayOfValor
-                  </p>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      April is Poetry Month! <br/><strong>Share your favorite verse from a poem or a short poem!</strong> <br/>
+                      You may also unleash your inner poets and post your own poem! <br/>
+                      All participants will earn 20 points, visit EMS now! <br/><br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',49)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>
                     
                    
                     
                     
             </div>
+
+           
             <div class="item text-center" >
 
                               <img src="./public/img/ana.jpg" style="z-index: 2" />
@@ -125,25 +130,7 @@
  
                     
             </div> -->
-            <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_04_05_wall.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"><i class="fa fa-plus"></i> Holy Week 2021 <i class="fa fa-pagelines"></i><br/><small>Apr. 05, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      <strong>How did you spend your week during the Holy Week?</strong><br/>
-                       For Catholics, any traditions you did or was not able to do because of the quarantine guidelines? <br/>
-                       For non-Catholics, how was the past week for you?<br/><br/> Share your experience and earn 20 points, visit EMS now! <br/><br/>
-
-                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',48)}}"><i class="fa fa-th-large"></i> View Wall</a>
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
+           
               <div class="item text-center" >
                   
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/dtrp.gif" width="100%" />
@@ -217,110 +204,7 @@
           
 
 
-              <div class="item text-center" >
-                  
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/nurses_2021_04_03.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Reminders from <br/><span class="text-primary"><i class="fa fa-medkit"></i> OAM Nurses <i class="fa fa-medkit"></i><br/><small>Apr. 03, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-left">
-                     Hi all,<br/><br/>
-                     Regardless of our religion/belief, let us pray for strength, health and guidance. Healthcare workers need our support to help themselves and to help us stop the spread of COVID19
-
-                       
-
-
-
-                  </p>
-                    
-                   
-                    
-                    
-            </div>
-
-
-           
-
-          
-           
-
-           
-
-            <div class="item text-center" >
-                  
-                  <h4 class="text-orange" style="line-height: 1.5em" >Employee Communications: <br/><span class="text-primary"><i class="fa fa-info-circle"></i> Business As Usual Amid One-Week Lockdown<br/><small>Mar.29, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-left">
-                     Team,<br/><br/>
-
-                       
-
-                      In light of the Philippine government’s recent announcement about ramping movement restrictions <strong class="text-success"> starting Monday, March 29 through Sunday, April 4, this is to confirm that Open Access BPO operates business as usual</strong>.<br/><br/><br/><br/>
-
-                       
-
-                      There are no changes so far since our processes are already compliant with all travel, health, and safety rulings for private companies. Also, while the new pronouncement includes curfew hours for Metro Manila and some other cities, the BPO industry is exempted hence our business operations will not be affected.<br/><br/>
-
-                       
-
-                      The following measures and provisions remain in place as usual:<br/><br/>
-                      <ul class="text-left">
-                          <li>Policies, practices, and tools updated to manage and support our integrated workforce (at-home workers and skeletal onsite personnel)<br/></li>
-
-                          <li>Amped interdepartmental coordination and regular employee communications<br/></li>
-
-                          <li>Provisions and health/safety protocols maintained for onsite workers<br/></li><br/>
-
-                          <li>Company transport*<br/></li>
-
-                          <li>Office meals when establishments are closed<br/></li>
-
-                          <li>Mandatory health declaration prior to riding company vehicles and entering office premises<br/></li>
-
-                          <li>Physical distancing, protection, and disinfection protocols<br/></li>
-                      </ul>
-                        <br/><br/></p>
-
-                       
-
-                       
-
-                      <p style="padding: 30px;" class="text-left"><em>* Our company shuttle service operates 24/7 as usual. There are no changes so far, unless otherwise announced by the government and Transport Department. We will maintain our current:<br/><br/>
-
-                      a.       Schedule of shuttle operations<br/><br/>
-
-                      b.       Scope of service (door-to-door for within NCR; point-to-point for outside NCR)<br/><br/>
-
-                      c.        Support help desk hours (0800 - 2300)<br/><br/>
-
-                      d.       Company Shuttle Service Policies and Procedures<br/><br/><br/><br/>
-
-                      Given the curfew and added ECQ restrictions, we advise all shuttlers to ensure they have their:<br/><br/>
-
-                      a. COE (indicating home and office address) and<br/><br/>
-
-                      b. Company ID with them in case of inspection.<br/><br/><br/><br/>
-
-                      As per usual, new or change requests may be sent to OA Transport by submitting an OA Ride Request Form two days before the needed ride.</em>
-
-                       <br/><br/>
-                       
-
-                      Thank you, let's all keep safe.
-
-
-                  </p>
-                    
-                   
-                    
-                    
-            </div>
-
+            
            
 
            
@@ -10988,9 +10872,128 @@ If you have any payroll-related inquiries and concerns, please log in to our Pay
                     
                     
             </div>
+             <div class="item text-center" >
 
+                 
+                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_kagitingan.jpg" width="100%" />    
+                   <h4 class="text-orange" style="line-height: 1.5em" ><i class="fa fa-flag"></i> Araw ng <span class="text-primary"> Kagitingan <br/><small>Apr.09, 2021</small><br/> <img src="storage/uploads/divider.png" /><br/><br/>
+                  
+                   
+                    </h4>
+                     <p style="padding: 30px;" class="text-left">We join the country in commemorating the heroes who defended Bataan, Corregidor, and Bessang to bring democracy and freedom to the Philippines during World War II.<br/><br/>
+                      #WeSpeakYourLanguage #OACelebratesHeroes #DayOfValor
+                  </p>
+                    
+                   
+                    
+                    
+            </div>
+
+
+          <div class="item text-center" >
+                  
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/nurses_2021_04_03.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Reminders from <br/><span class="text-primary"><i class="fa fa-medkit"></i> OAM Nurses <i class="fa fa-medkit"></i><br/><small>Apr. 03, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-left">
+                     Hi all,<br/><br/>
+                     Regardless of our religion/belief, let us pray for strength, health and guidance. Healthcare workers need our support to help themselves and to help us stop the spread of COVID19
+
+                       
+
+
+
+                  </p>
+                    
+                   
+                    
+                    
+            </div>
+
+
+           
 
           
+           
+
+           
+
+            <div class="item text-center" >
+                  
+                  <h4 class="text-orange" style="line-height: 1.5em" >Employee Communications: <br/><span class="text-primary"><i class="fa fa-info-circle"></i> Business As Usual Amid One-Week Lockdown<br/><small>Mar.29, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-left">
+                     Team,<br/><br/>
+
+                       
+
+                      In light of the Philippine government’s recent announcement about ramping movement restrictions <strong class="text-success"> starting Monday, March 29 through Sunday, April 4, this is to confirm that Open Access BPO operates business as usual</strong>.<br/><br/><br/><br/>
+
+                       
+
+                      There are no changes so far since our processes are already compliant with all travel, health, and safety rulings for private companies. Also, while the new pronouncement includes curfew hours for Metro Manila and some other cities, the BPO industry is exempted hence our business operations will not be affected.<br/><br/>
+
+                       
+
+                      The following measures and provisions remain in place as usual:<br/><br/>
+                      <ul class="text-left">
+                          <li>Policies, practices, and tools updated to manage and support our integrated workforce (at-home workers and skeletal onsite personnel)<br/></li>
+
+                          <li>Amped interdepartmental coordination and regular employee communications<br/></li>
+
+                          <li>Provisions and health/safety protocols maintained for onsite workers<br/></li><br/>
+
+                          <li>Company transport*<br/></li>
+
+                          <li>Office meals when establishments are closed<br/></li>
+
+                          <li>Mandatory health declaration prior to riding company vehicles and entering office premises<br/></li>
+
+                          <li>Physical distancing, protection, and disinfection protocols<br/></li>
+                      </ul>
+                        <br/><br/></p>
+
+                       
+
+                       
+
+                      <p style="padding: 30px;" class="text-left"><em>* Our company shuttle service operates 24/7 as usual. There are no changes so far, unless otherwise announced by the government and Transport Department. We will maintain our current:<br/><br/>
+
+                      a.       Schedule of shuttle operations<br/><br/>
+
+                      b.       Scope of service (door-to-door for within NCR; point-to-point for outside NCR)<br/><br/>
+
+                      c.        Support help desk hours (0800 - 2300)<br/><br/>
+
+                      d.       Company Shuttle Service Policies and Procedures<br/><br/><br/><br/>
+
+                      Given the curfew and added ECQ restrictions, we advise all shuttlers to ensure they have their:<br/><br/>
+
+                      a. COE (indicating home and office address) and<br/><br/>
+
+                      b. Company ID with them in case of inspection.<br/><br/><br/><br/>
+
+                      As per usual, new or change requests may be sent to OA Transport by submitting an OA Ride Request Form two days before the needed ride.</em>
+
+                       <br/><br/>
+                       
+
+                      Thank you, let's all keep safe.
+
+
+                  </p>
+                    
+                   
+                    
+                    
+            </div>
+
 
 
 
