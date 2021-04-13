@@ -3,6 +3,25 @@
 
               
             <div class="item active text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021kareem.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Ramadan <span class="text-primary">Kareem<br/><small>Apr. 13, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      The first day of fasting for the Holy Month of Ramadan begins today.<br/><br/>Our Muslim brothers and sisters will fast and pray from dawn until sunset during this month-long Islamic tradition. We wish them a safe and blessed #Ramadan.<br/><br/>
+                      #WeSpeakYourLanguage #OAHolidays <br/><br/>
+
+                      
+                     </p>
+                    
+                   
+                    
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_04_12_wall.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"><i class="fa fa-pencil"></i> Poetry Month 2021 <i class="fa fa-book"></i><br/><small>Apr. 12, 2021</small><br/>
                   
