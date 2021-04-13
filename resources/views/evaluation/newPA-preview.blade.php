@@ -83,7 +83,7 @@
                           @if($comp[0]->componentName == "Professionalism")
                               <td>
                                 <label>Rating</label>
-                                <select name="rating_professionalism" class="rating_professionalism form-control" data-goalweight="{{$goal[0]->goalWeight}}" data-componentweight="{{$comp[0]->componentWeight}}" data-goalID="{{$goal[0]->goalID}}">
+                                <select name="rating_professionalism" class="rating_professionalism form-control" data-goalweight="{{$comp[0]->componentWeight}}" data-componentweight="{{$comp[0]->componentWeight}}" data-goalID="{{$goal[0]->goalID}}">
                                     <option value="0">* select rating *</option>
                                     <option value="1">1</option>
                                     <option value="2">2</option>
@@ -92,7 +92,7 @@
                                     <option value="5">5</option>
                                   </select>
                               </td>
-                              <td style="text-align: right;"><span class="goal_points" id="points_{{$goal[0]->goalID}}" style="font-weight: bold;">0.00</td>
+                              <td style="text-align: right;"><span class="prof_points" id="points_prof_{{$goal[0]->goalID}}" style="font-weight: bold;">0.00</td>
                           @else
                               <td></td>
                           @endif
@@ -132,9 +132,10 @@
 
                           @elseif( $comp[0]->componentName == "Professionalism" )
                           <tr>
-                            <td colspan="3" class="bg-gray" style="padding: 50px;" >
+
+                            <td colspan="3" class="bg-gray" style="padding: 50px;font-size: 0.7em;" >
                               <div class="row">
-                               
+                               <h4>Professionalism Rating Scale</h4>
                                 <div class="col-lg-1 text-left" style="font-weight: bold;">Rating</div>
                                 <div class="col-lg-4 text-center" style="font-weight: bold;">Guidelines</div>
                                 <div class="col-lg-4 text-center" style="font-weight: bold;">Qty Infractions by yearend</div>
@@ -143,7 +144,7 @@
 
                               <div class="row">
                                 
-                                <div class="col-lg-1"><br/>5</div>
+                                <div class="col-lg-1" style="font-size: 1.5em"><br/>5</div>
                                 <div class="col-lg-4"><br/>
                                     <strong>OUTSTANDING PERFORMANCE</strong><br/><br/>
 
@@ -155,7 +156,7 @@
                               </div>
                               <div class="row">
                                 
-                                <div class="col-lg-1"><br/>4</div>
+                                <div class="col-lg-1" style="font-size: 1.5em"><br/>4</div>
                                 <div class="col-lg-4"><br/>
                                   <strong>EXCEEDS EXPECTATIONS </strong><br/><br/>
 
@@ -170,11 +171,11 @@
                               </div>
                               <div class="row">
                                 
-                                <div class="col-lg-1"><br/>3</div>
+                                <div class="col-lg-1" style="font-size: 1.5em"><br/>3</div>
                                 <div class="col-lg-4"><br/><strong>MEETS EXPECTATIONS</strong><br/><br/>
 
                                     <em style="font-size: small;"> Exhibits behavior consistently<br/>
-                                    Regularly demonstrates the competency
+                                    Regularly demonstrates the competency</em>
                                 </div>
                                 <div class="col-lg-4 text-center">3-4 <br/>
                                       Two Level 1 offenses or Two instances (repeated) of the same Level 1 offense
@@ -183,7 +184,7 @@
                               </div>
                               <div class="row">
                                 
-                                <div class="col-lg-1"><br/>2</div>
+                                <div class="col-lg-1" style="font-size: 1.5em"><br/>2</div>
                                 <div class="col-lg-4"><br/><strong>IMPROVEMENT NEEDED</strong><br/><br/>
                                       <em style="font-size: small;">Exhibits behavior inconsistently<br/>
                                       Needs improvement for Performance Improvement or<br/>
@@ -194,7 +195,7 @@
                               </div>
                               <div class="row">
                                 
-                                <div class="col-lg-1"><br/>1</div>
+                                <div class="col-lg-1" style="font-size: 1.5em" style="font-size: 1.5em"><br/>1</div>
                                 <div class="col-lg-4"><br/><strong>UNSATISFACTORY PERFORMANCE</strong><br/><br/>
                                     <em style="font-size: small;">Never or almost never exhibits behavior</em></div>
                                 <div class="col-lg-4 text-center">5 or more <br/>
@@ -398,6 +399,7 @@
 
       var overallscore = 0;
       var allgoal= 0;
+      var allprof = 0;
       var allcomp = 0;
 
       var totalpoint = rate * (((componentWeight/100) * goalWeight)/100);
@@ -408,6 +410,7 @@
 
 
       var allGoalPoints = $('.goal_points');//.attr('data-point');
+      var allProfPoints = $('.prof_points');
       var allCompPoints = $('.comp_points.col-lg-1'); //.attr('data-point');
 
       
@@ -417,6 +420,18 @@
         allgoal += parseFloat(val.innerText);
 
       });
+
+      if(allProfPoints == null){
+
+      }else{
+        
+         $.each( allProfPoints, function(key,val){
+
+          allprof += parseFloat(val.innerText);
+
+        });
+
+      }
       
 
       $.each( allCompPoints, function(key,val){
@@ -425,7 +440,7 @@
 
       });
       
-      overallscore = allgoal+allcomp;
+      overallscore = allgoal+allcomp+allprof;
       if (overallscore > 5.0) overallscore=5.00
 
       
@@ -452,6 +467,8 @@
    $('.rating_professionalism.form-control').on('change',function(){
 
       var rate = $(this).find(':selected').val();
+      //alert("rate is:" + rate);
+
       var componentWeight = $(this).attr('data-componentweight');
       var goalWeight = $(this).attr('data-goalweight');
       var goalID = $(this).attr('data-goalID');
@@ -459,18 +476,33 @@
       var overallscore = 0;
       var allgoal= 0;
       var allcomp = 0;
+      var allprof = 0;
 
-      var totalpoint = rate * (((componentWeight/100) * goalWeight)/100);
+      var totalpoint = rate * (componentWeight/100); // * goalWeight)/100);
+      var theholder = $('#points_prof_'+goalID);
 
-      $('#points_'+goalID).html("");
-      $('#points_'+goalID).append(totalpoint.toFixed(2));
-      $('#points_'+goalID).attr('data-point', totalpoint.toFixed(2));
+      $('#points_prof_'+goalID).html("");
+      //theholder.html("");
+     // $('#points_prof_'+goalID).append(totalpoint.toFixed(2));
+      $('#points_prof_'+goalID).append(totalpoint.toFixed(2));
+      $('#points_prof_'+goalID).attr('data-point', totalpoint.toFixed(2));
 
 
       var allGoalPoints = $('.goal_points');//.attr('data-point');
+      var allProfPoints = $('.prof_points');
       var allCompPoints = $('.comp_points.col-lg-1'); //.attr('data-point');
 
-      
+      if(allProfPoints == null){
+
+      }else{
+        
+         $.each( allProfPoints, function(key,val){
+
+          allprof += parseFloat(val.innerText);
+
+        });
+
+      }
 
       $.each( allGoalPoints, function(key,val){
 
@@ -484,8 +516,12 @@
         allcomp += parseFloat(val.innerText);
 
       });
+      console.log(theholder);
+      console.log('allGoal: ' + allgoal);
+      console.log('allcomp: '+ allcomp);
+      console.log('data-point: '+ totalpoint);
       
-      overallscore = allgoal+allcomp;
+      overallscore = allgoal+allcomp+allprof;
       if (overallscore > 5.0) overallscore=5.00
 
       
@@ -517,6 +553,7 @@
 
       var overallscore = 0;
       var allgoal= 0;
+      var allprof = 0;
       var allcomp = 0;
 
       var totalpoint = rate * (componentWeight/100);
@@ -540,9 +577,22 @@
       }
 
       var allGoalPoints = $('.goal_points');//.attr('data-point');
+      var allProfPoints = $('.prof_points');
       var allCompPoints = $('.comp_points.col-lg-1'); //.attr('data-point');
 
       
+
+      if(allProfPoints == null){
+
+      }else{
+        
+         $.each( allProfPoints, function(key,val){
+
+          allprof += parseFloat(val.innerText);
+
+        });
+
+      }
 
       $.each( allGoalPoints, function(key,val){
 
@@ -559,7 +609,7 @@
 
       });
       
-      overallscore = allgoal+allcomp;
+      overallscore = allgoal+allcomp+allprof;
       if (overallscore > 5.0) overallscore=5.00
 
       
