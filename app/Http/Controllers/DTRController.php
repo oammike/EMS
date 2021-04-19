@@ -7999,63 +7999,84 @@ class DTRController extends Controller
     {
       DB::connection()->disableQueryLog();
 
-      $templates = collect([
-                              ['id'=>1,'name'=>'Overtime'],
-                              ['id'=>2,'name'=>'Leaves'],
-                              ['id'=>3,'name'=>'Change Work Schedules'],
-                              //['id'=>4,'name'=>'Work Schedules'],
-                              //['id'=>5,'name'=>'Ops Worked Holiday(s)'],
+      $financeDept = Campaign::where('name',"Finance")->first();
+      $finance = Team::where('user_id',$this->user->id)->where('campaign_id',$financeDept->id)->get();
+      (count($finance) > 0) ? $isFinance = 1 : $isFinance=0;
 
-      ]);
+      $dataMgt = Team::where('user_id',$this->user->id)->where('campaign_id',19)->get();
+      (count($dataMgt) > 0) ? $isDataMgt = 1 : $isDataMgt=0;
+
+      $wfm = Team::where('user_id',$this->user->id)->where('campaign_id',50)->get();
+      (count($wfm) > 0) ? $isWFM = 1 : $isWFM=0;
+
+      $hr = Team::where('user_id',$this->user->id)->where('campaign_id',10)->get();
+      (count($hr) > 0) ? $isHR = 1 : $isHR=0;
+
+      $correct = Carbon::now('GMT+8'); //->timezoneName();
+
+      if(!$isFinance && !$isHR && !$isWFM && !$isDataMgt) {
+          $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
+                    fwrite($file, "-------------------\n ATTEMPTING WFM_dtrSummary on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                    fclose($file);
+                 
+          return view('access-denied');
+      }
+      else
+      {
+          $templates = collect([
+                                ['id'=>1,'name'=>'Overtime'],
+                                ['id'=>2,'name'=>'Leaves'],
+                                ['id'=>3,'name'=>'Change Work Schedules'],
+                                //['id'=>4,'name'=>'Work Schedules'],
+                                //['id'=>5,'name'=>'Ops Worked Holiday(s)'],
+
+          ]);
+          
+
+
+          $cutoffData = $this->getCutoffStartEnd();
+          $cutoffStart = $cutoffData['cutoffStart'];//->cutoffStart;
+          $cutoffEnd = $cutoffData['cutoffEnd'];
+
+           //Timekeeping Trait
+          $payrollPeriod = $this->getPayrollPeriod($cutoffStart,$cutoffEnd);
+          $paycutoffs = Paycutoff::orderBy('toDate','DESC')->get();
+
+          
+          $allUsers = DB::table('users')->where([
+                        ['status_id', '!=', 6],
+                        ['status_id', '!=', 7],
+                        ['status_id', '!=', 8],
+                        ['status_id', '!=', 9],
+                        ['users.status_id', '!=', 13],
+                        ['users.status_id', '!=', 16],
+                    ])->
+            leftJoin('team','team.user_id','=','users.id')->
+            leftJoin('campaign','team.campaign_id','=','campaign.id')->
+            leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+            leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+            leftJoin('positions','users.position_id','=','positions.id')->
+            leftJoin('floor','team.floor_id','=','floor.id')->
+            select('users.id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->orderBy('users.lastname')->get();
+
+           
+            
+
+               if($this->user->id !== 564 ) {
+                  $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                    fwrite($file, "-------------------\n Viewed WFM_dtrSummary on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+                    fclose($file);
+                } 
+            
+          
+
+          return view('timekeeping.wfm_DTRsummary',compact('payrollPeriod','paycutoffs','templates'));
+
+      }
+
+
+
       
-
-
-      $cutoffData = $this->getCutoffStartEnd();
-      $cutoffStart = $cutoffData['cutoffStart'];//->cutoffStart;
-      $cutoffEnd = $cutoffData['cutoffEnd'];
-
-       //Timekeeping Trait
-      $payrollPeriod = $this->getPayrollPeriod($cutoffStart,$cutoffEnd);
-      $paycutoffs = Paycutoff::orderBy('toDate','DESC')->get();
-
-      
-      $allUsers = DB::table('users')->where([
-                    ['status_id', '!=', 6],
-                    ['status_id', '!=', 7],
-                    ['status_id', '!=', 8],
-                    ['status_id', '!=', 9],
-                    ['users.status_id', '!=', 13],
-                    ['users.status_id', '!=', 16],
-                ])->
-        leftJoin('team','team.user_id','=','users.id')->
-        leftJoin('campaign','team.campaign_id','=','campaign.id')->
-        leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
-        leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
-        leftJoin('positions','users.position_id','=','positions.id')->
-        leftJoin('floor','team.floor_id','=','floor.id')->
-        select('users.id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->orderBy('users.lastname')->get();
-
-        // $allProgram = DB::table('campaign')->select('id','name','hidden')->where('hidden',null)->
-        //                   where([
-        //                     ['campaign.id', '!=','26'], //wv
-        //                     ['campaign.id', '!=','35'], //ceb
-
-        //                   ])->orderBy('name')->get();//
-        //$byTL = collect($allUsers)->groupBy('tlID');
-        //$allTL = $byTL->keys();
-        //return collect($allUsers)->where('campID',7);
-
-        $correct = Carbon::now('GMT+8'); //->timezoneName();
-
-           if($this->user->id !== 564 ) {
-              $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n Viewed WFM_dtrSummary on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
-                fclose($file);
-            } 
-        
-      
-
-      return view('timekeeping.wfm_DTRsummary',compact('payrollPeriod','paycutoffs','templates'));
 
     }
 

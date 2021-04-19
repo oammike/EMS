@@ -868,7 +868,7 @@
                                                                     <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp; 1st shift {!! $data['leaveDetails'][0]['type'] !!}</em> </strong><br/>
                                                                     {!! $data['logIN'] !!}
 
-                                                                    <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="1st shift {{$data['leaveDetails'][0]['type']}}" />
+                                                                    <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="1st shift {{$data['leaveDetails'][0]['type']}}<br/>{{$data['logIN']}}" />
 
                                                                  
 
@@ -907,23 +907,30 @@
                                                                      @if ( count($verifiedDTR->where('productionDate',$data['payday'])) > 0 )
                                                                        {!! $data['wholeIN'][0]['logTxt'] !!}<br/>
                                                                        {{$data['leaveDetails'][0]['type']}} 
+
+                                                                       <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{ $data['wholeIN'][0]['logTxt']}}<br/>
+                                                                       {{$data['leaveDetails'][0]['type']}}" />
+
                                                                      @else
                                                                         {!! $data['logIN'] !!} 
+                                                                        <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{ $data['wholeIN'][0]['logTxt']}}" />
                                                                      @endif
-                                                                    <!-- <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong> -->
-                                                                     <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{ $data['wholeIN'][0]['logTxt']}}" />
+                                                                  
+                                                                     
 
 
                                                                   @else
 
-                                                                    <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong>
+                                                                    <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong> 
+
+                                                                    <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['leaveDetails'][0]['type']}}" />
 
 
                                                                   @endif
 
 
                                                                     
-                                                                    <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['leaveDetails'][0]['type']}}" />
+                                                                   
 
                                                                 @endif
 
@@ -953,31 +960,31 @@
 
                                                               @else
                                                               <!-- **** new layout pag may 1st or 2nd shift leave -->
-                                                                @if ($data['lwopDetails'][0]['details']['totalCredits'] == "0.50" || $data['lwopDetails'][0]['details']['totalCredits'] == "0.25")
+                                                                  @if ($data['lwopDetails'][0]['details']['totalCredits'] == "0.50" || $data['lwopDetails'][0]['details']['totalCredits'] == "0.25")
 
-                                                                  @if( $data['lwopDetails'][0]['details']['halfdayFrom'] == 2  )
+                                                                      @if( $data['lwopDetails'][0]['details']['halfdayFrom'] == 2  )
 
-                                                                    <strong style="font-size: x-small"><em><i class="fa {{$data['lwopDetails'][0]['icon']}} "></i>&nbsp;&nbsp; 1st shift {!! $data['lwopDetails'][0]['type'] !!}</em> </strong><br/>
-                                                                    {!! $data['logIN'] !!}
+                                                                        <strong style="font-size: x-small"><em><i class="fa {{$data['lwopDetails'][0]['icon']}} "></i>&nbsp;&nbsp; 1st shift {!! $data['lwopDetails'][0]['type'] !!}</em> </strong><br/>
+                                                                        {!! $data['logIN'] !!}
 
-                                                                     <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="1st shift {{$data['lwopDetails'][0]['type']}}" />
+                                                                         <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="1st shift {{$data['lwopDetails'][0]['type']}}<br/>{{$data['logIN']}}" />
+
+                                                                      @else
+
+                                                                      
+                                                                      {!! $data['logIN'] !!}
+                                                                       <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['logIN']}}" />
+                                                                      
+
+                                                                      @endif
 
                                                                   @else
 
-                                                                  
-                                                                  {!! $data['logIN'] !!}
-                                                                   <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['logIN']}}" />
-                                                                  
+                                                                      <strong style="font-size: x-small"><em><i class="fa {{$data['lwopDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['lwopDetails'][0]['type'] !!}</em> </strong>
 
+                                                                       <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['lwopDetails'][0]['type']}}" />
+                                                               
                                                                   @endif
-
-                                                                @else
-
-                                                                    <strong style="font-size: x-small"><em><i class="fa {{$data['lwopDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['lwopDetails'][0]['type'] !!}</em> </strong>
-
-                                                                     <input type="hidden" name="logIN_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['lwopDetails'][0]['type']}}" />
-                                                             
-                                                                @endif
 
                                                               @endif        
  
@@ -1102,7 +1109,7 @@
                                                                     {!! $data['logOUT'] !!}<br/>
                                                                     <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp; 2nd shift {!! $data['leaveDetails'][0]['type'] !!}</em> </strong>
 
-                                                                    <input type="hidden" name="logOUT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="2nd shift {{$data['leaveDetails'][0]['type']}}" />
+                                                                    <input type="hidden" name="logOUT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['logOUT']}}<br/>2nd shift {{$data['leaveDetails'][0]['type']}}" />
                                                                     
 
                                                                   @else
@@ -1148,8 +1155,11 @@
                                                                      @if ( count($verifiedDTR->where('productionDate',$data['payday'])) > 0 )
                                                                        {!! $data['wholeOUT'][0]['logTxt'] !!}<br/>
                                                                        {!! $data['logOUT'] !!} 
+                                                                        <input type="hidden" name="logOUT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['wholeOUT'][0]['logTxt']}}<br/>
+                                                                       {{$data['logOUT']}} " />
                                                                      @else
-                                                                        {!! $data['logOUT'] !!} 
+                                                                        {!! $data['logOUT'] !!}
+                                                                         <input type="hidden" name="logOUT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{ $data['logOUT'] }}" />
                                                                      @endif
                                                                     
                                                                     <!-- <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong> -->
@@ -1157,12 +1167,14 @@
 
                                                                     <strong style="font-size: x-small"><em><i class="fa {{$data['leaveDetails'][0]['icon']}} "></i>&nbsp;&nbsp;{!! $data['leaveDetails'][0]['type'] !!}</em> </strong>
 
+                                                                     <input type="hidden" name="logOUT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['leaveDetails'][0]['type']}}" />
+
                                                                   @endif
 
 
                                                                  
 
-                                                                  <input type="hidden" name="logOUT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['leaveDetails'][0]['type']}}" />
+                                                                 
 
                                                                   @if ($data['dtrpOUT'] == true  ||  $data['hasPendingOUT']== true)
 
@@ -1219,7 +1231,7 @@
                                                                       {!! $data['logOUT'] !!}<br/>
                                                                       <strong style="font-size: x-small"><em><i class="fa {{$data['lwopDetails'][0]['icon']}} "></i>&nbsp;&nbsp; 2nd shift {!! $data['lwopDetails'][0]['type'] !!}</em> </strong>
 
-                                                                      <input type="hidden" name="logOUT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="2nd shift {{$data['lwopDetails'][0]['type']}}" />
+                                                                      <input type="hidden" name="logOUT_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value=" {{$data['logOUT']}} <br/>2nd shift {{$data['lwopDetails'][0]['type']}}" />
                                                                       
 
                                                                     @else
