@@ -2138,6 +2138,8 @@ class UserController extends Controller
                             $c=0;
                             //AccessCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks
 
+                            //['EmployeeCode', 'EmployeeName','LeaveDate','LeaveCode','LeaveStart','LeaveEnd','Quantity','Status','Forced?', 'Comment', 'DateFiled','Approver Remarks']; 
+
                             //******* we need to check first yung mga more than 1day
                             if( $type == 'FL' &&  $j->totalCredits > 1)
                             {
@@ -2185,6 +2187,11 @@ class UserController extends Controller
                                     $arr[$c] = $leaveCode; $c++;
                                   }
                                   
+                                   //*** LeaveStart
+                                  $arr[$c] = $j->leaveStart; $c++; 
+
+                                   //*** LeaveStart
+                                  $arr[$c] = $j->leaveEnd; $c++; 
                                   
 
                                   //*** Quantity
@@ -2197,6 +2204,10 @@ class UserController extends Controller
                                   else $stat = "Pending Approval";
 
                                   $arr[$c] = $stat; $c++;
+
+                                  //*** Forced?
+                                  $arr[$c] = "NULL"; $c++;
+                                  
 
                                   //*** Comment
                                   $arr[$c] = $j->notes; $c++;
@@ -2380,7 +2391,7 @@ class UserController extends Controller
                                 
                                 //*** Forced?
                                 if($type == 'FL') { $arr[$c] = "NULL"; $c++;}
-                                else  { $arr[$c] = $j->forced; $c++;}
+                                else  {  ($j->forced == '1') ? $arr[$c] = "Yes" : $arr[$c] = "No"; $c++;}
 
                                 //*** Comment
                                 $arr[$c] = $j->notes; $c++;
