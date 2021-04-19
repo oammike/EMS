@@ -2300,26 +2300,37 @@ class UserController extends Controller
                                           {
                                             ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
 
+                                            $e = Carbon::parse($s->format('Y-m-d H:i:s'), 'Asia/Manila')->addHours(4);
+
                                           }
                                           else
                                           {
                                             ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
 
+                                            $e = Carbon::parse($s->format('Y-m-d H:i:s'), 'Asia/Manila')->addHours(2);
+
                                           }
+
+                                          
                                         }
                                         else //partime schedule nga sya for today
                                         {
                                           ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(2);
+
+                                          $e = Carbon::parse($s->format('Y-m-d H:i:s'), 'Asia/Manila')->addHours(2);
                                            
 
                                         }
+
+                                        
+
                                       }
-                                      
                                       else
                                       {
                                         ($hasProdate) ? $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila') : $s = Carbon::parse($lstart->format('Y-m-d')." ".$wsched[0],'Asia/Manila')->addHours(5);
                                          
                                          //$e = Carbon::parse($jps['data'][0]->leaveEnd,'Asia/Manila');
+                                        $e = Carbon::parse($s->format('Y-m-d H:i:s'), 'Asia/Manila')->addHours(4);
 
                                       }
 
