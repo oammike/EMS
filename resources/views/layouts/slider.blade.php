@@ -5,18 +5,19 @@
             
 
             <div class="item active text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_04_12_wall.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"><i class="fa fa-pencil"></i> Poetry Month 2021 <i class="fa fa-book"></i><br/><small>Apr. 12, 2021</small><br/>
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_04_19_wall.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"><i class="fa fa-pagelines"></i> Earth Day 2021 <i class="fa fa-pagelines"></i><br/><small>Apr. 19, 2021</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
                    
                     <p style="padding: 30px;" class="text-center">
-                      April is Poetry Month! <br/><strong>Share your favorite verse from a poem or a short poem!</strong> <br/>
-                      You may also unleash your inner poets and post your own poem! <br/>
-                      All participants will earn 20 points, visit EMS now! <br/><br/>
+                      April 22 is Earth Day.<br/><br/>
+                      <strong>What place have you been in that made you think ‘the Earth is indeed a beautiful planet?</strong><br/>
+                      Share your photo and earn 20 points. <br/>
+                      <br/>
 
-                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',49)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',50)}}"><i class="fa fa-th-large"></i> View Wall</a>
                      </p>
                     
                    
