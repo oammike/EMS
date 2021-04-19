@@ -2277,6 +2277,15 @@ class HomeController extends Controller
            
     }
 
+    public function privacyPolicy()
+    {
+      $correct = Carbon::now('GMT+8'); 
+        $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+          fwrite($file, "-------------------\n Privacy by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
+          fclose($file);
+      return view('privacyPolicy');
+    }
+
 
 
     public function videogallery()

@@ -79,6 +79,9 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
 
     Route::get('/logout', 'HomeController@logout');
+    Route::get('/privacyPolicy', array(
+      'as'=>'page.privacyPolicy',
+      'uses'=>'HomeController@privacyPolicy') );
 
     Route::get('/health', array(
       'as'=>'page.health',

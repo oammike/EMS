@@ -1,6 +1,7 @@
 <footer class="main-footer" ><!-- style="background-color: #454288" -->
     <!-- To the right -->
     <div class="pull-right hidden-xs">
+    	<a href="{{action('HomeController@privacyPolicy')}}"><i class="fa fa-info-circle"></i> Privacy Policy  </a>
       
     </div>
     <!-- Default to the left -->

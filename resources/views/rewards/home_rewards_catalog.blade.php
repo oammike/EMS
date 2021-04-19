@@ -321,6 +321,9 @@
           <div class="box modal-body">
             <div id="voucher_form_elements">
               <div class="form-group" id="frm_grp_vemail">
+                
+                <p style="padding: 20px"><i class="fa fa-info-circle"></i> We are committed to the privacy and protection of personal information provided by all our employees. Kindly refer to our <strong><a href="{{action('HomeController@privacyPolicy')}}" target="_blank"> Privacy Policy</a></strong> to learn more on how we manage your personal data.</p>
+
                 <p>&nbsp;&nbsp;&nbsp;<small>Voucher will be sent via your indicated preferred email address <strong>(not via Zimbra internal email )</strong></small></p>
                 <label for="vemail" class="col-sm-12">Email Address</label>
                 <div class="col-sm-12">
@@ -344,6 +347,8 @@
               </div>
               <div id="voucher_agree_wrapper">
                 <label><input type="checkbox" name="agree" id="agree" value="1" /> Should I receive gift vouchers from the company amounting to more than P10,000 for the year 2020, I agree to be deducted for taxes purposes in compliance with BIR.</label>
+
+
               </div>
 
               <p><span id="voucher_error" class="help-block"></span></p>
