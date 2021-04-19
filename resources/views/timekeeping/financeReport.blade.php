@@ -10,7 +10,7 @@
 
   <!-- Content Header (Page header) -->
     <section class="content-header">
-      <h4><i class="fa fa-calendar"></i> Daily Time Record Logs  </h4>
+      <h4><i class="fa fa-calendar"></i> Finance Summary Report  </h4>
       <ol class="breadcrumb">
         <li><a href="{{action('HomeController@index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li>DTR</li>
