@@ -1027,7 +1027,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'user_dtr.getAllNotLocked',
       'uses'=>'DTRController@getAllNotLocked') );
 
-      
+
 
       Route::post('/sheets/getValidated', array(
       'as'=> 'user_dtr.getValidatedDTRs',
@@ -1594,6 +1594,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::get('/manage-voucher-claims', 'RewardVoucherClaimsController@index');
     Route::get('/manage-voucher-claims/list/{show_redeemed}', 'RewardVoucherClaimsController@list_claims');
     Route::get('/export-voucher-claims', 'RewardVoucherClaimsController@export_claims');
+    Route::get('/rewards-voucher-report', 'RewardVoucherClaimsController@export_voucher_stats');
     Route::post('/confirm-voucher-claim/{claim_id?}', 'RewardVoucherClaimsController@confirm_claim');
     Route::post('/deny-voucher-claim/{claim_id?}', 'RewardVoucherClaimsController@deny_claim');
 

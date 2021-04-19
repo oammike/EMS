@@ -24,10 +24,11 @@
             <div class="box-tools">
               <!--  <button class="btn btn-sm btn-default" id="bt_filter_toggle">Show Redeemed</button> -->
               <a href="{{ url('/export-voucher-claims') }}" target="_blank"><button class="btn btn-sm btn-default" id="bt_export"><i class="fa fa-download"></i> Export</button></a>
+              <a href="{{ url('/rewards-voucher-report') }}" target="_blank"><button class="btn btn-sm btn-default" id="bt_export"><i class="fa fa-download"></i> Export Voucher Stats</button></a>
             </div>
             <br/>
           </div>
-            
+
             <div class="box-body ">
               <table id="rewardlist" class="table table-bordered table-striped">
                 <thead>
@@ -51,7 +52,7 @@
   </div>
 </section>
 
-  
+
     <div class="modal" id="confirmModal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -65,7 +66,7 @@
 
           </div>
           <div class="modal-footer">
-            
+
             <p><span id="deny_error" class="help-block"></span></p>
             <button type="button" class="btn btn-default pull-left" data-dismiss="modal">No</button>
             <button type="button" class="btn btn-primary" id="deny_confirm">Yes</button>
@@ -76,7 +77,7 @@
       <!-- /.modal-dialog -->
     </div>
     <!-- /.modal -->
-  
+
 
   <!-- Redemption Modal -->
   <div class="modal fade" id="redeemerModal" tabindex="-1" role="dialog" aria-labelledby="modalConfirmVoucherLabel">
@@ -90,8 +91,8 @@
           <div class="box modal-body">
             <div id="voucher_form_elements">
               <div class="form-group" id="frm_grp_instructions">
-                
-                <div class="col-sm-12">                  
+
+                <div class="col-sm-12">
                   <p>
                     <span id="voucher_claimant"></span>
                     Submitted Details<br/>
@@ -108,7 +109,7 @@
 
               <!--
               <div class="form-group" id="frm_grp_photo">
-                
+
                 <div class="col-sm-12">
                   <p>If the voucher requires any images, you can attach them here. (e.g. QR or barcode)
                   <input type="file" id="r_photo" name="attachment">
@@ -121,15 +122,15 @@
 
 
 
-              
-              
+
+
             </div>
             <!-- <input type="hidden" name="debug" value="true" /> -->
             <div id="voucher_message_wrapper">
               <p>The voucher claim has been marked as redeemed.</p>
             </div>
 
-            <div class="overlay" id="redeemer_loader"> 
+            <div class="overlay" id="redeemer_loader">
               <i class="fa fa-refresh fa-spin"></i>
             </div>
             <div class="progress progress-xxs">
@@ -146,9 +147,9 @@
     </form>
   </div>
 
-	
-	
-	
+
+
+
 @stop
 
 @section('footer-scripts')
@@ -156,7 +157,7 @@
 <script>
   window.selected_reward_id = 0;
   window.show_redeemed = false;
-  $(function () {		
+  $(function () {
     var progressbar = $('#uploader_progress');
     $.ajaxSetup({
       headers: {
@@ -167,7 +168,7 @@
     /*
     $('#bt_filter_toggle').on('click',function(){
       window.show_redeemed = !window.show_redeemed;
-      
+
       window.table.ajax.data(function(d){d.show_redeemed=window.show_redeemed}).reload();
       if(window.show_redeemed){
         $('#bt_filter_toggle').text("Show Un-processed Claims");
@@ -195,15 +196,15 @@
           //$('#deny_loader').hide();
           $('#deny_error').addClass('text-red');
           $('#deny_error').text(data.responseJSON.message);
-          
+
         }
       });
 
     });
 
-    $('#rewardlist tbody').on( 'click', '.bt_denier', function () {     
+    $('#rewardlist tbody').on( 'click', '.bt_denier', function () {
 
-      var data = window.table.row( $(this).parents('tr') ).data();      
+      var data = window.table.row( $(this).parents('tr') ).data();
       window.selected_group_row = window.table.row($(this).parents('tr'));
       window.selected_reward_id = data.id;
 
@@ -224,7 +225,7 @@
 			var data = window.table.row( $(this).parents('tr') ).data();
       console.log(data);
 			window.selected_group_row = window.table.row($(this).parents('tr'));
-			
+
       progressbar.attr('aria-valuenow', 0).css('width','0%');
       $('#frm_grp_photo').removeClass('has-error');
       $('#frm_grp_instructions').removeClass('has-error');
@@ -253,7 +254,7 @@
               $('#frm_grp_hint_photo').text(data.error.photo);
             }
             if(data.error.instructions){
-              $('#frm_grp_instructions').addClass('has-error');               
+              $('#frm_grp_instructions').addClass('has-error');
               $('#frm_grp_hint_instructions').text(data.error.instructions);
             }
             if(data.message){
@@ -261,7 +262,7 @@
               $('#voucher_error').text(data.message);
             }
             console.log('failed');
-          
+
         },
         success: function(responseText, statusText, xhr, $form){
           window.table.ajax.reload();
@@ -275,7 +276,7 @@
           $('#voucher_message_wrapper').show();
         },
         beforeSend: function() {
-          console.log('setting submit type to POST');          
+          console.log('setting submit type to POST');
           window.submit_type = "POST";
           progressbar.attr('aria-valuenow', 0).css('width','0%');
         },
@@ -301,19 +302,19 @@
 			"columns": [
 				{
 					"data" : null,
-          "render": function ( data, type, full, meta ) {          
+          "render": function ( data, type, full, meta ) {
             return  data.user.firstname + " " + data.user.lastname;
           }
 				},
 				{
           "data": null,
-          "render": function ( data, type, full, meta ) {          
+          "render": function ( data, type, full, meta ) {
             return  data.voucher.name;
           }
         },
 				{
           "data": null,
-          "render": function ( data, type, full, meta ) {          
+          "render": function ( data, type, full, meta ) {
             return  data.created_at;
           }
         },
@@ -325,7 +326,7 @@
             }else{
               return "INSTRUCTIONS SENT";
             }
-          }					
+          }
 				}
 			],
       "buttons": [
@@ -336,8 +337,8 @@
               }
           }
       ]
-		});	
-	
+		});
+
 	/*
 		$('#rewardlist').DataTable({
 			"paging": true,
@@ -347,8 +348,8 @@
 			"info": true,
 			"autoWidth": false
 		});
-	*/	
-		
+	*/
+
 	});
 </script>
 @stop
