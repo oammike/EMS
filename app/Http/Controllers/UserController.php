@@ -2104,13 +2104,15 @@ class UserController extends Controller
               default: { $label = "Vacation Leave";   $deleteLink = url('/')."/user_vl/deleteThisVL/"; $notifType = 10;} break;
             }
 
+            //return $allLeave;
+
             $file = fopen('storage/uploads/dtrplogs.txt', 'a') or die("Unable to open logs");
                       fwrite($file, "-------------------\n DL_leaveMgt_".$type." on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
                       fclose($file);
             
 
 
-            $headers = ['EmployeeCode', 'EmployeeName','LeaveDate','LeaveCode','Quantity','Status','Comment', 'DateFiled','Approver Remarks']; 
+            $headers = ['EmployeeCode', 'EmployeeName','LeaveDate','LeaveCode','LeaveStart','LeaveEnd','Quantity','Status','Forced?', 'Comment', 'DateFiled','Approver Remarks']; 
             $ftype=$type." Filing";
             $description = $ftype." from: ".$from->format('M d')." to ".$to->format('M d');
             
@@ -2358,6 +2360,12 @@ class UserController extends Controller
                                     $arr[$c] = $leaveCode; $c++;
                                   }
 
+                                 //*** LeaveStart
+                                $arr[$c] = $j->leaveStart; $c++; 
+
+                                 //*** LeaveStart
+                                $arr[$c] = $j->leaveEnd; $c++; 
+
                                 //*** Quantity
                                 $arr[$c] = $qty; $c++;
                                 
@@ -2368,6 +2376,11 @@ class UserController extends Controller
                                 else $stat = "Pending Approval";
 
                                 $arr[$c] = $stat; $c++;
+
+                                
+                                //*** Forced?
+                                if($type == 'FL') { $arr[$c] = "NULL"; $c++;}
+                                else  { $arr[$c] = $j->forced; $c++;}
 
                                 //*** Comment
                                 $arr[$c] = $j->notes; $c++;

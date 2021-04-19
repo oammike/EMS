@@ -1784,7 +1784,7 @@ trait TimekeepingTraits
                           leftJoin('team','user_specialPowers_programs.program_id','=','team.campaign_id')->
                           leftJoin('users','team.user_id','=','users.id')->
                           leftJoin('user_vl','user_vl.user_id','=','users.id')->
-                          select('user_vl.id as leaveID','user_vl.productionDate', 'user_vl.leaveStart','user_vl.leaveEnd','user_vl.isApproved','user_vl.totalCredits','user_vl.halfdayFrom','user_vl.halfdayTo', 'user_vl.created_at', 'user_vl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->
+                          select('user_vl.id as leaveID','user_vl.productionDate', 'user_vl.leaveStart','user_vl.leaveEnd','user_vl.isApproved','user_vl.totalCredits','user_vl.halfdayFrom','user_vl.halfdayTo', 'user_vl.created_at', 'user_vl.notes','user_vl.forced', 'users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->
                           where([ 
                                   ['user_vl.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00"],
                                   //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
@@ -1804,7 +1804,7 @@ trait TimekeepingTraits
                   //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
                   ])->join('users','users.id','=','user_vl.user_id')->
                   leftJoin('team','team.user_id','=','users.id')->
-                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_vl.id as leaveID','user_vl.productionDate', 'user_vl.leaveStart','user_vl.leaveEnd','user_vl.isApproved','user_vl.totalCredits','user_vl.halfdayFrom','user_vl.halfdayTo', 'user_vl.created_at', 'user_vl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->where('user_vl.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->orderBy('user_vl.isApproved','ASC')->get();
+                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_vl.id as leaveID','user_vl.productionDate', 'user_vl.leaveStart','user_vl.leaveEnd','user_vl.isApproved','user_vl.totalCredits','user_vl.halfdayFrom','user_vl.halfdayTo', 'user_vl.created_at', 'user_vl.notes','user_vl.forced', 'users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->where('user_vl.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->orderBy('user_vl.isApproved','ASC')->get();
          }
           
 
@@ -1835,7 +1835,7 @@ trait TimekeepingTraits
                               leftJoin('team','user_specialPowers_programs.program_id','=','team.campaign_id')->
                               leftJoin('users','team.user_id','=','users.id')->
                               leftJoin('user_vto','user_vto.user_id','=','users.id')->
-                              select('user_vto.id as leaveID','user_vto.productionDate', 'user_vto.startTime as leaveStart','user_vto.endTime as leaveEnd','user_vto.isApproved','user_vto.totalHours as totalCredits', 'user_vto.created_at', 'user_vto.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID','user_vto.deductFrom')->where('user_vto.productionDate','<=',$endCutoff->format('Y-m-d'))->orderBy('user_vto.isApproved','ASC')->get();
+                              select('user_vto.id as leaveID','user_vto.productionDate', 'user_vto.startTime as leaveStart','user_vto.endTime as leaveEnd','user_vto.isApproved','user_vto.totalHours as totalCredits', 'user_vto.created_at', 'user_vto.notes','user_vto.forced','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID','user_vto.deductFrom')->where('user_vto.productionDate','<=',$endCutoff->format('Y-m-d'))->orderBy('user_vto.isApproved','ASC')->get();
          }else{
 
                 $leaves = DB::table('user_vto')->where([ 
@@ -1843,7 +1843,7 @@ trait TimekeepingTraits
                   //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
                   ])->join('users','users.id','=','user_vto.user_id')->
                   leftJoin('team','team.user_id','=','users.id')->
-                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_vto.id as leaveID','user_vto.productionDate', 'user_vto.startTime as leaveStart','user_vto.endTime as leaveEnd','user_vto.isApproved','user_vto.totalHours as totalCredits', 'user_vto.created_at', 'user_vto.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID','user_vto.deductFrom')->where('user_vto.productionDate','<=',$endCutoff->format('Y-m-d'))->orderBy('user_vto.isApproved','ASC')->get();
+                  leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_vto.id as leaveID','user_vto.productionDate', 'user_vto.startTime as leaveStart','user_vto.endTime as leaveEnd','user_vto.isApproved','user_vto.totalHours as totalCredits', 'user_vto.created_at', 'user_vto.notes','user_vto.forced', 'users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID','user_vto.deductFrom')->where('user_vto.productionDate','<=',$endCutoff->format('Y-m-d'))->orderBy('user_vto.isApproved','ASC')->get();
 
          }
           
@@ -1874,7 +1874,7 @@ trait TimekeepingTraits
                           leftJoin('team','user_specialPowers_programs.program_id','=','team.campaign_id')->
                           leftJoin('users','team.user_id','=','users.id')->
                           leftJoin('user_sl','user_sl.user_id','=','users.id')->
-                          select('user_sl.id as leaveID','user_sl.productionDate', 'user_sl.leaveStart','user_sl.leaveEnd','user_sl.isApproved','user_sl.totalCredits','user_sl.attachments', 'user_sl.halfdayFrom','user_sl.halfdayTo', 'user_sl.created_at', 'user_sl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->where('user_sl.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->
+                          select('user_sl.id as leaveID','user_sl.productionDate', 'user_sl.leaveStart','user_sl.leaveEnd','user_sl.isApproved','user_sl.totalCredits','user_sl.attachments', 'user_sl.halfdayFrom','user_sl.halfdayTo', 'user_sl.created_at', 'user_sl.notes','user_sl.forced', 'users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->where('user_sl.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->
                           where('user_sl.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00")->orderBy('user_sl.isApproved','ASC')->get();
 
           }else{
@@ -1885,7 +1885,7 @@ trait TimekeepingTraits
                     ])->join('users','users.id','=','user_sl.user_id')->
                     leftJoin('team','team.user_id','=','users.id')->
                     leftJoin('campaign','campaign.id','=','team.campaign_id')->
-                    select('user_sl.id as leaveID','user_sl.productionDate', 'user_sl.leaveStart','user_sl.leaveEnd','user_sl.isApproved','user_sl.totalCredits','user_sl.halfdayFrom','user_sl.halfdayTo', 'user_sl.created_at', 'user_sl.notes','users.employeeCode as accesscode', 'users.nickname', 'users.id as userID','users.lastname','users.firstname','campaign.name as program', 'campaign.id as programID')->where('user_sl.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->orderBy('user_sl.isApproved','ASC')->get();
+                    select('user_sl.id as leaveID','user_sl.productionDate', 'user_sl.leaveStart','user_sl.leaveEnd','user_sl.isApproved','user_sl.totalCredits','user_sl.halfdayFrom','user_sl.halfdayTo', 'user_sl.created_at', 'user_sl.notes','user_sl.forced', 'users.employeeCode as accesscode', 'users.nickname', 'users.id as userID','users.lastname','users.firstname','campaign.name as program', 'campaign.id as programID')->where('user_sl.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->orderBy('user_sl.isApproved','ASC')->get();
 
           }
           
@@ -1919,7 +1919,7 @@ trait TimekeepingTraits
                               leftJoin('team','user_specialPowers_programs.program_id','=','team.campaign_id')->
                               leftJoin('users','team.user_id','=','users.id')->
                               leftJoin('user_lwop','user_lwop.user_id','=','users.id')->
-                              select('user_lwop.id as leaveID','user_lwop.productionDate', 'user_lwop.leaveStart','user_lwop.leaveEnd','user_lwop.isApproved','user_lwop.totalCredits','user_lwop.halfdayFrom','user_lwop.halfdayTo', 'user_lwop.created_at', 'user_lwop.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->where('user_lwop.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->
+                              select('user_lwop.id as leaveID','user_lwop.productionDate', 'user_lwop.leaveStart','user_lwop.leaveEnd','user_lwop.isApproved','user_lwop.totalCredits','user_lwop.halfdayFrom','user_lwop.halfdayTo', 'user_lwop.created_at', 'user_lwop.notes','user_lwop.forced', 'users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname','users.nickname', 'campaign.name as program', 'campaign.id as programID')->where('user_lwop.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->
                               where('user_lwop.leaveStart','>=', $startCutoff->format('Y-m-d')." 00:00:00")->orderBy('user_lwop.isApproved','ASC')->get();
 
 
@@ -1930,7 +1930,7 @@ trait TimekeepingTraits
                         //['user_vl.leaveEnd','<=', $endCutoff->format('Y-m-d')." 23:59:00"],
                         ])->join('users','users.id','=','user_lwop.user_id')->
                         leftJoin('team','team.user_id','=','users.id')->
-                        leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_lwop.id as leaveID','user_lwop.productionDate', 'user_lwop.leaveStart','user_lwop.leaveEnd','user_lwop.isApproved','user_lwop.totalCredits','user_lwop.halfdayFrom','user_lwop.halfdayTo', 'user_lwop.created_at', 'user_lwop.notes','users.employeeCode as accesscode', 'users.id as userID','users.nickname', 'users.lastname','users.firstname','campaign.name as program', 'campaign.id as programID')->where('user_lwop.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->orderBy('user_lwop.isApproved','ASC')->get();
+                        leftJoin('campaign','campaign.id','=','team.campaign_id')->select('user_lwop.id as leaveID','user_lwop.productionDate', 'user_lwop.leaveStart','user_lwop.leaveEnd','user_lwop.isApproved','user_lwop.totalCredits','user_lwop.halfdayFrom','user_lwop.halfdayTo', 'user_lwop.created_at', 'user_lwop.notes','user_lwop.forced', 'users.employeeCode as accesscode', 'users.id as userID','users.nickname', 'users.lastname','users.firstname','campaign.name as program', 'campaign.id as programID')->where('user_lwop.leaveStart','<=',$endCutoff->format('Y-m-d')." 23:59:00")->orderBy('user_lwop.isApproved','ASC')->get();
 
         }
         
