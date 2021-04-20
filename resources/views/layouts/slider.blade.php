@@ -4,7 +4,30 @@
               
             
 
-            <div class="item active text-center" >
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item active text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" > Reminders from Finance: <br/> <span class="text-primary"><i class="fa fa-lock"></i>   DEADLINE FOR APPROVAL <br/>AND LOCKING OF DTR FOR <br/><strong class="text-success"> APR. 23, 2021</strong> PAYOUT <br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                    <p style="padding: 30px;" class="text-left">
+                     
+                    Dear All,<br/><br/>
+                    
+                    Please be informed that our payout for the payroll period April 6-20, 2021 is on April  23, 2021. Due to the early payout, we will be having an early cut-off time of <strong class="text-danger"> 10:00 AM on Wednesday April 21, 2021</strong> for the approval and locking of DTRs.  All DTRs from EMS will be lifted on the said cut-off for the payroll computation purposes.<br/><br/>
+
+                    In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate supervisor to lock your DTR on your behalf.<br/><br/>
+
+                    If you have any payroll-related inquiries and concerns, please log in to our Payroll Help Desk by clicking this link <a href="http://ticketing.openaccess.bpo/" target="_blank">http://ticketing.openaccess.bpo/</a>. You may also access it via EMS. For those employees who are working from home, your VPN should be connected before you can access the Payroll Help Desk.
+
+                    Please be guided accordingly.<br/><br/>
+
+                    Thank you.<br/>
+
+ 
+                    
+            </div>
+
+            <div class="item text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_04_19_wall.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"><i class="fa fa-pagelines"></i> Earth Day 2021 <i class="fa fa-pagelines"></i><br/><small>Apr. 19, 2021</small><br/>
                   
