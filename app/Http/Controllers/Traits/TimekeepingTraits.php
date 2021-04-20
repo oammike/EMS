@@ -6412,7 +6412,7 @@ trait TimekeepingTraits
             if ($hasSL)
             {
               $workedHours1 = $this->processLeaves($theDay->format('Y-m-d'),'SL',true,$wh,$slDeet,$hasPendingSL,$icons,$userLogIN[0],$userLogOUT[0],$shiftEnd,$shiftStart);
-              $workedHours .= $workedHours1[0]['workedHours'];
+              $workedHours = $workedHours1[0]['workedHours'];
               $UT = $workedHours1[0]['UT'];
 
             }//end if has SL
@@ -7944,7 +7944,9 @@ trait TimekeepingTraits
         else if ($deet->totalCredits == '0.50' || $deet->totalCredits == '0.25')
         {
 
-            if($hasPending)
+           
+
+             if($hasPending)
             {
 
               if ($deet->halfdayFrom == 2){
@@ -8079,11 +8081,13 @@ trait TimekeepingTraits
                 {
                   //add +1 kasi may minus sa break
                   //$workedHours = number_format(($wh/60)+1,2);
-                  if($leaveType == 'VL')
+                  if($leaveType == 'VL' || $leaveType == 'SL')
                     $workedHours = 8.0; //number_format(($wh/60)+4,2);
                   else
                     $workedHours = number_format(($wh/60),2);
                     //."<br/><small>[ *Late IN* ]</small>"
+
+                  
                   $UT = 0;
                 }
                 else
@@ -8091,6 +8095,9 @@ trait TimekeepingTraits
                   $workedHours = number_format(($wh/60)+5,2); //."<br/><small>[ Late IN ]</small>"
                   $UT = round(((240.0 - $wh)/60)-1,2); //4h instead of 8H
                 }
+
+
+
 
                 $billableForOT=0;
                 
@@ -8105,20 +8112,7 @@ trait TimekeepingTraits
 
 
               
-                    /*if (count($ins) < 1 && count($outs) < 1) 
-                      $log.="<br/><strong class='text-danger'><small><em>[ Half-day AWOL ]</em></small></strong>";
-              
-
-              $WHcounter = 8.0;
-              $workedHours .= "<br/>".$log;*/
-              //$totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($outs['timing'],"Asia/Manila") ))/60,2);
-              //$totalbill = number_format((Carbon::parse($shiftEnd,"Asia/Manila")->diffInMinutes(Carbon::parse($outs['timing'],"Asia/Manila") ))/60,2);
-
-                    //if ($totalbill > 0.01)
-                    //{
-                      //$billableForOT = $totalbill;
-                      //$OTattribute = $OTicons;
-                    //}
+                   
             } 
 
             $workedHours .= "<br/>".$log;
