@@ -4294,7 +4294,7 @@ class DTRController extends Controller
                 fclose($file);
         } 
 
-        return response()->json(['results'=>$jpsData, 'headers'=>$headers]);
+        //return response()->json(['results'=>$jpsData, 'headers'=>$headers]);
 
         Excel::create($type."_".$cutoffStart->format('M-d'),function($excel) use($type, $jpsData, $cutoffStart, $cutoffEnd, $headers,$description) 
               {
@@ -4525,8 +4525,12 @@ class DTRController extends Controller
                                 }
 
                                 //check mo muna kung pasok sa cutoff
+
+                                // **fix for VTOs na tumawid ng araw (20th pero 21st nag end)
+                                $tawid = Carbon::parse($cutoffEnd->format('Y-m-d'),'Asia/Manila')->addDays(1);
                                 
-                                if( $s->format('Y-m-d') >= $cutoffStart->format('Y-m-d') && $e->format('Y-m-d') <= $cutoffEnd->format('Y-m-d'))
+                                //if( $s->format('Y-m-d') >= $cutoffStart->format('Y-m-d') && $e->format('Y-m-d') <= $cutoffEnd->format('Y-m-d'))
+                                if( $s->format('Y-m-d') >= $cutoffStart->format('Y-m-d') && $e->format('Y-m-d') <= $tawid->format('Y-m-d'))
                                 {
                                   $arr[$c] = $j->accesscode; $c++;
                                   $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
