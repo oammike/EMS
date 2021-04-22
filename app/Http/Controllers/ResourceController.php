@@ -136,6 +136,8 @@ class ResourceController extends Controller
         } else $isAdmin = false;
 
         $employee = $this->user;
+
+        ( $employee->team->floor_id == 10 || $employee->team->floor_id == 11) ? $nonRP=1 : $nonRP=0;
             
             $resources = Resource::where('hidden',null)->orderBy('created_at','DESC')->get();
             $categories = Category::all()->sortBy('name');
@@ -154,7 +156,7 @@ class ResourceController extends Controller
                  //return $allResource;
                  //return $employee->viewedResources->where('resource_id',11)->where('agreed',1)->first();
                 // return $employee->viewedResources->where('resource_id', 14)->where('agreed',1);
-        return view('resources.index', compact('isAdmin','resources', 'categories','allResource','employee','signature'));
+        return view('resources.index', compact('isAdmin','resources', 'categories','allResource','employee','signature','nonRP'));
         
     }
 

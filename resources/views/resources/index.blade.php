@@ -24,6 +24,14 @@
         
         <li class="active">OAMPI Resources</li>
       </ol><br/><br/>
+      <h4>Welcome to the Open Access BPO Resources page.</h4><p>
+        <strong class="text-danger"> For all new hires</strong>, make sure to check out first the <mark style="background-color: :rgb(255,249,47)"> highlighted documents</mark> to learn more about our company policies:</p>
+        <ul>
+          <li>Code of Conduct</li>
+          <li>Corporate Information Security Policy</li>
+          <li>Data Classification and Handling Policy</li>
+        </ul>
+
 
       @if($isAdmin)
       <a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal_uploadResource" class="btn btn-md btn-success"><i class="fa fa-upload"></i> Upload New Document</a>
@@ -59,10 +67,14 @@
                        
                         @foreach($resource['item'] as $res)
 
-                          @if($res->hidden)
+                          @if($res->hidden || (!$nonRP && (strpos($res->name, 'Taipei') !== false || strpos($res->name, 'Xiamen') !== false)  ) )
                           @else
 
+                              <?php if( strpos($res->name, 'Code of Conduct') !== false || strpos($res->name, 'Corporate Information Security') !== false || strpos($res->name, 'Data Classification') !== false  ) {  ?>
+                              <tr style="background-color: rgba(255,249,47,0.3);">
+                                <?php } else { ?>
                               <tr>
+                              <?php } ?>
                             
                                 <td><strong> {{$res->name}}</strong> </td>
                                 <td> {{$res->description}} </td>
