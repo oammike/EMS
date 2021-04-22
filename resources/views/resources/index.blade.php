@@ -34,7 +34,7 @@
 
 
       @if($isAdmin)
-      <a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal_uploadResource" class="btn btn-md btn-success"><i class="fa fa-upload"></i> Upload New Document</a>
+      <a style="margin-bottom: 10px" href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#myModal_uploadResource" class="btn btn-md btn-success pull-right"><i class="fa fa-upload"></i> Upload New Document</a>
       @endif
     </section>
 
