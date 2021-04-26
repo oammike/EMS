@@ -1,46 +1,20 @@
 
 
-
-              
-            
-
-            
-
             <div class="item active text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_04_22_earthday.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Happy <br/> <span class="text-primary"> 🌳 Earth Day 2021  🌳<br/><small>Apr. 22, 2021</small><br/>
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_04_26_wall.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary">  Before &amp; After  <br/><small>Apr. 26, 2021</small><br/>
                   
                     <img src="storage/uploads/divider.png" />
                     </h4>
                    
                     <p style="padding: 30px;" class="text-center">
-                      April 22 is Earth Day.<br/><br/>
-                      Let's do our part to help #SaveThePlanet and spread awareness on environmental issues.<br/><br/>
-
-                      Did you know you can help plant trees through www.ecosia.org? Use their search engine and plant a tree with every search for free! 🌳<br/><br/>
-
-                      #WeSpeakYourLanguage #OAonEarthDay #EarthDay2021
-                     </p>
-                    
-                   
-                    
-                    
-            </div>
-
-            <div class="item text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_04_19_wall.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >Open Access BPO Wall:  <br/> <span class="text-primary"><i class="fa fa-pagelines"></i> Earth Day 2021 <i class="fa fa-pagelines"></i><br/><small>Apr. 19, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-center">
-                      April 22 is Earth Day.<br/><br/>
-                      <strong>What place have you been in that made you think ‘the Earth is indeed a beautiful planet?</strong><br/>
-                      Share your photo and earn 20 points. <br/>
+                     Just like that, we’re saying goodbye to April and hello to May! <br/>
+                      We’d like to know how things are with you – <br/><strong>share any before and after photos from last year and now!</strong><br/> This could be anything from fitness, skills learned/honed, room/house makeover, anything! <br/><br/>
+                      Best 2 posts chosen by judges will get <strong class="text-danger">250 EMS points</strong> each! <br/>
+                      Visit Open Access BPO wall now and earn 20 points for all participants! <br/>
                       <br/>
 
-                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',50)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',51)}}"><i class="fa fa-th-large"></i> View Wall</a>
                      </p>
                     
                    
@@ -11059,6 +11033,26 @@ If you have any payroll-related inquiries and concerns, please log in to our Pay
                     Thank you.<br/>
 
  
+                    
+            </div>
+            <div class="item active text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_04_22_earthday.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >Happy <br/> <span class="text-primary"> 🌳 Earth Day 2021  🌳<br/><small>Apr. 22, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-center">
+                      April 22 is Earth Day.<br/><br/>
+                      Let's do our part to help #SaveThePlanet and spread awareness on environmental issues.<br/><br/>
+
+                      Did you know you can help plant trees through www.ecosia.org? Use their search engine and plant a tree with every search for free! 🌳<br/><br/>
+
+                      #WeSpeakYourLanguage #OAonEarthDay #EarthDay2021
+                     </p>
+                    
+                   
+                    
                     
             </div>
 
