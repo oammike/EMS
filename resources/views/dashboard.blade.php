@@ -341,7 +341,7 @@ select:-webkit-autofill:focus {
 
                      
                       <video id="teaser" src="https://internal.openaccess.bpo/EMS/public/storage/uploads/covid_side_effects.mp4" width="100%" loop controls></video>
-                      <p style="padding:30px; font-size: smaller;"><br/><br/>
+                      <p style="padding:30px; font-size: smaller;">Read more:  <a href=" https://www.who.int/news-room/feature-stories/detail/side-effects-of-covid-19-vaccines" target="_blank"> https://www.who.int/news-room/feature-stories/detail/side-effects-of-covid-19-vaccines</a><br/><br/>
                       See all videos  <a href="{{action('HomeController@videogallery')}}" target="_blank"><strong>here</strong> </a></p>
                      
                        
