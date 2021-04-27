@@ -124,10 +124,10 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                      <p class="text-center"><strong class="text-primary">Happy <span class="text-orange"> Holiday Greetings  </span> </strong><br/><small> from your Open Access BPO Family</small></p>
+                      <p class="text-center"><strong class="text-primary">Side Effects <span class="text-orange"> of Covid-19 Vaccines </span> </strong></p>
 
                      
-                      <video id="teaser" src="storage/uploads/yearend2020.mp4" width="100%" loop controls></video>
+                      <video id="teaser" src="https://internal.openaccess.bpo/EMS/public/storage/uploads/covid_side_effects.mp4" width="100%" loop controls></video>
                       <p style="padding:30px; font-size: smaller;"><br/><br/>
                       See all videos  <a href="{{action('HomeController@videogallery')}}" target="_blank"><strong>here</strong> </a></p>
                      
