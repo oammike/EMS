@@ -190,7 +190,12 @@ class UserSLController extends Controller
             $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
             $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
 
-            if(!is_null($request->for) && !$anApprover && ($isWorkforce && $isBackoffice) ) return view('access-denied');
+            $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+            (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
+
+
+            if(!is_null($request->for) && !$anApprover && ($isWorkforce && $isBackoffice) && !$hasAccess) return view('access-denied');
 
             if ($user->fixedSchedule->isEmpty() && $user->monthlySchedules->isEmpty())
             {
@@ -736,8 +741,14 @@ class UserSLController extends Controller
         if (count($theNotif) > 0)
             DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
 
+        
+        $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+        (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
 
-        $unotif = $this->notifySender($vl,$theNotif->first(),11);
+        //wag ka na mag-sendout ng notif since sent by special powers yung request
+        if(!$hasAccess) $unotif = $this->notifySender($vl,$theNotif->first(),11); 
+        else $unotif = null;
 
         /* //Next, delete all user-notif associated with this:
         $theNotif = Notification::where('relatedModelID',$vl->id)->where('type',6)->first();
@@ -791,6 +802,10 @@ class UserSLController extends Controller
         $isWorkforce = in_array($this->user->id, $wfm->toArray());
         $employeeisBackoffice = ( Campaign::find(Team::where('user_id',$employee->id)->first()->campaign_id)->isBackoffice ) ? true : false;
 
+        $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+        (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
+
 
 
 
@@ -798,11 +813,12 @@ class UserSLController extends Controller
         $correct = Carbon::now('GMT+8'); $key=null;
         
         if ( ($isWorkforce && ($this->user->id !== $employee->id) )
-            || ($anApprover && $employeeisBackoffice) 
+            || ($anApprover && $employeeisBackoffice)
+            || $hasAccess 
             || (!$employeeisBackoffice && $isWorkforce && ($this->user->id !== $employee->id) ) )
         {
             $vl->isApproved = true; $TLsubmitted=true; 
-            if ($isWorkforce) 
+            if ($isWorkforce || $hasAccess) 
                 $vl->approver = $this->user->id;
             else
                 $vl->approver = $TLapprover;
@@ -876,7 +892,7 @@ class UserSLController extends Controller
         $vl->updated_at = $correct->format('Y-m-d H:i:s');
         $vl->save();
 
-        if ( !$vl->isApproved && ( ($anApprover && !$employeeisBackoffice)  || (!$anApprover && !$isWorkforce) || (!$anApprover && $employeeisBackoffice) ) )//(!$TLsubmitted && !$canChangeSched)
+        if ( !$vl->isApproved && ( !$hasAccess || ($anApprover && !$employeeisBackoffice)  || (!$anApprover && !$isWorkforce) || (!$anApprover && $employeeisBackoffice) ) )//(!$TLsubmitted && !$canChangeSched)
         {
             /***** once saved, update your leave credits ***/
             $userVLs = User_SLcredits::where('user_id',$employee->id)->orderBy('creditYear','DESC')->get();
@@ -963,7 +979,7 @@ class UserSLController extends Controller
 
     
          /* -------------- log updates made --------------------- */
-         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n". $employee->id .",". $employee->lastname." SL submission ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
             fclose($file);
          

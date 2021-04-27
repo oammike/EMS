@@ -104,7 +104,13 @@ class UserLWOPController extends Controller
             $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
             $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
 
-            if(!is_null($request->for) && !$anApprover && (!$isWorkforce && $isBackoffice) ) return view('access-denied');
+            $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+            (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
+
+
+
+            if(!is_null($request->for) && !$anApprover && (!$isWorkforce && $isBackoffice) && !$hasAccess) return view('access-denied');
             
 
             if ($user->fixedSchedule->isEmpty() && $user->monthlySchedules->isEmpty())
@@ -476,14 +482,23 @@ class UserLWOPController extends Controller
         $vl->save();
 
         
-         //**** send notification to the sender
+       
+
+        //**** send notification to the sender
         $theNotif = Notification::where('relatedModelID', $vl->id)->where('type',12)->get();
-        $unotif=null;
+
         //then remove those sent notifs to the approvers since it has already been approved/denied
-        if (count($theNotif) > 0){
+        if (count($theNotif) > 0)
             DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
-            $unotif = $this->notifySender($vl,$theNotif->first(),7);
-        }
+
+        
+        $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+        (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
+
+        //wag ka na mag-sendout ng notif since sent by special powers yung request
+        if(!$hasAccess) $unotif = $this->notifySender($vl,$theNotif->first(),12); 
+        else $unotif = null;
 
 
         
@@ -555,10 +570,15 @@ class UserLWOPController extends Controller
         $isWorkforce = in_array($this->user->id, $wfm->toArray());
         $employeeisBackoffice = ( Campaign::find(Team::where('user_id',$employee->id)->first()->campaign_id)->isBackoffice ) ? true : false;
 
+        $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+        (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
+
         
         if ( ($isWorkforce && ($this->user->id !== $employee->id) )
             || ($anApprover && $employeeisBackoffice) 
             || ($anApprover && $isAdvent)
+            || $hasAccess
             || (!$employeeisBackoffice && $isWorkforce && ($this->user->id !== $employee->id) ) )
         {
             $vl->isApproved = true; $TLsubmitted=true; $vl->approver = $TLapprover;
@@ -583,7 +603,7 @@ class UserLWOPController extends Controller
 
 
         //if (!$anApprover) //(!$TLsubmitted && !$canChangeSched)
-        if ($employeeisBackoffice || $isAdvent)
+        if ($employeeisBackoffice || ($isAdvent && !$hasAccess) )
         {//--- notify the  APPROVERS
 
             $notification = new Notification;
@@ -663,7 +683,7 @@ class UserLWOPController extends Controller
             fclose($file);
          
 
-        if ($anApprover) return response()->json(['success'=>1,'vl'=>$vl]);
+        if ($anApprover || $hasAccess) return response()->json(['success'=>1,'vl'=>$vl]);
         else return response()->json(['success'=>0,'vl'=>$vl]);
 
 

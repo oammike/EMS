@@ -251,7 +251,13 @@ class UserVLController extends Controller
             //Timekeeping Trait
             $anApprover = $this->checkIfAnApprover($approvers, $this->user);
 
-            if(!is_null($request->for) && !$anApprover && ($isWorkforce && $isBackoffice) ) return view('access-denied');
+            $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+            (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
+
+
+
+            if(!is_null($request->for) && !$anApprover && ($isWorkforce && $isBackoffice) && !$hasAccess) return view('access-denied');
 
             if ($user->fixedSchedule->isEmpty() && $user->monthlySchedules->isEmpty())
             {
@@ -399,7 +405,7 @@ class UserVLController extends Controller
                         //return response()->json(['advent'=>$isAdvent]);
 
                         //*** override 2wk rule:
-                        ($isNDY || $isAdvent || $isDavao || ($anApprover && $isBackoffice) || ($isWorkforce && $anApprover) || ($isWorkforce && !$isBackoffice) ) ? $canOverrideRule = 1 : $canOverrideRule=0;
+                        ($isNDY || $isAdvent || $isDavao || ($anApprover && $isBackoffice) || ($isWorkforce && $anApprover) || $hasAccess || ($isWorkforce && !$isBackoffice) ) ? $canOverrideRule = 1 : $canOverrideRule=0;
 
                         return view('timekeeping.user-vl_create',compact('user','isAdvent','isNDY', 'isDavao','canOverrideRule', 'vl_from','creditsLeft','used','hasSavedCredits','canVL','totalVTO'));
 
@@ -465,7 +471,12 @@ class UserVLController extends Controller
             //Timekeeping Trait
             $anApprover = $this->checkIfAnApprover($approvers, $this->user);
 
-            if(!is_null($request->for) && !$anApprover && ($isWorkforce && $isBackoffice) ) return view('access-denied');
+            $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+            (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
+
+
+            if(!is_null($request->for) && !$anApprover && ($isWorkforce && $isBackoffice) && !$hasAccess ) return view('access-denied');
 
             if ($user->fixedSchedule->isEmpty() && $user->monthlySchedules->isEmpty())
             {
@@ -1040,14 +1051,17 @@ class UserVLController extends Controller
             DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
 
 
-        $unotif = $this->notifySender($vl,$theNotif->first(),7);
+        $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+        (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
 
-        /* //Next, delete all user-notif associated with this:
-        $theNotif = Notification::where('relatedModelID',$vl->id)->where('type',6)->first();
-        $allUserNotifs = User_Notification::where('notification_id',$theNotif->id)->delete(); */
+        //wag ka na mag-sendout ng notif since sent by special powers yung request
+        if(!$hasAccess) $unotif = $this->notifySender($vl,$theNotif->first(),7); 
+        else $unotif = null;
+
         
           /* -------------- log updates made --------------------- */
-         $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n [". $vl->id."] VL update ". date('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
             fclose($file);
 
@@ -1092,12 +1106,15 @@ class UserVLController extends Controller
         if (count($theNotif) > 0)
             DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
 
+        $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+        (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
 
-        $unotif = $this->notifySender($vl,$theNotif->first(),21);
+        //wag ka na mag-sendout ng notif since sent by special powers yung request
+        if(!$hasAccess) $unotif = $this->notifySender($vl,$theNotif->first(),21); 
+        else $unotif = null;
 
-        /* //Next, delete all user-notif associated with this:
-        $theNotif = Notification::where('relatedModelID',$vl->id)->where('type',6)->first();
-        $allUserNotifs = User_Notification::where('notification_id',$theNotif->id)->delete(); */
+
         
           /* -------------- log updates made --------------------- */
          $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
@@ -1150,6 +1167,10 @@ class UserVLController extends Controller
 
         $advent = Team::where('user_id',$employee->id)->where('campaign_id',58)->get();
         (count($advent) > 0) ? $isAdvent = 1 : $isAdvent=0;
+
+        $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+        (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
        
 
         
@@ -1163,6 +1184,7 @@ class UserVLController extends Controller
         if ( ($isWorkforce && ($this->user->id !== $employee->id) )
             || ($anApprover && $employeeisBackoffice) 
             || ($anApprover && $isAdvent)
+            || $hasAccess
             || (!$employeeisBackoffice && $isWorkforce && ($this->user->id !== $employee->id) ) )
         {
             $vl->isApproved = true; $TLsubmitted=true; 
@@ -1209,7 +1231,7 @@ class UserVLController extends Controller
         
 
         //*** IF OPS || not approver & not workforce || not approver & backoffice
-        if ( !$vl->isApproved && ( ($anApprover && !$employeeisBackoffice && !$isAdvent)  || (!$anApprover && !$isWorkforce) || (!$anApprover && $employeeisBackoffice) ) )//(!$TLsubmitted && !$canChangeSched)
+        if ( !$vl->isApproved && ( !$hasAccess || ($anApprover && !$employeeisBackoffice && !$isAdvent)  || (!$anApprover && !$isWorkforce) || (!$anApprover && $employeeisBackoffice) ) )//(!$TLsubmitted && !$canChangeSched)
         {
             /***** once saved, update your leave credits ***/
             $userVLs = User_VLcredits::where('user_id',$employee->id)->orderBy('creditYear','DESC')->get();
@@ -1358,16 +1380,21 @@ class UserVLController extends Controller
         $isWorkforce = in_array($this->user->id, $wfm->toArray());
         $employeeisBackoffice = ( Campaign::find(Team::where('user_id',$employee->id)->first()->campaign_id)->isBackoffice ) ? true : false;
 
+        $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+        (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
+
         
 
         $correct = Carbon::now('GMT+8'); $key=null;
         
         if ( ($isWorkforce && ($this->user->id !== $employee->id) )
             || ($anApprover && $employeeisBackoffice) 
+            || $hasAccess
             || (!$employeeisBackoffice && $isWorkforce && ($this->user->id !== $employee->id) ) )
         {
             $vl->isApproved = true; $TLsubmitted=true; 
-            if ($isWorkforce) 
+            if ($isWorkforce || $hasAccess) 
                 $vl->approver = $this->user->id;
             else
                 $vl->approver = $TLapprover;
@@ -1391,7 +1418,7 @@ class UserVLController extends Controller
         
 
         //*** IF OPS || not approver & not workforce || not approver & backoffice
-        if ( !$vl->isApproved && ( ($anApprover && !$employeeisBackoffice)  || (!$anApprover && !$isWorkforce) || (!$anApprover && $employeeisBackoffice) ) )//(!$TLsubmitted && !$canChangeSched)
+        if ( !$vl->isApproved && ( !$hasAccess || ($anApprover && !$employeeisBackoffice)  || (!$anApprover && !$isWorkforce) || (!$anApprover && $employeeisBackoffice) ) )//(!$TLsubmitted && !$canChangeSched)
         {
             /***** once saved, update your leave credits ***/
             
@@ -1477,7 +1504,7 @@ class UserVLController extends Controller
             fclose($file);
          
 
-        if ($anApprover) return response()->json(['success'=>$success,'vl'=>$vl, 'message'=>$msg,'key'=>$key]);
+        if ($anApprover || $hasAccess) return response()->json(['success'=>$success,'vl'=>$vl, 'message'=>$msg,'key'=>$key]);
         else return response()->json(['success'=>0,'vl'=>$vl,'message'=>"for approval",'key'=>$key]);
 
 

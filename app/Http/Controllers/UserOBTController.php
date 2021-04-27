@@ -106,7 +106,13 @@ class UserOBTController extends Controller
             $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
             $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
 
-            if(!is_null($request->for) && !$anApprover && ($isWorkforce && $isBackoffice) ) return view('access-denied');
+             $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+            (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
+
+
+
+            if(!is_null($request->for) && !$anApprover && ($isWorkforce && $isBackoffice) && !$hasAccess ) return view('access-denied');
 
 
             if ($user->fixedSchedule->isEmpty() && $user->monthlySchedules->isEmpty())
@@ -476,7 +482,8 @@ class UserOBTController extends Controller
         $vl->updated_at = $correct->format('Y-m-d H:i:s');
         $vl->save();
 
-        
+      
+
          //**** send notification to the sender
         $theNotif = Notification::where('relatedModelID', $vl->id)->where('type',13)->get();
 
@@ -484,13 +491,21 @@ class UserOBTController extends Controller
         if (count($theNotif) > 0)
             DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
 
+        
+        $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+        (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
 
-        $unotif = $this->notifySender($vl,$theNotif->first(),13);
+        //wag ka na mag-sendout ng notif since sent by special powers yung request
+        if(!$hasAccess) $unotif = $this->notifySender($vl,$theNotif->first(),13); 
+        else $unotif = null;
+
+
 
         
         
           /* -------------- log updates made --------------------- */
-         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n [". $vl->id."] OBT update ". date('M d h:i:s'). " by [". $this->user->id."], ".$this->user->lastname."\n");
             fclose($file);
 
@@ -530,17 +545,6 @@ class UserOBTController extends Controller
         $anApprover = $this->checkIfAnApprover($approvers, $this->user);
         $TLapprover = $this->getTLapprover($employee->id, $this->user->id);
 
-        
-        if ($anApprover)
-        {
-            $vl->isApproved = true; $TLsubmitted=true; $vl->approver = $TLapprover;
-        } else { $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null; }
-
-        $correct = Carbon::now('GMT+8');
-        $vl->created_at = $correct->format('Y-m-d H:i:s');
-        $vl->updated_at = $correct->format('Y-m-d H:i:s');
-        $vl->save();
-
         // get WFM
         $wfm = collect(DB::table('team')->where('campaign_id',50)->
                     leftJoin('users','team.user_id','=','users.id')->
@@ -552,8 +556,40 @@ class UserOBTController extends Controller
         $isWorkforce = in_array($this->user->id, $wfm->toArray());
         $employeeisBackoffice = ( Campaign::find(Team::where('user_id',$employee->id)->first()->campaign_id)->isBackoffice ) ? true : false;
 
+         $advent = Team::where('user_id',$employee->id)->where('campaign_id',58)->get();
+        (count($advent) > 0) ? $isAdvent = 1 : $isAdvent=0;
 
-        if (!$anApprover) //(!$TLsubmitted && !$canChangeSched)
+        $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+        (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
+
+
+        
+       
+
+
+        if ( ($isWorkforce && ($this->user->id !== $employee->id) )
+            || ($anApprover && $employeeisBackoffice) 
+            || ($anApprover && $isAdvent)
+            || $hasAccess
+            || (!$employeeisBackoffice && $isWorkforce && ($this->user->id !== $employee->id) ) )
+        {
+            $vl->isApproved = true; $TLsubmitted=true; $vl->approver = $TLapprover;
+        } else { $vl->isApproved = null; $TLsubmitted=false;$vl->approver = null; }
+
+
+
+
+        $correct = Carbon::now('GMT+8');
+        $vl->created_at = $correct->format('Y-m-d H:i:s');
+        $vl->updated_at = $correct->format('Y-m-d H:i:s');
+        $vl->save();
+
+        
+
+
+
+       if ($employeeisBackoffice || ($isAdvent && !$hasAccess) ) //(!$TLsubmitted && !$canChangeSched)
         {//--- notify the  APPROVERS
 
             $notification = new Notification;

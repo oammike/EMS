@@ -145,8 +145,11 @@ class UserFamilyleaveController extends Controller
             $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
 
            // if ($isBackoffice && $isWorkforce && ($this->user->id != $user->id && !$anApprover) )  return view('access-denied');
+            $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+            (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
 
-            if ( ( $this->user->id == $user->id) || $anApprover || $isWorkforce )
+            if ( ( $this->user->id == $user->id) || $anApprover || $isWorkforce || $hasAccess )
             {
                 if ($user->fixedSchedule->isEmpty() && $user->monthlySchedules->isEmpty())
                 {
@@ -548,8 +551,13 @@ class UserFamilyleaveController extends Controller
         if (count($theNotif) > 0)
             DB::table('user_Notification')->where('notification_id','=',$theNotif->first()->id)->delete();
 
+        $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+        (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
 
-        $unotif = $this->notifySender($vl,$theNotif->first(),11);
+        //wag ka na mag-sendout ng notif since sent by special powers yung request
+        if(!$hasAccess) $unotif = $this->notifySender($vl,$theNotif->first(),11); 
+        else $unotif = null;
 
         /* //Next, delete all user-notif associated with this:
         $theNotif = Notification::where('relatedModelID',$vl->id)->where('type',6)->first();
@@ -563,7 +571,7 @@ class UserFamilyleaveController extends Controller
         $user = User::find($vl->user_id);
 
         (is_null($user->nickname)) ? $f = $user->firstname : $f = $user->nickname;
-        return response()->json(['success'=>1, 'firstname'=>$f, 'lastname'=>$user->lastname, 'unotif'=>$unotif]);
+        return response()->json(['success'=>1, 'firstname'=>$f, 'lastname'=>$user->lastname, 'unotif'=>$unotif, 'res'=>$vl]);
 
 
     }
@@ -657,10 +665,14 @@ class UserFamilyleaveController extends Controller
                 $vlcredit->push();
             }
         }*/
+
+        $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
+        (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
         
 
 
-        if (!$anApprover) //(!$TLsubmitted && !$canChangeSched)
+        if (!$anApprover && !$hasAccess) //(!$TLsubmitted && !$canChangeSched)
         {//--- notify the  APPROVERS
 
             $notification = new Notification;

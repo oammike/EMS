@@ -537,7 +537,7 @@
                   '_token':_token
                 },
                 success: function(res){
-                  console.log(res);
+                  //console.log(res);
                   $('#leaveModal'+dataid).modal('hide');
 
                     if (isApproved == '1') {
@@ -557,7 +557,7 @@
                    
 
                 },
-                error: function(){
+                error: function(res){
                   console.log(res);
                   $('#leaveModal'+dataid).modal('hide');
 
