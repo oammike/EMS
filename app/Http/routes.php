@@ -1339,6 +1339,10 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'uses'=>'UserController@workAnnivCelebrators') );
 
 
+     Route::post('/enableIDPrint', array(
+      'as'=> 'enableIDPrint',
+      'uses'=>'UserController@enableIDprint') );
+
      Route::post('/enableWFH', array(
       'as'=> 'enableWFH',
       'uses'=>'UserController@wfh') );

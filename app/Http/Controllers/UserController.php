@@ -140,17 +140,24 @@ class UserController extends Controller
       
         $correct = Carbon::now('GMT+8');
 
-        if($this->user->id !== 564 ) {
-            $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
-            fwrite($file, "-------------------\n View IDprint - ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
-            fclose($file);
-        }
+        // if($this->user->id !== 564 ) {
+        //     $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+        //     fwrite($file, "-------------------\n View IDprint - ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+        //     fclose($file);
+        // }
         return view('people.idprinting', compact('myCampaign','canBIR','superAdmin', 'hasUserAccess','isWorkforce','wfAgent', 'isHR'));
     }
 
     public function printID( $id)
     {
       //$item = Input::get('id');
+      $u = User::find($id);
+      $u->enableIDprint = 0;
+      $u->push();
+      $correct = Carbon::now('GMT+8');
+      $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+      fwrite($file, "-------------------\n IDprint [".$u->id."] on". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+      fclose($file);
       return response()->file(storage_path('uploads/id/'.$id.'.png'));
 
     }
@@ -880,9 +887,21 @@ class UserController extends Controller
        
     }
 
+    public function enableIDprint(Request $request)
+    {
+      $u = User::find($request->id);
+      $u->enableIDprint = $request->enablePrint;
+      $u->push();
+      return $u;
+
+    }
+
+
+
     public function getAllActiveUsers(){
 
         DB::connection()->disableQueryLog();
+        $forPrint = Input::get('print');
 
 
         $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
@@ -891,44 +910,64 @@ class UserController extends Controller
 
         /* ------- faster method ----------- */
 
-        if($canEditEmployees){
+       
 
+        if($forPrint)
+        {
           $users = DB::table('users')->where([
-                    ['status_id', '!=', 6],
-                    ['status_id', '!=', 7],
-                    ['status_id', '!=', 8],
-                    ['status_id', '!=', 9],
-                            ])->
-                    leftJoin('team','team.user_id','=','users.id')->
-                    leftJoin('campaign','team.campaign_id','=','campaign.id')->
-                    leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
-                    leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
-                    leftJoin('positions','users.position_id','=','positions.id')->
-                    leftJoin('statuses','users.status_id','=','statuses.id')->
-                    leftJoin('userType','userType.id','=','users.userType_id')->
-                    leftJoin('floor','team.floor_id','=','floor.id')->
-                    //leftJoin('user_forms','user_forms.user_id','=','users.id')->
+                  ['status_id', '!=', 6],
+                  ['status_id', '!=', 16],
+                  ['status_id', '!=', 7],
+                  ['status_id', '!=', 8],
+                  ['status_id', '!=', 9],
+                  ['enableIDprint','=',1],
+                          ])->
+                  leftJoin('team','team.user_id','=','users.id')->
+                  leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                  leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                  leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                  leftJoin('positions','users.position_id','=','positions.id')->
+                  leftJoin('floor','team.floor_id','=','floor.id')->
+                  select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location','users.has2316','users.hasSigned2316')->orderBy('users.lastname')->get();
 
-                    
-                    select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','statuses.name as status', 'positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','userType.name as userType','floor.name as location','users.isWFH as isWFH', 'users.claimedCard','users.has2316','users.hasSigned2316')->orderBy('users.lastname')->get(); //'user_forms.filename as BIRform','user_forms.user_id as formOwner', 'user_forms.isSigned'
-
-        } else {
-
-          $users = DB::table('users')->where([
-                    ['status_id', '!=', 6],
-                    ['status_id', '!=', 16],
-                    ['status_id', '!=', 7],
-                    ['status_id', '!=', 8],
-                    ['status_id', '!=', 9],
-                            ])->
-                    leftJoin('team','team.user_id','=','users.id')->
-                    leftJoin('campaign','team.campaign_id','=','campaign.id')->
-                    leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
-                    leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
-                    leftJoin('positions','users.position_id','=','positions.id')->
-                    leftJoin('floor','team.floor_id','=','floor.id')->
-                    select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location','users.has2316','users.hasSigned2316')->orderBy('users.lastname')->get();
         }
+        else
+        {
+           $users = DB::table('users')->where([
+                  ['status_id', '!=', 6],
+                  ['status_id', '!=', 7],
+                  ['status_id', '!=', 8],
+                  ['status_id', '!=', 9],
+                          ])->
+                  leftJoin('team','team.user_id','=','users.id')->
+                  leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                  leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                  leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                  leftJoin('positions','users.position_id','=','positions.id')->
+                  leftJoin('statuses','users.status_id','=','statuses.id')->
+                  leftJoin('userType','userType.id','=','users.userType_id')->
+                  leftJoin('floor','team.floor_id','=','floor.id')->
+                  //leftJoin('user_forms','user_forms.user_id','=','users.id')->
+
+                  
+                  select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','statuses.name as status', 'positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','userType.name as userType','floor.name as location','users.isWFH as isWFH', 'users.claimedCard','users.has2316','users.hasSigned2316','users.enableIDprint')->orderBy('users.lastname')->get(); //'user_forms.filename as BIRform','user_forms.user_id as formOwner', 'user_forms.isSigned'// $users = DB::table('users')->where([
+          //         ['status_id', '!=', 6],
+          //         ['status_id', '!=', 16],
+          //         ['status_id', '!=', 7],
+          //         ['status_id', '!=', 8],
+          //         ['status_id', '!=', 9],
+          //                 ])->
+          //         leftJoin('team','team.user_id','=','users.id')->
+          //         leftJoin('campaign','team.campaign_id','=','campaign.id')->
+          //         leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+          //         leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+          //         leftJoin('positions','users.position_id','=','positions.id')->
+          //         leftJoin('floor','team.floor_id','=','floor.id')->
+          //         select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location','users.has2316','users.hasSigned2316')->orderBy('users.lastname')->get();
+        }
+
+          
+        
 
         $allBIR = UserForms::where('formType','BIR2316')->get();
 

@@ -554,7 +554,7 @@
         </li>
 
 
-        <li class="treeview @if ( Request::is('movement') || Request::is('editUser*') ) active @endif">
+        <li class="treeview @if ( Request::is('movement') || Request::is('editUser*') || Request::is('id-printing') ) active @endif">
           <a href="#"><i class="fa fa-users"></i> <span>Employees</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
 
@@ -566,7 +566,16 @@
             <li @if (Request::is('user/create')) class="active" @endif style="padding-left:20px"><a href="{{action('UserController@create')}} "><i class="fa fa-plus"></i> Add New </a></li>
             <?php }  ?>
 
+             <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('PRINT_ID') ){ ?>
+            <li @if (Request::is('id-printing')) class="active" @endif style="padding-left:20px"><a href="{{action('UserController@idprinting')}} "><i class="fa fa-id-badge"></i> ID Printing </a></li>
+            <?php }  ?>
+
+
             <li style="padding-left:20px"@if (Request::is('user')) class="active" @endif><a href="{{action('UserController@index')}} "><i class="fa fa-users"></i> View All</a></li>
+
+            
+
+
 
             <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('VIEW_ALL_EVALS') ){ ?>
             <li style="padding-left:20px"><a href="{{action('UserController@downloadAllUsers')}} "><i class="fa fa-download"></i> Download Masterlist</a></li>

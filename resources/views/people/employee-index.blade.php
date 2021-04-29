@@ -376,6 +376,15 @@
 
                             }
 
+                            
+
+                            if(full.enableIDprint){
+                              var idprint = '<label><input type="checkbox" class="printid" checked="checked" data-cardid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'"> Enable ID Printing</label>';
+
+                            }else {
+                              var idprint = '<label><input type="checkbox" class="printid" data-cardid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'"> Enable ID Printing</label>';
+
+                            }
 
                             if(full.claimedCard){
                               var cC = '<label><input type="checkbox" class="claimedcard" checked="checked" disabled="disabled"> Claimed Rewards Card</label>';
@@ -394,7 +403,7 @@
 
                             @elseif ($hasUserAccess)
 
-                              return '<a target="_blank" href="editUser/'+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> Edit Profile</a><a target="_blank" href="user_vl/showCredits/'+data+'" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a><a target="_blank" href="user/'+data+'#ws" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clock-o"></i>  Plot Sched</a><a target="_blank" href="movement/changePersonnel/'+data+'" id="teamMovement'+data+'" memberID="'+data+'" class="teamMovement btn btn-xs btn-default" style="margin:3px"><i class="fa fa-exchange"></i> Movement</a> <a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clipboard"></i> View Requests</a> <a target="_blank" href="camera/single/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-camera-retro"></i> Print ID</a> <a href="#" class="btn btn-xs btn-default qr_launcher" data-userid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'" style="margin:3px"><i class="fa fa-qrcode"></i> Load QR</a><a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR</a><br/>'+bir+AHW+cC+modalcode;
+                              return '<a target="_blank" href="editUser/'+data+'"   style="margin:3px" class="btn btn-xs btn-default"><i class="fa fa-pencil"></i> Edit Profile</a><a target="_blank" href="user_vl/showCredits/'+data+'" class="btn btn-xs btn-default" style="margin:2px"><i class="fa fa-bar-chart"></i>  Leave Credits</a><a target="_blank" href="user/'+data+'#ws" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clock-o"></i>  Plot Sched</a><a target="_blank" href="movement/changePersonnel/'+data+'" id="teamMovement'+data+'" memberID="'+data+'" class="teamMovement btn btn-xs btn-default" style="margin:3px"><i class="fa fa-exchange"></i> Movement</a> <a target="_blank" href="userRequests/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-clipboard"></i> View Requests</a> <a target="_blank" href="camera/single/'+data+'" class="btn btn-xs btn-default" style="margin:3px"><i class="fa fa-camera-retro"></i> ID Capture</a> <a href="#" class="btn btn-xs btn-default qr_launcher" data-userid="'+data+'" data-name="'+full.firstname+' '+full.lastname+'" style="margin:3px"><i class="fa fa-qrcode"></i> Load QR</a><a target="_blank" href="user_dtr/'+data+'"   style="margin:3px" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR</a><br/>'+bir+AHW+idprint+cC+modalcode;
 
                                
                                  
@@ -616,6 +625,49 @@
 
                         //chck.attr('disabled',true);
                         console.log(response);
+
+                          return true;
+                      }
+                  });
+
+
+   });
+
+   $('table').on('click','.printid',function(){
+      var id = $(this).attr('data-cardid');
+      var empname = $(this).attr('data-name');
+      var chck = $(this).prop('checked');
+      if (chck == true) {
+        var enablePrint = 1;
+        alert("Enable ID Card Printing for employee: "+empname);
+      }
+
+      else {
+        var enablePrint = 0;
+        alert("Disable ID Card Printing for employee: "+empname);
+      }
+
+
+      
+      var _token = "{{ csrf_token() }}";
+
+      $.ajax({
+                      url:"{{action('UserController@enableIDprint')}} ",
+                      type:'POST',
+                      data:{id:id, enablePrint:enablePrint,  _token:_token},
+                      error: function(response)
+                      {
+                          
+                        console.log("Error saving data: ");
+                        $.notify("An error occured. Please try again later.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+
+                          
+                          return false;
+                      },
+                      success: function(response)
+                      {
+                         $.notify("Employee ID Card Printing is now enabled.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                         console.log(response);
 
                           return true;
                       }
