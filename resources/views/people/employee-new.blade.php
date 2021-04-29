@@ -140,7 +140,12 @@
                           <div id="newTeam"></div>             
                       </td>
                       <td>
-                        <label>Employee Number: </label> <input tabindex="2" type="text" class="form-control required" name="employeeNumber" required id="employeeNumber" placeholder="xxxx-xxxx" /> 
+                       
+
+                         <label>Trainee Code: </label> <input tabindex="4" type="text" class="form-control" name="traineeCode" required id="traineeCode" placeholder="TXXXXXXX" /> 
+                        
+
+                          <label>Employee Number: </label> <input tabindex="2" type="text" class="form-control required" name="employeeNumber" required id="employeeNumber" placeholder="xxxx-xxxx" /> 
                          <div id="alert-employeeNumber" style="margin-top:10px"></div>
 
                          <label>Biometrics Access Code: </label> <input tabindex="4" type="text" class="form-control required" name="accesscode" required id="accesscode" placeholder="2XXXXXXX" /> 
@@ -383,6 +388,7 @@
       var status_id = $('input[name="status_id" ]:checked').val();
       var username = $('#oampi').val();
       var employeeNumber = $('#employeeNumber').val();
+      var traineeCode = $('#traineeCode').val();
       var accesscode = $('#accesscode').val();
       var employeeCode = $('#employeeCode').val();
       var nickname = $('#nickname').val();
@@ -471,7 +477,7 @@
                                     //save employee
                                     console.log("Save employee then");
                                     var emailaddie = uname+"@openaccessbpo.net";
-                                    saveEmployee(uname,firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,employeeCode, emailaddie,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,posID,campaign_id,floor_id,immediateHead_Campaigns_id, _token);
+                                    saveEmployee(uname,firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,traineeCode, accesscode,employeeCode, emailaddie,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,posID,campaign_id,floor_id,immediateHead_Campaigns_id, _token);
 
                                   }
 
@@ -501,7 +507,7 @@
             console.log("userType_id: "+ userType_id);
             console.log("status_id: "+ status_id);
             
-            saveEmployee(uname,firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,employeeCode, emailaddie,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,position_id,campaign_id,floor_id, immediateHead_Campaigns_id, _token );
+            saveEmployee(uname,firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,traineeCode,accesscode,employeeCode, emailaddie,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,position_id,campaign_id,floor_id, immediateHead_Campaigns_id, _token );
 
           }
 
@@ -521,7 +527,7 @@
 
    });
 
-function saveEmployee(uname,firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,employeeCode, email,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,position_id,campaign_id,floor_id,immediateHead_Campaigns_id, _token){
+function saveEmployee(uname,firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,traineeCode,accesscode,employeeCode, email,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,position_id,campaign_id,floor_id,immediateHead_Campaigns_id, _token){
 
    //save movement
 
@@ -539,6 +545,7 @@ function saveEmployee(uname,firstname,middlename,lastname,nickname,gender,birthd
               'employeeNumber': employeeNumber,
               'accesscode': accesscode,
               'employeeCode':employeeCode,
+              'traineeCode': traineeCode,
               'email': email,
               'password': uname,
               'updatedPass': false,

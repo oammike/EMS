@@ -263,6 +263,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
 
 
+
     Route::get('/oampi-resources', array(
       'as'=> 'resource.index',
       'uses'=>'ResourceController@index') );
@@ -1341,6 +1342,16 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
      Route::post('/enableWFH', array(
       'as'=> 'enableWFH',
       'uses'=>'UserController@wfh') );
+
+
+     Route::get('/id-printing', array(
+      'as'=> 'id-printing',
+      'uses'=>'UserController@idprinting') );
+
+     Route::get('/printID/{id}', array(
+      'as'=> 'printID',
+      'uses'=>'UserController@printID') );
+
 
 
 

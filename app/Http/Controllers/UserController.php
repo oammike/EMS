@@ -79,6 +79,82 @@ class UserController extends Controller
         $this->initLoad =100;
     }
 
+    public function idprinting()
+    {
+       
+
+      $myCampaign = $this->user->campaign; 
+      $canDoThis = UserType::find($this->user->userType_id)->roles->where('label','PRINT_ID');
+      $wf = UserType::find($this->user->userType_id)->roles->where('label','STAFFING_MANAGEMENT');
+      $accessDir = Role::where('label','ACCESS_EMPLOYEE_DIRECTORY')->first();
+
+
+      $today = Carbon::now('GMT+8');
+
+
+
+      $hr = Campaign::where('name','HR')->first();
+      $finance = Campaign::where('name','Finance')->first();
+
+      $hrTeam = collect(DB::table('team')->where('campaign_id',$hr->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+      if (in_array($this->user->id, $hrTeam))
+      {
+        $isHR=1; $canAccessDir=1;
+      }
+      else { $isHR=false; $canAccessDir=false; }
+
+      $financeTeam = collect(DB::table('team')->where('campaign_id',$finance->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+      (in_array($this->user->id, $financeTeam)) ? $isFinance= 1 : $isFinance=0;
+      
+
+      ($this->user->userType_id == 11) ? $wfAgent=true : $wfAgent=false;
+      ($this->user->userType_id == 1 || $this->user->userType_id == 6 || $this->user->userType_id == 14 || ($this->user->userType_id==3 && $isFinance ) ) ? $canBIR=true : $canBIR=false;
+      
+      ($this->user->userType_id == 1) ? $superAdmin=1 : $superAdmin=0;
+
+      (count($canDoThis)> 0 ) ? $hasUserAccess=1 : $hasUserAccess=0;
+      (count($wf) > 0) ? $isWorkforce=1 : $isWorkforce=0;
+
+      $specialAccess = User_SpecialAccess::where('user_id',$this->user->id)->where('role_id',$accessDir->id)->get();
+      if (count($specialAccess) > 0 && !$isHR ) {
+
+        // we need to check first kung valid date ba ung access nya
+        if (is_null($specialAccess->first()->startDate))
+          $canAccessDir=1; //meaning always accessbile sya kasi no date specified
+        else
+        {
+          $accessibleFrom = Carbon::parse($specialAccess->first()->startDate,'Asia/Manila');
+          $accessibleTo = Carbon::parse($specialAccess->first()->endDate,'Asia/Manila');
+
+          if( $today->format('Y-m-d') >= $accessibleFrom->format('Y-m-d') && $today->format('Y-m-d') <= $accessibleTo->format('Y-m-d') )
+            $canAccessDir=true;
+          else $canAccessDir=false;
+
+        }
+        
+
+        
+      }// else { $canAccessDir=false; }
+      
+      if(!$hasUserAccess && !$isHR) return view('access-denied');
+      
+        $correct = Carbon::now('GMT+8');
+
+        if($this->user->id !== 564 ) {
+            $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+            fwrite($file, "-------------------\n View IDprint - ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+            fclose($file);
+        }
+        return view('people.idprinting', compact('myCampaign','canBIR','superAdmin', 'hasUserAccess','isWorkforce','wfAgent', 'isHR'));
+    }
+
+    public function printID( $id)
+    {
+      //$item = Input::get('id');
+      return response()->file(storage_path('uploads/id/'.$id.'.png'));
+
+    }
+
     public function index()
     {
        
@@ -4831,6 +4907,7 @@ class UserController extends Controller
         $employee->nickname = $request->nickname;
         $employee->gender = $request->gender;
         $employee->employeeNumber = $request->employeeNumber;
+        $employee->traineeCode = $request->traineeCode;
         $employee->employeeCode = $request->employeeNumber;
         $employee->accesscode = $request->accesscode;
         //$employee->employeeCode = $request->employeeCode;
@@ -4954,6 +5031,7 @@ class UserController extends Controller
         $employee->gender = Input::get('gender');
         $employee->accesscode = Input::get('accesscode');
         $employee->employeeCode = Input::get('employeeCode');
+        $employee->traineeCode = Input::get('traineeCode');
         $employee->employeeNumber = Input::get('employeeNumber');
         $employee->email = preg_replace('/\s+/', '', Input::get('email'));
 

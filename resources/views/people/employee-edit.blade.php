@@ -230,8 +230,11 @@ input.cropit-image-zoom-input {
 
                                   </td>
                                   <td>
-                                    <label>Employee Number: </label> <input type="text" class="form-control required" name="employeeNumber" id="employeeNumber" value="{{$personnel->employeeNumber}}" /> 
+                                    <label>Trainee Code: </label> <input type="text" class="form-control" name="traineeCode" id="traineeCode" value="{{$personnel->traineeCode}}" /> 
+                                    
+                                     <label>Employee Number: </label> <input type="text" class="form-control required" name="employeeNumber" id="employeeNumber" value="{{$personnel->employeeNumber}}" /> 
                                      <div id="alert-employeeNumber" style="margin-top:10px"></div>
+
 
 
                                      <label>Biometrics Access Code: </label> <input tabindex="4" type="text" class="form-control required" name="accesscode" required id="accesscode" value="{{$personnel->accesscode}}" /> 
@@ -858,6 +861,7 @@ $('input[name="dateHired"]').on('focusout',function(){
       var status_id = $('input[name="status_id" ]:checked').val();
       var username = "{{$personnel->name}}";
       var employeeNumber = $('#employeeNumber').val();
+      var traineeCode = $('#traineeCode').val();
       var accesscode = $('#accesscode').val();
       var employeeCode = $('#employeeCode').val();
       var campaign_id = $('select[name="campaign_id"]').find(':selected').val();
@@ -954,7 +958,7 @@ $('input[name="dateHired"]').on('focusout',function(){
            
             
             //console.log("update Jeonsoft: "+ employeeCode);
-            setTimeout(saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,employeeCode,email,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,position_id,leadOverride,campaign_id,floor_id,immediateHead_Campaigns_id, _token ),1);
+            setTimeout(saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,traineeCode, accesscode,employeeCode,email,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,position_id,leadOverride,campaign_id,floor_id,immediateHead_Campaigns_id, _token ),1);
             
             
          }
@@ -976,7 +980,7 @@ $('input[name="dateHired"]').on('focusout',function(){
 });
 
 
-function saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,accesscode,employeeCode,email,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,position_id,leadOverride,campaign_id,floor_id,immediateHead_Campaigns_id, _token){
+function saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,employeeNumber,traineeCode, accesscode,employeeCode,email,dateHired,dateRegularized, startTraining, endTraining, userType_id,status_id,position_id,leadOverride,campaign_id,floor_id,immediateHead_Campaigns_id, _token){
 
    //save movement
    console.log("Enter function");
@@ -994,6 +998,7 @@ function saveEmployee(firstname,middlename,lastname,nickname,gender,birthday,emp
               'gender':gender,
               'birthday':birthday,
               'employeeNumber': employeeNumber,
+              'traineeCode': traineeCode,
               'accesscode':accesscode,
               'employeeCode':employeeCode,
               'email': email,
