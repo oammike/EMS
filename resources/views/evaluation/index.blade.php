@@ -90,9 +90,9 @@
                               <strong  @if($type==2) class="text-primary" @else class="text-default" @endif>July-December<br/> <small>Semi-Annual</small></strong></a> </li>
                             
                             <li @if($type==3) class="active" @endif><a href="{{action('EvalFormController@index',['type'=>3])}}">
-                              <strong  @if($type==3) class="text-primary" @else class="text-default" @endif>Regularization <br/><small>Evaluation</small></strong></a></li>
+                              <strong  @if($type==3) class="text-primary" @else class="text-default" @endif>Probi Evaluation <br/><small>(Regularization)</small></strong></a></li>
                             <li @if($type==4) class="active" @endif><a href="{{action('EvalFormController@index',['type'=>4])}}">
-                              <strong  @if($type==4) class="text-primary" @else class="text-default" @endif>Contract Extension<br/><small>Evaluation</small></strong></a></li>
+                              <strong  @if($type==4) class="text-primary" @else class="text-default" @endif>Employee Performance<br/><small>(Contract Extension)</small></strong></a></li>
                             
                            
                             
