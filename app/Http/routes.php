@@ -76,6 +76,8 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
     Route::resource('task','TaskController');
 
+    Route::resource('announcement','AnnouncementController');
+
 
 
     Route::get('/logout', 'HomeController@logout');
