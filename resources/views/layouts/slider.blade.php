@@ -17,6 +17,21 @@
                      </p>   
             </div>
 
+             <div class="item text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_04_26_winners.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >
+                    Congratulations!  <br/> <span class="text-primary">  Before &amp; After Challenge Winners  <br/><small>May 03, 2021</small><br/>
+                      <img src="storage/uploads/divider.png" />
+                  </h4>
+
+                  <p style="padding: 30px;" class="text-center">
+                     
+                      <br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',51)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>   
+            </div>
+
             <div class="item text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/teamAligned.png" width="100%" /><br/>
                   <h4 class="text-orange" style="line-height: 1.5em" >
