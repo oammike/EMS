@@ -1,19 +1,19 @@
 
             <div class="item active text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_04_26_wall.jpg" width="100%" />
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_05_03_wall.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >
-                    Open Access BPO Wall:  <br/> <span class="text-primary">  Before &amp; After  <br/><small>Apr. 26, 2021</small><br/>
+                    Open Access BPO Wall:  <br/> <span class="text-primary">  MOMents  <br/><small>May 03, 2021</small><br/>
                       <img src="storage/uploads/divider.png" />
                   </h4>
 
                   <p style="padding: 30px;" class="text-center">
-                     Just like that, we’re saying goodbye to April and hello to May! <br/>
-                      We’d like to know how things are with you – <br/><strong>share any before and after photos from last year and now!</strong><br/> This could be anything from fitness, skills learned/honed, room/house makeover, anything! <br/><br/>
-                      Best 2 posts chosen by judges will get <strong class="text-danger">250 EMS points</strong> each! <br/>
-                      Visit Open Access BPO wall now and earn 20 points for all participants! <br/>
+                     Mother’s Day is around the corner and this week will be all about our wonderful moms!<br/><br/>
+
+                      <strong>Share your favorite MOMents with your mom and post a photo of you together!</strong> <br/><br/>
+                      Visit Open Access BPO wall now and earn 20 points!<br/>
                       <br/>
 
-                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',51)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',52)}}"><i class="fa fa-th-large"></i> View Wall</a>
                      </p>   
             </div>
 
