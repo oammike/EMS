@@ -1,5 +1,53 @@
 
             <div class="item active text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/covid19_vaccination.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >
+                    Covid-19  Vaccination <span class="text-primary">  Questionnaire  <br/><small>May 05, 2021</small><br/>
+                      <img src="storage/uploads/divider.png" />
+                  </h4>
+
+                  <p style="padding: 30px;" class="text-center">
+                    Greetings with hope! <br/><br/>
+                     We previously sent out a survey, but we wish to hear more from everyone. With this, we are requesting your input and go through this brief questionnaire in line with our intentions for Covid-19 vaccine accessibility.  <br/><br/>
+
+                      We highly encourage each one's utmost participation to help us keep  a bubble of protection for you and people around you against the Covid-19 illness and its consequences. <br/><br/>
+
+
+                      Kindly copy the link below and paste in a browser address bar.<br/><br/>
+
+                      We have great expectations for your responses on or before May 12, 2021. Don't hesitate to email us for any concerns. <br/><br/>
+
+                      Thank you. Stay safe!
+                      
+                     </p> 
+                     <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://docs.google.com/forms/d/e/1FAIpQLSea7oJhreYZc9ZI4rGbrh5tVgivZPte953Rh5gt98rhh4XEpQ/viewform" />
+                     <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>     
+            </div>
+
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >
+                    Deadline for Locking and Approval of DTR <br/> <span class="text-primary">  for May 10,2021 Payout  <br/><small>May 05, 2021</small><br/>
+                      <img src="storage/uploads/divider.png" />
+                  </h4>
+
+                  <p style="padding: 30px;" class="text-center">
+                     Please be informed that our payout for the payroll period April 21-May 5, 2021 is on May 10, 2021. Employee's DTR should be approved and locked in EMS <strong class="text-success"> on or before 12:00 noon of May 6, 2021</strong>. All DTR from EMS will be lifted on the said cut-off for the payroll computation purposes.<br/><br/>
+
+                      In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate supervisor to lock your DTR on your behalf.<br/><br/>
+
+                      We encourage you to lock your DTR regularly to ensure that you will be paid correctly and that any DTR problems or future disputes will be prevented.  <br/><br/>
+
+                      If you have any payroll-related inquiries and concerns, please log in to our Payroll Help Desk by clicking this link http://ticketing.openaccess.bpo/. You may also access it via EMS. For employees who are working from home, your VPN should be connected before you can access the Payroll Help Desk.<br/><br/>
+
+                      Kindly access the user guide here to find out how to use it https://rise.articulate.com/share/R7DUt2qkI--qHon-LOtel335dgZHDs26.
+
+                      Please be guided accordingly.<br/><br/>
+
+                      Thank you,
+                     </p>   
+            </div>
+
+            <div class="item  text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_05_03_wall.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >
                     Open Access BPO Wall:  <br/> <span class="text-primary">  MOMents  <br/><small>May 03, 2021</small><br/>
@@ -16,6 +64,9 @@
                       <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',52)}}"><i class="fa fa-th-large"></i> View Wall</a>
                      </p>   
             </div>
+
+
+            
 
              <div class="item text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_04_26_winners.jpg" width="100%" />
