@@ -528,6 +528,11 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     //---- end WFH AND LOGS
 
 
+      Route::get('/trainee_management', array(
+      'as'=> 'trainees',
+      'uses'=>'UserController@trainees') );
+
+
     //---- LEAVE MANAGEMENT -------------
       Route::get('/leave_management', array(
       'as'=> 'leaveMgt',
@@ -1331,6 +1336,12 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
      Route::get('/getAllPendingBdays', array(
       'as'=> 'getAllPendingBdays',
       'uses'=>'UserController@getAllPendingBdays') );
+
+      Route::get('/getAllTrainees', array(
+      'as'=> 'getAllTrainees',
+      'uses'=>'UserController@getAllTrainees') );
+
+
 
      Route::get('/birthdayCelebrators', array(
       'as'=> 'birthdayCelebrators',

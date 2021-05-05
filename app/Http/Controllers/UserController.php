@@ -228,31 +228,7 @@ class UserController extends Controller
 
       if(!$canAccessDir) return view('access-denied');
 
-      //if(!$isHR) return view('access-denied');
-
-
       
-        /*$campaigns = Campaign::orderBy('name', 'ASC')->get();*/
-         $allUsers = User::orderBy('lastname', 'ASC')->get();//->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->get();
-
-            $users = $allUsers->filter(function($emp){
-                return $emp->lastname != '' && $emp->lastname != ' ';
-
-            });
-
-            $activeUsers = $allUsers->filter(function($emp){
-                return $emp->lastname != '' && $emp->lastname != ' ' && $emp->status_id !== 7 && $emp->status_id !== 8 && $emp->status_id !== 9 ;
-                  });
-
-            $inactiveUsers1 = $allUsers->filter(function($emp){
-                return $emp->lastname != '' && $emp->lastname != ' ' && ($emp->status_id == 7 || $emp->status_id == 8 || $emp->status_id == 9);
-                  });
-
-
-        /*$statuses = Status::all();*/
-
-        /*$allUsers = new Collection;*/
-        $inactiveUsers = count($inactiveUsers1);
 
         //return $inactiveUsers1;
         $correct = Carbon::now('GMT+8');
@@ -1120,6 +1096,51 @@ class UserController extends Controller
     }
 
 
+    public function getAllTrainees(){
+
+        DB::connection()->disableQueryLog();
+        $forPrint = Input::get('print');
+
+
+        $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
+        $canEditEmployees =  ($roles->contains('EDIT_EMPLOYEE')) ? '1':'0';
+       
+
+        /* ------- faster method ----------- */
+
+       
+
+        $users = DB::table('users')->where([
+                  ['status_id', '=', 2],
+                  
+                          ])->
+                  leftJoin('team','team.user_id','=','users.id')->
+                  leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                  leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                  leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                  leftJoin('positions','users.position_id','=','positions.id')->
+                  leftJoin('statuses','users.status_id','=','statuses.id')->
+                  leftJoin('userType','userType.id','=','users.userType_id')->
+                  leftJoin('floor','team.floor_id','=','floor.id')->
+                  //leftJoin('user_forms','user_forms.user_id','=','users.id')->
+
+                  
+                  select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','users.startTraining','users.endTraining',  'statuses.name as status', 'positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','userType.name as userType','floor.name as location','users.isWFH as isWFH', 'users.claimedCard','users.has2316','users.hasSigned2316','users.enableIDprint')->orderBy('users.lastname')->get(); 
+        
+
+          
+        
+
+       
+        return response()->json(['data'=>$users]);
+
+         /* ------- faster method ----------- */        
+
+
+        
+        //return Datatables::collection($allUsers)->make(true);
+       
+    }
 
     public function getAllUsers(){
 
@@ -5002,6 +5023,93 @@ class UserController extends Controller
         //return response()->json($employee);
         return response()->json(['dateHired'=>$request->dateHired, 'saveddateHired'=>$employee->dateHired, 'user_id'=>$employee->id]);
         
+    }
+
+
+    public function trainees()
+    {
+       
+
+      $myCampaign = $this->user->campaign; 
+      $canDoThis = UserType::find($this->user->userType_id)->roles->where('label','EDIT_EMPLOYEE');
+      $wf = UserType::find($this->user->userType_id)->roles->where('label','STAFFING_MANAGEMENT');
+      $accessDir = Role::where('label','ACCESS_EMPLOYEE_DIRECTORY')->first();
+
+
+      $today = Carbon::now('GMT+8');
+
+
+
+      $hr = Campaign::where('name','HR')->first();
+      $finance = Campaign::where('name','Finance')->first();
+
+      $hrTeam = collect(DB::table('team')->where('campaign_id',$hr->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+      if (in_array($this->user->id, $hrTeam))
+      {
+        $isHR=1; $canAccessDir=1;
+      }
+      else { $isHR=false; $canAccessDir=false; }
+
+      $financeTeam = collect(DB::table('team')->where('campaign_id',$finance->id)->select('team.user_id')->get())->pluck('user_id')->toArray();
+      (in_array($this->user->id, $financeTeam)) ? $isFinance= 1 : $isFinance=0;
+      
+
+      ($this->user->userType_id == 11) ? $wfAgent=true : $wfAgent=false;
+      ($this->user->userType_id == 1 || $this->user->userType_id == 6 || $this->user->userType_id == 14 || ($this->user->userType_id==3 && $isFinance ) ) ? $canBIR=true : $canBIR=false;
+      
+      ($this->user->userType_id == 1) ? $superAdmin=1 : $superAdmin=0;
+
+      (count($canDoThis)> 0 ) ? $hasUserAccess=1 : $hasUserAccess=0;
+      (count($wf) > 0) ? $isWorkforce=1 : $isWorkforce=0;
+
+
+
+
+      $specialAccess = User_SpecialAccess::where('user_id',$this->user->id)->where('role_id',$accessDir->id)->get();
+      if (count($specialAccess) > 0 && !$isHR ) {
+
+        // we need to check first kung valid date ba ung access nya
+        if (is_null($specialAccess->first()->startDate))
+          $canAccessDir=1; //meaning always accessbile sya kasi no date specified
+        else
+        {
+          $accessibleFrom = Carbon::parse($specialAccess->first()->startDate,'Asia/Manila');
+          $accessibleTo = Carbon::parse($specialAccess->first()->endDate,'Asia/Manila');
+
+          if( $today->format('Y-m-d') >= $accessibleFrom->format('Y-m-d') && $today->format('Y-m-d') <= $accessibleTo->format('Y-m-d') )
+            $canAccessDir=true;
+          else $canAccessDir=false;
+
+        }
+        
+
+        
+      }// else { $canAccessDir=false; }
+
+
+
+      //return response()->json(['isHR'=>$isHR,'canAccessDir?'=>$canAccessDir]);
+
+      if(!$canAccessDir && !$isFinance) return view('access-denied');
+
+      //if(!$isHR) return view('access-denied');
+
+
+      
+       
+
+        //return $inactiveUsers1;
+        $correct = Carbon::now('GMT+8');
+
+        if($this->user->id !== 564 ) {
+            $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+            fwrite($file, "-------------------\n View TRAINEES - ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
+            fclose($file);
+        }
+       
+       //  return Datatables::collection($inactiveUsers)->make(true);
+       //return $inactiveUsers;
+        return view('people.trainee-index', compact('myCampaign','canBIR','superAdmin', 'hasUserAccess','isWorkforce','wfAgent'));
     }
 
      /***** show your subordinates' requests *******/
