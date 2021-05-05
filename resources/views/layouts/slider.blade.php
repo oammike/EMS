@@ -47,6 +47,66 @@
                      </p>   
             </div>
 
+             <div class="item  text-center" >
+                  
+                  <h4 class="text-orange" style="line-height: 1.5em" >
+                    VACCINES HELP PROTECT YOU  <br/> <span class="text-primary">  AND THE PEOPLE YOU LOVE.  <br/><small>May 05, 2021</small><br/>
+                      <img src="storage/uploads/divider.png" />
+                  </h4>
+
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/OA_NurseVaccineEMS.jpg" width="100%" />
+                  <table class="table">
+                    <tr>
+                      <td colspan="3"><strong>METRO MANILA</strong> </td>
+                    </tr>
+                    <tr>
+                      <td><a href="https://docs.google.com/forms/d/e/1FAIpQLSc7vOw3OGf7TRqSbz_nWtSZAFj0kHEN09K4R4TLY0Ow1daHXQ/viewform" target="_blank"> Caloocan</td>
+                      <td><a href="https://bit.ly/3tUBHpw" target="_blank"> Manila</a></td>
+                      <td><a href="https://form.jotform.com/210132366204441" target="_blank"> Pateros</a></td>
+                    </tr>
+                     <tr>
+                      <td><a href="https://docs.google.com/forms/d/e/1FAIpQLSdyP_6sxeNLQfI76JQDrGzbJ1ellOecELvUpRbi69mexUq4Ug/viewform" target="_blank"> Las Piñas</a></td>
+                      <td><a href="https://bit.ly/2NYFeUr" target="_blank"> Muntinlupa</a></td>
+                      <td><a href="https://bit.ly/3suTPpV" target="_blank"> Quezon City</a></td>
+                    </tr>
+                     <tr>
+                      <td><a href="https://bit.ly/3d8VdrE"> Makati</a></td>
+                      <td><a href="https://bit.ly/3crmaI2"> Navotas</a></td>
+                      <td><a href="https://bit.ly/39Bi7ri"> San Juan</a></td>
+                    </tr>
+                     <tr>
+                      <td><a href="https://bit.ly/31x3YWV"> Malabon</a></td>
+                      <td><a href="https://bit.ly/31sEMko"> Parañaque</a></td>
+                      <td><a href="https://bit.ly/3u1Ouqc"> Taguig</a></td>
+                    </tr>
+                     <tr>
+                      <td><a href="https://bit.ly/31qsyZD"> Mandaluyong</a></td>
+                      <td><a href="https://pasigpass.pasigcity.gov.ph/"> Pasig</a></td>
+                      <td><a href="https://bit.ly/39oYmCK"> Valenzuela</a></td>
+                    </tr>
+                     <tr>
+                      <td colspan="3"></td>
+                    </tr>
+                     <tr>
+                      <td><strong> BULACAN</strong></td>
+                      <td><strong>LAGUNA</strong></td><td><strong>RIZAL</strong></td>
+                    </tr>
+                     <tr>
+                      <td><a href="http://bit.ly/BulacanVaccination">Pulilan</a></td>
+                      <td><a href="https://apps.binan.gov.ph/covacregistration/" target="_blank"> Biñan</a> <br/><a href="http://bit.ly/LosBanosVaccination"> Los Baños</a></td>
+                      <td><a href="https://bit.ly/3w8SxTJ"> Antipolo</a>
+                        <br><a href="https://bit.ly/3w6Wb0b"> Taytay</a></td>
+                    </tr>
+                  </table>
+
+                  <p style="padding: 30px;" class="text-center">
+                     For other locations and to learn about vaccine availability in your area, please visit:  <strong><a href="https://doh.gov.ph/Vaccines/when-will-the-COVID-19-available-to-me" target="_blank"> https://doh.gov.ph/Vaccines/when-will-the-COVID-19-available-to-me</a></strong>
+                     <br/><br/>
+                      Learn more about ResBakuna, visit <a href="https://doh.gov.ph/vaccines" target="_blank"> https://doh.gov.ph/vaccines</a> </p>   
+            </div>
+
+
+
             <div class="item  text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_05_03_wall.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >
