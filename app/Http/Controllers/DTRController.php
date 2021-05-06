@@ -3738,49 +3738,15 @@ class DTRController extends Controller
       $paycutoffs = Paycutoff::orderBy('toDate','DESC')->get();
 
       DB::connection()->disableQueryLog();
-
-      if($type == 't'){
-        $allUsers = DB::table('users')->where([
-                    ['status_id', 2],
-                    
-                ])->
-        leftJoin('team','team.user_id','=','users.id')->
-        leftJoin('campaign','team.campaign_id','=','campaign.id')->
-        leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
-        leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
-        leftJoin('positions','users.position_id','=','positions.id')->
-        leftJoin('floor','team.floor_id','=','floor.id')->
-        select('users.id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->orderBy('users.lastname')->get();
-
-      }else{
-        $allUsers = DB::table('users')->where([
-                    ['status_id', '!=', 6],
-                    ['status_id', '!=', 7],
-                    ['status_id', '!=', 8],
-                    ['status_id', '!=', 9],
-                    ['users.status_id', '!=', 13],
-                    ['users.status_id', '!=', 16],
-                ])->
-        leftJoin('team','team.user_id','=','users.id')->
-        leftJoin('campaign','team.campaign_id','=','campaign.id')->
-        leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
-        leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
-        leftJoin('positions','users.position_id','=','positions.id')->
-        leftJoin('floor','team.floor_id','=','floor.id')->
-        select('users.id', 'users.firstname','users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->orderBy('users.lastname')->get();
-
-      }
-      
-
-        $allProgram = DB::table('campaign')->select('id','name','hidden')->where('hidden',null)->
+      $allProgram = DB::table('campaign')->select('id','name','hidden')->where('hidden',null)->
                           where([
                             ['campaign.id', '!=','26'], //wv
                             ['campaign.id', '!=','35'], //ceb
 
                           ])->orderBy('name')->get();//
-        $byTL = collect($allUsers)->groupBy('tlID');
-        $allTL = $byTL->keys();
-        //return collect($allUsers)->where('campID',7);
+        /*$byTL = collect($allUsers)->groupBy('tlID');
+        $allTL = $byTL->keys();*/
+        
 
         $correct = Carbon::now('GMT+8'); //->timezoneName();
 
@@ -6010,7 +5976,12 @@ class DTRController extends Controller
     {
       //------ Report type 1= DTR logs | 2= Summary
 
-      ($request->reportType == 'finance') ? $result = $this->fetchLockedDTRs($request->cutoff, $request->program,1) : $result = $this->fetchLockedDTRs($request->cutoff, $request->program,null);
+      if ($request->reportType == 'finance')
+        $result = $this->fetchLockedDTRs($request->cutoff, $request->program,1);
+      elseif($request->reportType == 'trainees')
+       $result = $this->fetchLockedDTRs($request->cutoff, null,3);
+      else
+         $result = $this->fetchLockedDTRs($request->cutoff, $request->program,null);
 
       return $result[0];
 
