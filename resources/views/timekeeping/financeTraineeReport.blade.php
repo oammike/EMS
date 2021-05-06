@@ -67,7 +67,7 @@
                 
 
                 <p class="text-center"> 
-                  <button type="submit" class="btn btn-md btn-success" id="dl"><i class="fa fa-save"></i> Download Spreadsheet</button> 
+                  <button type="submit" class="btn btn-md btn-success" id="dl"> Download Spreadsheet <i class="fa fa-2x fa-file-excel-o"></i></button> 
                   <input type="hidden" name="dltype" id="dltype" />
                   
 
@@ -231,7 +231,7 @@
                       
                       
 
-                      $('#team').html(htmltags)
+                      //$('#team').html(htmltags)
                       
                     }
                   });
