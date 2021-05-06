@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('metatags')
-<title>All Trainees | OAMPI EMS</title>
+<title>All {{$status}} Trainees | OAMPI EMS</title>
 
 <style type="text/css">
     /* Sortable items */
@@ -90,9 +90,9 @@
                 <!-- Custom Tabs -->
                                               <div class="nav-tabs-custom">
                                                 <ul class="nav nav-tabs">
-                                                  <li class="active"><a href="#tab_1" data-toggle="tab"><strong class="text-primary ">All Trainees <span id="actives"></span> </strong></a></li>
-                                                  <li><a href="{{action('UserController@index_inactive')}}" ><strong class="text-primary">Passed <span id="inactives"></span></strong></a></li>
-                                                  <li><a href="{{action('UserController@index_floating')}}" ><strong class="text-primary">Fallout <span id="floating"></span></strong></a></li>
+                                                  <li @if(is_null($stat)) class="active" @endif><a href="{{action('UserController@trainees')}}"><strong class="text-primary ">All Trainees <span id="actives"></span> </strong></a></li>
+                                                  <li @if($stat=="p") class="active" @endif><a href="{{action('UserController@trainees',['stat'=>'p'])}}" ><strong class="text-primary">Passed <span id="inactives"></span></strong></a></li>
+                                                  <li @if($stat=="f") class="active" @endif><a href="{{action('UserController@trainees',['stat'=>'f'])}}"" ><strong class="text-primary">Fallout <span id="floating"></span></strong></a></li>
                                                   
                                                    @if ($hasUserAccess) 
                                                     <a href="{{action('UserController@create')}} " class="btn btn-sm btn-danger  pull-right"><i class="fa fa-plus"></i> Add New Employee</a>
@@ -219,7 +219,7 @@
   
 
     $("#active").DataTable({
-                      "ajax": "{{ action('UserController@getAllTrainees') }}",
+                      "ajax": "{{ action('UserController@getAllTrainees',['status'=>$stat]) }}",
                       "deferRender": true,
                       "processing":true,
                       "stateSave": true,
@@ -371,71 +371,7 @@
     $(function () {
    'use strict';
 
-   $("#active").DataTable({
-                      "ajax": "{{ action('UserController@getAllActiveUsers') }}",
-                     "processing":true,
-                     "deferRender": true,
-                      //"stateSave": true,
-                      "lengthMenu": [20, 100, 500],//[5, 20, 50, -1], 
-
-                       "columns": [
-                           { title: " ", data:'id', width:'90', class:'text-center', sorting:false, search:true, render: function ( data, type, full, meta ) {
-                               var l = data+".jpg";
-                              var profilepic =  "{{ url('/') }}/public/img/employees/"+l;
-                              return '<a target="_blank" href="user/'+data+'"><img src="'+profilepic+'" class="img-circle" alt="No image" width="90" /></a><br/><small> '+full.employeeNumber+'<br/>[ '+data+' ]</small>';} },
-
-                              //return '<a href="user/'+full.id+'"><img src="'+data+'" class="img-circle" alt="User Image" width="60" height="60" />
-
-                            { title: "Name", defaultContent: "<i>none</i>" , data:'lastname', width:'200', render:function(data,type,full,meta){
-                               if (full.nickname == null){
-                                
-                                return '<a style="font-weight:bolder" href="user/'+full.id+'" target="_blank">'+full.lastname.toUpperCase()+', '+full.firstname.toUpperCase()+' </a>';
-
-                               }
-                                
-                              else
-                                return '<a style="font-weight:bolder" href="user/'+full.id+'" target="_blank">'+full.lastname.toUpperCase()+', '+full.firstname+' <br/><small><em>( '+full.nickname+' )</em></small></a>';}}, 
-                            
-                             { title: "Position : Program", defaultContent: " ", data:'jobTitle',width:'200', render:function(data, type, full, meta ){
-                              return'<small>'+data+'</small><br/><strong>'+full.program+' &nbsp;<a target="_blank" class="text-black" href="./campaign/'+full.campID+'"><i class="fa fa-external-link"></i></a></strong>';
-                            } }, // 1
-                             { title: "Date Hired " ,defaultContent: "<i>empty</i>", data:'dateHired',width:'80', render:function(data,type,full,meta){
-
-                              var m = moment(data).format('YYYY-MM-DD');
-                              if (m == "1970-01-01")
-                                return "N/A";
-                              else 
-                                return m;
-                             } }, // 2
-                            
-                            { title: "Immediate Head", defaultContent: " ", data:'leaderFname',width:'90', render:function(data,type,full,meta){
-                              return '<small>'+data+" "+full.leaderLname+'</small>';
-                            }}, // 1
-                             { title: "Location", defaultContent: " ", data:'location',width:'50', render:function(data,type,full,meta){
-                              return data;
-                            }}, // 1
-                            
-                           
-                            
-                           
-                            
-
-                        ],
-                       
-
-                      //"responsive":true,
-                      //"scrollX":false,
-                      "dom": '<"col-xs-1"f><"col-xs-11 text-right"l><"clearfix">rt<"bottom"ip><"clear">',
-                      "order": [ 1, "asc" ],
-                      //"lengthChange": true,
-                      "oLanguage": {
-                         "sSearch": "<strong>Refine Results</strong> <br/>To re-order entries, click on the sort icon to the right of column headers. <br/>To filter out results, just type in the search box anything you want to look for:",
-                         "class": "pull-left"
-                       },
-
-                
-        });
-
+  
 
 
     
@@ -454,183 +390,12 @@
    'use strict';
   
 
-   $('table').on('click','.claimedcard',function(){
-      var cardid = $(this).attr('data-cardid');
-      var empname = $(this).attr('data-name');
-      var chck = $(this);
-      alert("Claim reward card for employee: "+empname);
-      var _token = "{{ csrf_token() }}";
-
-      $.ajax({
-                      url:"{{action('UserController@claimedcard')}} ",
-                      type:'POST',
-                      data:{id:cardid, _token:_token},
-                      error: function(response)
-                      {
-                          
-                        console.log("Error saving data: ");
-
-                          
-                          return false;
-                      },
-                      success: function(response)
-                      {
-
-                        chck.attr('disabled',true);
-                        console.log(response);
-
-                          return true;
-                      }
-                  });
+   
 
 
-   });
+   
 
-   $('table').on('click','.wfh',function(){
-      var id = $(this).attr('data-cardid');
-      var empname = $(this).attr('data-name');
-      var chck = $(this).prop('checked');
-      if (chck == true) {
-        var enableWFH = 1;
-        alert("Enable Work From Home for employee: "+empname);
-      }
-
-      else {
-        var enableWFH = 0;
-        alert("Disable Work From Home for employee: "+empname);
-      }
-
-
-      
-      var _token = "{{ csrf_token() }}";
-
-      $.ajax({
-                      url:"{{action('UserController@wfh')}} ",
-                      type:'POST',
-                      data:{id:id, enableWFH:enableWFH,  _token:_token},
-                      error: function(response)
-                      {
-                          
-                        console.log("Error saving data: ");
-
-                          
-                          return false;
-                      },
-                      success: function(response)
-                      {
-
-                        //chck.attr('disabled',true);
-                        console.log(response);
-
-                          return true;
-                      }
-                  });
-
-
-   });
-
-   $('table').on('click','.printid',function(){
-      var id = $(this).attr('data-cardid');
-      var empname = $(this).attr('data-name');
-      var chck = $(this).prop('checked');
-      if (chck == true) {
-        var enablePrint = 1;
-        alert("Enable ID Card Printing for employee: "+empname);
-      }
-
-      else {
-        var enablePrint = 0;
-        alert("Disable ID Card Printing for employee: "+empname);
-      }
-
-
-      
-      var _token = "{{ csrf_token() }}";
-
-      $.ajax({
-                      url:"{{action('UserController@enableIDprint')}} ",
-                      type:'POST',
-                      data:{id:id, enablePrint:enablePrint,  _token:_token},
-                      error: function(response)
-                      {
-                          
-                        console.log("Error saving data: ");
-                        $.notify("An error occured. Please try again later.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-
-                          
-                          return false;
-                      },
-                      success: function(response)
-                      {
-                         $.notify("Employee ID Card Printing is now enabled.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-                         console.log(response);
-
-                          return true;
-                      }
-                  });
-
-
-   });
-
-   $('.teamOption, .saveBtn').hide();
-
-
-   $('.teamMovement').on('click', function(e) {
-      e.preventDefault();
-      var memberID = $(this).attr('memberID');
-      var holder = "#teamOption";
-      $(this).fadeOut();
-      $(holder+memberID).fadeIn();
-   });
-
-   $('select[name="team"]').change(function(){    
-
-    var memberID = $(this).find(':selected').attr('memberID'); // $(this).val();
-    var newTeam = $(this).find(':selected').val();
-    var saveBtn = $('#save'+memberID).fadeIn();
-
-
-    
-  });
-
-   $(".saveBtn").on("click", function(){
-    var memberID = $(this).attr('memberID');
-    var newTeam = $("#teamOption"+memberID+" select[name=team]").find(':selected').val(); // $(this).val();
-     var _token = "{{ csrf_token() }}";
-
-    $.ajax({
-                      url:"{{action('UserController@moveToTeam')}} ",
-                      type:'POST',
-                      data:{memberID:memberID, newTeam:newTeam, _token:_token},
-                      error: function(response)
-                      {
-                          $("#teamOption"+memberID).fadeOut();
-                        $("#teamMovement"+memberID).fadeIn();
-                        
-                        console.log("Error moving: "+newTeam);
-
-                          
-                          return false;
-                      },
-                      success: function(response)
-                      {
-
-                        $("#teamOption"+memberID).fadeOut();
-                        $("#teamMovement"+memberID).fadeIn();
-                        $("#row"+memberID).delay(1000).fadeOut('slow');
-                        console.log("Moved to: "+newTeam);
-                        console.log(response);
-
-                          return true;
-                      }
-                  });
-
-
-
-
-    
-
-   });
+  
 
    
 
