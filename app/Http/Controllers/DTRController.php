@@ -178,6 +178,7 @@ class DTRController extends Controller
       if($request->reportType == 'dailyLogs')
       {
         $program = Campaign::find($request->program);
+        $pname = $program->name;
         $headers = ['Employee Code', 'Formal Name','Date','Day','Time IN','Time OUT','Hours', 'OT billable','OT Approved','OT Start','OT End', 'OT hours','OT Reason','Locked Timestamp'];
         $reportType = 'dailyLogs';
 
@@ -230,6 +231,7 @@ class DTRController extends Controller
       elseif ($request->reportType == 'trainees')
       {
         $program =null;
+        $pname="Trainees";
         $headers = ['Employee Name', 'Immediate Head','Production Date', 'Current Schedule','CWS | Reason', 'Time IN', 'Time OUT', 'DTRP IN', 'DTRP OUT','OT Start','OT End', 'OT hours','OT Reason','Leave','Reason','Verified'];
         $reportType = null;
 
@@ -253,6 +255,7 @@ class DTRController extends Controller
       else
       {
         $program = Campaign::find($request->program);
+        $pname = $program->name;
         $headers = ['Employee Name', 'Immediate Head','Production Date', 'Current Schedule','CWS | Reason', 'Time IN', 'Time OUT', 'DTRP IN', 'DTRP OUT','OT Start','OT End', 'OT hours','OT Reason','Leave','Reason','Verified'];
         $reportType = null;
 
@@ -328,7 +331,7 @@ class DTRController extends Controller
         
         
 
-        Excel::create($program->name."_".$cutoffStart->format('M-d'),function($excel) use($reportType, $program, $allDTR, $allDTRs,$ecqStats, $cutoffStart, $cutoffEnd, $headers,$description) 
+        Excel::create($pname."_".$cutoffStart->format('M-d'),function($excel) use($reportType, $program,$pname, $allDTR, $allDTRs,$ecqStats, $cutoffStart, $cutoffEnd, $headers,$description) 
                {
                       
 
@@ -385,23 +388,7 @@ class DTRController extends Controller
 
                             });
 
-                            // $sheet->cells('A3', function($cells) {
-
-                            //     $cells->setAlignment('right');
-
-                            // });
-
-
-                            // $sheet->row(2, function($cells) {
-
-                            //     // call cell manipulation methods
-                                
-                            //     $cells->setFontColor('#ffffff');
-                            //     $cells->setFontSize(14);
-                            //     $cells->setFontWeight('bold');
-
-                            // });
-
+                          
                            
                             
                             $sheet->appendRow($headers);
@@ -905,23 +892,6 @@ class DTRController extends Controller
                                   }else{ 
                                     $arr[$i] = strip_tags($key->hoursWorked); $i++;
                                   }
-
-
-                                  /*
-                                  // -------- ECQ STATUS  -------------
-                                  $ecq = collect($ecqStats)->where('biometrics_id',$key->biometrics_id)->where('userID',$key->id);
-                                  if (count($ecq) > 0)
-                                  {
-                                    $arr[$i] = $ecq->first()->ecqStatus; $i++;
-                                  }
-                                  else
-                                  {
-                                    ($key->isWFH) ? $arr[$i] = "AHW" : $arr[$i]= "Onsite";
-                                    $i++;
-                                  }
-                                  */
-                                  
-
                                   
 
                                   // -------- OT BILLABLE HOURS  -------------
@@ -1139,7 +1109,7 @@ class DTRController extends Controller
                       }
                       else
                       {
-                        $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$program->name.' DTR Sheet');
+                        $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$pname.' DTR Sheet');
 
                         // Chain the setters
                         $excel->setCreator('Programming Team')
@@ -1152,11 +1122,11 @@ class DTRController extends Controller
                         do
                         {
 
-                          $excel->sheet($payday->format('M d')."_".substr($payday->format('l'), 0,3), function($sheet) use ($program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$payday)
+                          $excel->sheet($payday->format('M d')."_".substr($payday->format('l'), 0,3), function($sheet) use ($program,$pname, $allDTR, $cutoffStart, $cutoffEnd, $headers,$payday)
                           {
 
                             $header1 = ['Open Access BPO | Daily Time Record','','','','','','','','','','','','','','',''];
-                            $header2 = [$cutoffStart->format('D, m/d/Y'),'Program: ',strtoupper($program->name),'','','','','','','','','','','','',''];
+                            $header2 = [$cutoffStart->format('D, m/d/Y'),'Program: ',strtoupper($pname),'','','','','','','','','','','','',''];
 
                             
                             // Set width for a single column
@@ -1630,9 +1600,9 @@ class DTRController extends Controller
 
         
 
-        Excel::create("Billable Tracker_".$program->name,function($excel) use($program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$description) 
+        Excel::create("Billable Tracker_".$pname,function($excel) use($program, $pname, $allDTR, $cutoffStart, $cutoffEnd, $headers,$description) 
                {
-                      $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$program->name.' DTR Sheet');
+                      $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$pname.' DTR Sheet');
 
                       // Chain the setters
                       $excel->setCreator('Programming Team')
