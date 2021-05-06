@@ -233,7 +233,7 @@ class DTRController extends Controller
         $program =null;
         $pname="Trainees";
         $headers = ['Employee Name', 'Immediate Head','Production Date', 'Current Schedule','CWS | Reason', 'Time IN', 'Time OUT', 'DTRP IN', 'DTRP OUT','OT Start','OT End', 'OT hours','OT Reason','Leave','Reason','Verified'];
-        $reportType = null;
+        $reportType = $request->reportType;
 
         $result = $this->fetchLockedDTRs($request->cutoff, null,3);
         $allDTRs = DB::table('users')->where('users.status_id',2)->
