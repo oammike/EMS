@@ -232,7 +232,9 @@ class DTRController extends Controller
       {
         $program =null;
         $pname="Trainees";
-        $headers = ['Employee Name', 'Immediate Head','Production Date', 'Current Schedule','CWS | Reason', 'Time IN', 'Time OUT', 'DTRP IN', 'DTRP OUT','OT Start','OT End', 'OT hours','OT Reason','Leave','Reason','Verified'];
+        $headers = ['Trainee Code', 'Formal Name','Date','Day','Time IN','Time OUT','Hours', 'OT billable','OT Approved','OT Start','OT End', 'OT hours','OT Reason','Locked Timestamp'];
+        $reportType = 'dailyLogs';
+
         $reportType = $request->reportType;
 
         $result = $this->fetchLockedDTRs($request->cutoff, null,3);
@@ -251,7 +253,15 @@ class DTRController extends Controller
                       select('users.accesscode','users.employeeCode','users.id','users.isWFH', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at','user_dtr.created_at')->
                       orderBy('users.lastname')->get();
      
+        
+        if($this->user->id !== 564 ) {
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n DL_TRAINEES summary: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " for Program: ".$program->name. " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+        } 
+
       }
+      
       else
       {
         $program = Campaign::find($request->program);
@@ -732,7 +742,8 @@ class DTRController extends Controller
                       }
                       elseif($reportType == 'trainees')
                       {
-                        $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.'Trainees DTR Sheet');
+                        
+                        $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_Trainees DTR Sheet');
 
                         // Chain the setters
                         $excel->setCreator('Programming Team')
@@ -743,13 +754,13 @@ class DTRController extends Controller
 
                         $payday = $cutoffStart;
 
-                          $excel->sheet($payday->format('M d')."_".substr($payday->format('l'), 0,3), function($sheet) use ($program, $allDTR, $allDTRs, $ecqStats, $cutoffStart, $cutoffEnd, $headers,$payday)
+                        $excel->sheet($payday->format('M d')."_".substr($payday->format('l'), 0,3), function($sheet) use ($program,$pname, $allDTR, $allDTRs, $ecqStats, $cutoffStart, $cutoffEnd, $headers,$payday)
                           {
 
                             //12 headers
                             $header1 = ['Open Access BPO','','','','','','','','','','','','',''];
                             $header1b = ['Daily Time Record','','','','','','','','','','','','',''];
-                            $header2 = [$cutoffStart->format('D, m/d/Y')." - ". $cutoffEnd->format('D, m/d/Y') ,'Status: ','All TRAINEES','','','','','','','','','','','','',''];
+                            $header2 = [$cutoffStart->format('D, m/d/Y')." - ". $cutoffEnd->format('D, m/d/Y') ,'Status: ','All Trainees','','','','','','','','','','','','',''];
                             $header2b = ['','','','','','','','','','','','','',''];
 
                             
@@ -782,7 +793,7 @@ class DTRController extends Controller
 
                             });
 
-                           
+                          
                            
                             
                             $sheet->appendRow($headers);
@@ -892,6 +903,8 @@ class DTRController extends Controller
                                   }else{ 
                                     $arr[$i] = strip_tags($key->hoursWorked); $i++;
                                   }
+
+
                                   
 
                                   // -------- OT BILLABLE HOURS  -------------
@@ -1102,11 +1115,11 @@ class DTRController extends Controller
                             
                           });//end sheet1
 
-                          //$payday->addDay();
-
-                        //} while ( $payday->format('Y-m-d') <= $cutoffEnd->format('Y-m-d') );
+                          
 
                       }
+
+                      
                       else
                       {
                         $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$pname.' DTR Sheet');
