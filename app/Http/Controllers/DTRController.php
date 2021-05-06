@@ -250,7 +250,7 @@ class DTRController extends Controller
                                ->where('user_dtr.productionDate', '>=', $cutoff[0])
                                ->where('user_dtr.productionDate', '<=', $cutoff[1]);
                       })->
-                      select('users.accesscode','users.employeeCode','users.id','users.isWFH', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at','user_dtr.created_at')->
+                      select('users.accesscode','users.traineeCode', 'users.employeeCode','users.id','users.isWFH', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at','user_dtr.created_at')->
                       orderBy('users.lastname')->get();
      
         
@@ -827,7 +827,7 @@ class DTRController extends Controller
                                 foreach ($dData as $key) 
                                 {
                                   // -------- ACCESS CODE -------------
-                                  $arr[$i] = strtoupper($key->employeeCode); $i++;
+                                  $arr[$i] = strtoupper($key->traineeCode); $i++;
 
                                   // -------- FORMAL NAME -------------
                                   $arr[$i] = strtoupper($key->lastname).", ".strtoupper($key->firstname)." ".strtoupper($key->middlename); $i++;
@@ -1011,7 +1011,9 @@ class DTRController extends Controller
                                         $arr[$i] = "n/a"; $i++;
                                         $arr[$i] = "n/a"; $i++;
                                         $arr[$i] = " "; $i++;
-                                        $arr[$i] = date('M d, h:i:s A', strtotime($key->created_at)); $i++;
+                                        $arr[$i] = Carbon::parse($key->created_at, 'Asia/Manila')->format('M d, h:i:s A');
+                                        //, strtotime($key->created_at)); 
+                                        $i++;
 
                                       }
 
@@ -1028,7 +1030,8 @@ class DTRController extends Controller
                                     $arr[$i] = "-"; $i++;
                                     $arr[$i] = "-"; $i++;//waley blank lahat: ".$key->OT_id
                                     //$arr[$i] = " "; $i++;
-                                    $arr[$i] = date('M d, h:i:s A', strtotime($key->created_at)); $i++;
+                                    $arr[$i] = Carbon::parse($key->created_at, 'Asia/Manila')->format('M d, h:i:s A'); //date('M d, h:i:s A', strtotime($key->created_at)); 
+                                    $i++;
 
 
                                    
