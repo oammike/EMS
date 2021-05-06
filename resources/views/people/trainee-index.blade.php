@@ -95,9 +95,11 @@
                                                   <li><a href="{{action('UserController@index_floating')}}" ><strong class="text-primary">Fallout <span id="floating"></span></strong></a></li>
                                                   
                                                    @if ($hasUserAccess) 
-                                                    <a href="{{action('UserController@create')}} " class="btn btn-sm btn-primary  pull-right"><i class="fa fa-plus"></i> Add New Employee</a>
+                                                    <a href="{{action('UserController@create')}} " class="btn btn-sm btn-danger  pull-right"><i class="fa fa-plus"></i> Add New Employee</a>
                                                    
                                                     @endif
+
+                                                   <a href="{{action('DTRController@financeReports',['type'=>'t'])}} " class="btn btn-sm btn-success  pull-right" style="margin-right: 2px;"><i class="fa fa-download"></i> Download Finance Report</a>
 
 
                                                 </ul>

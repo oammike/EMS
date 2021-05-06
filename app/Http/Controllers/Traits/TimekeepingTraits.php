@@ -275,11 +275,13 @@ trait TimekeepingTraits
   {
       $cutoff = explode('_', $c);
 
-      $program = Campaign::find($p);
+      if($reportType == 3) $program = null;
+      else
+        $program = Campaign::find($p);
 
       DB::connection()->disableQueryLog();
 
-      //------ Report type 1= DTR logs | 2= Summary
+      //------ Report type 1= DTR logs | 2= Summary | 3 = Trainee Summary
       if ($reportType == 1)
       {
         $allDTRs = DB::table('campaign')->where('campaign.id',$p)->
@@ -307,6 +309,72 @@ trait TimekeepingTraits
                           ['floor.id', '!=',10],
                           ['floor.id', '!=',11],
                       ])->orderBy('users.lastname')->get();
+        $allUsers = DB::table('campaign')->where('campaign.id',$p)->
+                      join('team','team.campaign_id','=','campaign.id')->
+                      join('users','team.user_id','=','users.id')->
+                      leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                      leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                      leftJoin('positions','users.position_id','=','positions.id')->
+                      leftJoin('floor','team.floor_id','=','floor.id')->
+                      
+                      select('users.id', 'users.firstname','users.lastname','users.middlename', 'users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->
+                      where([
+                          ['users.status_id', '!=', 6],
+                          ['users.status_id', '!=', 7],
+                          ['users.status_id', '!=', 8],
+                          ['users.status_id', '!=', 9],
+                          ['users.status_id', '!=', 13],
+                          ['users.status_id', '!=', 16],
+                          ['floor.id', '!=',10],
+                          ['floor.id', '!=',11],
+                      ])->orderBy('users.lastname')->get();
+                      //return $allDTRs;
+
+        $userArray = collect($allUsers)->pluck('id')->toArray();
+        $dtrArray = collect($allDTRs)->pluck('id')->toArray();
+        $pendings = array_diff($userArray, $dtrArray);
+
+        //Timekeeping Trait
+        $payrollPeriod = $this->getPayrollPeriod(Carbon::parse($cutoff[0],'Asia/Manila'),Carbon::parse($cutoff[1],'Asia/Manila'));
+
+        $coll = new Collection;
+        $coll->push(['payrollPeriod'=>$payrollPeriod, 'pendings'=>$pendings, 'userArray'=>$userArray, 'dtrArray'=>$dtrArray, 'users'=>$allUsers,'program'=>$program->name, 'total'=>count($allUsers),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1], 'DTRs'=>$allDTRs,'submitted'=>count(collect($allDTRs)->groupBy('id'))]);
+
+
+      }
+      elseif($reportType == 3) //trainee summary
+      {
+        $allDTRs = DB::table('users')->where('users.status_id',2)->
+                      join('team','team.user_id','=','users.id')->
+                      join('campaign','team.campaign_id','=','campaign.id')->
+                      leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                      leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                      leftJoin('positions','users.position_id','=','positions.id')->
+                      leftJoin('floor','team.floor_id','=','floor.id')->
+                      join('user_dtr', function ($join) use ($cutoff) {
+                          $join->on('users.id', '=', 'user_dtr.user_id')
+                               ->where('user_dtr.productionDate', '>=', $cutoff[0])
+                               ->where('user_dtr.productionDate', '<=', $cutoff[1]);
+                      })->
+
+                      //join('user_dtr','user_dtr.user_id','=','users.id')->
+                      select('users.id', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.timeIN', 'user_dtr.user_id')->
+                      where([
+                          ['floor.id', '!=',10],
+                          ['floor.id', '!=',11],
+                      ])->orderBy('users.lastname')->get();
+        $allUsers = $allDTRs;
+
+        $userArray = collect($allUsers)->pluck('id')->toArray();
+        $dtrArray = collect($allDTRs)->pluck('id')->toArray();
+        $pendings = array_diff($userArray, $dtrArray);
+
+        //Timekeeping Trait
+        $payrollPeriod = $this->getPayrollPeriod(Carbon::parse($cutoff[0],'Asia/Manila'),Carbon::parse($cutoff[1],'Asia/Manila'));
+
+        $coll = new Collection;
+        $coll->push(['payrollPeriod'=>$payrollPeriod, 'pendings'=>$pendings, 'userArray'=>$userArray, 'dtrArray'=>$dtrArray, 'users'=>$allUsers,'program'=>"TRAINEES", 'total'=>count($allUsers),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1], 'DTRs'=>$allDTRs,'submitted'=>count(collect($allDTRs)->groupBy('id'))]);
+
 
       }
       else
@@ -336,10 +404,7 @@ trait TimekeepingTraits
                           ['floor.id', '!=',10],
                           ['floor.id', '!=',11],
                       ])->orderBy('users.lastname')->get();
-
-      }
-      
-      $allUsers = DB::table('campaign')->where('campaign.id',$p)->
+        $allUsers = DB::table('campaign')->where('campaign.id',$p)->
                       join('team','team.campaign_id','=','campaign.id')->
                       join('users','team.user_id','=','users.id')->
                       leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
@@ -360,15 +425,21 @@ trait TimekeepingTraits
                       ])->orderBy('users.lastname')->get();
                       //return $allDTRs;
 
-      $userArray = collect($allUsers)->pluck('id')->toArray();
-      $dtrArray = collect($allDTRs)->pluck('id')->toArray();
-      $pendings = array_diff($userArray, $dtrArray);
+        $userArray = collect($allUsers)->pluck('id')->toArray();
+        $dtrArray = collect($allDTRs)->pluck('id')->toArray();
+        $pendings = array_diff($userArray, $dtrArray);
 
-      //Timekeeping Trait
-      $payrollPeriod = $this->getPayrollPeriod(Carbon::parse($cutoff[0],'Asia/Manila'),Carbon::parse($cutoff[1],'Asia/Manila'));
+        //Timekeeping Trait
+        $payrollPeriod = $this->getPayrollPeriod(Carbon::parse($cutoff[0],'Asia/Manila'),Carbon::parse($cutoff[1],'Asia/Manila'));
 
-      $coll = new Collection;
-      $coll->push(['payrollPeriod'=>$payrollPeriod, 'pendings'=>$pendings, 'userArray'=>$userArray, 'dtrArray'=>$dtrArray, 'users'=>$allUsers,'program'=>$program->name, 'total'=>count($allUsers),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1], 'DTRs'=>$allDTRs,'submitted'=>count(collect($allDTRs)->groupBy('id'))]);
+        $coll = new Collection;
+        $coll->push(['payrollPeriod'=>$payrollPeriod, 'pendings'=>$pendings, 'userArray'=>$userArray, 'dtrArray'=>$dtrArray, 'users'=>$allUsers,'program'=>$program->name, 'total'=>count($allUsers),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1], 'DTRs'=>$allDTRs,'submitted'=>count(collect($allDTRs)->groupBy('id'))]);
+
+
+      }
+      
+      
+      
 
       return $coll;
   }
