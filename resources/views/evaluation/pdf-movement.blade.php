@@ -1520,7 +1520,7 @@
 
      <table class="table">
       <tr>
-        <td align="center"><img class="text-center" src="public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" width="90" />
+        <td align="center"><img class="text-center" src="../public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" width="90" />
                   <h4 class="text-center"> Personnel Change Notice <br/></h4>
 
                   
