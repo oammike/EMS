@@ -361,7 +361,8 @@ class MovementController extends Controller
                 }
 
                     //return $hrPersonnels;
-                       return view('people.changePersonnel', compact('theApproverTitle','theApprover','theApprovers', 'users','leaders','requestor','requestorPosition', 'requestorCampaign', 'hrPersonnels',  'campaigns', 'floors', 'personnel', 'immediateHead', 'statuses','changes', 'positions'));//'myCampaign',
+                $signatureRequestedBy=null;
+                       return view('people.changePersonnel', compact('theApproverTitle','theApprover','theApprovers', 'users','leaders','requestor','requestorPosition', 'requestorCampaign', 'hrPersonnels',  'campaigns', 'floors', 'personnel', 'immediateHead', 'statuses','changes', 'positions','signatureRequestedBy'));//'myCampaign',
 
                 } else 
                 {
