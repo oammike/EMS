@@ -78,7 +78,7 @@
 
 
                  
-                  <h2 class="text-center"> <img class="text-center" src="{{asset('public/img/logo-transparent.png')}}" width="90" /></h2>
+                  <h2 class="text-center"> <img class="text-center" src="public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png" width="90" /></h2>
                   <h3 class="text-center"> Personnel Change Notice <br/><br/><br/></h3>
                   
 

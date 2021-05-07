@@ -237,12 +237,7 @@ class MovementController extends Controller
                                 $signatureRequestedBy = asset('public/img/employees/signature.png');
                              }
 
-                       
-                   
-
-
-                    
-                   
+            
 
                 } else {$requestor = null; $requestorPosition=null; $requestorCampaign=null;} //user is a super admin, he can assign who the requestor is
 
@@ -263,7 +258,7 @@ class MovementController extends Controller
                     //$myCampaign = $this->user->campaign; 
                     $users = User::where('lastname','!=','')->orderBy('lastname', 'ASC')->get();
                     
-                    $statuses = Status::all();
+                    $statuses = DB::table('statuses')->orderBy('orderNum')->get(); 
                     $positions = Position::where('name','!=','')->orderBy('name','ASC')->get();
                     $hrDept = Campaign::where('name','HR')->first();
                     //$hrs = ImmediateHead::where('campaign_id', $hrDept->id)->get();
@@ -300,14 +295,30 @@ class MovementController extends Controller
                             get();
 
                     //********* we get the PM or Director for approval
-                    // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico, myka, jusayan
+                    // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico, myka, jusayan,olga
                     $theApprover = null;
-                    $allowedPMs = [1,184,344,1784,1611,464,163,225,431,305,2502];
+                    $allowedPMs = [1,184,1784,1611,464,163,225,431,305,2502,3687];
+
+                    $theApprovers = new Collection;
+
+                    foreach ($allowedPMs as $key) {
+                        $k = DB::table('users')->where('users.id',$key)->
+                                
+                                leftJoin('team','team.user_id','=','users.id')->
+                                //leftJoin('campaign','campaign_id','=','team.campaign_id')->
+                                join('positions','users.position_id','=','positions.id')->
+                                select('users.id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle','positions.id as positionID')->get();
+                        if(count($k) > 0)
+                            $theApprovers->push($k[0]);
+                        //$theApprovers->push(['firstname'=>$k[0]->firstname,'lastname'=>$k[0]->lastname,'nickname'=>$k[0]->nickname,'jobTitle'=>$k[0]->jobTitle]);
+                    }
+
+                  
 
 
-                        $l1 = $personnel->supervisor;
+                        /*$l1 = $personnel->supervisor;
                         
-                        if (count($l1) > 0){
+                        if (count((array)$l1) > 0){
                             $l2 = User::where('employeeNumber', ImmediateHead_Campaign::find($l1->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
 
                             
@@ -336,20 +347,21 @@ class MovementController extends Controller
 
                             }
 
-                        }else $theApprover= User::find(1784);
+                        }else $theApprover= User::find(1784);*/
 
 
-
-                $theApproverTitle = Position::find($theApprover->position_id); 
+                //return $theApprovers;
+                //$theApproverTitle = Position::find($theApprover->position_id); 
+                $theApproverTitle=null;
 
                 if($this->user->id !== 564 ) {
-                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                  $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                     fwrite($file, "-------------------\n Viewed MVT of [". $id."] by:".$this->user->lastname."\n");
                     fclose($file);
                 }
 
                     //return $hrPersonnels;
-                       return view('people.changePersonnel', compact('theApproverTitle','theApprover', 'users','leaders','requestor', 'signatureRequestedBy','requestorPosition', 'requestorCampaign', 'hrPersonnels',  'campaigns', 'floors', 'personnel', 'immediateHead', 'statuses','changes', 'positions'));//'myCampaign',
+                       return view('people.changePersonnel', compact('theApproverTitle','theApprover','theApprovers', 'users','leaders','requestor','requestorPosition', 'requestorCampaign', 'hrPersonnels',  'campaigns', 'floors', 'personnel', 'immediateHead', 'statuses','changes', 'positions'));//'myCampaign',
 
                 } else 
                 {
@@ -409,7 +421,7 @@ class MovementController extends Controller
 
                    
                    if($this->user->id !== 564 ) {
-                      $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+                      $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n Viewed MVT of [". $id."] by:".$this->user->lastname."\n");
                         fclose($file);
                     }
@@ -484,67 +496,7 @@ class MovementController extends Controller
                             where('users.status_id','!=',9)->
                             orderBy('users.lastname','ASC')->
                             get();
-        //return $hrPersonnels[0]->lastname;
-
-
-        
-        /* ------- optimize ---------*/
-
-            //$leaders1 = new Collection;
-
-            // foreach ($TLs as $tl) {
-
-            //             //$data = $tl->userData;// User::where('employeeNumber', $tl->employeeNumber)->first();
-            //             $data = ImmediateHead::find($tl->immediateHead_id)->userData;
-
-            //             if( !empty($data['firstname']) &&  !empty($data['lastname']) && $data['firstname'] !== " " && $data['lastname'] !== " " ) //to ensure no dummy DB entries
-            //             {
-            //                 $hisPOsition = Position::where('id',$data['position_id'])->first();
-                                                    
-            //                     $leaders1->push([
-            //                     'id'=>$tl->id,
-            //                     'position'=> $hisPOsition['name'], //Position::find($hisPOsition['position_id']), //->position,
-            //                     'lastname'=>  $data['lastname'], //$tl->lastname,
-            //                     'firstname'=> $data['firstname'], //$tl->firstname,
-            //                     'campaign'=> Campaign::find($tl->campaign_id)->name, // $tl->campaigns->first()->name,
-            //                     'campaign_id'=> $tl->campaign_id]); // $tl->campaigns->first()->id]);
-                           
-
-            //             }
-                                                
-            // }
-
-            // $leaders = $leaders1->sortBy('lastname');
-
-            // return $leaders;
-
-            // $hrPersonnels = new Collection;
-
-            // foreach ($hrs as $tl) {
-            //             //$hisPOsition = User::where('employeeNumber', $tl->employeeNumber)->first();
-
-            //             $data = User::find($tl->user_id); // $tl->userData;// User::where('employeeNumber', $tl->employeeNumber)->first();
-
-            //             //remove all resigned | terminated | endo
-            //             if ($data->status_id !== 7 && $data->status_id !== 8 && $data->status_id !== 9 )
-            //             {
-                            
-            //                  $hisPOsition = Position::where('id',$data->position_id)->first()->name;
-
-
-            //                 //$hisPOsition = User::find($tl->user_id);
-            //                 $hrPersonnels->push([
-            //                     'id'=>$data->id,
-            //                     'position'=> $hisPOsition, //$posid, //hisPOsition['name'],
-            //                     'lastname'=> $data->lastname,
-            //                     'firstname'=>$data->firstname,
-            //                     'campaign'=>$data->campaign[0]->name ]); //[0]->name ]);
-
-            //             }
-
-
-                       
-            //         } 
+    
 
             
 
@@ -615,51 +567,38 @@ class MovementController extends Controller
 
                  //********* we get the PM or Director for approval
                     
-                    // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico, myka, jusayan
-                    $theApprover = null;
-                    $allowedPMs = [1,184,344,1784,1611,464,163,225,431,305,2502];
+                // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico, myka, jusayan,olga
+                $theApprover = null;
+                $allowedPMs = [1,184,1784,1611,464,163,225,431,305,2502,3687];
 
+                $theApprovers = new Collection;
 
-                        $l1 = $personnel->supervisor;
-                        
-                        if (count((array)$l1) > 0){
-                            $l2 = User::where('employeeNumber', ImmediateHead_Campaign::find($l1->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
-
+                foreach ($allowedPMs as $key) {
+                    $k = DB::table('users')->where('users.id',$key)->
                             
-                            if (in_array($l2->id, $allowedPMs))
-                            {
-                                $theApprover = $l2;
-                            }else{
-
-
-                                $l3 = User::where('employeeNumber', ImmediateHead_Campaign::find($l2->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
-
-                                //return $l3;
-                                if (in_array($l3->id, $allowedPMs)){
-
-                                    $theApprover = $l3;
-
-                                } else{
-
-                                    $l4 =  User::where('employeeNumber', ImmediateHead_Campaign::find($l3->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
-
-                                    if (in_array($l4->id, $allowedPMs)){
-                                        $theApprover = $l4;
-
-                                    } else $theApprover = User::find(1784);
-                                }
-
-                            }
-
-                        }else $theApprover= User::find(1784);
+                            leftJoin('team','team.user_id','=','users.id')->
+                            //leftJoin('campaign','campaign_id','=','team.campaign_id')->
+                            join('positions','users.position_id','=','positions.id')->
+                            select('users.id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle','positions.id as positionID')->get();
+                    if(count($k) > 0)
+                        $theApprovers->push($k[0]);
+                    //$theApprovers->push(['firstname'=>$k[0]->firstname,'lastname'=>$k[0]->lastname,'nickname'=>$k[0]->nickname,'jobTitle'=>$k[0]->jobTitle]);
+                }
 
 
 
-                $theApproverTitle = Position::find($theApprover->position_id); 
+                $theApproverTitle = null; //Position::find($theApprover->position_id); 
 
             
 
-                return view('people.changePersonnel', compact('theApprover','theApproverTitle', 'users','canMoveOthers','requestor', 'requestorPosition', 'requestorCampaign','leaders','immediateHead','signatureRequestedBy', 'hrPersonnels', 'campaigns', 'floors', 'personnel','statuses','changes', 'positions')); //'myCampaign', 
+                return view('people.changePersonnel', compact('theApprover','theApprovers','theApproverTitle', 'users','canMoveOthers','requestor', 'requestorPosition', 'requestorCampaign','leaders','immediateHead','signatureRequestedBy', 'hrPersonnels', 'campaigns', 'floors', 'personnel','statuses','changes', 'positions')); //'myCampaign', 
+
+    }
+
+     public function destroy($id)
+    {
+        $this->movement->destroy($id);
+        return back();
 
     }
 
@@ -778,442 +717,7 @@ class MovementController extends Controller
         return Datatables::collection($movements)->make(true);
     }
 
-    public function store(Request $request)
-    {
-
-        $movement = new Movement;
-        $movement->user_id = $request->user_id;
-        // $movement->oldHead_id = $request->oldHead_id;
-        // $movement->newHead_id = $request->newHead_id;
-
-        if ($request->withinProgram == 'true') $movement->withinProgram = true;
-        else $movement->withinProgram = false;
-
-                        
-        $movement->fromPeriod = date("Y-m-d", strtotime($request->fromPeriod));
-        $movement->effectivity = date("Y-m-d", strtotime($request->effectivity));
-        $movement->isApproved = $request->isApproved;
-        $movement->isNotedFrom = true;
-        $movement->isNotedTo = false;
-        $movement->isDone = false;
-        $movement->dateRequested = date("Y-m-d", strtotime($request->dateRequested));
-        $movement->requestedBy = ImmediateHead_Campaign::find($request->requestedBy)->immediateHead_id;
-        $movement->notedBy = $request->notedBy;
-        $movement->personnelChange_id = $request->personnelChange_id;
-
-        $movement->save();
-
-        $old_id = $request->old_id;
-        $new_id = $request->new_id;
-
-        //get all HR ADMINs that will receive notifications
-        $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
-        $canMoveEmployees =  ($roles->contains('MOVE_EMPLOYEE')) ? '1':'0';
-        
-
-
-        // *** once you save a movement, determine what type it is and then save corresponding relational tables
-        switch ($movement->personnelChange_id) {
-            case 1: { //immediateHead
-                        
-
-                        /* ------- CHECK FIRST IF HR INTERVENTION IS NEEDED
-                         - pag within campaign, no need. Just email the TL na pinaglipatan
-                         - else needs approval from HR before saving
-                         */ 
-
-                        $moveHead = new Movement_ImmediateHead;
-                        $moveHead->movement_id = $movement->id;
-                        $moveHead->imHeadCampID_old = $old_id;
-                        $moveHead->imHeadCampID_new = $new_id;
-                        $moveHead->newFloor = $request->newFloor;
-                        //$moveHead->newCampaign = $request->newCampaign;
-                        $moveHead->oldFloor = $request->oldFloor;
-                        $moveHead->save();
-
-
-
-
-                        // ***** add in NOTIFICATION for TL
-
-                            $notification = new Notification;
-                            $notification->relatedModelID = $movement->id;
-                            $notification->type = 2;
-                            $notification->from = $movement->requestedBy;
-                            $notification->save();
-
-
-                         if (!$movement->withinProgram) 
-                         { 
-                            $employee = User::find($movement->user_id);
-                             
-
-                            if ($this->user->userType_id != 3 && $this->user->userType_id != 4) //if SUPER ADMINS and HR admin
-                            {
-                                if (  date("Y-m-d", strtotime($request->effectivity)) <= date("Y-m-d") ) 
-                                 { 
-                                    $updateTeam = $employee->team;
-                                    $updateTeam->immediateHead_Campaigns_id = $new_id;
-                                    $updateTeam->floor_id = $request->newFloor;
-                                    $updateTeam->campaign_id = $request->campaign_id;
-                                    $updateTeam->push();
-                                    $movement->isDone = true;
-
-                                    /*ONCE A MOVEMENT IS DONE, AUTOMATICALLY SET THE APPROVER*/
-                                    
-                                    DB::connection()->disableQueryLog();
-                                    DB::table('user_leaders')->where('user_id','=',$movement->user_id)->delete();
-
-
-                                    $app = new User_Leader;
-                                    $app->user_id = $movement->user_id;
-                                    $app->immediateHead_Campaigns_id = $new_id;
-                                    $app->save();
-                                 }                
-
-                                    
-                                $movement->isApproved = true;
-                                $movement->push();
-
-                                $newTL = ImmediateHead::find(ImmediateHead_Campaign::find($new_id)->immediateHead_id);
-
-
-                                $nu = new User_Notification;
-                                $nu->user_id = $newTL->userData->id;
-                                $nu->notification_id = $notification->id;
-                                $nu->seen = false;
-                                $nu->save();
-
-
-                                // ***** add in NOTIFICATION for employee involved
-
-                                $notification2 = new Notification;
-                                $notification2->relatedModelID = $movement->id;
-                                $notification2->type = 2;
-                                $notification2->from = $movement->requestedBy;
-                                $notification2->save();
-
-                                $nu = new User_Notification;
-                                $nu->user_id = $movement->user_id;
-                                $nu->notification_id = $notification2->id;
-                                $nu->seen = false;
-                                $nu->save();
-
-                                // NOW, EMAIL THE TL CONCERNED
-                               
-                                 Mail::send('emails.personnelChange', ['user' => $newTL, 'employee'=>$employee, 'movement'=>$movement, 'notification'=>$notification], function ($m) use ($newTL, $employee) 
-                                 {
-                                    $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
-                                    $m->to($newTL->userData->email, $newTL->lastname)->subject('Personnel Change Notice');     
-
-                                    /* -------------- log updates made --------------------- */
-                                         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                                            fwrite($file, "-------------------\n Email sent to ". $newTL->userData->email."\n");
-                                            fwrite($file, "\n New Movement:  ". $employee->firstname." ".$employee->lastname. " by ". $this->user->firstname. " ". $this->user->lastname."\n");
-                                            fclose($file);                      
-                                
-
-                                }); //end mail
-
-                                return response()->json(['withinProgram'=>$movement->withinProgram , 'id'=>$movement->id, 'info1'=>$employee->firstname." ".$employee->lastname, 'info2'=>date("M d, Y",strtotime($movement->effectivity) )]);
-                           
-                                      
-
-                            } 
-
-                            else //user is a typical leader
-                            {
-                                $nu = new User_Notification;
-                                $nu->user_id = $movement->notedBy;
-                                $nu->notification_id = $notification->id;
-                                $nu->seen = false;
-                                $nu->save();
-
-                                $hrAdmins = User::where('userType_id',5)->get();
-
-                                foreach ($hrAdmins as $key ) {
-
-                                    $nu = new User_Notification;
-                                    $nu->user_id = $key->id;
-                                    $nu->notification_id = $notification->id;
-                                    $nu->seen = false;
-                                    $nu->save();
-                                }
-                                return response()->json(['withinProgram'=>$movement->withinProgram , 'id'=>$movement->id, 'info1'=>$employee->firstname." ".$employee->lastname, 'info2'=>date("M d, Y",strtotime($movement->effectivity) )]);
-
-
-                            }//end if not typical leader or agent
-
-                        } else 
-                        { 
-                            $employee = User::find($movement->user_id);
-
-
-                             if (  date("Y-m-d", strtotime($request->effectivity)) <= date("Y-m-d") ) //if effectivity is past or today
-                                {
-
-                                    //get the Team table
-                                    
-                                    $updateTeam = $employee->team;
-                                    $updateTeam->immediateHead_Campaigns_id = $new_id;
-                                    $updateTeam->floor_id = $request->newFloor;
-                                    $updateTeam->campaign_id = $request->campaign_id;
-                                    $updateTeam->push();
-
-
-                                    $movement->isDone = true;
-
-                                    /*ONCE A MOVEMENT IS DONE, AUTOMATICALLY SET THE APPROVER*/
-                                    
-                                    DB::connection()->disableQueryLog();
-                                    DB::table('user_leaders')->where('user_id','=',$movement->user_id)->delete();
-
-
-                                    $app = new User_Leader;
-                                    $app->user_id = $movement->user_id;
-                                    $app->immediateHead_Campaigns_id = $new_id;
-                                    $app->save();
-                                }                
-
-                                $movement->push();
-                                $newTL = ImmediateHead::find(ImmediateHead_Campaign::find($new_id)->immediateHead_id);
-
-
-                                $nu = new User_Notification;
-                                $nu->user_id = $newTL->userData->id;
-                                $nu->notification_id = $notification->id;
-                                $nu->seen = false;
-                                $nu->save();
-
-
-                                 // ***** add in NOTIFICATION for HR concerned
-
-                                 
-                                $nu = new User_Notification;
-                                $nu->user_id = $movement->notedBy;
-                                $nu->notification_id = $notification->id;
-                                $nu->seen = false;
-                                $nu->save();
-
-
-                                // ***** add in NOTIFICATION for employee involved
-
-                                $notification2 = new Notification;
-                                $notification2->relatedModelID = $movement->id;
-                                $notification2->type = 2;
-                                $notification2->from = $movement->requestedBy;
-                                $notification2->save();
-
-                                $nu = new User_Notification;
-                                $nu->user_id = $movement->user_id;
-                                $nu->notification_id = $notification2->id;
-                                $nu->seen = false;
-                                $nu->save();
-
-                                // NOW, EMAIL THE TL CONCERNED
-                               
-                                 Mail::send('emails.personnelChange', ['user' => $newTL, 'employee'=>$employee, 'movement'=>$movement, 'notification'=>$notification], function ($m) use ($newTL, $employee) 
-                                 {
-                                    $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
-                                    $m->to($newTL->userData->email, $newTL->lastname)->subject('Personnel Change Notice');     
-
-                                    /* -------------- log updates made --------------------- */
-                                         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                                            fwrite($file, "-------------------\n Email sent to ". $newTL->userData->email."\n");
-                                            fwrite($file, "\n New Movement:  ". $employee->firstname." ".$employee->lastname. " by ". $this->user->firstname. " ". $this->user->lastname."\n");
-                                            fclose($file);                      
-                                
-
-                                }); //end mail
-
-                            return response()->json(['withinProgram'=>$movement->withinProgram , 'id'=>$movement->id, 'info1'=>$employee->firstname." ".$employee->lastname, 'info2'=>date("M d, Y",strtotime($movement->effectivity) )]);
-                        }//end else 
-                        break; 
-                    }
-                        
-            case 2: { 
-                        $moveHead = new Movement_Positions;
-                        $moveHead->movement_id = $movement->id;
-                        $moveHead->position_id_old = $old_id;
-                        $moveHead->position_id_new = $new_id;
-                        $moveHead->save();
-
-                        $employee = User::find($movement->user_id);
-
-                        $notification = new Notification;
-                        $notification->relatedModelID = $movement->id;
-                        $notification->type = 3;
-                        $notification->from = $movement->requestedBy;
-                        $notification->save();
-
-                        
-
-                        // ***** if the one submitting is already an HR admin or admin, approved agad
-                        // ***** no need to do HR notifications
-
-                        if ($this->user->userType_id != 3 && $this->user->userType_id != 4) //if not leader and agent
-                        {
-
-                             
-                             $employee->position_id = $moveHead->position_id_new;
-                             $employee->push();
-                                                 
-                                                
-                            //inform person concerned
-                            
-
-                            $nu = new User_Notification;
-                            $nu->user_id = $movement->user_id;
-                            $nu->notification_id = $notification->id;
-                            $nu->seen = false;
-                            $nu->save();
-
-
-                                    $movement->isDone=true;
-                                    $movement->isApproved = true;
-                                    $movement->push();
-
-                        }
-                        else
-                        {
-                            // ***** else
-                            // ***** add in NOTIFICATION for HR concerned
-                         
-
-
-                            $nu = new User_Notification;
-                            $nu->user_id = $movement->notedBy;
-                            $nu->notification_id = $notification->id;
-                            $nu->seen = false;
-                            $nu->save();
-
-                            
-
-
-                            // // ***** add in NOTIFICATION for employee involved
-
-                            // $nu = new User_Notification;
-                            // $nu->user_id = $movement->user_id;
-                            // $nu->notification_id = $notification->id;
-                            // $nu->seen = false;
-                            // $nu->save();
-
-
-                            // ***** add in NOTIFICATION for HR system notif
-
-                            $hrAdmins = User::where('userType_id',5)->get();
-
-                            foreach ($hrAdmins as $key ) {
-
-                                $nu = new User_Notification;
-                                $nu->user_id = $key->id;
-                                $nu->notification_id = $notification->id;
-                                $nu->seen = false;
-                                $nu->save();
-                            }
-
-                        }
-                        /* -------------- log updates made --------------------- */
-                                         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                                            fwrite($file, "-------------------\n");
-                                            fwrite($file, "\n New Position for:  ". $employee->firstname." ".$employee->lastname. " by ". $this->user->firstname. " ". $this->user->lastname."\n");
-                                            fclose($file);   
-
-
-                            return response()->json(['interCampaign'=>true, 'withinProgram'=>$movement->withinProgram , 'id'=>$movement->id, 'info1'=>$employee->firstname." ".$employee->lastname, 'info2'=>date("M d, Y",strtotime($movement->effectivity) )]);
-                        break; 
-                    }
-
-            case 3: {   
-                        $moveHead = new Movement_Status;
-                        $moveHead->movement_id = $movement->id;
-                        $moveHead->status_id_old = $old_id;
-                        $moveHead->status_id_new = $new_id;
-                        $moveHead->save();
-
-                        $employee = User::find($movement->user_id);
-
-                        $notification = new Notification;
-                        $notification->relatedModelID = $movement->id;
-                        $notification->type = 4;
-                        $notification->from = $movement->requestedBy;
-                        $notification->save();
-
-                        
-
-                        // ***** if the one submitting is already an HR admin or admin, approved agad
-                        // ***** no need to do HR notifications
-
-                        if ($this->user->userType_id != 3 && $this->user->userType_id != 4) //if SUPER ADMIN and HR
-                        {
-
-                             $employee->dateRegularized = $movement->effectivity;
-                             $employee->status_id = $moveHead->status_id_new;
-                             $employee->push();
-                                                 
-                                                
-                            //inform person concerned
-                            
-
-                            $nu = new User_Notification;
-                            $nu->user_id = $movement->user_id;
-                            $nu->notification_id = $notification->id;
-                            $nu->seen = false;
-                            $nu->save();
-
-
-                                    $movement->isDone=true;
-                                    $movement->isApproved = true;
-                                    $movement->push();
-
-                        }
-                        else
-                        {
-                            // ***** else
-                            // ***** add in NOTIFICATION for HR concerned
-                         
-
-
-                            $nu = new User_Notification;
-                            $nu->user_id = $movement->notedBy;
-                            $nu->notification_id = $notification->id;
-                            $nu->seen = false;
-                            $nu->save();
-
-
-
-                            // ***** add in NOTIFICATION for HR system notif
-
-                            $hrAdmins = User::where('userType_id',5)->get();
-
-                            foreach ($hrAdmins as $key ) {
-
-                                $nu = new User_Notification;
-                                $nu->user_id = $key->id;
-                                $nu->notification_id = $notification->id;
-                                $nu->seen = false;
-                                $nu->save();
-                            }
-
-                        }
-
-                           /* -------------- log updates made --------------------- */
-                                         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                                            fwrite($file, "-------------------\n");
-                                            fwrite($file, "\n New Status for:  ". $employee->firstname." ".$employee->lastname. " by ". $this->user->firstname. " ". $this->user->lastname."\n");
-                                            fclose($file); 
-
-                            
-                            return response()->json(['interCampaign'=>true, 'withinProgram'=>$movement->withinProgram , 'id'=>$movement->id, 'info1'=>$employee->firstname." ".$employee->lastname, 'info2'=>date("M d, Y",strtotime($movement->effectivity) )]);
-
-
-
-                        break; 
-                    }
-        }
-
-        
-    }
+    
 
     
 
@@ -1749,295 +1253,7 @@ class MovementController extends Controller
 
     }
 
-   
-
-
-    public function show($id)
-    {
-        $correct = Carbon::now('GMT+8'); //->timezoneName();
-        $movement = Movement::find($id); $signatureOpsMgr=null;
-
-        if ( empty($movement)) return view('empty');
-
-        //check first if agent lang, then you cant see movement of others
-        if ($this->user->userType_id == 4 && ($movement->user_id !== $this->user->id)) return view('access-denied');
-
-      
-
-        $canAttachSignatures = UserType::find($this->user->userType_id)->roles->where('label','APPROVE_MOVEMENTS')->first();
-        $signatureHR =null;
-        
-
-
-
-        //check if this movement has been approved, then display all necessary signatures
-        if($movement->isApproved)
-        {
-            goto getPM;
-                //$opsMgr = User::where('lastname','Chang')->where('firstname','Michael')->first();
-                $opsMgr = null;
-                $notedBy = User::find($movement->notedBy);
-
-               
-
-        //         $leader_L2 = User::where('employeeNumber',$immediateHead->employeeNumber)->first();
-        // $leader_L1 = ImmediateHead::find(ImmediateHead_Campaign::find($leader_L2->supervisor->immediateHead_Campaigns_id)->immediateHead_id);
-        // $leader_L0 = ImmediateHead::find(ImmediateHead_Campaign::find(User::where('employeeNumber',$leader_L1->employeeNumber)->first()->supervisor->immediateHead_Campaigns_id)->immediateHead_id);
-        // $leader_PM = ImmediateHead::find(ImmediateHead_Campaign::find(User::where('employeeNumber',$leader_L0->employeeNumber)->first()->supervisor->immediateHead_Campaigns_id)->immediateHead_id);
-
-
-
-                // if ( file_exists('public/img/employees/'.$opsMgr->id.'-sign.png') )
-                //  {
-                //     $signatureOpsMgr = null;// asset('public/img/employees/'.$opsMgr->id.'-sign.png');
-                //  } else {
-                    $signatureOpsMgr = null; // asset('public/img/employees/signature.png');
-                 //}
-
-                 // if ( file_exists('public/img/employees/'.$notedBy->id.'-sign.png') )
-                 // {
-                    $signatureHR = null; // asset('public/img/employees/'.$notedBy->id.'-sign.png');
-                 // } else {
-                 //    $signatureHR = null; //asset('public/img/employees/signature.png');
-                 // }
-
-            
-        } else {
-            //return $movement;
-            $signatureOpsMgr=null; $signatureHR = null;
-        }
-
-        getPM:
-                //********* we get the PM or Director for approval
-                
-
-                // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico, myka, jusayan
-                $theApprover = null;
-                $allowedPMs = [1,184,344,1784,1611,464,163,225,431,305,2502];
-
-                $l1 = User::find($movement->user_id)->supervisor;
-                
-                if (count((array)$l1) > 0){
-                    $l2 = User::where('employeeNumber', ImmediateHead_Campaign::find($l1->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
-
-                    //return $l2;
-                    
-                    if (in_array($l2->id, $allowedPMs))
-                    {
-                        $theApprover = $l2;
-                    }else{
-
-
-                        $l3 = User::where('employeeNumber', ImmediateHead_Campaign::find($l2->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
-
-                       
-                        if (in_array($l3->id, $allowedPMs)){
-
-                            $theApprover = $l3;
-
-                        } else{
-
-                            $l4 =  User::where('employeeNumber', ImmediateHead_Campaign::find($l3->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
-                            
-
-                            if (in_array($l4->id, $allowedPMs)){
-                                $theApprover = $l4;
-
-                            } else $theApprover = User::find(1784);
-                        }
-
-                    }
-
-                }else $theApprover= User::find(1784);
-
-
-
-        $theApproverTitle = Position::find($theApprover->position_id);        
-        $requestedBy = ImmediateHead::find($movement->requestedBy);
-
-        //$requestedBy = ImmediateHead::find(ImmediateHead_Campaign::find($movement->requestedBy)->immediateHead_id);
-
-                   
-        
-
-        if ($movement->isNotedFrom)
-        {
-
-            if ( file_exists('public/img/employees/'.$requestedBy->userData->id.'-sign.png') )
-                 {
-                    $signatureRequestedBy = asset('public/img/employees/'.$requestedBy->userData->id.'-sign.png');
-                 } else {
-                    $signatureRequestedBy = asset('public/img/employees/signature.png');
-                 }
-
-           
-        }else 
-        { 
-            $signatureRequestedBy = null;           
-            
-            
-
-        }
-        //now check if user is the requestor
-            if ($this->user->employeeNumber == $requestedBy->userData->employeeNumber) $isTheRequestor=true;
-            else $isTheRequestor=false;
-
-
-        $requestedTo = User::find($movement->user_id);
-
-
-        if ($movement->isNotedTo)
-        {
-            
-
-            if ( file_exists('public/img/employees/'.$requestedTo->id.'-sign.png') )
-                 {
-                    $signatureRequestedTo = asset('public/img/employees/'.$requestedTo->id.'-sign.png');
-                 } else {
-                    $signatureRequestedTo = asset('public/img/employees/signature.png');
-                 }
-
-           
-        } else {
-            $signatureRequestedTo = null;             
-
-        }
-        //now check if user is the employee concerned
-            if ($this->user->employeeNumber == $requestedTo->employeeNumber) $noteTo = true;
-            else $noteTo = false;
-
-
-        
-
-        if (Input::get('seen')){
-            //$markSeen = User_Notification::where('notification_id',Input::get('notif'))->where('user_id',$this->user->id)->first();
-            $mseen = User_Notification::where('notification_id',Input::get('notif'))->where('user_id',$this->user->id)->get();
-
-            if (count($mseen) > 0)
-            {
-                $markSeen = $mseen->first();
-                $markSeen->seen = true;
-                $markSeen->push();
-
-            } 
-            
-
-        }
-
-       
-
-        $personnel = User::find($movement->user_id);
-        $hisFloor = Floor::find($personnel->team->floor_id);
-        //$requestedBy = ImmediateHead::find(ImmediateHead_Campaign::find($movement->requestedBy)->immediateHead_id);
-        $hrPersonnel = User::find($movement->notedBy);
-        $transferredToMe = false;
-
-
-         switch ($movement->personnelChange_id){
-
-                    case 1: { 
-                                $movementdetails = Movement_ImmediateHead::where('movement_id', $movement->id)->first(); 
-                                
-                               
-                                $hisNewIDvalue = ImmediateHead::find(ImmediateHead_Campaign::find($movementdetails->imHeadCampID_new)->immediateHead_id);
-                                $hisNew = $hisNewIDvalue->campaigns;
-
-
-
-                                // $oldCampaign = ImmediateHead_Campaign::find($movementdetails->imHeadCampID_old)->campaign; //Campaign::find(ImmediateHead_Campaign::find($movementdetails->imHeadCampID_old)->campaign_id);
-                                // $newCampaign = ImmediateHead_Campaign::find($movementdetails->imHeadCampID_new)->campaign; //Campaign::find(ImmediateHead_Campaign::find($movementdetails->imHeadCampID_new)->campaign_id);
-                                
-                                $oldCampaign = Campaign::find(ImmediateHead_Campaign::find($movementdetails->imHeadCampID_old)->campaign_id);
-                                $newCampaign = Campaign::find(ImmediateHead_Campaign::find($movementdetails->imHeadCampID_new)->campaign_id);
-
-
-
-
-                                if (count($hisNew) > 1){
-                                    $TLset = new Collection;
-
-                                    foreach($hisNew as $h){
-                                        
-                                        $TLset->push(Campaign::find($h->id)->leaders);
-                                    }
-
-                                } else {
-                                    $TLset = Campaign::find($hisNew[0]->id)->leaders;
-                                }
-
-                                // now introduce another check: If ikaw ung TL na paglilipatan, no need to attach signatures
-
-                                //return $hisNewIDvalue;
-
-                                if ($this->user->employeeNumber == $hisNewIDvalue->employeeNumber)
-                                      $transferredToMe = true;
-                                else  $transferredToMe = false;
-
-
-                                // --- another check: if interCampaign movement or not
-                                // --- acknowledge if yes
-                                // --- approve if not
-                                if ($oldCampaign->id !== $newCampaign->id) $interCampaign = false; else $interCampaign= true;
-
-
-                                if($this->user->id !== 564 ) {
-                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                                    fwrite($file, "-------------------\n Viewed MVT_IH of [". $movement->user_id."] by: ".$this->user->lastname."_".$this->user->id. " on ".$correct->format('M d, Y H:i:s'). "\n");
-                                    fclose($file);
-                                }
-                                
-                                 //ImmediateHead::where('campaign_id',$hisNew->id)->orderBy('lastname', 'ASC')->get();
-                                 return view('people.movement-show',compact('theApprover','theApproverTitle', 'interCampaign','canAttachSignatures','oldCampaign','newCampaign', 'transferredToMe', 'noteTo','isTheRequestor', 'signatureOpsMgr', 'signatureHR', 'signatureRequestedTo', 'signatureRequestedBy', 'personnel','movement', 'movementdetails', 'hisNew','hisFloor', 'hisNewIDvalue', 'requestedBy', 'hrPersonnel'));
-
-
-                            }break;
-                    case 2: {
-                                $movementdetails = Movement_Positions::where('movement_id', $movement->id)->first(); 
-                                $hisNew = Position::find($movementdetails->position_id_new);
-                                $hisOld = Position::find($movementdetails->position_id_old);
-                                $hisNewIDvalue = $movementdetails->position_id_new;
-                                $interCampaign=false;
-
-                                 if($this->user->id !== 564 ) {
-                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                                    fwrite($file, "-------------------\n Viewed MVT_Pos of [". $movement->user_id."] by: ".$this->user->lastname."_".$this->user->id. " on ".$correct->format('M d, Y H:i:s'). "\n");
-                                    fclose($file);
-                                }
-                                
-                                return view('people.movement-show',compact('theApprover','theApproverTitle','interCampaign','canAttachSignatures','oldCampaign','newCampaign', 'transferredToMe', 'noteTo','isTheRequestor', 'signatureOpsMgr', 'signatureHR', 'signatureRequestedTo', 'signatureRequestedBy', 'personnel','movement', 'movementdetails', 'hisNew','hisOld', 'hisFloor', 'hisNewIDvalue', 'requestedBy', 'hrPersonnel'));
-
-
-                            }break;
-                    case 3: {
-                                $movementdetails = Movement_Status::where('movement_id', $movement->id)->first(); 
-                                $hisNew = Status::find($movementdetails->status_id_new);
-                                $hisOld = Status::find($movementdetails->status_id_old);
-                                $hisNewIDvalue = $movementdetails->status_id_new;
-                                $interCampaign=true;
-
-
-                                 if($this->user->id !== 564 ) {
-                                  $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
-                                    fwrite($file, "-------------------\n Viewed MVT_Stat of [". $movement->user_id."] by: ".$this->user->lastname."_".$this->user->id. " on ".$correct->format('M d, Y H:i:s'). "\n");
-                                    fclose($file);
-                                }
-
-
-                                return view('people.movement-show',compact('theApprover','theApproverTitle','interCampaign','canAttachSignatures','oldCampaign','newCampaign', 'transferredToMe', 'noteTo','isTheRequestor', 'signatureOpsMgr', 'signatureHR', 'signatureRequestedTo', 'signatureRequestedBy', 'personnel','movement', 'movementdetails', 'hisNew','hisOld', 'hisFloor', 'hisNewIDvalue', 'requestedBy', 'hrPersonnel'));
-
-
-                            }break;
-
-                }
-
-        //$coll = new Collection;
-       // $coll->push(['movementdetails'=>$movementdetails, 'oldCampaign'=>$oldCampaign, 'newCampaign'=>$newCampaign, 'canAttachSignatures'=>$canAttachSignatures, 'transferredToMe'=>$transferredToMe,'isApproved'=> $movement->isApproved, 'interCampaign'=>$interCampaign ]);
-        
-        
-       
-    }
-
-    public function printPDF($id)
+     public function printPDF($id)
     {
         $movement = Movement::find($id);
         $employee = User::find($movement->user_id);
@@ -2216,12 +1432,755 @@ class MovementController extends Controller
 
     }
 
-    public function destroy($id)
-    {
-        $this->movement->destroy($id);
-        return back();
+   
 
+
+    public function show($id)
+    {
+        $correct = Carbon::now('GMT+8'); //->timezoneName();
+        $movement = Movement::find($id); $signatureOpsMgr=null; $oldCampaign=null; $newCampaign=null;
+
+        if ( empty($movement)) return view('empty');
+
+        //check first if agent lang, then you cant see movement of others
+        if ($this->user->userType_id == 4 && ($movement->user_id !== $this->user->id)) return view('access-denied');
+
+      
+
+        $canAttachSignatures = UserType::find($this->user->userType_id)->roles->where('label','APPROVE_MOVEMENTS')->first();
+        $signatureHR =null;
+        
+
+
+
+        //check if this movement has been approved, then display all necessary signatures
+        if($movement->isApproved)
+        {
+            goto getPM;
+                //$opsMgr = User::where('lastname','Chang')->where('firstname','Michael')->first();
+                $opsMgr = null;
+                $notedBy = User::find($movement->notedBy);
+
+               
+
+        //         $leader_L2 = User::where('employeeNumber',$immediateHead->employeeNumber)->first();
+        // $leader_L1 = ImmediateHead::find(ImmediateHead_Campaign::find($leader_L2->supervisor->immediateHead_Campaigns_id)->immediateHead_id);
+        // $leader_L0 = ImmediateHead::find(ImmediateHead_Campaign::find(User::where('employeeNumber',$leader_L1->employeeNumber)->first()->supervisor->immediateHead_Campaigns_id)->immediateHead_id);
+        // $leader_PM = ImmediateHead::find(ImmediateHead_Campaign::find(User::where('employeeNumber',$leader_L0->employeeNumber)->first()->supervisor->immediateHead_Campaigns_id)->immediateHead_id);
+
+
+
+                // if ( file_exists('public/img/employees/'.$opsMgr->id.'-sign.png') )
+                //  {
+                //     $signatureOpsMgr = null;// asset('public/img/employees/'.$opsMgr->id.'-sign.png');
+                //  } else {
+                    $signatureOpsMgr = null; // asset('public/img/employees/signature.png');
+                 //}
+
+                 // if ( file_exists('public/img/employees/'.$notedBy->id.'-sign.png') )
+                 // {
+                    $signatureHR = null; // asset('public/img/employees/'.$notedBy->id.'-sign.png');
+                 // } else {
+                 //    $signatureHR = null; //asset('public/img/employees/signature.png');
+                 // }
+
+            
+        } else {
+            //return $movement;
+            $signatureOpsMgr=null; $signatureHR = null;
+        }
+
+        getPM:
+                //********* we get the PM or Director for approval
+                
+                //check mo muna kung may saved na movement_approver
+                $mvtapprover = DB::table('movement_approver')->where('movement_approver.movement_id',$movement->id)->
+                                    leftJoin('users','users.id','=','movement_approver.leader')->
+                                    leftJoin('positions','positions.id','=','movement_approver.position_id')->
+                                    select('users.firstname','users.lastname','users.nickname','positions.name as jobTitle','positions.id as position_id')->get();
+                if (count($mvtapprover) > 0)
+                {
+                    $theApprover = $mvtapprover[0];
+
+                }
+                else
+                {
+                    // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico, myka, jusayan
+                    $theApprover = null;
+                    $allowedPMs = [1,184,1784,1611,464,163,225,431,305,2502];
+
+                    $l1 = User::find($movement->user_id)->supervisor;
+                    
+                    if (count((array)$l1) > 0){
+                        $l2 = User::where('employeeNumber', ImmediateHead_Campaign::find($l1->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
+
+                        //return $l2;
+                        
+                        if (in_array($l2->id, $allowedPMs))
+                        {
+                            $theApprover = $l2;
+                        }else{
+
+
+                            $l3 = User::where('employeeNumber', ImmediateHead_Campaign::find($l2->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
+
+                           
+                            if (in_array($l3->id, $allowedPMs)){
+
+                                $theApprover = $l3;
+
+                            } else{
+
+                                $l4 =  User::where('employeeNumber', ImmediateHead_Campaign::find($l3->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
+                                
+
+                                if (in_array($l4->id, $allowedPMs)){
+                                    $theApprover = $l4;
+
+                                } else $theApprover = User::find(1784);
+                            }
+
+                        }
+
+                    }else $theApprover= User::find(1784);
+
+                }
+
+                
+
+
+
+        $theApproverTitle = Position::find($theApprover->position_id);        
+        $requestedBy = ImmediateHead::find($movement->requestedBy);
+
+        //$requestedBy = ImmediateHead::find(ImmediateHead_Campaign::find($movement->requestedBy)->immediateHead_id);
+
+                   
+        
+
+        if ($movement->isNotedFrom)
+        {
+
+            if ( file_exists('public/img/employees/'.$requestedBy->userData->id.'-sign.png') )
+                 {
+                    $signatureRequestedBy = asset('public/img/employees/'.$requestedBy->userData->id.'-sign.png');
+                 } else {
+                    $signatureRequestedBy = asset('public/img/employees/signature.png');
+                 }
+
+           
+        }else 
+        { 
+            $signatureRequestedBy = null;           
+            
+            
+
+        }
+        //now check if user is the requestor
+            if ($this->user->employeeNumber == $requestedBy->userData->employeeNumber) $isTheRequestor=true;
+            else $isTheRequestor=false;
+
+
+        $requestedTo = User::find($movement->user_id);
+
+
+        if ($movement->isNotedTo)
+        {
+            
+
+            if ( file_exists('public/img/employees/'.$requestedTo->id.'-sign.png') )
+                 {
+                    $signatureRequestedTo = asset('public/img/employees/'.$requestedTo->id.'-sign.png');
+                 } else {
+                    $signatureRequestedTo = asset('public/img/employees/signature.png');
+                 }
+
+           
+        } else {
+            $signatureRequestedTo = null;             
+
+        }
+        //now check if user is the employee concerned
+            if ($this->user->employeeNumber == $requestedTo->employeeNumber) $noteTo = true;
+            else $noteTo = false;
+
+
+        
+
+        if (Input::get('seen')){
+            //$markSeen = User_Notification::where('notification_id',Input::get('notif'))->where('user_id',$this->user->id)->first();
+            $mseen = User_Notification::where('notification_id',Input::get('notif'))->where('user_id',$this->user->id)->get();
+
+            if (count($mseen) > 0)
+            {
+                $markSeen = $mseen->first();
+                $markSeen->seen = true;
+                $markSeen->push();
+
+            } 
+            
+
+        }
+
+        //check if it has details for Trainee Fallout
+        $freason = DB::table('trainee_fallout')->where('trainee_fallout.movement_id',$movement->id)->select('trainee_fallout.reason')->get();
+        if( count($freason) > 0)
+            $falloutreason = $freason[0];
+        else
+            $falloutreason = null;
+
+       
+
+        $personnel = User::find($movement->user_id);
+        $hisFloor = Floor::find($personnel->team->floor_id);
+        //$requestedBy = ImmediateHead::find(ImmediateHead_Campaign::find($movement->requestedBy)->immediateHead_id);
+        $hrPersonnel = User::find($movement->notedBy);
+        $transferredToMe = false;
+
+
+         switch ($movement->personnelChange_id){
+
+                    case 1: { 
+                                $movementdetails = Movement_ImmediateHead::where('movement_id', $movement->id)->first(); 
+                                
+                               
+                                $hisNewIDvalue = ImmediateHead::find(ImmediateHead_Campaign::find($movementdetails->imHeadCampID_new)->immediateHead_id);
+                                $hisNew = $hisNewIDvalue->campaigns;
+                                $oldCampaign = Campaign::find(ImmediateHead_Campaign::find($movementdetails->imHeadCampID_old)->campaign_id);
+                                $newCampaign = Campaign::find(ImmediateHead_Campaign::find($movementdetails->imHeadCampID_new)->campaign_id);
+
+
+
+
+                                if (count($hisNew) > 1){
+                                    $TLset = new Collection;
+
+                                    foreach($hisNew as $h){
+                                        
+                                        $TLset->push(Campaign::find($h->id)->leaders);
+                                    }
+
+                                } else {
+                                    $TLset = Campaign::find($hisNew[0]->id)->leaders;
+                                }
+
+                                // now introduce another check: If ikaw ung TL na paglilipatan, no need to attach signatures
+
+                                //return $hisNewIDvalue;
+
+                                if ($this->user->employeeNumber == $hisNewIDvalue->employeeNumber)
+                                      $transferredToMe = true;
+                                else  $transferredToMe = false;
+
+
+                                // --- another check: if interCampaign movement or not
+                                // --- acknowledge if yes
+                                // --- approve if not
+                                if ($oldCampaign->id !== $newCampaign->id) $interCampaign = false; else $interCampaign= true;
+
+
+                                if($this->user->id !== 564 ) {
+                                  $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Viewed MVT_IH of [". $movement->user_id."] by: ".$this->user->lastname."_".$this->user->id. " on ".$correct->format('M d, Y H:i:s'). "\n");
+                                    fclose($file);
+                                }
+                                
+                                 //ImmediateHead::where('campaign_id',$hisNew->id)->orderBy('lastname', 'ASC')->get();
+                                 return view('people.movement-show',compact('theApprover','theApproverTitle', 'interCampaign','canAttachSignatures','oldCampaign','newCampaign', 'transferredToMe', 'noteTo','isTheRequestor', 'signatureOpsMgr', 'signatureHR', 'signatureRequestedTo', 'signatureRequestedBy', 'personnel','movement', 'movementdetails', 'hisNew','hisFloor', 'hisNewIDvalue', 'requestedBy', 'hrPersonnel','falloutreason'));
+
+
+                            }break;
+                    case 2: {
+                                $movementdetails = Movement_Positions::where('movement_id', $movement->id)->first(); 
+                                $hisNew = Position::find($movementdetails->position_id_new);
+                                $hisOld = Position::find($movementdetails->position_id_old);
+                                $hisNewIDvalue = $movementdetails->position_id_new;
+                                $interCampaign=false;
+
+                                 if($this->user->id !== 564 ) {
+                                  $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Viewed MVT_Pos of [". $movement->user_id."] by: ".$this->user->lastname."_".$this->user->id. " on ".$correct->format('M d, Y H:i:s'). "\n");
+                                    fclose($file);
+                                }
+                                
+                                return view('people.movement-show',compact('theApprover','theApproverTitle','interCampaign','canAttachSignatures','oldCampaign','newCampaign', 'transferredToMe', 'noteTo','isTheRequestor', 'signatureOpsMgr', 'signatureHR', 'signatureRequestedTo', 'signatureRequestedBy', 'personnel','movement', 'movementdetails', 'hisNew','hisOld', 'hisFloor', 'hisNewIDvalue', 'requestedBy', 'hrPersonnel','falloutreason'));
+
+
+                            }break;
+                    case 3: {
+                                $movementdetails = Movement_Status::where('movement_id', $movement->id)->first(); 
+                                $hisNew = Status::find($movementdetails->status_id_new);
+                                $hisOld = Status::find($movementdetails->status_id_old);
+                                $hisNewIDvalue = $movementdetails->status_id_new;
+                                $interCampaign=true;
+
+
+                                 if($this->user->id !== 564 ) {
+                                  $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                                    fwrite($file, "-------------------\n Viewed MVT_Stat of [". $movement->user_id."] by: ".$this->user->lastname."_".$this->user->id. " on ".$correct->format('M d, Y H:i:s'). "\n");
+                                    fclose($file);
+                                }
+
+
+                                return view('people.movement-show',compact('theApprover','theApproverTitle','interCampaign','canAttachSignatures','oldCampaign','newCampaign', 'transferredToMe', 'noteTo','isTheRequestor', 'signatureOpsMgr', 'signatureHR', 'signatureRequestedTo', 'signatureRequestedBy', 'personnel','movement', 'movementdetails', 'hisNew','hisOld', 'hisFloor', 'hisNewIDvalue', 'requestedBy', 'hrPersonnel','falloutreason'));
+
+
+                            }break;
+
+                }
+
+        //$coll = new Collection;
+       // $coll->push(['movementdetails'=>$movementdetails, 'oldCampaign'=>$oldCampaign, 'newCampaign'=>$newCampaign, 'canAttachSignatures'=>$canAttachSignatures, 'transferredToMe'=>$transferredToMe,'isApproved'=> $movement->isApproved, 'interCampaign'=>$interCampaign ]);
+        
+        
+       
     }
+
+    public function store(Request $request)
+    {
+
+        $movement = new Movement;
+        $movement->user_id = $request->user_id;
+        $now = Carbon::now('GMT+8');
+        // $movement->oldHead_id = $request->oldHead_id;
+        // $movement->newHead_id = $request->newHead_id;
+
+        if ($request->withinProgram == 'true') $movement->withinProgram = true;
+        else $movement->withinProgram = false;
+
+                        
+        $movement->fromPeriod = date("Y-m-d", strtotime($request->fromPeriod));
+        $movement->effectivity = date("Y-m-d", strtotime($request->effectivity));
+        $movement->isApproved = $request->isApproved;
+        $movement->isNotedFrom = true;
+        $movement->isNotedTo = false;
+        $movement->isDone = false;
+        $movement->dateRequested = date("Y-m-d", strtotime($request->dateRequested));
+        $movement->requestedBy = ImmediateHead_Campaign::find($request->requestedBy)->immediateHead_id;
+        $movement->notedBy = $request->notedBy;
+        $movement->personnelChange_id = $request->personnelChange_id;
+
+        $movement->save();
+
+        $old_id = $request->old_id;
+        $new_id = $request->new_id;
+
+        //get all HR ADMINs that will receive notifications
+        $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
+        $canMoveEmployees =  ($roles->contains('MOVE_EMPLOYEE')) ? '1':'0';
+        
+
+
+        // *** once you save a movement, determine what type it is and then save corresponding relational tables
+        switch ($movement->personnelChange_id) {
+            case 1: { //immediateHead
+                        
+
+                        /* ------- CHECK FIRST IF HR INTERVENTION IS NEEDED
+                         - pag within campaign, no need. Just email the TL na pinaglipatan
+                         - else needs approval from HR before saving
+                         */ 
+
+                        $moveHead = new Movement_ImmediateHead;
+                        $moveHead->movement_id = $movement->id;
+                        $moveHead->imHeadCampID_old = $old_id;
+                        $moveHead->imHeadCampID_new = $new_id;
+                        $moveHead->newFloor = $request->newFloor;
+                        //$moveHead->newCampaign = $request->newCampaign;
+                        $moveHead->oldFloor = $request->oldFloor;
+                        $moveHead->save();
+
+
+
+
+                        // ***** add in NOTIFICATION for TL
+
+                            $notification = new Notification;
+                            $notification->relatedModelID = $movement->id;
+                            $notification->type = 2;
+                            $notification->from = $movement->requestedBy;
+                            $notification->save();
+
+
+                         if (!$movement->withinProgram) 
+                         { 
+                            $employee = User::find($movement->user_id);
+                             
+
+                            if ($this->user->userType_id != 3 && $this->user->userType_id != 4) //if SUPER ADMINS and HR admin
+                            {
+                                if (  date("Y-m-d", strtotime($request->effectivity)) <= date("Y-m-d") ) 
+                                 { 
+                                    $updateTeam = $employee->team;
+                                    $updateTeam->immediateHead_Campaigns_id = $new_id;
+                                    $updateTeam->floor_id = $request->newFloor;
+                                    $updateTeam->campaign_id = $request->campaign_id;
+                                    $updateTeam->push();
+                                    $movement->isDone = true;
+
+                                    /*ONCE A MOVEMENT IS DONE, AUTOMATICALLY SET THE APPROVER*/
+                                    
+                                    DB::connection()->disableQueryLog();
+                                    DB::table('user_leaders')->where('user_id','=',$movement->user_id)->delete();
+
+
+                                    $app = new User_Leader;
+                                    $app->user_id = $movement->user_id;
+                                    $app->immediateHead_Campaigns_id = $new_id;
+                                    $app->save();
+                                 }                
+
+                                    
+                                $movement->isApproved = true;
+                                $movement->push();
+
+                                $newTL = ImmediateHead::find(ImmediateHead_Campaign::find($new_id)->immediateHead_id);
+
+
+                                $nu = new User_Notification;
+                                $nu->user_id = $newTL->userData->id;
+                                $nu->notification_id = $notification->id;
+                                $nu->seen = false;
+                                $nu->save();
+
+
+                                // ***** add in NOTIFICATION for employee involved
+
+                                $notification2 = new Notification;
+                                $notification2->relatedModelID = $movement->id;
+                                $notification2->type = 2;
+                                $notification2->from = $movement->requestedBy;
+                                $notification2->save();
+
+                                $nu = new User_Notification;
+                                $nu->user_id = $movement->user_id;
+                                $nu->notification_id = $notification2->id;
+                                $nu->seen = false;
+                                $nu->save();
+
+                                // NOW, EMAIL THE TL CONCERNED
+                               
+                                 Mail::send('emails.personnelChange', ['user' => $newTL, 'employee'=>$employee, 'movement'=>$movement, 'notification'=>$notification], function ($m) use ($newTL, $employee) 
+                                 {
+                                    $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
+                                    $m->to($newTL->userData->email, $newTL->lastname)->subject('Personnel Change Notice');     
+
+                                    /* -------------- log updates made --------------------- */
+                                         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                                            fwrite($file, "-------------------\n Email sent to ". $newTL->userData->email."\n");
+                                            fwrite($file, "\n New Movement:  ". $employee->firstname." ".$employee->lastname. " by ". $this->user->firstname. " ". $this->user->lastname."\n");
+                                            fclose($file);                      
+                                
+
+                                }); //end mail
+
+                                return response()->json(['withinProgram'=>$movement->withinProgram , 'id'=>$movement->id, 'info1'=>$employee->firstname." ".$employee->lastname, 'info2'=>date("M d, Y",strtotime($movement->effectivity) )]);
+                           
+                                      
+
+                            } 
+
+                            else //user is a typical leader
+                            {
+                                $nu = new User_Notification;
+                                $nu->user_id = $movement->notedBy;
+                                $nu->notification_id = $notification->id;
+                                $nu->seen = false;
+                                $nu->save();
+
+                                $hrAdmins = User::where('userType_id',5)->get();
+
+                                foreach ($hrAdmins as $key ) {
+
+                                    $nu = new User_Notification;
+                                    $nu->user_id = $key->id;
+                                    $nu->notification_id = $notification->id;
+                                    $nu->seen = false;
+                                    $nu->save();
+                                }
+                                return response()->json(['withinProgram'=>$movement->withinProgram , 'id'=>$movement->id, 'info1'=>$employee->firstname." ".$employee->lastname, 'info2'=>date("M d, Y",strtotime($movement->effectivity) )]);
+
+
+                            }//end if not typical leader or agent
+
+                        } else 
+                        { 
+                            $employee = User::find($movement->user_id);
+
+
+                             if (  date("Y-m-d", strtotime($request->effectivity)) <= date("Y-m-d") ) //if effectivity is past or today
+                                {
+
+                                    //get the Team table
+                                    
+                                    $updateTeam = $employee->team;
+                                    $updateTeam->immediateHead_Campaigns_id = $new_id;
+                                    $updateTeam->floor_id = $request->newFloor;
+                                    $updateTeam->campaign_id = $request->campaign_id;
+                                    $updateTeam->push();
+
+
+                                    $movement->isDone = true;
+
+                                    /*ONCE A MOVEMENT IS DONE, AUTOMATICALLY SET THE APPROVER*/
+                                    
+                                    DB::connection()->disableQueryLog();
+                                    DB::table('user_leaders')->where('user_id','=',$movement->user_id)->delete();
+
+
+                                    $app = new User_Leader;
+                                    $app->user_id = $movement->user_id;
+                                    $app->immediateHead_Campaigns_id = $new_id;
+                                    $app->save();
+                                }                
+
+                                $movement->push();
+                                $newTL = ImmediateHead::find(ImmediateHead_Campaign::find($new_id)->immediateHead_id);
+
+
+                                $nu = new User_Notification;
+                                $nu->user_id = $newTL->userData->id;
+                                $nu->notification_id = $notification->id;
+                                $nu->seen = false;
+                                $nu->save();
+
+
+                                 // ***** add in NOTIFICATION for HR concerned
+
+                                 
+                                $nu = new User_Notification;
+                                $nu->user_id = $movement->notedBy;
+                                $nu->notification_id = $notification->id;
+                                $nu->seen = false;
+                                $nu->save();
+
+
+                                // ***** add in NOTIFICATION for employee involved
+
+                                $notification2 = new Notification;
+                                $notification2->relatedModelID = $movement->id;
+                                $notification2->type = 2;
+                                $notification2->from = $movement->requestedBy;
+                                $notification2->save();
+
+                                $nu = new User_Notification;
+                                $nu->user_id = $movement->user_id;
+                                $nu->notification_id = $notification2->id;
+                                $nu->seen = false;
+                                $nu->save();
+
+                                // NOW, EMAIL THE TL CONCERNED
+                               
+                                 Mail::send('emails.personnelChange', ['user' => $newTL, 'employee'=>$employee, 'movement'=>$movement, 'notification'=>$notification], function ($m) use ($newTL, $employee) 
+                                 {
+                                    $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
+                                    $m->to($newTL->userData->email, $newTL->lastname)->subject('Personnel Change Notice');     
+
+                                    /* -------------- log updates made --------------------- */
+                                         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                                            fwrite($file, "-------------------\n Email sent to ". $newTL->userData->email."\n");
+                                            fwrite($file, "\n New Movement:  ". $employee->firstname." ".$employee->lastname. " by ". $this->user->firstname. " ". $this->user->lastname."\n");
+                                            fclose($file);                      
+                                
+
+                                }); //end mail
+
+                            return response()->json(['withinProgram'=>$movement->withinProgram , 'id'=>$movement->id, 'info1'=>$employee->firstname." ".$employee->lastname, 'info2'=>date("M d, Y",strtotime($movement->effectivity) )]);
+                        }//end else 
+                        break; 
+                    }
+                        
+            case 2: { 
+                        $moveHead = new Movement_Positions;
+                        $moveHead->movement_id = $movement->id;
+                        $moveHead->position_id_old = $old_id;
+                        $moveHead->position_id_new = $new_id;
+                        $moveHead->save();
+
+                        $employee = User::find($movement->user_id);
+
+                        $notification = new Notification;
+                        $notification->relatedModelID = $movement->id;
+                        $notification->type = 3;
+                        $notification->from = $movement->requestedBy;
+                        $notification->save();
+
+                        
+
+                        // ***** if the one submitting is already an HR admin or admin, approved agad
+                        // ***** no need to do HR notifications
+
+                        if ($this->user->userType_id != 3 && $this->user->userType_id != 4) //if not leader and agent
+                        {
+
+                             
+                             $employee->position_id = $moveHead->position_id_new;
+                             $employee->push();
+                                                 
+                                                
+                            //inform person concerned
+                            
+
+                            $nu = new User_Notification;
+                            $nu->user_id = $movement->user_id;
+                            $nu->notification_id = $notification->id;
+                            $nu->seen = false;
+                            $nu->save();
+
+
+                                    $movement->isDone=true;
+                                    $movement->isApproved = true;
+                                    $movement->push();
+
+                        }
+                        else
+                        {
+                            // ***** else
+                            // ***** add in NOTIFICATION for HR concerned
+                         
+
+
+                            $nu = new User_Notification;
+                            $nu->user_id = $movement->notedBy;
+                            $nu->notification_id = $notification->id;
+                            $nu->seen = false;
+                            $nu->save();
+
+                            
+
+
+                            // // ***** add in NOTIFICATION for employee involved
+
+                            // $nu = new User_Notification;
+                            // $nu->user_id = $movement->user_id;
+                            // $nu->notification_id = $notification->id;
+                            // $nu->seen = false;
+                            // $nu->save();
+
+
+                            // ***** add in NOTIFICATION for HR system notif
+
+                            $hrAdmins = User::where('userType_id',5)->get();
+
+                            foreach ($hrAdmins as $key ) {
+
+                                $nu = new User_Notification;
+                                $nu->user_id = $key->id;
+                                $nu->notification_id = $notification->id;
+                                $nu->seen = false;
+                                $nu->save();
+                            }
+
+                        }
+                        /* -------------- log updates made --------------------- */
+                                         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                                            fwrite($file, "-------------------\n");
+                                            fwrite($file, "\n New Position for:  ". $employee->firstname." ".$employee->lastname. " by ". $this->user->firstname. " ". $this->user->lastname."\n");
+                                            fclose($file);   
+
+
+                            return response()->json(['interCampaign'=>true, 'withinProgram'=>$movement->withinProgram , 'id'=>$movement->id, 'info1'=>$employee->firstname." ".$employee->lastname, 'info2'=>date("M d, Y",strtotime($movement->effectivity) )]);
+                        break; 
+                    }
+
+            case 3: {   
+                        $moveHead = new Movement_Status;
+                        $moveHead->movement_id = $movement->id;
+                        $moveHead->status_id_old = $old_id;
+                        $moveHead->status_id_new = $new_id;
+                        $moveHead->save();
+
+                        $employee = User::find($movement->user_id);
+
+                        $notification = new Notification;
+                        $notification->relatedModelID = $movement->id;
+                        $notification->type = 4;
+                        $notification->from = $movement->requestedBy;
+                        $notification->save();
+
+                        
+
+                        // ***** if the one submitting is already an HR admin or admin, approved agad
+                        // ***** no need to do HR notifications
+
+                        if ($this->user->userType_id != 3 && $this->user->userType_id != 4) //if SUPER ADMIN and HR
+                        {
+
+                                $employee->dateRegularized = $movement->effectivity;
+                                $employee->status_id = $moveHead->status_id_new;
+                                $employee->push();
+                                 //inform person concerned
+                                
+
+                                $nu = new User_Notification;
+                                $nu->user_id = $movement->user_id;
+                                $nu->notification_id = $notification->id;
+                                $nu->seen = false;
+                                $nu->save();
+
+                                $movement->isDone=true;
+                                $movement->isApproved = true;
+                                $movement->push();
+
+                        }
+                        else
+                        {
+                            // ***** else
+                            // ***** add in NOTIFICATION for HR concerned
+                            $nu = new User_Notification;
+                            $nu->user_id = $movement->notedBy;
+                            $nu->notification_id = $notification->id;
+                            $nu->seen = false;
+                            $nu->save();
+                            // ***** add in NOTIFICATION for HR system notif
+
+                            $hrAdmins = User::where('userType_id',5)->get();
+
+                            foreach ($hrAdmins as $key ) {
+
+                                $nu = new User_Notification;
+                                $nu->user_id = $key->id;
+                                $nu->notification_id = $notification->id;
+                                $nu->seen = false;
+                                $nu->save();
+                            }
+
+                        }
+
+                        //we now save deets if TRAINEE FALLOUT
+
+                        if($new_id == 19) //status: trainee_FAILED
+                        {
+                            $falloutreason = $request->falloutreason;
+                            $fr = DB::insert('insert into trainee_fallout (user_id, movement_id, reason, created_at, updated_at) values (?,?,?,?,?)', [$employee->id, $movement->id,$falloutreason,$now->format('Y-m-d H:i:s'),$now->format('Y-m-d H:i:s')]);
+                             /* -------------- log updates made --------------------- */
+                                         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                                            fwrite($file, "-------------------\n");
+                                            fwrite($file, "\n Trainee Fallout for:  ". $employee->firstname." ".$employee->lastname. " by ". $this->user->firstname. " ". $this->user->lastname."on ". $now->format('Y-m-d H:i'). "\n");
+                                            fclose($file); 
+                        }
+
+                        //-- we now save new approver setting
+                        DB::insert('insert into movement_approver (movement_id, leader, position_id, created_at, updated_at) values (?,?,?,?,?)', [$movement->id,$request->approverid, $request->positionid,$now->format('Y-m-d H:i:s'),$now->format('Y-m-d H:i:s')]);
+
+
+                          
+
+                            
+                            return response()->json(['interCampaign'=>true, 'withinProgram'=>$movement->withinProgram , 'id'=>$movement->id, 'info1'=>$employee->firstname." ".$employee->lastname, 'info2'=>date("M d, Y",strtotime($movement->effectivity) )]);
+
+
+
+                        break; 
+                    }
+        }
+
+        
+    }
+
+   
+
+   
 
     public function update(Request $request)
     {

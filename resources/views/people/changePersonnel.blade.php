@@ -182,8 +182,18 @@
                         <br>
                         <em id="requestorPosition"></em></td>
                       <td  class="text-center"><strong>Approved by: <br /><br/><br/> <p>&nbsp;</p><p>&nbsp;</p>
-                        {{$theApprover->firstname}} {{$theApprover->lastname}} </strong><br>
-                        <em>{{$theApproverTitle->name}} </em></td>
+                        <select name="approver" id="approver" class="form-control text-left" style="text-transform:uppercase; width:45%; margin:0 auto" required>
+                          <option value="0" class="text-left"> -- Select Approver --</option>
+                          
+                          @foreach ($theApprovers as $leader)
+                            
+                            <option class="text-left" value="{{$leader->id}}" data-position="{{$leader->jobTitle}}" data-positionid="{{$leader->positionID}}" data-campaign="1">{{$leader->lastname}}, {{$leader->firstname}} ({{$leader->nickname}} ) </option>
+                          @endforeach
+                        </select>
+                        <br>
+                        <em id="approverPosition"></em>
+                        
+                      </td>
 
                     </tr>
 
@@ -476,8 +486,9 @@
                       break;};
           case "3": { 
                       var program = $('select[name="status"]').find(':selected').val();
-
-
+                      var positionid = $('select[name="approver"]').find(':selected').attr('data-positionid');
+                      var approverid = $('select[name="approver"]').find(':selected').val(); 
+                      var falloutreason = $('#falloutreason').val();
                       
                       var hp = $('#alert-status');
                      
@@ -493,30 +504,34 @@
                               console.log('not valid status'); e.preventDefault(); e.stopPropagation(); 
                               } else {
 
+                                
                                 // get first if there were previous movements
                                 // if there were no movements AND status is CONTRACTUAL -> from dateHired
                                 // if STATUS is Regular, ->from dateRegularized
-
+                                
                                 $.ajax({
-                                                        url:"{{action('MovementController@findInstances')}} ",
-                                                        type:'POST',
-                                                        data:{
-                                                          'user_id': '{{$personnel->id}}',
-                                                          'movementType': reason,
-                                                          'old_id': '{{$personnel->status_id}}' ,
-                                                          'new_id': program,
-                                                          _token:_token},
+                                            url:"{{action('MovementController@findInstances')}} ",
+                                            type:'POST',
+                                            data:{
+                                              'user_id': '{{$personnel->id}}',
+                                              'movementType': reason,
+                                              'old_id': '{{$personnel->status_id}}' ,
+                                              'new_id': program,
+                                              
+                                              _token:_token},
 
-                                                        error: function(response)
-                                                        { console.log(response); return false;
-                                                        },
-                                                        success: function(response)
-                                                        {
-                                                          console.log(response);
-                                                          saveMovement("{{$personnel->id}}","{{$personnel->status_id}}", program, withinProgram, response[0].fromPeriod,v2, false, v3,v1,v4,reason,_token );
-                                                        }//end success
+                                            error: function(response)
+                                            { console.log(response); return false;
+                                            },
+                                            success: function(response)
+                                            {
+                                              console.log(response);
+                                              saveStatusMovement("{{$personnel->id}}","{{$personnel->status_id}}", program, withinProgram, response[0].fromPeriod,v2, false, v3,v1,v4,reason,_token,falloutreason, positionid, approverid );
+                                            }//end success
 
-                                            }); //end ajax
+                                }); //end ajax
+                                
+                                
 
 
 
@@ -545,17 +560,30 @@
    
    $(document).on('change', 'select[name="status"]',function(){
       var stat =  $(this).find(':selected').val();
+      var fallout = $('#fallout');
 
       if (stat == 7 || stat == 8 || stat == 9 )
       {
         $('#requestedLabel').html("");
         $('#requestedLabel').html("Immediate Supervisor:");
+        fallout.hide();
         console.log(stat);
 
-      } else {
+      } 
+      else if(stat == 19) //TRAINEE FALLOUT
+      {
+        
+        var htmlcode = "<tr id='fallout'><td colspan='2'><label>Indicate Trainee fallout reason(s):</label><textarea class='form-control' name='falloutreason' id='falloutreason'></textarea></td><tr>"; 
+        var holder = $('#details').after(htmlcode);
+        
+
+
+      }
+      else {
         $('#requestedLabel').html("");
         $('#requestedLabel').html("Requested By:");
         console.log(stat);
+        fallout.hide();
       }
 
     
@@ -580,11 +608,21 @@
 
    });
 
+
+   $("select[name='approver']").on('change', function(){
+     var pos =  $(this).find(':selected').attr('data-position');
+     
+     $('#approverPosition').html('');
+     $('#approverPosition').html('<strong>'+pos+'</strong>');
+
+   });
+
    $("input[name='reason']").on('click', function(){
 
     var reason = $(this).val();
     var holder = $('#details');
-   holder.html("");
+    var fallout = $('#fallout');
+    holder.html("");
 
     switch(reason){
       case "1": {
@@ -599,6 +637,7 @@
                 htmlcode += "<br/><div id='alert-program'></div><div id='newTeam'></div></td>";
                 holder.html('');
                 holder.html(htmlcode);
+                fallout.hide();
 
                 $("select[name='program']").on('change', function(){
                   var camp = $(this).find(':selected').val();
@@ -686,6 +725,7 @@
                 
                 holder.html('');
                 holder.html(htmlcode);
+                fallout.hide();
 
                 $("select[name='position']").on('change', function(){
                  var pos =  $(this).find(':selected').val();
@@ -707,7 +747,8 @@
       
       case "3": {
                 
-               
+                
+
                 var htmlcode = "<td>Status: <strong>{{$personnel->status->name}} </strong></td>";
                 htmlcode +="<td> <select name=\"status\" id=\"status\" class=\"form-control\">";
                 htmlcode +="<option value=\"0\">Select New Status</option>";
@@ -794,6 +835,49 @@ function saveProgramMovement(user_id, old_id, new_id, new_floor, old_floor, camp
 
 }
 
+
+function saveStatusMovement(user_id, old_id, new_id, withinProgram, fromPeriod, effectivity, isApproved, requestedBy, dateRequested, notedBy, personnelChange_id,_token,falloutreason, positionid, approverid ){
+
+   //save movement
+      $.ajax({
+                    url:"{{action('MovementController@store')}} ",
+                    type:'POST',
+                    data:{
+                      'user_id': user_id ,
+                      'old_id': old_id ,
+                      'new_id': new_id,
+                      'withinProgram': withinProgram,
+                      'fromPeriod': fromPeriod,
+                      'effectivity': effectivity,
+                      'isApproved': isApproved,
+                      'requestedBy': requestedBy,
+                      'dateRequested': dateRequested,
+                      'notedBy': notedBy,
+                      'personnelChange_id': personnelChange_id,
+                      'falloutreason': falloutreason,
+                      'positionid': positionid,
+                      'approverid': approverid,
+                      _token:_token},
+
+                    error: function(response2)
+                    { console.log("Error saving movement: "); 
+                      console.log(response2); return false;
+                    },
+                    success: function(response2)
+                    {
+                      $('input[name="submit"').fadeOut();
+                      var htmcode = "<span class=\"success\"> <i class=\"fa fa-save\"></i> Employee movement data saved. <br />";
+                      
+                      htmcode += "<a href=\"{{action('MovementController@changePersonnel',$personnel->id)}}\" class='btn btn-sm btn-default text-black pull-right'><i class='fa fa-reply'></i> Back to Employee Movement</a> <br/><br/>";
+                      
+                      $('#alert-submit').addClass('alert alert-success').fadeIn().html(htmcode); 
+
+
+                    }//end success
+
+        }); //end ajax
+
+}
 
 function saveMovement(user_id, old_id, new_id, withinProgram, fromPeriod, effectivity, isApproved, requestedBy, dateRequested, notedBy, personnelChange_id,_token ){
 

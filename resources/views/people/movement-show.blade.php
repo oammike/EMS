@@ -4,45 +4,45 @@
 <title>Movement | OAMPI Evaluation System</title>
 
 <style type="text/css">
-/* Sortable items */
+    /* Sortable items */
 
-.sortable-list {
-  background: none; /* #fcedc6;*/
-  list-style: none;
-  margin: 0;
-  min-height: 60px;
-  padding: 10px;
-}
-.sortable-item {
-  background-color: #fcedc6;
-  
-  cursor: move;
-  
-  font-weight: bold;
-  margin: 2px;
-  padding: 10px 0;
-  text-align: center;
-}
+    .sortable-list {
+    background: none; /* #fcedc6;*/
+    list-style: none;
+    margin: 0;
+    min-height: 60px;
+    padding: 10px;
+    }
+    .sortable-item {
+    background-color: #fcedc6;
 
-/* Containment area */
+    cursor: move;
 
-#containment {
-  background-color: #FFA;
-  height: 230px;
-}
+    font-weight: bold;
+    margin: 2px;
+    padding: 10px 0;
+    text-align: center;
+    }
+
+    /* Containment area */
+
+    #containment {
+    background-color: #FFA;
+    height: 230px;
+    }
 
 
-/* Item placeholder (visual helper) */
+    /* Item placeholder (visual helper) */
 
-.placeholder {
-  background-color: #ccc;
-  border: 3px dashed #fcedc0;
-  min-height: 150px;
-  width: 180px;
-  float: left;
-  margin-bottom: 5px;
-  padding: 45px;
-}
+    .placeholder {
+    background-color: #ccc;
+    border: 3px dashed #fcedc0;
+    min-height: 150px;
+    width: 180px;
+    float: left;
+    margin-bottom: 5px;
+    padding: 45px;
+    }
 </style>
 @endsection
 
@@ -179,6 +179,15 @@
                             @endif
                             
                           </tr>
+
+                          @if($falloutreason)
+                          <tr>
+                            <td colspan="2">
+                              <label>Trainee Fallout Reason(s):</label>
+                              <textarea class="form-control">{{$falloutreason->reason}} </textarea>
+                            </td>
+                          </tr>
+                          @endif
 
                         </table>
                         
