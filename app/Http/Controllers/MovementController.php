@@ -1462,12 +1462,6 @@ class MovementController extends Controller
                 $opsMgr = null;
                 $notedBy = User::find($movement->notedBy);
 
-               
-
-        //         $leader_L2 = User::where('employeeNumber',$immediateHead->employeeNumber)->first();
-        // $leader_L1 = ImmediateHead::find(ImmediateHead_Campaign::find($leader_L2->supervisor->immediateHead_Campaigns_id)->immediateHead_id);
-        // $leader_L0 = ImmediateHead::find(ImmediateHead_Campaign::find(User::where('employeeNumber',$leader_L1->employeeNumber)->first()->supervisor->immediateHead_Campaigns_id)->immediateHead_id);
-        // $leader_PM = ImmediateHead::find(ImmediateHead_Campaign::find(User::where('employeeNumber',$leader_L0->employeeNumber)->first()->supervisor->immediateHead_Campaigns_id)->immediateHead_id);
 
 
 
@@ -1506,13 +1500,19 @@ class MovementController extends Controller
                 }
                 else
                 {
+                    //********* we get the PM or Director for approval
+                    
                     // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico, myka, jusayan
                     $theApprover = null;
                     $allowedPMs = [1,184,1784,1611,464,163,225,431,305,2502];
 
                     $l1 = User::find($movement->user_id)->supervisor;
+
+                    //return $l1;
                     
-                    if (count((array)$l1) > 0){
+                    //if (count((array)$l1) > 0){
+                    if (!empty($l1))
+                    { 
                         $l2 = User::where('employeeNumber', ImmediateHead_Campaign::find($l1->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
 
                         //return $l2;
@@ -1546,6 +1546,9 @@ class MovementController extends Controller
                     }else $theApprover= User::find(1784);
 
                 }
+
+
+
 
                 
 
