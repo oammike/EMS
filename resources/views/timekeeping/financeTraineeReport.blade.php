@@ -184,6 +184,7 @@
                       //var groupedDTRs = response.groupedDTRs;
                       //console.log("array data:");
                       console.log(rdata);
+                      
 
                       //$('input[name="dtr"]').val(jQuery.param(rdata));
                       $('input[name="cutoffstart"]').val(cutoffstart);
@@ -207,7 +208,7 @@
                           htmltags += "<tr><td>"+(i+1)+". "+ rdata[i]['lastname']+", "+rdata[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+rdata[i]['jobTitle']+"</small></td>";
                           htmltags += "<td>"+ rdata[i]['leaderFname']+" "+ rdata[i]['leaderLname'] +"</td>";
                           htmltags += "<td class='text-right'>"+ rdata[i]['workedHours'] +"</td>";
-                          htmltags += "<td class='text-right'> Php "+ parseFloat((rdata[i]['workedHours']/8)*rdata[i]['rate']).toFixed(2) +"</td>";
+                          htmltags += "<td class='text-right'> Php "+ parseFloat((rdata[i]['workedHours']/8)*rdata[i]['rate']).toFixed(2).toLocaleString() +"</td>";
                           htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+rdata[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
                         
 
