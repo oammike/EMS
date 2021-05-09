@@ -41,6 +41,7 @@
                 <input type="hidden" name="cutoffstart" />
                 <input type="hidden" name="cutoffend" />
                 <input type="hidden" name="reportType" id="reportType" value="trainees" />
+                <input type="hidden" name="stat" id="stat" value="{{$stat}}" />
                 
                 <!-- <input type="hidden" name="dtr" /> -->
 
@@ -156,6 +157,7 @@
                       'cutoff': cutoff,
                       
                       'reportType': 'trainees',
+                      'stat': "{{$stat}}",
                       '_token':_token
                     },
                     success: function(response){

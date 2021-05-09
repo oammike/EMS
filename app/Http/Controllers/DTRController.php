@@ -238,7 +238,13 @@ class DTRController extends Controller
         $reportType = $request->reportType;
 
         $result = $this->fetchLockedDTRs($request->cutoff, null,3);
-        $allDTRs = DB::table('users')->where('users.status_id',2)->
+        $stat = $request->stat;
+
+        if($stat == 'p') $statid=18;
+        elseif ($stat == 'f') $statid=19;
+        else $statid = 2;
+
+        $allDTRs = DB::table('users')->where('users.status_id',$statid)->
                       join('team','team.user_id','=','users.id')->
                       leftJoin('campaign','team.campaign_id','=','campaign.id')->
                       leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
@@ -256,7 +262,7 @@ class DTRController extends Controller
         
         if($this->user->id !== 564 ) {
               $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n DL_TRAINEES summary: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " for Program: ".$program->name. " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fwrite($file, "-------------------\n DL_TRAINEES_[".$stat."] summary: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " for Program: ".$program->name. " by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);
         } 
 
@@ -3761,8 +3767,10 @@ class DTRController extends Controller
         
       
 
-      if($type == 't')
-        return view('timekeeping.financeTraineeReport',compact('payrollPeriod','paycutoffs','allProgram'));
+      if($type == 't'){
+        $stat = Input::get('stat');
+        return view('timekeeping.financeTraineeReport',compact('payrollPeriod','paycutoffs','allProgram','stat'));
+      }
       else
         return view('timekeeping.financeReport',compact('payrollPeriod','paycutoffs','allProgram'));
 
@@ -5982,7 +5990,17 @@ class DTRController extends Controller
       if ($request->reportType == 'finance')
         $result = $this->fetchLockedDTRs($request->cutoff, $request->program,1);
       elseif($request->reportType == 'trainees')
-       $result = $this->fetchLockedDTRs($request->cutoff, null,3);
+      {
+        $stat = $request->stat;
+        if($stat == 'p')
+          $result = $this->fetchLockedDTRs($request->cutoff, null,4);
+        elseif ($stat == 'f')
+          $result = $this->fetchLockedDTRs($request->cutoff, null,5);
+        else
+          $result = $this->fetchLockedDTRs($request->cutoff, null,3);
+
+       
+      }
       else
          $result = $this->fetchLockedDTRs($request->cutoff, $request->program,null);
 
