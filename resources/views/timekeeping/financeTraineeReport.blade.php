@@ -183,7 +183,7 @@
                       var members = response.users;
                       var groupedDTRs = response.groupedDTRs;
                       //console.log("array data:");
-                      console.log(rdata);
+                      console.log(groupedDTRs);
 
                       //$('input[name="dtr"]').val(jQuery.param(rdata));
                       $('input[name="cutoffstart"]').val(cutoffstart);
