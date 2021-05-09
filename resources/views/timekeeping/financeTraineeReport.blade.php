@@ -196,7 +196,7 @@
                       {
                         var totalDTR = response.payrollPeriod.length;
 
-                        for(var i = 0; i < members.length; i++)
+                        for(var i = 0; i < response.submitted;  i++)//members.length;
                         {
 
                           var userid = members[i]['id'];
