@@ -176,7 +176,7 @@
                       $('#total').html('('+response.total+') team members ');
                       $('#programName').html(response.program);
 
-                      var rdata = response.DTRs;
+                      var rdata = response.traineeDTR;
                       var cutoffstart = response.cutoffstart;
                       var cutoffend = response.cutoffend;
                       var program = response.program;

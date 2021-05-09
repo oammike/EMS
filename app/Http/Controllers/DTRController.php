@@ -6024,7 +6024,74 @@ class DTRController extends Controller
         $groupedDTRs = collect($allDTRs)->groupBy('user_id');
         $total = count($groupedDTRs);
 
-        return response()->json(['DTRs'=>$allDTRs,'total'=>$total,'submitted'=>$total, 'program'=>'TRAINEES', 'groupedDTRs'=>$groupedDTRs,'cutoffstart'=>$cutoff[0],'cutoffend'=>$cutoff[1]]);
+        $traineeDTR = new Collection;
+
+
+        foreach($groupedDTRs as $employeeDTR)
+        {
+          $i = 0;
+          //$dData = collect($employeeDTR)->sortBy('productionDate')->where('productionDate',$payday->format('Y-m-d'));
+          //$dData = collect($allDTRs)->where('id',$employeeDTR->first()->id)->sortBy('productionDate');
+
+          if (count($employeeDTR) > 0)
+          {
+
+            //'Employee Code'::'Formal Name'::'Date'::'Day'::
+            // Time IN'::'Time OUT'::'Hours':: 'OT billable'::'OT Approved'::'OT Start'::'OT End'::'OT hours'::'OT Reason'
+            $traineeHR = 0;
+            foreach ($employeeDTR as $key) 
+            {
+              
+              
+
+              // -------- DATE -------------
+              // ** Production Date
+              // check if there's holiday
+              $holiday = Holiday::where('holidate',$key->productionDate)->get();
+
+              (count($holiday) > 0) ? $hday=$holiday->first()->name : $hday = "";
+
+              // -------- WORKED HOURS  -------------
+              if (strlen($key->hoursWorked) > 5)
+              {
+                 $wh = strip_tags($key->hoursWorked);
+
+                 if( strpos($wh,"[") !== false)
+                 {
+                    $cleanWH = explode("[", $wh);
+                    $traineeHR +=  $cleanWH[0]; 
+
+                 }else if ( strpos($wh, "(")!==false )
+                 {
+                    $cleanWH = explode("(", $wh);
+                    $traineeHR +=  $cleanWH[0]; 
+
+                 }else
+                 {
+                    $cleanWH = explode(" ", $wh);
+                    $traineeHR +=  $cleanWH[0];
+
+                 }
+                  //$arr[$i] = $wh; $i++;
+
+              }else{ 
+                $traineeHR += strip_tags($key->hoursWorked); $i++;
+              }
+
+              
+
+
+              
+            }
+
+            $traineeDTR->push(['firstname'=>$key[0]->firstname,'lastname'=>$key[0]->lastname,'workedHours'=>$traineeHR]);
+
+          }else{}
+          
+
+        }//end foreach employee
+
+        return response()->json(['DTRs'=>$allDTRs,'total'=>$total,'submitted'=>$total, 'program'=>'TRAINEES', 'groupedDTRs'=>$groupedDTRs,'cutoffstart'=>$cutoff[0],'cutoffend'=>$cutoff[1],'traineeDTR'=>$traineeDTR]);
 
        
       }
