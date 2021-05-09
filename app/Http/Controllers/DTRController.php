@@ -6075,7 +6075,11 @@ class DTRController extends Controller
                   //$arr[$i] = $wh; $i++;
 
               }else{ 
-                $traineeHR += 0; //strip_tags($key->hoursWorked);
+
+                if( strpos($key->hoursWorked,"N") !== false)
+                  $traineeHR += 0; //strip_tags($key->hoursWorked);
+                else
+                  $traineeHR += (float)strip_tags($key->hoursWorked);
               }
 
               
@@ -6084,7 +6088,7 @@ class DTRController extends Controller
               
             }
 
-            $traineeDTR->push(['firstname'=>$key[0]->firstname,'lastname'=>$key[0]->lastname,'workedHours'=>$traineeHR]);
+            $traineeDTR->push(['firstname'=>$key->firstname,'lastname'=>$key->lastname,'workedHours'=>$traineeHR]);
 
           }else{}
           
