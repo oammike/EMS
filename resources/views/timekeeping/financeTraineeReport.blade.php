@@ -179,9 +179,9 @@
                       var rdata = response.traineeDTR;
                       var cutoffstart = response.cutoffstart;
                       var cutoffend = response.cutoffend;
-                      var program = response.program;
+                      //var program = response.program;
                       //var members = response.users;
-                      var groupedDTRs = response.groupedDTRs;
+                      //var groupedDTRs = response.groupedDTRs;
                       //console.log("array data:");
                       console.log(rdata);
 
@@ -191,35 +191,24 @@
 
                       $('#team').html('');
 
-                      /*
-                      var htmltags="<tr><th>Employee</th><th>Immediate Head</th><th class='text-right'>Locked DTR entries</th><th></th></tr>";// "<tr>";
+                      
+                      var htmltags="<tr><th>Trainee</th><th>Trainer</th><th class='text-right'>Total Hours</th><th></th></tr>";// "<tr>";
+                      var i=0;
 
-                      if (members.length > 1)
+                      if (rdata.length > 1)
                       {
                         var totalDTR = response.payrollPeriod.length;
 
-                        for(var i = 0; i < response.submitted;  i++)//members.length;
+                        for(var i = 0; i < rdata.length;  i++)//members.length;
                         {
 
-                          var userid = groupedDTRs[i]['id'];
-                          var count = rdata.filter((obj) => obj.id === userid).length;
+                          var userid = rdata[i]['id'];
 
-
-                          if (count == totalDTR ){
-                            htmltags += "<tr style='font-weight:bold; background: rgba(255, 255, 255, 0.5);' class='text-success'><td>"+(i+1)+". "+ groupedDTRs[i]['lastname']+", "+groupedDTRs[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+groupedDTRs[i]['jobTitle']+"</small></td>";
-                            htmltags += "<td>"+ groupedDTRs[i]['leaderFname']+" "+ groupedDTRs[i]['leaderLname'] +"</td>";
-                            htmltags += "<td class='text-right'>"+ count +" / "+ totalDTR +"</td>";
-                            htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+groupedDTRs[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
-
-                          }
-                          
-                          else{
-
-                            htmltags += "<tr><td>"+(i+1)+". "+ groupedDTRs[i]['lastname']+", "+groupedDTRs[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
-                            htmltags += "<td>"+ groupedDTRs[i]['leaderFname']+" "+ groupedDTRs[i]['leaderLname'] +"</td>";
-                            htmltags += "<td class='text-right'>"+ count +" / "+ totalDTR +"</td>";
-                            htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+groupedDTRs[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
-                          }
+                          htmltags += "<tr><td>"+(i+1)+". "+ rdata[i]['lastname']+", "+rdata[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+rdata[i]['jobTitle']+"</small></td>";
+                          htmltags += "<td>"+ rdata[i]['leaderFname']+" "+ rdata[i]['leaderLname'] +"</td>";
+                          htmltags += "<td class='text-right'>"+ rdata[i]['workedHours'] +"</td>";
+                          htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+rdata[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
+                        
 
                           
 
@@ -227,16 +216,16 @@
                         htmltags += "</table>";
 
                       }else{
-                        htmltags += "<td>"+ groupedDTRs[i]['lastname']+", "+groupedDTRs[i]['firstname']+"</td></tr>";
+                        htmltags += "<td>"+ rdata[i]['lastname']+", "+rdata[i]['firstname']+"</td></tr>";
 
                       }
-                      console.log(members.length);
+                      //console.log(members.length);
 
                       
                       
 
                       $('#team').html(htmltags)
-                      */
+                      
                     }
                   });
 

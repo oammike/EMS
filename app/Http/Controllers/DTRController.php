@@ -6088,7 +6088,7 @@ class DTRController extends Controller
               
             }
 
-            $traineeDTR->push(['firstname'=>$key->firstname,'lastname'=>$key->lastname,'workedHours'=>$traineeHR]);
+            $traineeDTR->push(['id'=>$key->user_id, 'firstname'=>$key->firstname,'lastname'=>$key->lastname,'workedHours'=>$traineeHR,'jobTitle'=>$key->jobTitle,'leaderFname'=>$key->leaderFname,'leaderLname'=>$key->leaderLname]);
             $traineeHR=0;
 
           }else{}
