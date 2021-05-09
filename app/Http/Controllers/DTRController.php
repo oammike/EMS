@@ -6075,7 +6075,7 @@ class DTRController extends Controller
                   //$arr[$i] = $wh; $i++;
 
               }else{ 
-                $traineeHR += strip_tags($key->hoursWorked); $i++;
+                $traineeHR += 0; //strip_tags($key->hoursWorked);
               }
 
               
