@@ -199,7 +199,7 @@
                         for(var i = 0; i < response.submitted;  i++)//members.length;
                         {
 
-                          var userid = members[i]['id'];
+                          var userid = members[i+response.submitted]['id'];
                           var count = rdata.filter((obj) => obj.id === userid).length;
 
 
