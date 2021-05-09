@@ -1,5 +1,25 @@
 
             <div class="item active text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_05_09_mothers.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >
+                    Happy  <span class="text-primary">  Mother's Day  <br/><small>May 09, 2021</small><br/>
+                      <img src="storage/uploads/divider.png" />
+                  </h4>
+
+                  <p style="padding: 30px;" class="text-center">
+                    Beautiful things are found in small moments.<br/><br/>
+
+                   
+
+                    To all the inspiring mom and mom figures, we wish you a #HappyMothersDay! We're happy and proud to work with such amazing individuals.<br/><br/>
+
+                    #WeSpeakYourLanguage #OAonMothersDay
+                      
+                     </p> 
+                       
+            </div>
+
+            <div class="item  text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/covid19_vaccination.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >
                     Covid-19  Vaccination <span class="text-primary">  Questionnaire  <br/><small>May 05, 2021</small><br/>
