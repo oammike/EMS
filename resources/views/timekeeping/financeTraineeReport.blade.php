@@ -180,10 +180,10 @@
                       var cutoffstart = response.cutoffstart;
                       var cutoffend = response.cutoffend;
                       var program = response.program;
-                      var members = response.users;
+                      //var members = response.users;
                       var groupedDTRs = response.groupedDTRs;
                       //console.log("array data:");
-                      console.log(groupedDTRs);
+                      console.log(rdata);
 
                       //$('input[name="dtr"]').val(jQuery.param(rdata));
                       $('input[name="cutoffstart"]').val(cutoffstart);
@@ -191,6 +191,7 @@
 
                       $('#team').html('');
 
+                      /*
                       var htmltags="<tr><th>Employee</th><th>Immediate Head</th><th class='text-right'>Locked DTR entries</th><th></th></tr>";// "<tr>";
 
                       if (members.length > 1)
@@ -235,7 +236,7 @@
                       
 
                       $('#team').html(htmltags)
-                      
+                      */
                     }
                   });
 
