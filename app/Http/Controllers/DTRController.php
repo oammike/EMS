@@ -6059,17 +6059,17 @@ class DTRController extends Controller
                  if( strpos($wh,"[") !== false)
                  {
                     $cleanWH = explode("[", $wh);
-                    $traineeHR +=  $cleanWH[0]; 
+                    $traineeHR +=  (float)$cleanWH[0]; 
 
                  }else if ( strpos($wh, "(")!==false )
                  {
                     $cleanWH = explode("(", $wh);
-                    $traineeHR +=  $cleanWH[0]; 
+                    $traineeHR +=  (float)$cleanWH[0]; 
 
                  }else
                  {
                     $cleanWH = explode(" ", $wh);
-                    $traineeHR +=  $cleanWH[0];
+                    $traineeHR +=  (float)$cleanWH[0];
 
                  }
                   //$arr[$i] = $wh; $i++;
@@ -6089,6 +6089,7 @@ class DTRController extends Controller
             }
 
             $traineeDTR->push(['firstname'=>$key->firstname,'lastname'=>$key->lastname,'workedHours'=>$traineeHR]);
+            $traineeHR=0;
 
           }else{}
           
