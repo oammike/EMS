@@ -197,7 +197,7 @@
 
                       if (rdata.length > 1)
                       {
-                        var totalDTR = response.payrollPeriod.length;
+                        //var totalDTR = response.payrollPeriod.length;
 
                         for(var i = 0; i < rdata.length;  i++)//members.length;
                         {
