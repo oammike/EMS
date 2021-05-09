@@ -233,7 +233,7 @@
                       
                       
 
-                      //$('#team').html(htmltags)
+                      $('#team').html(htmltags)
                       
                     }
                   });

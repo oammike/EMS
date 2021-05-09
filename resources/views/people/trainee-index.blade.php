@@ -83,9 +83,39 @@
             
 
             <div class="col-lg-12"> <!-- ******************* LEFT COLUMN ***************** -->
+                                                 
+
+              @if($isFinance || $superAdmin)
+              
+               <a data-toggle="modal" data-target="#myModal_payslip"  class="btn btn-sm btn-success  pull-right" style="margin-right: 2px;"><i class="fa fa-calculator"></i> Issue Payslip</a>
+               
+               <a href="{{action('DTRController@financeReports',['type'=>'t','stat'=>$stat])}} " class="btn btn-sm btn-default  pull-right" style="margin-right: 2px;"><i class="fa fa-download"></i> Download Finance Report</a>
+               
+               @if ($hasUserAccess) 
+                <a href="{{action('UserController@create')}} " class="btn btn-sm btn-danger  pull-right"style="margin-right: 2px;"><i class="fa fa-plus"></i> Add New Employee</a>
+               
+                @endif
+
+               <div class="clearfix"></div>
+               
+
+
+              @include('layouts.modals-payslip', [
+                    'modelRoute'=>'resource.index',
+                    'modelID' => '_payslip', 
+                    'modalMessage'=> " ",
+                    'modelName'=>"Trainee Payslip ", 
+                    'modalTitle'=>'Generate ', 
+                    'formID'=>'submit',
+                    'icon'=>'glyphicon-up' ])
+
+              @endif
+
 
               <!-- TABLE: LEFT -->
               <div class="box-body">
+                 
+
 
                 <!-- Custom Tabs -->
                                               <div class="nav-tabs-custom">
@@ -94,12 +124,7 @@
                                                   <li @if($stat=="p") class="active" @endif><a href="{{action('UserController@trainees',['stat'=>'p'])}}" ><strong class="text-primary">Passed <span id="inactives"></span></strong></a></li>
                                                   <li @if($stat=="f") class="active" @endif><a href="{{action('UserController@trainees',['stat'=>'f'])}}"" ><strong class="text-primary">Fallout <span id="floating"></span></strong></a></li>
                                                   
-                                                   @if ($hasUserAccess) 
-                                                    <a href="{{action('UserController@create')}} " class="btn btn-sm btn-danger  pull-right"><i class="fa fa-plus"></i> Add New Employee</a>
-                                                   
-                                                    @endif
-
-                                                   <a href="{{action('DTRController@financeReports',['type'=>'t','stat'=>$stat])}} " class="btn btn-sm btn-success  pull-right" style="margin-right: 2px;"><i class="fa fa-download"></i> Download Finance Report</a>
+                                                  
 
 
                                                 </ul>

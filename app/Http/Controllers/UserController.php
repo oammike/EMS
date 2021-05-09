@@ -5159,10 +5159,11 @@ class UserController extends Controller
             fwrite($file, "-------------------\n View TRAINEES - ". $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
             fclose($file);
         }
+
+        $paycutoffs = Paycutoff::orderBy('toDate','DESC')->get();
+        $rate = 750.00;
        
-       //  return Datatables::collection($inactiveUsers)->make(true);
-       //return $inactiveUsers;
-        return view('people.trainee-index', compact('myCampaign','canBIR','superAdmin', 'hasUserAccess','isWorkforce','wfAgent','stat','status'));
+        return view('people.trainee-index', compact('paycutoffs','rate', 'myCampaign','canBIR','superAdmin', 'hasUserAccess','isWorkforce','wfAgent','isFinance','stat','status'));
     }
 
      /***** show your subordinates' requests *******/
