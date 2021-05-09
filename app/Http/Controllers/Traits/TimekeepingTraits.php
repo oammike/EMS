@@ -373,7 +373,7 @@ trait TimekeepingTraits
         $payrollPeriod = $this->getPayrollPeriod(Carbon::parse($cutoff[0],'Asia/Manila'),Carbon::parse($cutoff[1],'Asia/Manila'));
 
         $coll = new Collection;
-        $coll->push(['payrollPeriod'=>$payrollPeriod, 'pendings'=>$pendings, 'userArray'=>$userArray, 'dtrArray'=>$dtrArray, 'users'=>$allUsers,'program'=>"TRAINEES", 'total'=>count($allUsers),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1], 'DTRs'=>$allDTRs,'submitted'=>count(collect($allDTRs)->groupBy('id'))]);
+        $coll->push(['payrollPeriod'=>$payrollPeriod, 'pendings'=>$pendings, 'userArray'=>$userArray, 'dtrArray'=>$dtrArray, 'users'=>$allUsers,'program'=>"TRAINEES", 'total'=>count($allUsers),'cutoffstart'=>$cutoff[0], 'cutoffend'=>$cutoff[1], 'DTRs'=>$allDTRs,'groupedDTRs'=>collect($allDTRs)->groupBy('id'), 'submitted'=>count(collect($allDTRs)->groupBy('id'))]);
 
 
       }

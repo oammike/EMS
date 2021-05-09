@@ -181,6 +181,7 @@
                       var cutoffend = response.cutoffend;
                       var program = response.program;
                       var members = response.users;
+                      var groupedDTRs = response.groupedDTRs;
                       //console.log("array data:");
                       console.log(rdata);
 
@@ -199,24 +200,24 @@
                         for(var i = 0; i < response.submitted;  i++)//members.length;
                         {
 
-                          var userid = members[i+response.submitted]['id'];
+                          var userid = groupedDTRs[i]['id'];
                           var count = rdata.filter((obj) => obj.id === userid).length;
 
 
                           if (count == totalDTR ){
-                            htmltags += "<tr style='font-weight:bold; background: rgba(255, 255, 255, 0.5);' class='text-success'><td>"+(i+1)+". "+ members[i]['lastname']+", "+members[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
-                            htmltags += "<td>"+ members[i]['leaderFname']+" "+ members[i]['leaderLname'] +"</td>";
+                            htmltags += "<tr style='font-weight:bold; background: rgba(255, 255, 255, 0.5);' class='text-success'><td>"+(i+1)+". "+ groupedDTRs[i]['lastname']+", "+groupedDTRs[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+groupedDTRs[i]['jobTitle']+"</small></td>";
+                            htmltags += "<td>"+ groupedDTRs[i]['leaderFname']+" "+ groupedDTRs[i]['leaderLname'] +"</td>";
                             htmltags += "<td class='text-right'>"+ count +" / "+ totalDTR +"</td>";
-                            htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+members[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
+                            htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+groupedDTRs[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
 
                           }
                           
                           else{
 
-                            htmltags += "<tr><td>"+(i+1)+". "+ members[i]['lastname']+", "+members[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
-                            htmltags += "<td>"+ members[i]['leaderFname']+" "+ members[i]['leaderLname'] +"</td>";
+                            htmltags += "<tr><td>"+(i+1)+". "+ groupedDTRs[i]['lastname']+", "+groupedDTRs[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+members[i]['jobTitle']+"</small></td>";
+                            htmltags += "<td>"+ groupedDTRs[i]['leaderFname']+" "+ groupedDTRs[i]['leaderLname'] +"</td>";
                             htmltags += "<td class='text-right'>"+ count +" / "+ totalDTR +"</td>";
-                            htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+members[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
+                            htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+groupedDTRs[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
                           }
 
                           
@@ -225,7 +226,7 @@
                         htmltags += "</table>";
 
                       }else{
-                        htmltags += "<td>"+ members[i]['lastname']+", "+members[i]['firstname']+"</td></tr>";
+                        htmltags += "<td>"+ groupedDTRs[i]['lastname']+", "+groupedDTRs[i]['firstname']+"</td></tr>";
 
                       }
                       console.log(members.length);
