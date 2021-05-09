@@ -87,9 +87,9 @@
 
               @if($isFinance || $superAdmin)
               
-               <a data-toggle="modal" data-target="#myModal_payslip"  class="btn btn-sm btn-success  pull-right" style="margin-right: 2px;"><i class="fa fa-calculator"></i> Issue Payslip</a>
+              <!--  <a data-toggle="modal" data-target="#myModal_payslip"  class="btn btn-sm btn-success  pull-right" style="margin-right: 2px;"><i class="fa fa-calculator"></i> Issue Payslip</a> -->
                
-               <a href="{{action('DTRController@financeReports',['type'=>'t','stat'=>$stat])}} " class="btn btn-sm btn-default  pull-right" style="margin-right: 2px;"><i class="fa fa-download"></i> Download Finance Report</a>
+               <a href="{{action('DTRController@financeReports',['type'=>'t','stat'=>$stat])}} " class="btn btn-sm btn-success  pull-right" style="margin-right: 2px;"><i class="fa fa-download"></i> Download Finance Report</a>
                
                @if ($hasUserAccess) 
                 <a href="{{action('UserController@create')}} " class="btn btn-sm btn-danger  pull-right"style="margin-right: 2px;"><i class="fa fa-plus"></i> Add New Employee</a>

@@ -6001,6 +6001,7 @@ class DTRController extends Controller
           $result = $this->fetchLockedDTRs($request->cutoff, null,3);
           */
 
+        $rate = 750.00;
 
         if($stat == 'p') $statid=18;
         elseif ($stat == 'f') $statid=19;
@@ -6088,7 +6089,7 @@ class DTRController extends Controller
               
             }
 
-            $traineeDTR->push(['id'=>$key->user_id, 'firstname'=>$key->firstname,'lastname'=>$key->lastname,'workedHours'=>$traineeHR,'jobTitle'=>$key->jobTitle,'leaderFname'=>$key->leaderFname,'leaderLname'=>$key->leaderLname]);
+            $traineeDTR->push(['id'=>$key->user_id, 'firstname'=>$key->firstname,'lastname'=>$key->lastname,'workedHours'=>$traineeHR,'jobTitle'=>$key->jobTitle,'leaderFname'=>$key->leaderFname,'leaderLname'=>$key->leaderLname,'rate'=>$rate]);
             $traineeHR=0;
 
           }else{}
