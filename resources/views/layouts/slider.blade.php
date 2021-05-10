@@ -1,5 +1,25 @@
 
-            <div class="item active text-center" >
+             <div class="item active text-center" >
+                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_05_10_wall.jpg" width="100%" />
+                  <h4 class="text-orange" style="line-height: 1.5em" >
+                    Open Access BPO Wall:  <br/> <span class="text-primary">  International Family Day  <br/><small>May 15, 2021</small><br/>
+                      <img src="storage/uploads/divider.png" />
+                  </h4>
+
+                  <p style="padding: 30px;" class="text-center">
+                     Life is always colorful with our families by our side. <br/>
+                     It’s International Family Day on May 15! <br/><br/>
+                     <strong>What do you love doing most as a family? </strong><br/>
+                     Share your stories and photos on EMS to earn 20 points!
+
+                      <br/>
+
+                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',53)}}"><i class="fa fa-th-large"></i> View Wall</a>
+                     </p>   
+            </div>
+
+
+            <div class="item text-center" >
                   <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_05_09_mothers.jpg" width="100%" />
                   <h4 class="text-orange" style="line-height: 1.5em" >
                     Happy  <span class="text-primary">  Mother's Day  <br/><small>May 09, 2021</small><br/>
@@ -44,28 +64,7 @@
                      <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>     
             </div>
 
-            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
-                  <h4 class="text-orange" style="line-height: 1.5em" >
-                    Deadline for Locking and Approval of DTR <br/> <span class="text-primary">  for May 10,2021 Payout  <br/><small>May 05, 2021</small><br/>
-                      <img src="storage/uploads/divider.png" />
-                  </h4>
-
-                  <p style="padding: 30px;" class="text-center">
-                     Please be informed that our payout for the payroll period April 21-May 5, 2021 is on May 10, 2021. Employee's DTR should be approved and locked in EMS <strong class="text-success"> on or before 12:00 noon of May 6, 2021</strong>. All DTR from EMS will be lifted on the said cut-off for the payroll computation purposes.<br/><br/>
-
-                      In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate supervisor to lock your DTR on your behalf.<br/><br/>
-
-                      We encourage you to lock your DTR regularly to ensure that you will be paid correctly and that any DTR problems or future disputes will be prevented.  <br/><br/>
-
-                      If you have any payroll-related inquiries and concerns, please log in to our Payroll Help Desk by clicking this link http://ticketing.openaccess.bpo/. You may also access it via EMS. For employees who are working from home, your VPN should be connected before you can access the Payroll Help Desk.<br/><br/>
-
-                      Kindly access the user guide here to find out how to use it https://rise.articulate.com/share/R7DUt2qkI--qHon-LOtel335dgZHDs26.
-
-                      Please be guided accordingly.<br/><br/>
-
-                      Thank you,
-                     </p>   
-            </div>
+            
 
              <div class="item  text-center" >
                   
@@ -127,24 +126,7 @@
 
 
 
-            <div class="item  text-center" >
-                  <img src="https://internal.openaccess.bpo/EMS/public/storage/uploads/2021_05_03_wall.jpg" width="100%" />
-                  <h4 class="text-orange" style="line-height: 1.5em" >
-                    Open Access BPO Wall:  <br/> <span class="text-primary">  MOMents  <br/><small>May 03, 2021</small><br/>
-                      <img src="storage/uploads/divider.png" />
-                  </h4>
-
-                  <p style="padding: 30px;" class="text-center">
-                     Mother’s Day is around the corner and this week will be all about our wonderful moms!<br/><br/>
-
-                      <strong>Share your favorite MOMents with your mom and post a photo of you together!</strong> <br/><br/>
-                      Visit Open Access BPO wall now and earn 20 points!<br/>
-                      <br/>
-
-                      <a class="btn btn-primary btn-md" href="{{action('EngagementController@show',52)}}"><i class="fa fa-th-large"></i> View Wall</a>
-                     </p>   
-            </div>
-
+           
 
             
 
@@ -175,35 +157,7 @@
             </div>
 
 
-            <div class="item text-center" >
-
-                   
-                  <h4 class="text-orange" style="line-height: 1.5em" >New Leadership Development Course <br/><span class="text-primary"><i class="fa fa-users"></i> Understanding Core Competencies<br/> and Rating Criteria <br/><small>Mar.24, 2021</small><br/>
-                  
-                    <img src="storage/uploads/divider.png" />
-                    </h4>
-                   
-                    <p style="padding: 30px;" class="text-left">
-                     Hi team,<br/><br/>
- 
-                      It's finally here!<br/><br/>
-                       
-                      As part of rolling out our new corporate approach to performance management and development this year, we are happy to announce that our course for understanding our core competencies and criteria for rating performance is now available in Rise 360.<br/><br/>
-                       
-                      This mandatory course provides instruction and insights on performance management, and discusses the working definitions for the essential skills and competencies for our jobs and how they can be developed. It is vital for leaders to have a clear understanding and an aligned implementation of these across the board, as we set performance standards and assess how we're doing all year-round. This will help us advance them as well as evaluate them as one Open Access BPO team.<br/><br/>
-                       
-                      This is also designed to equip people managers to competently care for the development of our people and will be an accessible reference all year long. Through this valuable toolkit we can coach, guide, set goals for, and make thrive our most valuable resources --- our talents, our people.<br/><br/> 
-                       
-                      Please self-register in LMS today and take <strong class="text-primary">How to Rate Performance: Understanding Our Core Competencies and Rating Criteria.</strong>  All people managers and individual support contributors are required to complete this <strong class="text-success"> on or before April 15, 2021.</strong>
-                       
-                      <br/><br/>
-
-                      <strong>ENROLL NOW!</strong><br/>
-                       <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://open-access.training-online.eu/catalog/" />
-                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
-                  </p>     
-            </div>
-
+           
 
             <div class="item text-center" >
                   
@@ -962,5 +916,59 @@
                    </p>
                    <a class="btn btn-success btn-md" href="{{action('RewardsHomeController@rewards_catalog')}}#donatenow"> Donate Now</a>
             </div>
+
+            <!--
+             <div class="item text-center" >
+
+                   
+                  <h4 class="text-orange" style="line-height: 1.5em" >New Leadership Development Course <br/><span class="text-primary"><i class="fa fa-users"></i> Understanding Core Competencies<br/> and Rating Criteria <br/><small>Mar.24, 2021</small><br/>
+                  
+                    <img src="storage/uploads/divider.png" />
+                    </h4>
+                   
+                    <p style="padding: 30px;" class="text-left">
+                     Hi team,<br/><br/>
+ 
+                      It's finally here!<br/><br/>
+                       
+                      As part of rolling out our new corporate approach to performance management and development this year, we are happy to announce that our course for understanding our core competencies and criteria for rating performance is now available in Rise 360.<br/><br/>
+                       
+                      This mandatory course provides instruction and insights on performance management, and discusses the working definitions for the essential skills and competencies for our jobs and how they can be developed. It is vital for leaders to have a clear understanding and an aligned implementation of these across the board, as we set performance standards and assess how we're doing all year-round. This will help us advance them as well as evaluate them as one Open Access BPO team.<br/><br/>
+                       
+                      This is also designed to equip people managers to competently care for the development of our people and will be an accessible reference all year long. Through this valuable toolkit we can coach, guide, set goals for, and make thrive our most valuable resources --- our talents, our people.<br/><br/> 
+                       
+                      Please self-register in LMS today and take <strong class="text-primary">How to Rate Performance: Understanding Our Core Competencies and Rating Criteria.</strong>  All people managers and individual support contributors are required to complete this <strong class="text-success"> on or before April 15, 2021.</strong>
+                       
+                      <br/><br/>
+
+                      <strong>ENROLL NOW!</strong><br/>
+                       <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="https://open-access.training-online.eu/catalog/" />
+                    <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
+                  </p>     
+            </div>
+
+
+            <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item text-center" >
+                  <h4 class="text-orange" style="line-height: 1.5em" >
+                    Deadline for Locking and Approval of DTR <br/> <span class="text-primary">  for May 10,2021 Payout  <br/><small>May 05, 2021</small><br/>
+                      <img src="storage/uploads/divider.png" />
+                  </h4>
+
+                  <p style="padding: 30px;" class="text-center">
+                     Please be informed that our payout for the payroll period April 21-May 5, 2021 is on May 10, 2021. Employee's DTR should be approved and locked in EMS <strong class="text-success"> on or before 12:00 noon of May 6, 2021</strong>. All DTR from EMS will be lifted on the said cut-off for the payroll computation purposes.<br/><br/>
+
+                      In case that your rest day falls on the cut-off and has no access in EMS, please ensure to inform your immediate supervisor to lock your DTR on your behalf.<br/><br/>
+
+                      We encourage you to lock your DTR regularly to ensure that you will be paid correctly and that any DTR problems or future disputes will be prevented.  <br/><br/>
+
+                      If you have any payroll-related inquiries and concerns, please log in to our Payroll Help Desk by clicking this link http://ticketing.openaccess.bpo/. You may also access it via EMS. For employees who are working from home, your VPN should be connected before you can access the Payroll Help Desk.<br/><br/>
+
+                      Kindly access the user guide here to find out how to use it https://rise.articulate.com/share/R7DUt2qkI--qHon-LOtel335dgZHDs26.
+
+                      Please be guided accordingly.<br/><br/>
+
+                      Thank you,
+                     </p>   
+            </div>-->
 
           
