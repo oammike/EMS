@@ -50,8 +50,8 @@
       </div><!-- /.row -->
     </div>
   </section>
-  
-  
+
+
   <div class="modal" id="donateManagerModal">
     <form class="form-horizontal" id="donateManagerForm" action="{{ url('/manage-donations') }}">
       <div class="modal-dialog">
@@ -91,7 +91,7 @@
                     <input type="text" class="form-control" id="new_minimum" name="minimum" placeholder="50">
                     <span id="frm_grp_hint_minimum" class="help-block"></span>
                   </div>
-                </div>                      
+                </div>
                 <div class="form-group" id="frm_grp_photo">
                   <label for="new_photo" class="col-sm-3 control-label">Banner Photo</label>
                   <div class="col-sm-9">
@@ -99,12 +99,12 @@
                     <span id="frm_grp_hint_photo" class="help-block"></span>
                   </div>
                 </div>
-                
+
                   <div class="progress progress-xxs">
                     <div id="uploader_progress" style="width: 20%" aria-valuemax="100" aria-valuemin="0" aria-valuenow="20" role="progressbar" class="progress-bar progress-bar-success progress-bar-striped">
                     </div>
                   </div>
-                
+
               </div><!-- /.box-body -->
           </div>
           <div class="modal-footer">
@@ -115,7 +115,7 @@
       </div><!-- /.modal-dialog -->
     </form>
   </div><!-- /.modal -->
-  
+
   <div class="modal" id="donateEditorModal">
     <form class="form-horizontal" id="donateEditorForm" action="#">
       <div class="modal-dialog">
@@ -130,7 +130,7 @@
                   <div class="col-sm-10">
                     <span id="donate_editor_name" class="help-block"></span>
                   </div>
-                </div>                
+                </div>
                 <div class="form-group" id="frm_grp_edescription">
                   <label for="edit_description" class="col-sm-3 control-label">Description</label>
                   <div class="col-sm-9">
@@ -154,8 +154,8 @@
                     <span id="frm_grp_hint_eminimum" class="help-block"></span>
                   </div>
                 </div>
-                
-                
+
+
               </div><!-- /.box-body -->
               <div class="overlay" id="editor_loader">
                 <i class="fa fa-refresh fa-spin"></i>
@@ -170,8 +170,8 @@
       </div><!-- /.modal-dialog -->
     </form>
   </div><!-- /.modal -->
-  
-  
+
+
   <div class="modal" id="photoZoomModal">
       <div class="modal-dialog">
         <div class="modal-content">
@@ -182,16 +182,16 @@
           <div class="modal-body">
               <div class="box-body">
                   <img id="photoZoomSrc" src="{{ url('/public/img/photo1.png') }}" class="img-responsive">
-                  
+
                 <span id="photoZoomCaption" class="help-block"></span>
               </div><!-- /.box-body -->
           </div>
         </div><!-- /.modal-content -->
       </div><!-- /.modal-dialog -->
   </div><!-- /.modal -->
-  
-  
-  
+
+
+
 @stop
 
 @section('footer-scripts')
@@ -204,9 +204,9 @@
     console.log(data);
     return  "<img class='test' src='"+window.media_directory+"/"+data.media[0].id+"/"+data.media[0].file_name+"' width='25' height='25'>";
   }
-  
-  
-  
+
+
+
   $(function () {
     var progressbar = $('#uploader_progress');
     $.ajaxSetup({
@@ -220,7 +220,7 @@
       progressbar.attr('aria-valuenow', 0).css('width','0%');
       reset_errors();
     }
-    function reset_errors(){      
+    function reset_errors(){
       $('#frm_grp_hint_name').text('');
       $('#frm_grp_hint_description').text('');
       //$('#frm_grp_hint_value').text('');
@@ -229,7 +229,7 @@
       $('#frm_grp_hint_edescription').text('');
       //$('#frm_grp_hint_evalue').text('');
       $('#frm_grp_hint_eminimum').text('');
-      $('#frm_grp_name').removeClass('has-error');                
+      $('#frm_grp_name').removeClass('has-error');
       $('#frm_grp_description').removeClass('has-error');
       //$('#frm_grp_value').removeClass('has-error');
       $('#frm_grp_minimum').removeClass('has-error');
@@ -238,9 +238,9 @@
       //$('#frm_grp_evalue').removeClass('has-error');
       $('#frm_grp_eminimum').removeClass('has-error');
     }
-    
-    
-    
+
+
+
     $('#donateEditorForm').submit(function( event ) {
       event.preventDefault();
       $('#editor_loader').show();
@@ -250,7 +250,7 @@
           url : "{{ url('/manage-donations') }}"+"/"+window.selected_editing_id,
           success : function(data){
             $('#editor_loader').hide();
-            $('#donateEditorModal').modal('hide') 
+            $('#donateEditorModal').modal('hide')
             reset_errors();
             window.table.ajax.reload();
           },
@@ -264,24 +264,24 @@
               $('#frm_grp_hint_quantity').text(data.quantity[0]);
             }
             if(data.cost){
-              $('#frm_grp_cost').addClass('has-error');               
+              $('#frm_grp_cost').addClass('has-error');
               $('#frm_grp_hint_cost').text(data.cost[0]);
             }
-            
+
           }
         });
       } else {
         $('#editor_loader').hide();
         $('#frm_grp_hint_eminimum').addClass('text-red');
         $('#frm_grp_hint_eminimum').text('Please enter only numeric values like 10, 200, 3000...');
-        
+
       }
-      
+
     });
-    
+
     $('#bt_adder').click(function(){
       clear_group_form();
-      
+
       $('#donateManagerForm').ajaxForm({
         type: "POST",
         dataType: 'json',
@@ -292,20 +292,20 @@
               $('#frm_grp_hint_description').text(data.quantity[0]);
             }
             if(data.name){
-              $('#frm_grp_name').addClass('has-error');               
+              $('#frm_grp_name').addClass('has-error');
               $('#frm_grp_hint_name').text(data.name[0]);
             }
             if(data.photo){
-              $('#frm_grp_photo').addClass('has-error');                
+              $('#frm_grp_photo').addClass('has-error');
               $('#frm_grp_hint_photo').text(data.photo[0]);
             }
             if(data.cost){
-              $('#frm_grp_cost').addClass('has-error');               
+              $('#frm_grp_cost').addClass('has-error');
               $('#frm_grp_hint_cost').text(data.cost[0]);
-            }           
-          
+            }
+
             console.log('failed');
-          
+
         },
         success: function(responseText, statusText, xhr, $form){
           window.table.ajax.reload();
@@ -322,11 +322,11 @@
           progressbar.attr('aria-valuenow', percentComplete).css('width',percentVal);
         },
       });
-      
+
       $('#modalTitle').text('Add New Voucher');
       $('#donateManagerModal').modal('show');
     });
-    
+
     $('#donatelist tbody').on( 'click', '.bt_editor', function () {
       var data = window.table.row( $(this).parents('tr') ).data();
       window.selected_group_row = window.table.row($(this).parents('tr'));
@@ -337,10 +337,10 @@
       //$('#edit_value').val(data.point_value);
       $('#edit_minimum').val(data.minimum);
       $('#donate_editor_name').text("Edit details for: "+data.name);
-      
+
       window.selected_editing_id = data.id;
     });
-    
+
     $('#donatelist tbody').on( 'click', '.bt_deleter', function () {
       var data = table.row( $(this).parents('tr') ).data();
       window.selected_group_row = table.row($(this).parents('tr'));
@@ -358,7 +358,7 @@
         });
       }
     });
-    
+
     $('#donatelist tbody').on( 'click', '.img_zoomer', function () {
       var data = window.table.row( $(this).parents('tr') ).data();
       $('#photoZoomTitle').text('Zoom');
@@ -366,7 +366,7 @@
       $('#photoZoomSrc').attr('src',window.media_directory+data.attachment_image);
       $('#photoZoomModal').modal('show');
     });
-    
+
     window.table = $('#donatelist').DataTable({
       "pageLength": {{ $items_per_page }},
       "paging": true,
@@ -384,21 +384,21 @@
           "data" : null,
           //"render" : window.generate_image_column(row,type,full,meta)
           "render": function ( data, type, full, meta ) {
-          
+
             return  "<img class='img_zoomer' src='"+window.media_directory+data.attachment_image+"' width='25' height='25'>";
             //generate_image_column (data)
           }
         },
         { "data":"name" },
         //{ "data":"point_value" },
-        { "data":"minimum" },        
+        { "data":"minimum" },
         {
           "data" : null,
           "defaultContent" : "<a class='btn btn-small btn-primary bt_editor'><span class='fa fa-edit' aria-hidden='true'></span></a>&nbsp;<a class='btn btn-small btn-danger bt_deleter'><span class='fa fa-trash' aria-hidden='true'></span></a>"
         }
       ]
-    }); 
-  
+    });
+
   /*
     $('#donatelist').DataTable({
       "paging": true,
@@ -408,8 +408,8 @@
       "info": true,
       "autoWidth": false
     });
-  */  
-    
+  */
+
   });
 </script>
 @stop

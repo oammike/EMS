@@ -59,14 +59,14 @@ class HomeController extends Controller
     protected $user;
     protected $userNotifs;
     use Traits\UserTraits;
-  
+
 
     public function __construct()
     {
         $this->middleware('auth');
         $this->user =  User::find(Auth::user()->id);
         $this->userNotifs = $this->user->notifications();
-        
+
     }
 
     public function gallery()
@@ -75,7 +75,7 @@ class HomeController extends Controller
       $album = Input::get('a');
       $total = null;
 
-      
+
 
 
       if (empty($album))
@@ -156,7 +156,7 @@ class HomeController extends Controller
                fwrite($file, "-------------------\n G2 Launch [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
             }break;
-            
+
             case '12':{
                fwrite($file, "-------------------\n Pride2019 [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
@@ -213,17 +213,17 @@ class HomeController extends Controller
                fwrite($file, "-------------------\n Viewed Year End 2018 by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
 
             }break;
-            
+
             default:{
                fwrite($file, "-------------------\n Viewed Year End 2018 by [". $this->user->id."] ".$this->user->lastname." on". $correct->format('M d h:i A'). "\n");
             }
               # code...
               break;
           }
-                                  
-                                   
+
+
                                     fclose($file);
-                                } 
+                                }
         return view('gallery',compact('album','total'));
       }
     }
@@ -237,7 +237,7 @@ class HomeController extends Controller
         case '1': {
 
                     //Back to the 90s
-      
+
                   for($i=1; $i<=175; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-backto90s-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/backto90s-".$i.".jpg",
@@ -249,9 +249,9 @@ class HomeController extends Controller
         } break;
 
         case '2': {
- 
+
                     //Back to the 90s PHOTOBOOTH
-      
+
                   for($i=1; $i<=120; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-booth-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/booth-".$i.".jpg",
@@ -263,9 +263,9 @@ class HomeController extends Controller
         } break;
 
         case '3': {
- 
+
                     //Back to the 90s PHOTOBOOTH
-      
+
                   for($i=1; $i<=333; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-official2018cam1-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/official2018cam1-".$i.".jpg",
@@ -278,9 +278,9 @@ class HomeController extends Controller
 
 
         case '4': {
- 
+
                     //Back to the 90s PHOTOBOOTH
-      
+
                   for($i=1; $i<=330; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-official2018cam2-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/official2018cam2-".$i.".jpg",
@@ -292,9 +292,9 @@ class HomeController extends Controller
         } break;
 
         case '5': {
- 
+
                     //LETS GET PHYSICAL
-      
+
                   for($i=143; $i>=1; $i--){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-letsgetphysical-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/letsgetphysical-".$i.".jpg",
@@ -307,9 +307,9 @@ class HomeController extends Controller
 
 
         case '6': {
- 
+
                     //CATRIONA
-      
+
                   for($i=1; $i<=46; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-cat-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/cat-".$i.".jpg",
@@ -321,9 +321,9 @@ class HomeController extends Controller
         } break;
 
         case '7': {
- 
+
                     //happy hr
-      
+
                   for($i=1; $i<=53; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-happyhr-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/happyhr-".$i.".jpg",
@@ -335,9 +335,9 @@ class HomeController extends Controller
         } break;
 
         case '8': {
- 
+
                     //pajama hr
-      
+
                   for($i=1; $i<=16; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/pajama-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/pajama-".$i.".jpg",
@@ -349,9 +349,9 @@ class HomeController extends Controller
         } break;
 
         case '9': {
- 
+
                     //CINCO
-      
+
                   for($i=1; $i<=153; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-cinco-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/cinco-".$i.".jpg",
@@ -364,9 +364,9 @@ class HomeController extends Controller
 
 
         case '10': {
- 
+
                     //BTS
-      
+
                   for($i=1; $i<=82; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-bts-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/bts-".$i.".jpg",
@@ -378,9 +378,9 @@ class HomeController extends Controller
         } break;
 
         case '11': {
- 
+
                     //Health and Wellness
-      
+
                   for($i=1; $i<=32; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-health-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/health-".$i.".jpg",
@@ -392,9 +392,9 @@ class HomeController extends Controller
         } break;
 
         case '12': {
- 
+
                     //Pride 2019
-      
+
                   for($i=1; $i<=60; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-pride2019-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/pride2019-".$i.".jpg",
@@ -406,9 +406,9 @@ class HomeController extends Controller
         } break;
 
         case '13': {
- 
+
                     //G2 LAUNCHING 2019
-      
+
                   for($i=1; $i<=30; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-g2-ribbon-mike-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/g2-ribbon-mike-".$i.".jpg",
@@ -433,9 +433,9 @@ class HomeController extends Controller
         } break;
 
         case '14': {
- 
+
                     //G2 AFTER PARTY 2019
-      
+
                   for($i=1; $i<=60; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-g2-after-mike-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/g2-after-mike-".$i.".jpg",
@@ -447,9 +447,9 @@ class HomeController extends Controller
         } break;
 
         case '15': {
- 
+
                     //G2 Photobooth
-      
+
                   for($i=1; $i<=50; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-g2-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/g2-".$i.".jpg",
@@ -461,9 +461,9 @@ class HomeController extends Controller
         } break;
 
         case '16': {
- 
+
                     //Davao Health
-      
+
                   for($i=1; $i<=12; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/davao-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/davao-".$i.".jpg",
@@ -475,9 +475,9 @@ class HomeController extends Controller
         } break;
 
         case '17': {
- 
+
                     //Davao anniv
-      
+
                   for($i=1; $i<=36; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/davao-anniv-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/davao-anniv-".$i.".jpg",
@@ -544,7 +544,7 @@ class HomeController extends Controller
 
 
         // case '7': {
- 
+
         //             //OAM FAMILY
         //           $allUsers = User::orderBy('lastname', 'ASC')->get();
         //           $users = $allUsers->filter(function($emp){
@@ -560,16 +560,16 @@ class HomeController extends Controller
         //                         'fullsrc'=>"public/img/employees/".$key->id.".jpg",
         //                         'description'=>$key->lastname.", ".$key->firstname,
         //                         'category'=>"Open Access Family"]);
-        //            } 
-      
-                  
+        //            }
+
+
 
         // } break;
 
         case '19': {
- 
+
                     //CSWEEK 2019 BOOTH
-      
+
                   for($i=1; $i<=65; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/cs2019booth-".$i."_thumb.jpg",
                                 'fullsrc'=>"storage/uploads/cs2019booth-".$i.".jpg",
@@ -582,9 +582,9 @@ class HomeController extends Controller
 
 
         case '20': {
- 
+
                     //Davao anniv
-      
+
                   for($i=1; $i<=91; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/oktoberfest2019_thumb-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/oktoberfest2019-".$i.".jpg",
@@ -604,9 +604,9 @@ class HomeController extends Controller
         } break;
 
         case '21': {
- 
-                    //MONOCHROME 
-      
+
+                    //MONOCHROME
+
                   for($i=1; $i<=534; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/monochrome_thumb-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/monochrome-".$i.".jpg",
@@ -615,14 +615,14 @@ class HomeController extends Controller
 
                   }
 
-                  
+
 
         } break;
 
        case '22': {
- 
+
                     //MONOCHROME PHOTOBOOTH 1
-      
+
                   for($i=1; $i<=104; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/monochrome_booth1-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/monochrome_booth1-".$i.".jpg",
@@ -632,14 +632,14 @@ class HomeController extends Controller
                   }
 
 
-                  
+
 
         } break;
 
          case '23': {
- 
+
                     //MONOCHROME PHOTOBOOTH 2
-      
+
                   for($i=1; $i<=87; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/monochrome_booth2-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/monochrome_booth2-".$i.".jpg",
@@ -649,14 +649,14 @@ class HomeController extends Controller
                   }
 
 
-                  
+
 
         } break;
 
         case '24': {
- 
+
                     //MONOCHROME official
-      
+
                   for($i=1; $i<=118; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/mono_official-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/mono_official-".$i.".jpg",
@@ -667,9 +667,9 @@ class HomeController extends Controller
                   }break;
 
         case '25': {
- 
+
                     //ZOOMBG official
-      
+
                   for($i=1; $i<=3; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/zoom_thumb-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/zoom-".$i.".jpg",
@@ -679,14 +679,14 @@ class HomeController extends Controller
                   }
 
 
-                  
+
 
         } break;
-        
+
         default: {
 
                   //Spooky Winners
-      
+
                   for($i=1; $i<=7; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-spookywinners-".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/spookywinners-".$i.".jpg",
@@ -696,7 +696,7 @@ class HomeController extends Controller
                   }
 
                   //Spooky Team
-                  
+
                   for($i=1; $i<=12; $i++){
                     $col->push(['lowsrc'=>"storage/uploads/thumb-spooky-entries".$i.".jpg",
                                 'fullsrc'=>"storage/uploads/spooky-entries".$i.".jpg",
@@ -793,14 +793,14 @@ class HomeController extends Controller
                                   $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                                     fwrite($file, "-------------------\n Viewed Gallery by [". $this->user->id."] ".$this->user->lastname."\n");
                                     fclose($file);
-                                } 
+                                }
 
 
 
         } break;
       }
 
-      
+
 
       return response()->json($col);
     }
@@ -827,7 +827,7 @@ class HomeController extends Controller
         $canAdminister = true;// ( count(UserType::find($this->user->userType_id)->roles->where('label','QUERY_REPORTS'))>0 ) ? true : false;
 
         $from = Input::get('from');
-        
+
         $download = Input::get('dl');
 
         $rawData = new Collection;
@@ -837,13 +837,13 @@ class HomeController extends Controller
             $daystart = Carbon::now('GMT+8')->startOfDay(); $dayend = Carbon::now('GMT+8')->endOfDay();
         }
         else {
-            $daystart = Carbon::parse(Input::get('from'),'Asia/Manila')->startOfDay(); 
+            $daystart = Carbon::parse(Input::get('from'),'Asia/Manila')->startOfDay();
             $dayend = Carbon::parse(Input::get('from'),'Asia/Manila')->endOfDay();
         }
 
-       
 
-        
+
+
 
 
         $allAnswers = DB::table('symptoms_user')->where('symptoms_user.created_at','>=',$daystart->format('Y-m-d H:i:s'))->
@@ -852,7 +852,7 @@ class HomeController extends Controller
                   leftJoin('team','users.id','=','team.user_id')->
                   leftJoin('campaign','team.campaign_id','=','campaign.id')->
                   select('users.firstname','users.lastname','users.id as user_id','campaign.name as program','symptoms_user.id as declareID', 'symptoms_user.question_id', 'symptoms_user.answer', 'symptoms_user.created_at')->
-                  orderBy('symptoms_user.question_id','ASC')->get(); 
+                  orderBy('symptoms_user.question_id','ASC')->get();
 
         $allSymptoms = DB::table('symptoms_user')->where('symptoms_user.created_at','>=',$daystart->format('Y-m-d H:i:s'))->
                   where('symptoms_user.created_at','<=',$dayend->format('Y-m-d H:i:s'))->
@@ -860,8 +860,8 @@ class HomeController extends Controller
                   join('symptoms_declare','symptoms_declare.user_answerID','=','symptoms_user.id')->
                   join('symptoms','symptoms.id','=','symptoms_declare.symptoms_id')->
                   select('users.firstname','users.lastname','users.id as user_id','symptoms_user.question_id', 'symptoms_user.answer','symptoms_declare.user_answerID as declareID', 'symptoms_declare.symptoms_id','symptoms.name as symptom', 'symptoms_declare.isDiagnosis', 'symptoms_user.created_at')->
-                  orderBy('symptoms_user.created_at','DESC')->get(); 
-        
+                  orderBy('symptoms_user.created_at','DESC')->get();
+
 
 
         $allQuestions = DB::table('symptoms_questions')->get();
@@ -870,13 +870,13 @@ class HomeController extends Controller
             // $q = collect($allECQ)->where('user_id',1097);
         //return response()->json(['allQuestions'=> $allQuestions, 'allAnswers'=>$allAnswers, 'allSymptoms'=>$allSymptoms,'allRespondents'=>$allRespondents]);
 
-        
+
         $headers = array("Submitted", "Last Name","First Name","Program");
 
         foreach ($allQuestions as $q) {
           array_push($headers, $q->question);
         }
-        
+
         $sheetTitle = "Health Declaration Form Responses [".$daystart->format('M d l')."]";
         $description = " ". $sheetTitle;
 
@@ -884,10 +884,10 @@ class HomeController extends Controller
           $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n DL_healthResponses [".$daystart->format('Y-m-d')."] " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
             fclose($file);
-        }    
+        }
 
 
-           Excel::create($sheetTitle,function($excel) use($allRespondents, $allAnswers,$allSymptoms, $headers,$description,$daystart) 
+           Excel::create($sheetTitle,function($excel) use($allRespondents, $allAnswers,$allSymptoms, $headers,$description,$daystart)
            {
                   $excel->setTitle('Health Declaration Form Responses');
 
@@ -917,10 +917,10 @@ class HomeController extends Controller
 
                         }else $ans1 = "No";
 
-                        
+
                         if (count($item) >= 5)
                         {
-                          
+
                           $diagnosis = collect($allSymptoms)->where('user_id',$item[0]->user_id)->where('declareID',$item[4]->declareID)->pluck('symptom');
 
                           if ($item[4]->answer == 1)
@@ -950,15 +950,15 @@ class HomeController extends Controller
                                      $ans3,
                                      $ans4,
                                      $ans5 //Q1
-                                     
+
                                      );
                           $sheet->appendRow($arr);
 
                         }
-                        
+
 
                     }
-                    
+
                  });//end sheet1
 
 
@@ -967,11 +967,11 @@ class HomeController extends Controller
 
            return "Download";
 
-        
 
-        
 
-                        
+
+
+
 
     }
 
@@ -982,7 +982,7 @@ class HomeController extends Controller
         else
             $productionDate = Carbon::now('GMT+8');
 
-        
+
             $allLogs = DB::table('symptoms_user')->where('symptoms_user.created_at','>=',$productionDate->startOfDay()->format('Y-m-d H:i:s'))->
                         where('symptoms_user.created_at','<=',$productionDate->endOfDay()->format('Y-m-d H:i:s'))->
             leftJoin('users','symptoms_user.user_id','=','users.id')->
@@ -995,7 +995,7 @@ class HomeController extends Controller
                                 leftJoin('symptoms','symptoms_declare.symptoms_id','=','symptoms.id')->
                                 where('symptoms_declare.isDiagnosis','=',null)->
                                 select('symptoms_declare.user_answerID as declareID','symptoms.name')->get();
-            
+
             $allDiagnose = DB::table('symptoms_declare')->where('symptoms_declare.created_at','>=',$productionDate->startOfDay()->format('Y-m-d H:i:s'))->
                                 where('symptoms_declare.created_at','<=',$productionDate->endOfDay()->format('Y-m-d H:i:s'))->
                                 leftJoin('symptoms','symptoms_declare.symptoms_id','=','symptoms.id')->
@@ -1031,11 +1031,11 @@ class HomeController extends Controller
             }
 
             //return $healthForms;
-            
 
-        
 
-        
+
+
+
 
         return response()->json(['data'=>$healthForms, 'count'=>count($healthForms),'symptoms'=>$allSymptoms]);//count($allLogs)
     }
@@ -1090,46 +1090,46 @@ class HomeController extends Controller
               $sd->save();
 
             }
-            
+
 
           }
-            
+
 
           // NOW, EMAIL THE TL CONCERNED
 
           if($notYet)
           {
-            Mail::send('emails.hdf', ['now'=>$now->format('M d, l'), 'tl' => $tl,'program'=>$program, 'employee'=>$employee], function ($m) use ($tl, $employee,$now) 
+            Mail::send('emails.hdf', ['now'=>$now->format('M d, l'), 'tl' => $tl,'program'=>$program, 'employee'=>$employee], function ($m) use ($tl, $employee,$now)
              {
                 $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
-                $m->to($tl->email, $tl->lastname)->subject('Health Declaration Alert');     
+                $m->to($tl->email, $tl->lastname)->subject('Health Declaration Alert');
 
                 /* -------------- log updates made --------------------- */
                      $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n Email sent to ". $tl->email."\n");
                         fwrite($file, "\n New HDF alert ".$now->format('M d,Y').":  ". $employee->firstname." ".$employee->lastname."\n");
-                        fclose($file);                      
-            
+                        fclose($file);
+
 
             }); //end mail
 
             if(count($nurses) > 0)
             {
-              foreach ($nurses as $n) 
+              foreach ($nurses as $n)
               {
                 $tl = User::find($n->user_id);
 
-                Mail::send('emails.hdf', ['now'=>$now->format('M d, l'), 'tl' => $tl,'program'=>$program, 'employee'=>$employee], function ($m) use ($tl, $employee,$now) 
+                Mail::send('emails.hdf', ['now'=>$now->format('M d, l'), 'tl' => $tl,'program'=>$program, 'employee'=>$employee], function ($m) use ($tl, $employee,$now)
                  {
                     $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
-                    $m->to($tl->email, $tl->lastname)->subject('Health Declaration Alert');     
+                    $m->to($tl->email, $tl->lastname)->subject('Health Declaration Alert');
 
                     /* -------------- log updates made --------------------- */
                          $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
                             fwrite($file, "-------------------\n Email sent to ". $tl->email."\n");
                             fwrite($file, "\n New HDF alert ".$now->format('M d,Y').":  ". $employee->firstname." ".$employee->lastname."\n");
-                            fclose($file);                      
-                
+                            fclose($file);
+
 
                 }); //end mail
               }
@@ -1139,11 +1139,11 @@ class HomeController extends Controller
 
 
           }
-                               
-             
 
-            
-            
+
+
+
+
         }
 
         if($d['question'] == '5')
@@ -1168,7 +1168,7 @@ class HomeController extends Controller
 
 
 
-        
+
 
       }
 
@@ -1187,7 +1187,7 @@ class HomeController extends Controller
       $canView = [10,71,16,19]; //nurse, mktg, HR, datamgt
 
       if (!in_array($from, $canView)) return view('access-denied');
-      
+
       if (Input::get('date'))
           $start = Carbon::parse(Input::get('date'),'Asia/Manila');
       else
@@ -1210,7 +1210,7 @@ class HomeController extends Controller
 
       DB::connection()->disableQueryLog();
       $coll = new Collection;
-      $user = $this->user;       
+      $user = $this->user;
       $forms = new Collection;
       $groupedTasks=null;
       $trackerNDY=null;
@@ -1226,7 +1226,7 @@ class HomeController extends Controller
       $tenureNya = $startToday->diffInMonths(Carbon::parse($this->user->dateHired,'Asia/Manila'));
       $resourceAccessed = DB::table('user_resource')->where('user_id',$this->user->id)->get();
 
-      if( count($mayLogNa) <= 1 && $tenureNya < 6 && count($resourceAccessed) <= 2 ) return redirect()->route('resource.index'); 
+      if( count($mayLogNa) <= 1 && $tenureNya < 6 && count($resourceAccessed) <= 2 ) return redirect()->route('resource.index');
 
 
 
@@ -1242,38 +1242,38 @@ class HomeController extends Controller
       /* --- WE NOW CHECK FOR CAMPAIGN WIDGETS from FormBuilder --*/
 
       $prg = Campaign::where('name',"Postmates")->first()->id; //for widget
-      $prg2 = Campaign::where('name',"Guideline")->first()->id; 
-      $prg3 = Campaign::where('name',"NDY")->first()->id; 
+      $prg2 = Campaign::where('name',"Guideline")->first()->id;
+      $prg3 = Campaign::where('name',"NDY")->first()->id;
 
       if (empty($leadershipcheck)) {
           $myCampaign = collect($this->user->campaign->first()->id);
           ($myCampaign->contains($prg3)) ? $fromNDY=false : $fromNDY=false;
-          ($myCampaign->contains($prg2)) ? $fromGuideline=true : $fromGuideline=false; 
+          ($myCampaign->contains($prg2)) ? $fromGuideline=true : $fromGuideline=false;
           ($myCampaign->contains($prg)) ? $fromPostmate=true : $fromPostmate=false;
-  
-      } 
-      else { 
-            $myCampaign = $leadershipcheck->myCampaigns->groupBy('campaign_id')->keys();
-            
 
-            ($myCampaign->contains($prg3)) ? $fromNDY=false : $fromNDY=false; 
-            ($myCampaign->contains($prg2)) ? $fromGuideline=true : $fromGuideline=false; 
-            
+      }
+      else {
+            $myCampaign = $leadershipcheck->myCampaigns->groupBy('campaign_id')->keys();
+
+
+            ($myCampaign->contains($prg3)) ? $fromNDY=false : $fromNDY=false;
+            ($myCampaign->contains($prg2)) ? $fromGuideline=true : $fromGuideline=false;
+
             if ($myCampaign->contains($prg)) {
 
               //check mo kung disabled na si TL from postmates:
               $disablePM =  $leadershipcheck->myCampaigns->where('campaign_id',$prg)->first()->disabled;
               {
-                 ($disablePM) ? $fromPostmate=false : $fromPostmate=true; 
-                 
-              } 
+                 ($disablePM) ? $fromPostmate=false : $fromPostmate=true;
 
-            } else $fromPostmate=false; 
+              }
+
+            } else $fromPostmate=false;
 
 
       }
 
-     
+
 
 
       // ******************* TASK TRACKER : NDY *************************
@@ -1287,7 +1287,7 @@ class HomeController extends Controller
               $groupedTasks = collect($trackerNDY)->groupBy('taskgroup');
 
               $pending = Task_User::where('user_id',$this->user->id)->where('timeEnd',null)->orderBy('id','DESC')->get();
-              
+
 
               if ( count($pending) >= 1 ){
 
@@ -1315,26 +1315,26 @@ class HomeController extends Controller
 
 
       //if (!empty($forms) && !$reportsTeam){
-      
-      if ($fromPostmate || $fromGuideline) 
-      {   
+
+      if ($fromPostmate || $fromGuideline)
+      {
 
         foreach ($myCampaign as $c) {
         $d = DB::table('campaign_forms')->where('campaign_id','=',$c)->
               join('formBuilder','campaign_forms.formBuilder_id','=','formBuilder.id')->
-              
+
               join('campaign','campaign_forms.campaign_id','=','campaign.id')->
               leftJoin('formBuilder_items','formBuilder_items.formBuilder_id','=','campaign_forms.formBuilder_id')->
               leftJoin('formBuilder_elements','formBuilder_items.formBuilder_elemID','=', 'formBuilder_elements.id')->//get();
               leftJoin('formBuilderSubtypes','formBuilder_items.formBuilder_subTypeID','=','formBuilderSubtypes.id')->
               leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
-              select('campaign.name as program','formBuilder.title as widgetTitle','campaign_forms.enabled','formBuilder_elements.type as type', 
-                'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->orderBy('formBuilder.id','DESC')->get(); 
+              select('campaign.name as program','formBuilder.title as widgetTitle','campaign_forms.enabled','formBuilder_elements.type as type',
+                'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->orderBy('formBuilder.id','DESC')->get();
 
               if (!empty($d)) $forms->push($d);
         }
 
-        
+
 
         $widget = $forms->first(); //return response()->json($widget[0]);
         $groupedForm = collect($widget)->groupBy('widgetTitle');
@@ -1354,8 +1354,8 @@ class HomeController extends Controller
                 leftJoin('formBuilder_elements','formBuilder_items.formBuilder_elemID','=', 'formBuilder_elements.id')->//get();
                 leftJoin('formBuilderSubtypes','formBuilder_items.formBuilder_subTypeID','=','formBuilderSubtypes.id')->
                 leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
-                select('campaign.name as program','formBuilder.title as widgetTitle','campaign_forms.enabled','formBuilder_elements.type as type', 
-                  'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->get(); 
+                select('campaign.name as program','formBuilder.title as widgetTitle','campaign_forms.enabled','formBuilder_elements.type as type',
+                  'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->get();
 
           $d2 = DB::table('campaign_forms')->where('campaign_id','=',$prg2)->
                 join('formBuilder','campaign_forms.formBuilder_id','=','formBuilder.id')->
@@ -1364,8 +1364,8 @@ class HomeController extends Controller
                 leftJoin('formBuilder_elements','formBuilder_items.formBuilder_elemID','=', 'formBuilder_elements.id')->//get();
                 leftJoin('formBuilderSubtypes','formBuilder_items.formBuilder_subTypeID','=','formBuilderSubtypes.id')->
                 leftJoin('formBuilderElem_values','formBuilderElem_values.formBuilder_itemID','=','formBuilder_items.id')->
-                select('campaign.name as program','formBuilder.title as widgetTitle','campaign_forms.enabled','formBuilder_elements.type as type', 
-                  'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->get(); 
+                select('campaign.name as program','formBuilder.title as widgetTitle','campaign_forms.enabled','formBuilder_elements.type as type',
+                  'formBuilderSubtypes.name as subType','formBuilder_items.label as label','formBuilder_items.name as itemName','formBuilder_items.placeholder','formBuilder_items.required','formBuilder_items.formOrder','formBuilder_items.id as itemID','formBuilder.id as formID', 'formBuilderElem_values.value','formBuilderElem_values.label as optionLabel', 'formBuilderElem_values.formBuilder_itemID as selectGroup','formBuilderElem_values.selected', 'formBuilder_items.className')->get();
 
 
                 //return (['d'=>$d,'d2'=>$d2]);
@@ -1383,12 +1383,12 @@ class HomeController extends Controller
         }else {
           $groupedForm = null; $groupedSelects=null; $campform=null;
         }
-        
+
       }
 
-      
 
-      
+
+
 
       $forApprovals = $this->getDashboardNotifs();
 
@@ -1415,7 +1415,7 @@ class HomeController extends Controller
       // check mo muna kung may biometric data na for today:
       if (( $startToday->format('H:i') > Carbon::now('GMT+8')->startOfDay()->format('H:i')) && ($startToday->format('H:i') <= Carbon::parse(date('Y-m-d').' 8:00:00','Asia/Manila')->format('H:i')) ) //for those with 11pm-8am shift
       {
-        
+
         $tomBio = Biometrics::where('productionDate', Carbon::now('GMT+8')->addHours(-12)->format('Y-m-d'))->get();
         //return $tomBio;
         if (count($tomBio) > 0)
@@ -1426,10 +1426,10 @@ class HomeController extends Controller
           $b->save();
 
         }
-        
+
 
       }
-      else 
+      else
       {
         $tomBio = Biometrics::where('productionDate', Carbon::now('GMT+8')->format('Y-m-d'))->get();
         if (count($tomBio) > 0)
@@ -1440,14 +1440,14 @@ class HomeController extends Controller
           $b->save();
 
         }
-       
+
       }
 
       $loggedIn = Logs::where('user_id',$this->user->id)->where('logType_id','1')->where('biometrics_id',$b->id)->get();
 
 
       $alreadyLoggedIN=false;
-      
+
 
       //-- IDOLS ----
         // $idols = new Collection;
@@ -1472,8 +1472,8 @@ class HomeController extends Controller
         //   $idols->push($u[0]);
         // }
 
-        // $ct1=0; $songs = ["There's No Easy Way","Rolling in the Deep","Be My Lady"]; 
-        // $titles=[" to our very first <br/><strong>Open Access Idol Winner!</strong> "," to our <strong>Open Access Idol <br/>2nd Placer</strong>"," to our <strong>Open Access Idol <br/>3rd Placer</strong>"]; 
+        // $ct1=0; $songs = ["There's No Easy Way","Rolling in the Deep","Be My Lady"];
+        // $titles=[" to our very first <br/><strong>Open Access Idol Winner!</strong> "," to our <strong>Open Access Idol <br/>2nd Placer</strong>"," to our <strong>Open Access Idol <br/>3rd Placer</strong>"];
         // $pics=["monochrome-393.jpg","monochrome-362.jpg","monochrome-344.jpg"];
 
       //-- end idols
@@ -1487,7 +1487,7 @@ class HomeController extends Controller
         $anniv10e = Carbon::today()->subYear(10)->endOfYear();
         $anniv5s = Carbon::today()->subYear(5)->startOfYear();
         $anniv5e = Carbon::today()->subYear(5)->endOfYear();
-        
+
         $newHires = DB::table('users')->where('dateHired','>=',$bago->format('Y-m-d'))->where('status_id','!=',16)->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->where('status_id','!=',7)->where('status_id','!=',16)->leftJoin('positions','users.position_id','=', 'positions.id')->leftJoin('team','team.user_id','=','users.id')->leftJoin('campaign','campaign.id','=','team.campaign_id')->leftJoin('campaign_logos','campaign.id','=','campaign_logos.campaign_id')->select('users.id','users.hascoverphoto',  'users.firstname','users.lastname','users.nickname','positions.name','campaign_logos.filename','team.campaign_id', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
 
         $firstYears = DB::table('users')->where('dateHired','>=',$annivs->format('Y-m-d H:i:s'))->where('dateHired','<=',$annivs2->format('Y-m-d H:i:s'))->where('status_id','!=',6)->where('status_id','!=',7)->where('status_id','!=',8)->where('status_id','!=',9)->where('status_id','!=',16)->leftJoin('positions','users.position_id','=', 'positions.id')->leftJoin('team','team.user_id','=','users.id')->leftJoin('campaign','campaign.id','=','team.campaign_id')->leftJoin('campaign_logos','campaign.id','=','campaign_logos.campaign_id')->select('users.id','users.hascoverphoto',  'users.firstname','users.lastname','users.nickname','positions.name','campaign_logos.filename','team.campaign_id', 'users.dateHired')->orderBy('users.dateHired','DESC')->get();
@@ -1498,10 +1498,10 @@ class HomeController extends Controller
 
       //-- end SHOUTOUT annivs
 
-               
+
       $evalTypes = EvalType::all();
-      
-      // --------- temporarily we set it for Semi annual of July to Dec 
+
+      // --------- temporarily we set it for Semi annual of July to Dec
       $evalSetting = EvalSetting::find(2);
       $currentPeriod = Carbon::create((date("Y")-1), $evalSetting->startMonth, $evalSetting->startDate,0,0,0, 'Asia/Manila');
       $endPeriod = Carbon::create((date("Y")-1), $evalSetting->endMonth, $evalSetting->endDate,0,0,0, 'Asia/Manila');
@@ -1509,7 +1509,7 @@ class HomeController extends Controller
       $doneEval = new Collection;
       $pendingEval = new Collection;
 
-      
+
       $leadershipcheck = ImmediateHead::where('employeeNumber', $this->user->employeeNumber)->get();
 
 
@@ -1528,10 +1528,10 @@ class HomeController extends Controller
               $notedMemo = true;
             else $notedMemo = false;
 
-          }else { $notedMemo=false; $memo=null; } 
+          }else { $notedMemo=false; $memo=null; }
       //-- END MEMO
 
-      
+
       //----------- check if done with TOUR --------------
 
           $tour = Memo::where('active',1)->where('type',"tour")->orderBy('created_at','DESC')->get();
@@ -1543,12 +1543,12 @@ class HomeController extends Controller
               $notedTour = true;
             else $notedTour = false;
 
-          }else { $notedTour=false; $siteTour=null; } 
+          }else { $notedTour=false; $siteTour=null; }
 
       //----------- end done with TOUR --------------
-      
 
-      
+
+
 
       //---------- new feature: log user activity as cctv BACKUP------
           $endHr = Carbon::now('GMT+8');
@@ -1556,7 +1556,7 @@ class HomeController extends Controller
           $alreadyIn = User_CCTV::where('user_id',$this->user->id)->where('logType','1')->where('created_at','>=',$startHr->format('Y-m-d H:i:s'))->where('created_at','<=',$endHr->format('Y-m-d H:i:s'))->get();
 
           if (count($alreadyIn) > 0){}
-          else 
+          else
           {
             $cctv = new User_CCTV;
             $cctv->user_id = $this->user->id;
@@ -1566,37 +1566,62 @@ class HomeController extends Controller
 
           }
       //---------- end cctv backup ------
-      //return $pass = bcrypt(''); 
+      //return $pass = bcrypt('');
+
+      //---------- 05/07/21: slider announcements now come from db instead of slider.blade ------
+          $slider_now = Carbon::now('GMT+8');
+          $announcements = Announcement::where('isDraft',0)
+            ->where('hidden',0)
+            ->where('publishDate','<=',$slider_now)
+            ->where(function($query) use ($slider_now){
+              $query->where('publishExpire', '>', $slider_now);
+              $query->orWhere('publishExpire', NULL);
+            })
+            ->orderBy('publishDate', 'desc')
+            ->limit(15)
+            ->get();
+
+          if (count($alreadyIn) > 0){}
+          else
+          {
+            $cctv = new User_CCTV;
+            $cctv->user_id = $this->user->id;
+            $cctv->logType = 1;
+            $cctv->created_at = $startToday->format('Y-m-d H:i:s');
+            $cctv->save();
+
+          }
+      //---------- end cctv backup ------
 
       // --------- if user has no subordinates -----------
       if (( ($this->user->userType->name == "HR admin") && count($leadershipcheck)==0 ) || $this->user->userType_id==4)
       { //  AGENT or ADMIN pero agent level
           $employee = User::find($this->user->id);
           $meLeader = $employee->supervisor->first();
-          return view('dashboard-agent', compact('enableClock', 'startToday', 'campform','pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY', 'fromGuideline','prg', 'prg2', 'fromPostmate','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour'));
-          
+          return view('dashboard-agent', compact('enableClock', 'startToday', 'campform','pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY', 'fromGuideline','prg', 'prg2', 'fromPostmate','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','announcements'));
+
       // ----------- endif user has no subordinates -----------
 
       }
-      else 
+      else
       {
 
-          return view('dashboard', compact('enableClock', 'startToday', 'campform', 'pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY','fromGuideline','prg', 'prg2', 'fromPostmate', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour'));
+          return view('dashboard', compact('enableClock', 'startToday', 'campform', 'pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY','fromGuideline','prg', 'prg2', 'fromPostmate', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','announcements'));
 
-      } 
+      }
 
-      
-        
+
+
     }
 
-    
+
     public function index()
     {
       return redirect('/home');
-        
+
     }
 
-    public function logout() 
+    public function logout()
     {
         //---------- new feature: log user activity as cctv BACKUP------
         $cctv = new User_CCTV;
@@ -1625,7 +1650,7 @@ class HomeController extends Controller
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n Clicked slider ad by [". $this->user->id."] ".$this->user->lastname."\n");
                         fclose($file);
-                    } 
+                    }
 
         }
           # code...
@@ -1636,7 +1661,7 @@ class HomeController extends Controller
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n Viewed DTR of: ".$user->lastname."[".$user->id."] --" . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
                         fclose($file);
-                    } 
+                    }
 
         }break;
 
@@ -1648,7 +1673,7 @@ class HomeController extends Controller
                       $file = fopen('public/build/postmates.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n [".$formID."] ; [".$usersubmit."] ; widget ; " . $correct->format('M d h:i A'). " by ;". $this->user->id."; ".$this->user->lastname."\n");
                         fclose($file);
-                    } 
+                    }
 
         }break;
 
@@ -1660,7 +1685,7 @@ class HomeController extends Controller
                       $file = fopen('public/build/postmates.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n [".$formID."] ; [".$usersubmit."] ; tab ; " . $correct->format('M d h:i A'). " by ;". $this->user->id."; ".$this->user->lastname."\n");
                         fclose($file);
-                    } 
+                    }
 
         }break;
 
@@ -1670,7 +1695,7 @@ class HomeController extends Controller
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n Played SDE_Monochrome by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
-                    } 
+                    }
 
         }break;
 
@@ -1679,7 +1704,7 @@ class HomeController extends Controller
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n View 360Pose by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
-                    } 
+                    }
 
         }
 
@@ -1688,7 +1713,7 @@ class HomeController extends Controller
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n View Booth by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
-                    } 
+                    }
 
         }
 
@@ -1697,7 +1722,7 @@ class HomeController extends Controller
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n View YEP1 by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
-                    } 
+                    }
 
         }
 
@@ -1706,16 +1731,16 @@ class HomeController extends Controller
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n View YEP2 by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
-                    } 
+                    }
 
         }
-        
+
         case '10':{
                     if($this->user->id !== 564 ) {
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n View EvalSum [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
-                    } 
+                    }
 
         }
 
@@ -1724,7 +1749,7 @@ class HomeController extends Controller
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n View Physical [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
-                    } 
+                    }
 
         }
 
@@ -1734,7 +1759,7 @@ class HomeController extends Controller
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n Played Queen by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
-                    } 
+                    }
 
         }break;
 
@@ -1749,7 +1774,7 @@ class HomeController extends Controller
 
         case '14':{
                     //if($this->user->id !== 564 ) {
-                      
+
                       $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n Launch HRMS by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
@@ -1762,7 +1787,7 @@ class HomeController extends Controller
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n Playbook by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
-                    } 
+                    }
 
         }break;
 
@@ -1775,7 +1800,7 @@ class HomeController extends Controller
                         fwrite($file, "-------------------\n ChartClick by [". $this->user->id."] ".$this->user->lastname." for ".$viewed. " on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
                         return response()->json(['done'=>true,'viewed'=>$viewed]);
-                    } 
+                    }
 
         }break;
 
@@ -1787,7 +1812,7 @@ class HomeController extends Controller
                         fwrite($file, "-------------------\n TreeClick by [". $this->user->id."] ".$this->user->lastname." for ".$viewed. " on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
                         return response()->json(['done'=>true,'viewed'=>$viewed]);
-                    } 
+                    }
 
         }break;
 
@@ -1798,21 +1823,21 @@ class HomeController extends Controller
                       $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n VidGall [".$vg."] by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
                         fclose($file);
-                    } 
+                    }
 
         }break;
 
-        
-        
+
+
       }
       return response()->json(['success'=>"1"]);
 
-           
+
     }
 
     public function privacyPolicy()
     {
-      $correct = Carbon::now('GMT+8'); 
+      $correct = Carbon::now('GMT+8');
         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
           fwrite($file, "-------------------\n Privacy by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
           fclose($file);
@@ -1824,11 +1849,11 @@ class HomeController extends Controller
     public function videogallery()
     {
       if($this->user->id !== 564 ) {
-        $correct = Carbon::now('GMT+8'); 
+        $correct = Carbon::now('GMT+8');
         $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
           fwrite($file, "-------------------\n VidGallery by [". $this->user->id."] ".$this->user->lastname." on ". $correct->format('M d h:i A').  "\n");
           fclose($file);
-      } 
+      }
 
       return view('videogallery');
     }

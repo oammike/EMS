@@ -9,8 +9,8 @@ use Spatie\MediaLibrary\HasMedia\Interfaces\HasMedia;
 class Donation extends Model implements HasMedia
 {
     use HasMediaTrait;
-    protected $table = 'donation_catalog';    
-    
+    protected $table = 'donation_catalog';
+
     public function registerMediaConversions()
     {
         $this->addMediaConversion('thumb')

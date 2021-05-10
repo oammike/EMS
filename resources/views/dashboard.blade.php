@@ -12,7 +12,7 @@
     input[type="text"]{ background: none; border: none; border-bottom: solid 2px #666 }
     /* Change Autocomplete styles in Chrome*/
 input:-webkit-autofill,
-input:-webkit-autofill:hover, 
+input:-webkit-autofill:hover,
 input:-webkit-autofill:focus
 textarea:-webkit-autofill,
 textarea:-webkit-autofill:hover
@@ -49,7 +49,7 @@ select:-webkit-autofill:focus {
 
      <section class="content"><br/><br/><br/>
 
-          
+
 
           <div class="row">
 
@@ -81,18 +81,18 @@ select:-webkit-autofill:focus {
                           @if (!$alreadyLoggedIN)
                             <a style="display: none" id="btn_timein" data-timetype="1" class="timekeeping btn btn-md bg-green"><i class="fa fa-clock-o"></i> System CHECK IN </a>
                           @endif
-                            <button style="display: none;" id="btn_breakin" data-timetype="4" class="timekeeping btn btn-md btn-default"><i class="fa fa-hourglass-half"></i> Breaktime START </button> 
+                            <button style="display: none;" id="btn_breakin" data-timetype="4" class="timekeeping btn btn-md btn-default"><i class="fa fa-hourglass-half"></i> Breaktime START </button>
                             <button style="display: none" type="button" id="btn_breakout" data-timetype="3" class="timekeeping btn btn-md btn-default"><i class="fa fa-hourglass"></i> Breaktime END </button>
                             <a style="display: none;" id="btn_timeout" data-timetype="2" class="timekeeping btn btn-md btn-danger"><i class="fa fa-clock-o"></i> System CHECK OUT </a>
                          </p>
                   </div>
                 </div>
-               
+
 
                @endif
 
 
-               
+
               <!-- For approvals -->
                   <div class="box box-info"style="background: rgba(256, 256, 256, 0.5)">
                     <div class="box-header with-border">
@@ -100,7 +100,7 @@ select:-webkit-autofill:focus {
 
                         <a title="Leave Management" style="margin-left: 10px" class="btn btn-xs btn-default" href="{{action('UserController@leaveMgt')}}" target="_blank"><i class="fa fa-users"></i> <strong>Workforce Team</strong>, click HERE</a></h3>
 
-                      
+
 
                       <div class="box-tools pull-right">
                         <button type="button" id="refresh" title="Refresh Approvals" class="btn btn-box-tool"><i class="fa fa-refresh"></i>
@@ -122,9 +122,9 @@ select:-webkit-autofill:focus {
                           </tr>
                           </thead>
                           <tbody id="notifdata">
-                            
-                          
-                          
+
+
+
                           </tbody> -->
                         </table>
 
@@ -132,21 +132,21 @@ select:-webkit-autofill:focus {
                         @foreach($forApprovals as $notifs)
 
 
-                         
+
 
                                 @include('layouts.modals2', [
                                     'modelRoute'=>'user_notification.deleteRequest',
-                                    'modelID' => $notifs['id'], 
+                                    'modelID' => $notifs['id'],
                                     'modelName'=> $notifs['type'],
-                                    'notifType' => $notifs['typeID'], 
-                                    'modalTitle'=>'Delete', 
-                                    'modalTitle2'=>'POST', 
-                                    'modalMessage'=>'Are you sure you want to delete this?', 
+                                    'notifType' => $notifs['typeID'],
+                                    'modalTitle'=>'Delete',
+                                    'modalTitle2'=>'POST',
+                                    'modalMessage'=>'Are you sure you want to delete this?',
                                     'formID'=>'deleteReq',
                                     'icon'=>'glyphicon-trash' ])
-                               
 
-                               
+
+
 
                             @endforeach
                       </div>
@@ -175,10 +175,10 @@ select:-webkit-autofill:focus {
                     <!-- /.box-header -->
                     <div class="box-body">{{ Form::open(['route' => 'evalForm.grabAllWhosUpFor', 'class'=>'', 'id'=> 'showAll' ]) }}
                       <h2 class="text-center" style="color:#9c9fa0">Show all those who are up for :</h2>
-                               
+
                                <select name="evalType_id" class="form-control pull-left"><!--  -->
                                 <option value="0"> --  Select One -- </option>
-                                
+
                                 @foreach ($evalTypes as $evalType)
 
                                   @if( $evalType->id == 1 || $evalType->id == 2 ||$evalType->id == 5  )
@@ -187,18 +187,18 @@ select:-webkit-autofill:focus {
                                      <option value="{{$evalType->id}}"><?php if ($evalType->id==1 ) echo date('Y'); else if($evalType->id==2){ if( date('m')>=7 && date('m')<=12 )echo date('Y'); else echo date('Y')-1;  } ?> {{$evalType->name}}</option>
 
                                   @endif
-                               
-                                
+
+
                                 @endforeach
                               </select>
-                        
-                       <p class="text-right"> 
+
+                       <p class="text-right">
                       {{Form::submit(' Go ', ['class'=>'btn btn-md btn-primary', 'id'=>'showEvalBtn', 'style'=>"margin-top:20px;"])}}</p>
 
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer"  style="background: rgba(35, 165, 220, 0.5)">
-                    
+
                     </div>
                     <!-- /.box-footer -->
                      {{Form::close()}}
@@ -225,52 +225,52 @@ select:-webkit-autofill:focus {
                      @endif
                 @endif
 
-                
+
 
 
                 @if($reportsTeam)
                   <!-- ************* POSTMATE WIDGET CHART ************ -->
-                
+
 
                  <!-- ************* POSTMATE WIDGET CHART ************ -->
                  @include('layouts.widget-Reports_guideline')
 
                 @endif
-               
 
 
 
-               
-
-                
 
 
 
-              
-
-             
 
 
 
-             
-
-                 
 
 
 
-               
+
+
+
+
+
+
+
+
+
+
+
 
 
 
                  <!-- ************* PERFORMANCE CHART ************ -->
-                
-               
+
+
 
              </div><!--end LEFT -->
-             
-            
 
-              
+
+
+
 
               <div class="col-lg-5 col-sm-6 col-xs-12">
 
@@ -287,9 +287,9 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body" id="ads">
-                     
+
                         <!--VIDEOS -->
-                
+
 
                         <div id="myCarousel" class="carousel slide" data-ride="carousel">
                           <!-- Indicators -->
@@ -302,8 +302,8 @@ select:-webkit-autofill:focus {
 
                           <!-- Wrapper for slides -->
                           <div class="carousel-inner" role="listbox">
-                            
-                            @include('layouts.slider')
+
+                            @include('layouts.slider-v2')
 
                           </div><!--end CAROUSEL -->
 
@@ -317,12 +317,12 @@ select:-webkit-autofill:focus {
                             <span class="sr-only">Next</span>
                           </a>
                         </div>
-                      
+
 
                     </div>
                     <!-- /.box-body -->
-                    
-                    
+
+
                   </div>
                 <!-- /.end SHOUT OUT -->
 
@@ -339,25 +339,25 @@ select:-webkit-autofill:focus {
                     <div class="box-body">
                       <p class="text-center"><strong class="text-primary">Side Effects <span class="text-orange"> of Covid-19 Vaccines </span> </strong></p>
 
-                     
+
                       <video id="teaser" src="https://internal.openaccess.bpo/EMS/public/storage/uploads/covid_side_effects.mp4" width="100%" loop controls></video>
                       <p style="padding:30px; font-size: smaller;">Read more:  <a href=" https://www.who.int/news-room/feature-stories/detail/side-effects-of-covid-19-vaccines" target="_blank"> https://www.who.int/news-room/feature-stories/detail/side-effects-of-covid-19-vaccines</a><br/><br/>
                       See all videos  <a href="{{action('HomeController@videogallery')}}" target="_blank"><strong>here</strong> </a></p>
-                     
-                       
-                      
+
+
+
                     </div>
                 </div>
 
-               
-
-                
-                
 
 
 
-               
-                
+
+
+
+
+
+
                 <?php /*
                 @if ($doneSurvey == 0)
                 <!--EES -->
@@ -386,8 +386,8 @@ select:-webkit-autofill:focus {
                   */ ?>
 
 
-                
-                
+
+
 
 
 <?php /*
@@ -419,12 +419,12 @@ select:-webkit-autofill:focus {
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
-                      <p style="font-size: smaller;" class="text-center">Watch <strong class="text-primary">Open Access BPO</strong> <strong>Back To The '90s</strong> Year End Party <br/> <strong class="text-orange" style="font-size: 1.8em">Same-Day Edit <span class="text-primary"> video</span>  </strong> 
+                      <p style="font-size: smaller;" class="text-center">Watch <strong class="text-primary">Open Access BPO</strong> <strong>Back To The '90s</strong> Year End Party <br/> <strong class="text-orange" style="font-size: 1.8em">Same-Day Edit <span class="text-primary"> video</span>  </strong>
                                </p>
 
-                                <p align="center">Photos uploaded in our <a href="{{ action('HomeController@gallery',['a'=>1]) }}"><i class="fa fa-picture-o"></i> 2018 Year End Party Album</a> 
-                                <a style="font-size: smaller;" href="https://www.instagram.com/explore/tags/BackToThe90s/">#WeSpeakYourLanguage #OABackToThe90s #The2018YEP</a></p> 
-                              
+                                <p align="center">Photos uploaded in our <a href="{{ action('HomeController@gallery',['a'=>1]) }}"><i class="fa fa-picture-o"></i> 2018 Year End Party Album</a>
+                                <a style="font-size: smaller;" href="https://www.instagram.com/explore/tags/BackToThe90s/">#WeSpeakYourLanguage #OABackToThe90s #The2018YEP</a></p>
+
                               <video id="teaser" src="storage/uploads/sde-back_to_the_90s.webm" width="100%" loop controls></video>
                     </div>
                   </div>
@@ -445,7 +445,7 @@ select:-webkit-autofill:focus {
                       <p class="text-center"><strong class="text-orange" style="font-size: 1.8em">Speak Your Language <span class="text-primary"> Video Contest!</span></strong></p>
                       <video id="teaser" src="storage/uploads/alessio.webm" width="100%" loop controls></video>
 
-                     
+
 
                                 <p style="font-size: 1em;" align="center"><strong>HOW TO JOIN: </strong><br/>
                                   1. Take a video of yourself and state your favorite word/phrase in your mother language. Translate it in English (no need for translation if your mother language is English) and state a brief explanation as to why it is your favorite. <br/>
@@ -466,9 +466,9 @@ select:-webkit-autofill:focus {
                                   30% - Video quality:  Audio and visual quality, editing (if applicable), adherence to time limit <br/>
                                   10% - People’s Choice/ Most Likes:  Videos will be ranked based on the number of likes and the corresponding points will be added to the final judges’ score <br/><br/>
                                    CASH PRIZES:  <br/>
-                                   3rd place – Php 1,000.00 <br/> 
-                                   2nd place – Php 1,500.00 <br/> 
-                                   1st place – Php 2,500.00 <br/> 
+                                   3rd place – Php 1,000.00 <br/>
+                                   2nd place – Php 1,500.00 <br/>
+                                   1st place – Php 2,500.00 <br/>
 
 
 
@@ -478,60 +478,60 @@ select:-webkit-autofill:focus {
 
 
 
-                                  </p> 
-                              
-                              
+                                  </p>
+
+
                     </div>
                   </div>
                   */ ?>
-               
-
-   
-
-
-                
-                
 
 
 
-                
-                
-                
+
+
+
+
+
+
+
+
+
+
 
 
               </div><!--end RIGHT -->
 
 
-             
-             
 
 
-             
-             
+
+
+
+
               <br/><br/><br/><hr/>
 
-            
-                      
+
+
 
           </div><!--end of row -->
-       
+
      </section>
 
      <!----------------- MEMO ---------------->
       @if (!is_null($memo) && $notedMemo != true)
         @include('layouts.modals-memo', [
                                   'modelRoute'=>'user_memo.store',
-                                  'modelID' => $memo->id, 
-                                  'modelName'=>$memo->title, 
-                                  'modalTitle'=>$memo->title, 
-                                  'modalMessage'=> $memo->body, 
+                                  'modelID' => $memo->id,
+                                  'modelName'=>$memo->title,
+                                  'modalTitle'=>$memo->title,
+                                  'modalMessage'=> $memo->body,
                                   'formID'=>'memo',
                                   'icon'=>'glyphicon-check' ])
       @endif
 
-    
 
-          
+
+
 
 
 
@@ -561,22 +561,22 @@ select:-webkit-autofill:focus {
 <script type="text/javascript" src="{{asset('public/js/morris.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/js/raphael.min.js')}}"></script>
 <script type="text/javascript" src="{{asset('public/js/intro.js')}}"></script>
-   
+
 <script>
 
 
   $(function () {
    'use strict';
 
-   
 
-   function startTime() 
+
+   function startTime()
      {
-      
+
         var d = new Date();
         var utc = d.getTime() + (d.getTimezoneOffset() * 60000);
         var today = new Date(utc + (3600000*8));
-        
+
         var h = today.getHours() > 12 ? today.getHours() - 12 : today.getHours();
         var m = today.getMinutes();
         var s = today.getSeconds();
@@ -594,7 +594,7 @@ select:-webkit-autofill:focus {
         return i;
     }
 
-    
+
    startTime();
 
     @if($enableClock)
@@ -609,7 +609,7 @@ select:-webkit-autofill:focus {
      // AVA
      // WORLDVENTURES
      // OPS
-     
+
 
 
     $('.timekeeping').on('click', function(){
@@ -620,7 +620,7 @@ select:-webkit-autofill:focus {
       $.ajax({
           url: "{{action('LogsController@saveDashboardLog')}}",
           type:'POST',
-          data:{ 
+          data:{
             'logtype_id': logtype_id,
             'clocktime': clocktime,
             '_token':_token
@@ -632,27 +632,27 @@ select:-webkit-autofill:focus {
                                   $.notify("System CHECK IN successful. \n\nYou may check your DTR Sheet to verify.\nShould you find any form of data discrepancy, kindy submit a DTRP for approval.",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
                                   btn.fadeOut("slow");
                                 } break;
-                    case '2': { 
+                    case '2': {
                                   $.notify("System CHECK OUT successful. \n\nDon't forget to sign out from E.M.S as well. See you later, and take care.",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
                                   btn.fadeOut("slow");
                               }break;
-                    case '3': { 
+                    case '3': {
                                   $.notify("End Breaktime. \n\n",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
                                   btn.attr('disabled',true);
                                   $('#btn_breakin').attr('disabled',false);
                               }break;
-                    case '4': { 
+                    case '4': {
                               btn.attr("disabled",'disabled');
                               $('#btn_breakout').attr('disabled',false);
                               $.notify("BREAKTIME. \n\nDon't forget to click the Breaktime END button once you get back from your break.",{className:"success",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} ); }break;
                   }
-                  
-                  
+
+
           },
           error: function(res){
                 $.notify("Sorry, an error occured while saving your logs. \n\nPlease try again later.",{className:"error",globalPosition:'left middle',autoHideDelay:7000, clickToHide:true} );
           }
-        }); 
+        });
     });
 
 
@@ -678,30 +678,30 @@ select:-webkit-autofill:focus {
 
       getNewNotifications();
       $('#wait').fadeOut();
-      
-     
-      
 
-     // ********* temporarily disable memo EES ************** 
+
+
+
+     // ********* temporarily disable memo EES **************
      // @if (!is_null($memo) && $notedMemo != true)
      // $('#memo'+{{$memo->id}}).modal({backdrop: 'static', keyboard: false, show: true});
      // @endif
      // ********* temporarily disable memo EES **************
 
-     
+
 
      // * if(!is_null($siteTour) && $notedTour != true)
-     
+
      // introJs().setOption('doneLabel', "Got it. Don't show this to me again").start().oncomplete(function(){
      //  $('#controlsidebar').addClass('control-sidebar-open');
      //  var _token = "{{ csrf_token() }}";
-        
+
 
      //    //--- update user notification first
      //    $.ajax({
      //        url: "{{action('UserMemoController@saveUserMemo')}}",
      //        type:'POST',
-     //        data:{ 
+     //        data:{
      //          'id': "{{$siteTour->id}}",
      //          '_token':_token
      //        },
@@ -717,31 +717,31 @@ select:-webkit-autofill:focus {
 
 
 
-     
 
-     
+
+
 
 
 });
 
-  
+
 
 
    /*----------------- MEMO ----------------*/
 
-  
-      
+
+
    @if (!is_null($memo) && $notedMemo != true)
       $('#yesMemo').on('click',function(){
 
         var _token = "{{ csrf_token() }}";
-        
+
 
         //--- update user notification first
         $.ajax({
             url: "{{action('UserMemoController@saveUserMemo')}}",
             type:'POST',
-            data:{ 
+            data:{
               'id': "{{$memo->id}}",
               '_token':_token
             },
@@ -763,13 +763,13 @@ select:-webkit-autofill:focus {
       $('.tasks').fadeOut();$('.track').fadeOut();
       @if($hasPendingTask=='1' && $hasPendingTaskBreak=='1')
           $('#btn_breakout').fadeIn('fast');
-      @elseif($hasPendingTask==1) 
-          $('#btn_breakin').fadeIn('fast'); 
+      @elseif($hasPendingTask==1)
+          $('#btn_breakin').fadeIn('fast');
           $('#btn_stop').fadeIn('fast');
       @else
           $('#start').fadeIn();
       @endif
-      
+
 
       $('#start').on('click',function(){
 
@@ -872,7 +872,7 @@ select:-webkit-autofill:focus {
                     { if($(this).is(':visible'))
                         {
                           seltask = ( $(this).find(':selected').val() );
-                        } 
+                        }
                     });
 
         console.log('seltask');
@@ -918,12 +918,12 @@ select:-webkit-autofill:focus {
         {
           $('.tasks').fadeOut();
           $('select#task'+selval).fadeIn();
-        
+
 
         }else{
           alert('Please select a task.');return false;
         }
-        
+
 
       });
 
@@ -932,9 +932,9 @@ select:-webkit-autofill:focus {
 
 
   /*---------- NDY WIDGET ----------- */
-      
 
-   
+
+
 
 
 
@@ -976,13 +976,13 @@ select:-webkit-autofill:focus {
                   if (v == ""){
                     $(this).css('border',"solid 3px #e24527");
                     return false;
-                  } 
-                  
+                  }
+
                     $(this).css('border',"none");
-                    if (v == "- select one -") 
+                    if (v == "- select one -")
                       return false;
-                         
-                  
+
+
                 }
             ).promise().done(function(){
               var _token = "{{ csrf_token() }}";
@@ -993,7 +993,7 @@ select:-webkit-autofill:focus {
               console.log("Radio");
               console.log(formItems_radio);
               var formItems_textarea = $('textarea.formItem').filter(':visible');
-              
+
               var formItems ={}; //, inputs: formItems_input, textareas: formItems_textarea }
               var ctr=0;
 
@@ -1002,7 +1002,7 @@ select:-webkit-autofill:focus {
                  if (n[0]['name'] !== "agent") {
                   formItems[ ctr+'_'+n[0]['id'] ] = $(this).val();
                  }
-                 
+
                  ctr++;
               });
 
@@ -1032,14 +1032,14 @@ select:-webkit-autofill:focus {
               $.ajax({
                             url: "{{action('FormSubmissionsController@process')}}",
                             type:'POST',
-                            data:{ 
+                            data:{
                               'formItems': formItems,
                               'newPayroll': newPayroll,
                               'user_id':"{{Auth::user()->id}}",
                               '_token':_token
                             },
 
-                           
+
                             success: function(res)
                             {
                               console.log(res);
@@ -1064,30 +1064,30 @@ select:-webkit-autofill:focus {
                                             }, 2000);
                               }
 
-                               
+
                             }, error: function(res){
                               console.log("ERROR");
                               $.notify("An error occured. Please try re-submitting later.",{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
-                                
+
                             }
 
 
                   });
             });
-       
+
 
           }
-          
 
 
 
-          
-  
-    
+
+
+
+
       });
 
 
-   
+
 
    @endif
   /*---------- END GUIDELINE WIDGET ----------- */
@@ -1113,9 +1113,9 @@ select:-webkit-autofill:focus {
        });
 
    $('.escalation_online_order, .escalation_phone, .escalation_tablet').hide();
-   //.merchant_closed_confirmation, .Open_confirmation, .confirmed_options 
+   //.merchant_closed_confirmation, .Open_confirmation, .confirmed_options
    //
-   $('select[name="escalation"]').on('change', function(){ 
+   $('select[name="escalation"]').on('change', function(){
 
       var escalation = $('select[name="escalation"] :selected').val();
 
@@ -1127,7 +1127,7 @@ select:-webkit-autofill:focus {
         default:  $('.escalation_online_order, .escalation_phone, .escalation_tablet').hide();
       }
 
-   
+
 
    });
 
@@ -1159,7 +1159,7 @@ select:-webkit-autofill:focus {
     if (selectedItem.toLowerCase() == "yes" || selectedItem.toLowerCase() == "no"){
       $('select_'+(itemOrder+1), 'select_'+itemOrder).hide();
       var s = ".confirmed_"+itemName;
-      
+
       var x = $(s);
       //var y = x[0]['children'][2];
 
@@ -1167,7 +1167,7 @@ select:-webkit-autofill:focus {
 
       // console.log("className:");
       // console.log(x[1]['className']);
-     if (x.length == 0 
+     if (x.length == 0
             || x[1]['className'] == "select_7_2 formItem form-control confirmed_merchant_refused_confirmation"
             || (x.length == 2 && x.selector ==".confirmed_merchant_cash_only_confirmation") )
           {
@@ -1186,7 +1186,7 @@ select:-webkit-autofill:focus {
       } else $(s).fadeIn();
 
       //$(y).html('<option value="Confirmed_By_Phone">Confirmed By Phone</option><option value="Confirmed_By_Voicemail">Confirmed By Voicemail</option><option value="Confirmed_Online">Confirmed Online</option>');
-      
+
 
     }
     else {
@@ -1194,21 +1194,21 @@ select:-webkit-autofill:focus {
       $('.added').fadeOut();
 
       if(formID == '2'){
-        //$('label[name="'+itemName+'"]').fadeOut();//'select.select_'+(itemOrder+1), 'select.select_'+itemOrder, 
+        //$('label[name="'+itemName+'"]').fadeOut();//'select.select_'+(itemOrder+1), 'select.select_'+itemOrder,
         $('.label_'+itemOrder+'_'+formID,'.label_'+(itemOrder+1)+'_'+formID).fadeOut();
         $(s).fadeIn();
       }
-      
+
 
       console.log("OPEN : "+ s );
     console.log(s);
     console.log("order: "+itemOrder+" | selectedItem: "+selectedItem+" | index: "+itemOrder)
     }
-   
+
 
     console.log("FormID: "+formID);
 
-    
+
 
    });
 
@@ -1226,20 +1226,20 @@ select:-webkit-autofill:focus {
               if (v == ""){
                 $(this).css('border',"solid 3px #e24527");
                 return false;
-              } 
-              
+              }
+
                 $(this).css('border',"none");
-                if (v == "- select one -") 
+                if (v == "- select one -")
                   return false;
-                     
-              
+
+
             }
         ).promise().done(function(){
           var _token = "{{ csrf_token() }}";
           var formItems_select = $('select.formItem').filter(':visible');
           var formItems_input = $('input.formItem').filter(':visible');
           var formItems_textarea = $('textarea.formItem').filter(':visible');
-          
+
           var formItems ={}; //, inputs: formItems_input, textareas: formItems_textarea }
           var ctr=0;
 
@@ -1248,7 +1248,7 @@ select:-webkit-autofill:focus {
              if (n[0]['name'] !== "agent") {
               formItems[ ctr+'_'+n[0]['id'] ] = $(this).val();
              }
-             
+
              ctr++;
           });
 
@@ -1270,13 +1270,13 @@ select:-webkit-autofill:focus {
             $.ajax({
                         url: "{{action('FormSubmissionsController@process')}}",
                         type:'POST',
-                        data:{ 
+                        data:{
                           'formItems': formItems,
                           'user_id':"{{Auth::user()->id}}",
                           '_token':_token
                         },
 
-                       
+
                         success: function(res)
                         {
                           console.log(res);
@@ -1301,30 +1301,30 @@ select:-webkit-autofill:focus {
                                         }, 2000);
                           }
 
-                           
+
                         }, error: function(res){
                           console.log("ERROR");
                           $.notify("An error occured. Please try re-submitting later.",{className:"error",globalPosition:'right center',autoHideDelay:7000, clickToHide:true} );
-                            
+
                         }
 
 
               });
         });
-   
-  
-    
+
+
+
    });
 
 
-   
+
 
    @endif
   /*---------- END POSTMATES WIDGET ----------- */
 
 
 
-   
+
 
 
 
@@ -1339,9 +1339,9 @@ select:-webkit-autofill:focus {
                       "pageLength": 5,
                       "order": [ 0, "desc" ],
                       "columns": [
-                            { sorting:false, title: "", defaultContent: "<i>none</i>" , data:'id', render:function(data,type,full,meta){return '<span style="visibility:hidden">'+data+'</span><i class="fa '+full.icon+'"></i>';}}, 
-                            
-                            { title: "Requests", defaultContent: "<i>none</i>" , data:'type', render:function(data,type,full,meta){return '<a href="#" data-toggle="modal" data-target="#myModal_DTRP'+full.id+'"> <strong>'+data+'</strong></a><br/><small>from: '+full.user+' - <strong>'+full.program+'</strong> </small>';}},  
+                            { sorting:false, title: "", defaultContent: "<i>none</i>" , data:'id', render:function(data,type,full,meta){return '<span style="visibility:hidden">'+data+'</span><i class="fa '+full.icon+'"></i>';}},
+
+                            { title: "Requests", defaultContent: "<i>none</i>" , data:'type', render:function(data,type,full,meta){return '<a href="#" data-toggle="modal" data-target="#myModal_DTRP'+full.id+'"> <strong>'+data+'</strong></a><br/><small>from: '+full.user+' - <strong>'+full.program+'</strong> </small>';}},
                             { title: "Date Filed", defaultContent: " ", data:'productionDate', render:function(data,type,full){
                               var formattedDate = new Date(full.deets.created_at);
                               var formattedDate2 = new Date(data);
@@ -1367,9 +1367,9 @@ select:-webkit-autofill:focus {
                               var m =  formattedDate2.getMonth();
                               //m += 1;  // JavaScript months are 0-11
                               var y = formattedDate2.getFullYear();
-                              return mo+'. '+d1+' '+n+'<br/><small><em>for: '+data+'</em></small>';}}, 
+                              return mo+'. '+d1+' '+n+'<br/><small><em>for: '+data+'</em></small>';}},
 
-                            { title: "Actions", data:'id', class:'text-center', width:'180', sorting:false, 
+                            { title: "Actions", data:'id', class:'text-center', width:'180', sorting:false,
                               render: function ( data, type, full, meta ) {
                               var _token = "{{ csrf_token() }}";
                               var formattedDate = new Date(full.deets.created_at);
@@ -1403,9 +1403,9 @@ select:-webkit-autofill:focus {
                                 case 21: icon="fa-history";break;
                                 case 22: icon="fa-female";break;
                               }
-            
 
-                              
+
+
                               var modalcode = '<div class="modal fade" id="myModal_DTRP'+data+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><h4 class="modal-title text-black" id="myModalLabel"><i class="fa '+icon+'"></i> '+full.type+'</h4></div> <div class="modal-body-upload" style="padding:20px;">';
 
                               modalcode += '<!-- DIRECT CHAT PRIMARY -->';
@@ -1423,18 +1423,18 @@ select:-webkit-autofill:focus {
                               modalcode += '        <!-- /.direct-chat-info -->';
                               modalcode += '        <a href="./user/'+full.requestor+'" target="_blank"><img src="'+profileimg+'" class="img-circle pull-left" alt="User Image" width="70" /></a>';
                               modalcode += '        <div class="direct-chat-text" style="width:85%; left:30px; background-color:#fcfdfd">';
-                              
-                                                  
+
+
                                                   var mc1 ="";
                                                   var delModal ='<div class="modal fade" id="myModal'+full.id+'" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true"><div class="modal-dialog"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button><h4 class="modal-title" id="myModalLabel"> Delete '+full.type+'</h4></div><div class="modal-body">Are you sure you want to delete this?</div><div class="modal-footer no-border"><form action="./user_notification/deleteRequest/'+full.id+'" method="POST" class="btn-outline pull-right" id="deleteReq"><input type="hidden" name="notifType" value="'+full.typeID+'" /><button type="submit" class="btn btn-primary glyphicon-trash glyphicon ">Yes</button><button type="button" class="btn btn-default" data-dismiss="modal">Close</button><input type="hidden" name="_token" value="'+_token+'" /> </div></div></div></div>';
 
-                                                  
 
-                                                            
+
+
                                                   switch (full.typeID)
                                                   {
                                                     //CWS
-                                                    case 6: { 
+                                                    case 6: {
                                                                var shiftStart_new = new Date(full.productionDate+ " "+full.deets.timeStart).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
                                                                var shiftEnd_new = new Date(full.productionDate+ " "+full.deets.timeEnd).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
                                                                modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
@@ -1486,9 +1486,9 @@ select:-webkit-autofill:focus {
                                                                 modalcode += '</p></div> <div class="col-sm-5" style="font-size: 12px"><h5 class="text-primary">Reason:</h5>';
                                                                 modalcode += '<p class="text-left"><em>'+full.deets.reason+'</em></p> </div>';
                                                             };break;
-                                                    
+
                                                     // ---- DTRP IN
-                                                    case 8: { 
+                                                    case 8: {
                                                               var shiftStart_new = new Date(full.productionDate+ " "+full.deets.timeStart).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
                                                               var shiftEnd_new = new Date(full.productionDate+ " "+full.deets.timeEnd).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
 
@@ -1501,7 +1501,7 @@ select:-webkit-autofill:focus {
                                                                       modalcode += '<p><br/><em>'+full.deets.notes+'</em></p></div>';};break;
 
                                                     // ---- DTRP OUT
-                                                    case 9: { 
+                                                    case 9: {
 
                                                              var shiftStart_new = new Date(full.productionDate+ " "+full.deets.timeStart).toLocaleString('en-US', { hour: 'numeric', minute:'numeric', hour12: true });
                                                              var shiftEnd_new = new Date(full.productionDate+ " "+full.deets.timeEnd).toLocaleString('en-US', { hour: 'numeric', minute:'numeric',hour12: true });
@@ -1516,13 +1516,13 @@ select:-webkit-autofill:focus {
                                                           };break;
 
                                                     //VACATION LEAVE
-                                                    case 10: { 
+                                                    case 10: {
 
                                                               var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
                                                               var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
                                                               var duration = moment.duration(leaveEnd.diff(leaveStart));
                                                               var hours = duration.asHours();
-                                                              
+
 
                                                               if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
                                                               else{
@@ -1535,23 +1535,23 @@ select:-webkit-autofill:focus {
 
                                                               if(full.deets.forced == '1')
                                                                  modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>FORCED VACATION LEAVE &nbsp;&nbsp;</strong><br/><br/>';
-                                                             
+
                                                               else
                                                                  modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>VACATION LEAVE &nbsp;&nbsp;</strong><br/><br/>';
 
-                                                             
+
 
                                                              // modalcode += '<strong>VL credits used: </strong><span class="text-danger">'+full.deets.totalCredits+'</span><br/>';
                                                               modalcode += '<strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
                                                               modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
                                                               modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
 
-                                                                   
+
 
 
                                                                       mc1 += '<div class="col-sm-6" style="font-size: 12px">';
 
-                                                                      
+
                                                                       mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
 
                                                                       mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
@@ -1561,15 +1561,15 @@ select:-webkit-autofill:focus {
                                                                 } break;
 
 
-                                                    
+
                                                     //SICK LEAVE
-                                                    case 11: { 
+                                                    case 11: {
 
                                                               var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
                                                               var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
                                                               var duration = moment.duration(leaveEnd.diff(leaveStart));
                                                               var hours = duration.asHours();
-                                                              
+
 
                                                               if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
                                                               else{
@@ -1583,8 +1583,8 @@ select:-webkit-autofill:focus {
                                                                 modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>FORCED SICK LEAVE &nbsp;&nbsp;</strong>';
                                                               else
                                                                 modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>SICK LEAVE &nbsp;&nbsp;</strong>';
-                                                              
-                                                             
+
+
 
                                                               if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
                                                               modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_sl/medCert/'+full.deets.id+'" target="_blank">Medical Certificate <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
@@ -1593,12 +1593,12 @@ select:-webkit-autofill:focus {
                                                               modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
                                                               modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
 
-                                                                   
+
 
 
                                                                       mc1 += '<div class="col-sm-6" style="font-size: 12px">';
 
-                                                                      
+
                                                                       mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
 
                                                                       mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
@@ -1608,16 +1608,16 @@ select:-webkit-autofill:focus {
                                                                 } break;
 
 
-                                                    
+
 
                                                     //LWOP LEAVE
-                                                    case 12: { 
+                                                    case 12: {
 
                                                               var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
                                                               var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
                                                               var duration = moment.duration(leaveEnd.diff(leaveStart));
                                                               var hours = duration.asHours();
-                                                              
+
 
                                                               if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
                                                               else{
@@ -1632,20 +1632,20 @@ select:-webkit-autofill:focus {
                                                                 modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>FORCED LEAVE WITHOUT PAY &nbsp;&nbsp;</strong><br/><br/>';
                                                               else
                                                                  modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>LEAVE WITHOUT PAY &nbsp;&nbsp;</strong><br/><br/>';
-                                                             
-                                                             
+
+
 
                                                              // modalcode += '<strong>VL credits used: </strong><span class="text-danger">'+full.deets.totalCredits+'</span><br/>';
                                                               modalcode += '<strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
                                                               modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
                                                               modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
 
-                                                                   
+
 
 
                                                                       mc1 += '<div class="col-sm-6" style="font-size: 12px">';
 
-                                                                      
+
                                                                       mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
 
                                                                       mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
@@ -1654,16 +1654,16 @@ select:-webkit-autofill:focus {
                                                                       //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
                                                                 } break;
 
-                                                    
+
 
                                                     //OBT LEAVE
-                                                    case 13: { 
+                                                    case 13: {
 
                                                               var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
                                                               var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
                                                               var duration = moment.duration(leaveEnd.diff(leaveStart));
                                                               var hours = duration.asHours();
-                                                              
+
 
                                                               if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
                                                               else{
@@ -1674,19 +1674,19 @@ select:-webkit-autofill:focus {
 
                                                               modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
                                                               modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>OFFICIAL BUSINESS TRIP &nbsp;&nbsp;</strong><br/><br/>';
-                                                             
+
 
                                                              // modalcode += '<strong>VL credits used: </strong><span class="text-danger">'+full.deets.totalCredits+'</span><br/>';
                                                               modalcode += '<strong>Reason: </strong><em>'+full.deets.notes+'</em></p>';
                                                               modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
                                                               modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
 
-                                                                   
+
 
 
                                                                       mc1 += '<div class="col-sm-6" style="font-size: 12px">';
 
-                                                                      
+
                                                                       mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
 
                                                                       mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
@@ -1695,12 +1695,12 @@ select:-webkit-autofill:focus {
                                                                       //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
                                                                 } break;
 
-                                                      
 
-                                                       
+
+
 
                                                       //DTR UNLOCK
-                                                    case 14: { 
+                                                    case 14: {
 
                                                               var prodFrom = moment(full.productionFrom);
                                                               var prodTo = moment(full.productionTo);
@@ -1708,18 +1708,18 @@ select:-webkit-autofill:focus {
 
                                                               modalcode += '<p class="text-left">Hi {{$greeting}} !</p> <br/>';
                                                               modalcode += '<p class="text-center">I would like to file to have my  <strong>DTR Sheet</strong> from <br/><span class="text-danger">'+prodFrom.format("MMM. DD YYYY - ddd")+'</span> to <span class="text-danger">'+prodTo.format("MMM. DD YYYY - ddd")+'</span> <strong><br/>UNLOCKED</strong><br/><br/><a href="./seen-unlockRequest/'+full.notification_id+'?seen=true" class="btn btn-xs btn-primary"><i class="fa fa-calendar"></i> View DTR Sheet<a><br/></p>';
-                                                             
 
-                                                            
+
+
                                                               modalcode += '<div class="row"><div class="col-sm-12">';
                                                               modalcode += '<div class="col-sm-6"></div><div class="col-sm-6"></div>';
 
-                                                                   
+
 
 
                                                                       mc1 += '<div class="col-sm-6" style="font-size: 12px">';
 
-                                                                      
+
                                                                       mc1 += '<p><strong> </strong></p>';
 
                                                                       mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
@@ -1728,8 +1728,8 @@ select:-webkit-autofill:focus {
                                                                       //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
                                                                 } break;
 
-                                                    //PRE SHIFT OT 
-                                                    case 15: { 
+                                                    //PRE SHIFT OT
+                                                    case 15: {
                                                                 var billedType=" ";
 
                                                                 if(full.deets.billedType == '1') billedType="Billed";
@@ -1756,19 +1756,19 @@ select:-webkit-autofill:focus {
 
 
 
-                                                  
+
 
                                                                       //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
                                                                 } break;
 
                                                      //ML
-                                                    case 16: { 
+                                                    case 16: {
 
                                                               var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
                                                               var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
                                                               var duration = moment.duration(leaveEnd.diff(leaveStart));
                                                               var hours = duration.asHours();
-                                                              
+
 
                                                               if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
                                                               else{
@@ -1779,7 +1779,7 @@ select:-webkit-autofill:focus {
 
                                                               modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
                                                               modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>MATERNITY LEAVE &nbsp;&nbsp;</strong>';
-                                                             
+
 
                                                               if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
                                                               modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
@@ -1788,12 +1788,12 @@ select:-webkit-autofill:focus {
                                                               modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
                                                               modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
 
-                                                                   
+
 
 
                                                                       mc1 += '<div class="col-sm-6" style="font-size: 12px">';
 
-                                                                      
+
                                                                       mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
 
                                                                       mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
@@ -1803,13 +1803,13 @@ select:-webkit-autofill:focus {
                                                                 } break;
 
                                                       //PL
-                                                    case 17: { 
+                                                    case 17: {
 
                                                               var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
                                                               var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
                                                               var duration = moment.duration(leaveEnd.diff(leaveStart));
                                                               var hours = duration.asHours();
-                                                              
+
 
                                                               if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
                                                               else{
@@ -1820,7 +1820,7 @@ select:-webkit-autofill:focus {
 
                                                               modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
                                                               modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>PATERNITY LEAVE &nbsp;&nbsp;</strong>';
-                                                             
+
 
                                                               if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
                                                               modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
@@ -1829,12 +1829,12 @@ select:-webkit-autofill:focus {
                                                               modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
                                                               modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
 
-                                                                   
+
 
 
                                                                       mc1 += '<div class="col-sm-6" style="font-size: 12px">';
 
-                                                                      
+
                                                                       mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
 
                                                                       mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
@@ -1844,13 +1844,13 @@ select:-webkit-autofill:focus {
                                                                 } break;
 
                                                      //SPL
-                                                    case 18: { 
+                                                    case 18: {
 
                                                               var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
                                                               var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
                                                               var duration = moment.duration(leaveEnd.diff(leaveStart));
                                                               var hours = duration.asHours();
-                                                              
+
 
                                                               if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
                                                               else{
@@ -1861,7 +1861,7 @@ select:-webkit-autofill:focus {
 
                                                               modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
                                                               modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>SINGLE-PARENT LEAVE &nbsp;&nbsp;</strong>';
-                                                             
+
 
                                                               if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
                                                               modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
@@ -1870,12 +1870,12 @@ select:-webkit-autofill:focus {
                                                               modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
                                                               modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
 
-                                                                   
+
 
 
                                                                       mc1 += '<div class="col-sm-6" style="font-size: 12px">';
 
-                                                                      
+
                                                                       mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
 
                                                                       mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
@@ -1885,7 +1885,7 @@ select:-webkit-autofill:focus {
                                                                 } break;
 
                                                       //DTR Specific UNLOCK
-                                                    case 19: { 
+                                                    case 19: {
 
                                                               var prodFrom = moment(full.productionFrom);
                                                               var prodTo = moment(full.productionTo);
@@ -1893,18 +1893,18 @@ select:-webkit-autofill:focus {
 
                                                               modalcode += '<p class="text-left">Hi {{$greeting}} !</p> <br/>';
                                                               modalcode += '<p class="text-center">I would like to file to have my  <strong>DTR Sheet</strong> from <br/>Production Date: <span class="text-danger">'+prodFrom.format("MMM. DD YYYY - ddd")+'</span> <strong><br/>UNLOCKED</strong><br/><br/><a href="./seen-unlockPDRequest/'+full.notification_id+'?seen=true" class="btn btn-xs btn-primary"><i class="fa fa-unlock"></i> Unlock Now<a><br/></p>';
-                                                             
 
-                                                            
+
+
                                                               modalcode += '<div class="row"><div class="col-sm-12">';
                                                               modalcode += '<div class="col-sm-6"></div><div class="col-sm-6"></div>';
 
-                                                                   
+
 
 
                                                                       mc1 += '<div class="col-sm-6" style="font-size: 12px">';
 
-                                                                      
+
                                                                       mc1 += '<p><strong> </strong></p>';
 
                                                                       mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
@@ -1913,18 +1913,18 @@ select:-webkit-autofill:focus {
                                                                       //mc1 += '<div class="row"><div class="col-sm-12">'+full.deets.notes+'</div></div>';
                                                                 } break;
 
-                                                    
-                                                    // VTO 
-                                                    case 21: { 
+
+                                                    // VTO
+                                                    case 21: {
 
                                                               var leaveStart = moment(full.deets.productionDate+' '+full.deets.startTime); //,"MM/D/YYYY h:m A");
                                                               var leaveEnd = moment(full.deets.productionDate+' '+full.deets.endTime); //,"MM/D/YYYY h:m A");
                                                               //var duration = moment.duration(leaveEnd.diff(leaveStart));
                                                               var hours = full.deets.totalHours; //moment(full.deets.totalHours).asHours(); // duration.asHours();
                                                               var totalcreds = full.deets.totalHours*0.125;
-                                                              
 
-                                                             
+
+
 
                                                               modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
 
@@ -1932,24 +1932,24 @@ select:-webkit-autofill:focus {
                                                                 modalcode += 'I would like to file a (<strong class="text-danger">'+totalcreds+') </strong><strong>FORCED VTO &nbsp;&nbsp;</strong>[ use: '+full.deets.deductFrom +' ]<br/><br/>';
                                                               else
                                                                 modalcode += 'I would like to file a (<strong class="text-danger">'+totalcreds+') </strong><strong>VTO &nbsp;&nbsp;</strong>[ use: '+full.deets.deductFrom +' ]<br/><br/>';
-                                                             
 
 
-                                                            
+
+
                                                               modalcode += '<strong>Total hours: </strong><em>'+full.deets.totalHours+'</em><br/>';
                                                               modalcode += '<strong>&nbsp;&nbsp;Notes: </strong><em>'+full.deets.notes+'</em></p>';
                                                               modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
                                                               modalcode += '<div class="col-sm-4"><h5 class="text-primary">Production Date: </h5></div>';
                                                               modalcode += '<div class="col-sm-4"><h5 class="text-primary">From: </h5></div><div class="col-sm-4"><h5 class="text-primary">Until: </h5></div>';
 
-                                                                   
+
 
 
                                                                       mc1 += '<div class="col-sm-4" style="font-size: 12px">';
                                                                       mc1 += '<p><strong>'+full.deets.productionDate+' </strong></p></div>';
                                                                       mc1 += '<div class="col-sm-4" style="font-size: 12px">';
 
-                                                                      
+
                                                                       mc1 += '<p><strong>'+leaveStart.format("hh:mm A")+' </strong></p>';
 
                                                                       mc1 += '</div><div class="col-sm-4" style="font-size: 12px">';
@@ -1959,15 +1959,15 @@ select:-webkit-autofill:focus {
                                                                 } break;
 
 
-                                                    
+
                                                     //MAGNA CARTA
-                                                    case 22: { 
+                                                    case 22: {
 
                                                               var leaveStart = moment(full.deets.leaveStart); //,"MM/D/YYYY h:m A");
                                                               var leaveEnd = moment(full.deets.leaveEnd); //,"MM/D/YYYY h:m A");
                                                               var duration = moment.duration(leaveEnd.diff(leaveStart));
                                                               var hours = duration.asHours();
-                                                              
+
 
                                                               if (full.deets.totalCredits % 1 === 0) var totalcreds = Math.floor(full.deets.totalCredits);
                                                               else{
@@ -1978,7 +1978,7 @@ select:-webkit-autofill:focus {
 
                                                               modalcode += '<p class="text-left">Hi {{$greeting}} ! <br/>';
                                                               modalcode += 'I would like to file a <strong class="text-danger">'+totalcreds+'-day </strong><strong>MAGNA CARTA FOR WOMEN LEAVE &nbsp;&nbsp;</strong>';
-                                                             
+
 
                                                               if (full.deets.attachments != null && (full.deets.attachments.length !== 0) )
                                                               modalcode += '<span class="pull-right" style="font-size:smaller"><i class="fa fa-paperclip"></i> <a href="./user_fl/requirements/'+full.deets.id+'" target="_blank">Requirements <br/> &nbsp; &nbsp;&nbsp; &nbsp; &nbsp; &nbsp;attached</a></span> ';
@@ -1987,12 +1987,12 @@ select:-webkit-autofill:focus {
                                                               modalcode += '<div class="row"><div class="col-sm-12"> <div class="row">';
                                                               modalcode += '<div class="col-sm-6"><h5 class="text-primary">From: </h5></div><div class="col-sm-6"><h5 class="text-primary">Until: </h5></div>';
 
-                                                                   
+
 
 
                                                                       mc1 += '<div class="col-sm-6" style="font-size: 12px">';
 
-                                                                      
+
                                                                       mc1 += '<p><strong>'+leaveStart.format("MMM DD, ddd hh:mm A")+' </strong></p>';
 
                                                                       mc1 += '</div><div class="col-sm-6" style="font-size: 12px">';
@@ -2028,7 +2028,7 @@ select:-webkit-autofill:focus {
                                   modalcode += '        <div class="direct-chat-text direct-chat-default" style="background-color:#d2d6de" >'; //style="background-color:#fff;border-color:#ddd"
 
                                   modalcode += '<a href="#" class="process btn btn-flat btn-sm pull-right btn-danger" data-notifType="'+full.typeID+'" data-action="0" data-notifID="'+full.id+'" data-id="'+full.deets.id+'" data-dismiss="modal"style="margin-right:5px;" > <i class="fa fa-thumbs-down" ></i> Deny </a><a href="#" class="process btn btn-flat btn-success btn-sm pull-right " data-notifType="'+full.typeID+'" data-action="1" data-notifID="'+data+'" data-id="'+full.deets.id+'" data-dismiss="modal"style="margin-right:5px;" > <i class="fa fa-thumbs-up" ></i> Approve </a><div class="clearfix"></div>';
-                                  
+
                                   modalcode += '        </div>';
                                   modalcode += '        <!-- /.direct-chat-text -->';
                                   modalcode += '      </div>';
@@ -2040,7 +2040,7 @@ select:-webkit-autofill:focus {
 
                               modalcode += '  </div>';
                               modalcode += '  <!-- /.box-body -->';
-                              
+
                               modalcode += '</div>';
                               modalcode += '<!--/.direct-chat -->';
 
@@ -2051,26 +2051,26 @@ select:-webkit-autofill:focus {
 
                                                   //********* UNLOCK DTR has a different set of action buttons eh
                                                   if(full.typeID == 14)
-                                                    
+
                                                     return '<a href="./seen-unlockRequest/'+full.notification_id+'?seen=true" class="btn btn-flat btn-xs text-primary"><i class="fa fa-calendar"></i> Open DTR Sheet</a>'+modalcode;
 
                                                   else if(full.typeID == 19)
-                                                    
-                                                    return '<a target="_blank" href="./seen-unlockPDRequest/'+full.notification_id+'?seen=true" class="btn btn-flat btn-xs text-primary"><i class="fa fa-external-link"></i> Launch DTR to Unlock</a>'+modalcode;                         
+
+                                                    return '<a target="_blank" href="./seen-unlockPDRequest/'+full.notification_id+'?seen=true" class="btn btn-flat btn-xs text-primary"><i class="fa fa-external-link"></i> Launch DTR to Unlock</a>'+modalcode;
 
                                                   else
                                                   return '<a data-notifType="'+full.typeID+'" data-action="1" data-notifID="'+full.id+'" data-id="'+full.deets.id+'" href="#" class="process btn btn-flat btn-xs text-success"><i class="fa fa-thumbs-up"></i> Approve</a><a data-notifType="'+full.typeID+'" data-action="0" data-notifID="'+full.id+'" data-id="'+full.deets.id+'" href="#" class="process btn btn-flat btn-xs text-danger"><i class="fa fa-thumbs-down"></i> Deny</a><a data-toggle="modal" data-target="#myModal'+full.id+'"  href="#" class="btn btn-flat btn-xs text-default"><i class="fa fa-trash"></i> Delete</a>'+modalcode;}}
-                            
+
 
                         ],
-                       
+
 
                       "responsive":true,
-                     
-                      // '<a data-notifType="'+typeID+'" data-action="1" data-notifID="'+id+'" data-id="'+deets.id+'" href="#" class="process btn btn-flat btn-xs text-success"><i class="fa fa-thumbs-up"></i> Approve</a><a data-notifType="'+typeID+'" data-action="0" data-notifID="'+id+'" data-id="'+deets.id+'" href="#" class="btn btn-flat btn-xs text-danger"><i class="fa fa-thumbs-down"></i> Deny</a><a data-toggle="modal" data-target="#myModal'+id+'"  href="#" class="btn btn-flat btn-xs text-default"><i class="fa fa-trash"></i> Delete</a>'
-                      
 
-                
+                      // '<a data-notifType="'+typeID+'" data-action="1" data-notifID="'+id+'" data-id="'+deets.id+'" href="#" class="process btn btn-flat btn-xs text-success"><i class="fa fa-thumbs-up"></i> Approve</a><a data-notifType="'+typeID+'" data-action="0" data-notifID="'+id+'" data-id="'+deets.id+'" href="#" class="btn btn-flat btn-xs text-danger"><i class="fa fa-thumbs-down"></i> Deny</a><a data-toggle="modal" data-target="#myModal'+id+'"  href="#" class="btn btn-flat btn-xs text-default"><i class="fa fa-trash"></i> Delete</a>'
+
+
+
         });
 
    $('.table-responsive #requests').on('click', '.process', function(e)
@@ -2088,12 +2088,12 @@ select:-webkit-autofill:focus {
       $.ajax({
           url: "{{action('UserNotificationController@process')}}",
           type:'POST',
-          data:{ 
+          data:{
             'id': notif,
             '_token':_token
           },
 
-         
+
           success: function(response2)
           {
             switch(notifType){
@@ -2101,14 +2101,14 @@ select:-webkit-autofill:focus {
                                   $.ajax({
                                             url: "{{action('UserCWSController@process')}}",
                                             type:'POST',
-                                            data:{ 
+                                            data:{
 
                                               'id': id,
                                               'isApproved': processAction,
                                               '_token':_token
                                             },
 
-                                           
+
                                             success: function(res)
                                             {
                                               console.log(res);
@@ -2119,7 +2119,7 @@ select:-webkit-autofill:focus {
                                              else
                                                $.notify("Submitted CWS request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
-                                               
+
                                             }, error: function(res){
                                               console.log("ERROR");
                                             }
@@ -2127,21 +2127,21 @@ select:-webkit-autofill:focus {
 
                                   });
 
-                              }break; 
+                              }break;
 
                     case '7': {//ot
                                   console.log("pasok sa case");
                                   $.ajax({
                                             url: "{{action('UserOTController@process')}}",
                                             type:'POST',
-                                            data:{ 
+                                            data:{
 
                                               'id': id,
                                               'isApproved': processAction,
                                               '_token':_token
                                             },
 
-                                           
+
                                             success: function(res)
                                             {
                                               if (res.success == '0') console.log("nag error");
@@ -2155,8 +2155,8 @@ select:-webkit-autofill:focus {
                                              else
                                                $.notify("Submitted OT Request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
-                                                 
-                                               
+
+
                                             },
                                             error: function(res)
                                             {
@@ -2164,20 +2164,20 @@ select:-webkit-autofill:focus {
                                               console.log(res);
                                             }
                                   });
-                              }break; 
+                              }break;
 
                     case '8': {//in
                                   $.ajax({
                                             url: "{{action('UserDTRPController@process')}}",
                                             type:'POST',
-                                            data:{ 
+                                            data:{
 
                                               'id': id,
                                               'isApproved': processAction,
                                               '_token':_token
                                             },
 
-                                           
+
                                             success: function(res)
                                             {
                                               console.log(res);
@@ -2187,9 +2187,9 @@ select:-webkit-autofill:focus {
                                                $.notify("Submitted DTRP - IN by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                              else
                                                $.notify("Submitted DTRP - IN by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
-                                             
 
-                                               
+
+
                                             },
                                             error: function(res)
                                             {
@@ -2198,20 +2198,20 @@ select:-webkit-autofill:focus {
                                             }
                                   });
 
-                              }break; 
+                              }break;
 
                     case '9': { //out
                                 $.ajax({
                                             url: "{{action('UserDTRPController@process')}}",
                                             type:'POST',
-                                            data:{ 
+                                            data:{
 
                                               'id': id,
                                               'isApproved': processAction,
                                               '_token':_token
                                             },
 
-                                           
+
                                             success: function(res)
                                             {
                                               console.log(res);
@@ -2221,9 +2221,9 @@ select:-webkit-autofill:focus {
                                                $.notify("Submitted DTRP - OUT by "+res.firstname+" "+res.lastname+ " : Approved.",{className:"success",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                              else
                                                $.notify("Submitted DTRP - OUT by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
-                                             
+
                                              // window.location = "{{action('HomeController@index')}}";
-                                               
+
                                             }
                                   });
 
@@ -2233,14 +2233,14 @@ select:-webkit-autofill:focus {
                                   $.ajax({
                                             url: "{{action('UserVLController@process')}}",
                                             type:'POST',
-                                            data:{ 
+                                            data:{
 
                                               'id': id,
                                               'isApproved': processAction,
                                               '_token':_token
                                             },
 
-                                           
+
                                             success: function(res)
                                             {
                                               console.log(res);
@@ -2251,7 +2251,7 @@ select:-webkit-autofill:focus {
                                              else
                                                $.notify("Submitted VL request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
-                                               
+
                                             }, error: function(res){
                                               console.log("ERROR");
                                               console.log(res);
@@ -2267,14 +2267,14 @@ select:-webkit-autofill:focus {
                                   $.ajax({
                                             url: "{{action('UserSLController@process')}}",
                                             type:'POST',
-                                            data:{ 
+                                            data:{
 
                                               'id': id,
                                               'isApproved': processAction,
                                               '_token':_token
                                             },
 
-                                           
+
                                             success: function(res)
                                             {
                                               console.log(res);
@@ -2285,7 +2285,7 @@ select:-webkit-autofill:focus {
                                              else
                                                $.notify("Submitted SL request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
-                                               
+
                                             }, error: function(res){
                                               console.log("ERROR");
                                               console.log(res);
@@ -2300,14 +2300,14 @@ select:-webkit-autofill:focus {
                                   $.ajax({
                                             url: "{{action('UserLWOPController@process')}}",
                                             type:'POST',
-                                            data:{ 
+                                            data:{
 
                                               'id': id,
                                               'isApproved': processAction,
                                               '_token':_token
                                             },
 
-                                           
+
                                             success: function(res)
                                             {
                                               console.log(res);
@@ -2318,7 +2318,7 @@ select:-webkit-autofill:focus {
                                              else
                                                $.notify("Submitted LWOP request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
-                                               
+
                                             }, error: function(res){
                                               console.log("ERROR");
                                               console.log(res);
@@ -2327,21 +2327,21 @@ select:-webkit-autofill:focus {
 
                                   });
 
-                              }break; 
+                              }break;
 
 
                     case '13': { //OBT
                                   $.ajax({
                                             url: "{{action('UserOBTController@process')}}",
                                             type:'POST',
-                                            data:{ 
+                                            data:{
 
                                               'id': id,
                                               'isApproved': processAction,
                                               '_token':_token
                                             },
 
-                                           
+
                                             success: function(res)
                                             {
                                               console.log(res);
@@ -2352,7 +2352,7 @@ select:-webkit-autofill:focus {
                                              else
                                                $.notify("Submitted OBT request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
-                                               
+
                                             }, error: function(res){
                                               console.log("ERROR");
                                               console.log(res);
@@ -2361,20 +2361,20 @@ select:-webkit-autofill:focus {
 
                                   });
 
-                              }break;  
+                              }break;
 
                     case '15': { //PS OT
                                   $.ajax({
                                             url: "{{action('UserOTController@process')}}",
                                             type:'POST',
-                                            data:{ 
+                                            data:{
 
                                               'id': id,
                                               'isApproved': processAction,
                                               '_token':_token
                                             },
 
-                                           
+
                                             success: function(res)
                                             {
                                               console.log(res);
@@ -2385,7 +2385,7 @@ select:-webkit-autofill:focus {
                                              else
                                                $.notify("Submitted Pre-Shift OT request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
-                                               
+
                                             }, error: function(res){
                                               console.log("ERROR");
                                               console.log(res);
@@ -2400,14 +2400,14 @@ select:-webkit-autofill:focus {
                                   $.ajax({
                                             url: "{{action('UserFamilyleaveController@process')}}",
                                             type:'POST',
-                                            data:{ 
+                                            data:{
 
                                               'id': id,
                                               'isApproved': processAction,
                                               '_token':_token
                                             },
 
-                                           
+
                                             success: function(res)
                                             {
                                               console.log(res);
@@ -2418,7 +2418,7 @@ select:-webkit-autofill:focus {
                                              else
                                                $.notify("Submitted ML request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
-                                               
+
                                             }, error: function(res){
                                               console.log("ERROR");
                                               console.log(res);
@@ -2433,14 +2433,14 @@ select:-webkit-autofill:focus {
                                   $.ajax({
                                             url: "{{action('UserFamilyleaveController@process')}}",
                                             type:'POST',
-                                            data:{ 
+                                            data:{
 
                                               'id': id,
                                               'isApproved': processAction,
                                               '_token':_token
                                             },
 
-                                           
+
                                             success: function(res)
                                             {
                                               console.log(res);
@@ -2451,7 +2451,7 @@ select:-webkit-autofill:focus {
                                              else
                                                $.notify("Submitted PL request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
-                                               
+
                                             }, error: function(res){
                                               console.log("ERROR");
                                               console.log(res);
@@ -2466,14 +2466,14 @@ select:-webkit-autofill:focus {
                                   $.ajax({
                                             url: "{{action('UserFamilyleaveController@process')}}",
                                             type:'POST',
-                                            data:{ 
+                                            data:{
 
                                               'id': id,
                                               'isApproved': processAction,
                                               '_token':_token
                                             },
 
-                                           
+
                                             success: function(res)
                                             {
                                               console.log(res);
@@ -2484,7 +2484,7 @@ select:-webkit-autofill:focus {
                                              else
                                                $.notify("Submitted SPL request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
-                                               
+
                                             }, error: function(res){
                                               console.log("ERROR");
                                               console.log(res);
@@ -2499,14 +2499,14 @@ select:-webkit-autofill:focus {
                                   $.ajax({
                                             url: "{{action('UserVLController@processVTO')}}",
                                             type:'POST',
-                                            data:{ 
+                                            data:{
 
                                               'id': id,
                                               'isApproved': processAction,
                                               '_token':_token
                                             },
 
-                                           
+
                                             success: function(res)
                                             {
                                               console.log(res);
@@ -2517,7 +2517,7 @@ select:-webkit-autofill:focus {
                                              else
                                                $.notify("Submitted VTO request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
-                                               
+
                                             }, error: function(res){
                                               console.log("ERROR");
                                               console.log(res);
@@ -2532,14 +2532,14 @@ select:-webkit-autofill:focus {
                                   $.ajax({
                                             url: "{{action('UserFamilyleaveController@process')}}",
                                             type:'POST',
-                                            data:{ 
+                                            data:{
 
                                               'id': id,
                                               'isApproved': processAction,
                                               '_token':_token
                                             },
 
-                                           
+
                                             success: function(res)
                                             {
                                               console.log(res);
@@ -2550,7 +2550,7 @@ select:-webkit-autofill:focus {
                                              else
                                                $.notify("Submitted MC request by "+res.firstname+" "+res.lastname+ " :  Denied.",{className:"error",globalPosition:'top left',autoHideDelay:7000, clickToHide:true} );
                                               //window.location = "{{action('HomeController@index')}}";
-                                               
+
                                             }, error: function(res){
                                               console.log("ERROR");
                                               console.log(res);
@@ -2561,21 +2561,21 @@ select:-webkit-autofill:focus {
 
                               }break;
                   }
-            
+
             getNewNotifications();
 
-             
+
           }
       });
 
-       
 
 
 
 
 
-          
-                 
+
+
+
 
     });
 
@@ -2598,15 +2598,15 @@ select:-webkit-autofill:focus {
     alert("Link copied to clipboard: " + copyText.value+"\n\nOpen a new browser window, and paste the copied link in the address bar.");
 
   });
-   
+
 
 
    var getNewNotifications = function (datatable) {
-    
+
     $('.modal').modal('hide');
 
 
-    $.getJSON("{{action('UserNotificationController@getApprovalNotifications', Auth::user()->id)}}", function (response,datatable) 
+    $.getJSON("{{action('UserNotificationController@getApprovalNotifications', Auth::user()->id)}}", function (response,datatable)
     {
       //console.log(response);
       console.log("----------");
@@ -2614,12 +2614,12 @@ select:-webkit-autofill:focus {
       dt.ajax.reload();
       console.log(response);
       $('#approvalcount').html(response.count);
-     
+
     });
     };
 
     $('#refresh').on('click', function(e, datatable){
-       $.getJSON("{{action('UserNotificationController@getApprovalNotifications', Auth::user()->id)}}", function (response,datatable) 
+       $.getJSON("{{action('UserNotificationController@getApprovalNotifications', Auth::user()->id)}}", function (response,datatable)
         {
           //console.log(response);
           console.log("---------");
@@ -2630,12 +2630,12 @@ select:-webkit-autofill:focus {
     });
 
     setInterval(getNewNotifications, 90000); // Ask for new notifications every 1.5min
-   
-    
-      
+
+
+
    });
 
-   
+
 
   /*
    * Custom Label formatter
@@ -2648,7 +2648,7 @@ select:-webkit-autofill:focus {
         + Math.round(series.percent) + "%</div>";
   }
 </script>
-<!-- end Page script 
+<!-- end Page script
 
 <script type="text/javascript" src="{{asset('public/js/dashboard.js')}}"></script>-->
 

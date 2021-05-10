@@ -10,21 +10,21 @@ scratch. This page gets rid of all links and provides the needed markup only.
   @yield('metatags')
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-  
-  <link rel="icon" href="{{asset('public/img/oam_favicon1-55027f4ev1_site_icon-32x32.png')}}" sizes="32x32"/> 
-  <link rel="icon" href="{{asset('public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png')}}" sizes="192x192"/> 
-  <link rel="apple-touch-icon-precomposed" href="{{asset('public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png')}}"/> 
+
+  <link rel="icon" href="{{asset('public/img/oam_favicon1-55027f4ev1_site_icon-32x32.png')}}" sizes="32x32"/>
+  <link rel="icon" href="{{asset('public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png')}}" sizes="192x192"/>
+  <link rel="apple-touch-icon-precomposed" href="{{asset('public/img/oam_favicon1-55027f4ev1_site_icon-256x256.png')}}"/>
   <meta name="msapplication-TileImage" content="{{asset('public/img/oam_favicon1-55027f4ev1_site_icon.png')}}"/>
 
   <meta name="csrf-token" content="{{ csrf_token() }}">
-  
+
 
  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
  <link href="{{asset('public'.elixir('css/all.css'))}}" rel="stylesheet" />
  <link href="{{asset('public/css/font-awesome.min.css')}}" rel="stylesheet">
  <!-- Add IntroJs styles -->
 <link href="{{asset('public/css/introjs.css')}}" rel="stylesheet">
- <style type="text/css"> 
+ <style type="text/css">
  .navbar{ -webkit-box-shadow:6px 6px 13px 0px rgba(0, 0, 0, 0.19); }
  .skin-blue .main-header .navbar, .skin-blue .main-header .logo{background-color: #1a8fcb;}
  .content-wrapper{
@@ -43,7 +43,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
   <!-- Ionicons -->
  <!--  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css"> -->
   <!-- Theme style -->
-  
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -57,7 +57,33 @@ scratch. This page gets rid of all links and provides the needed markup only.
  <link href="{{asset('public/plugins/timepicker/bootstrap-timepicker.min.css')}}" rel="stylesheet">
  <link href="{{asset('public/css/rewardsfonts.css')}}" rel="stylesheet">
  <link href="{{asset('public/css/rewards.css')}}" rel="stylesheet">
- 
+
+@endif
+@if ( isset($include_memo_scripts) && $include_memo_scripts===TRUE )
+  <link href="{{asset('public/css/bootstrap-iconpicker.css')}}" rel="stylesheet">
+  <style>
+    .ck-editor__editable {
+      min-height: 200px;
+    }
+    .text-tiny {
+        font-size: 10px;
+    }
+
+    .text-small {
+        font-size: 12px;
+    }
+
+    .text-big {
+        font-size: 24px;
+    }
+
+    .text-huge {
+        font-size: 30px;
+    }
+    figure.table table{
+      width: 100%;
+    }
+  </style>
 @endif
 </head>
 <!--
@@ -91,17 +117,17 @@ desired effect
   @if(Auth::user()->userType_id == 4)
     @include('layouts.sidenav-agent')
 
-  @else 
+  @else
     @include('layouts.sidenav')
 
   @endif
- 
+
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
 
    @yield('content')
-    
+
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
@@ -109,8 +135,8 @@ desired effect
   <!-- Main Footer -->
   @include('layouts.footer')
 
-  
-      
+
+
 
 
 
@@ -119,17 +145,17 @@ desired effect
     <!-- Create the tabs -->
     <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
       <li class="active"><a href="#control-sidebar-home-tab" data-toggle="tab"><i class="fa fa-users"></i> <br/><small>User Settings</small></a></li>
-      
+
     </ul>
     <!-- Tab panes -->
     <div class="tab-content">
       <!-- Home tab content -->
       <div class="tab-pane active" id="control-sidebar-home-tab">
         <h3 class="control-sidebar-heading">User Settings:</h3>
-        
-        
-        
-        
+
+
+
+
         <!-- /.control-sidebar-menu -->
 
         <hr/>
@@ -149,7 +175,7 @@ desired effect
 
       </div>
       <!-- /.tab-pane -->
-      
+
       <!-- /.tab-pane -->
     </div>
   </aside>
@@ -164,6 +190,7 @@ desired effect
 <!-- REQUIRED JS SCRIPTS -->
 <script type="text/javascript" src="{{asset('public'.elixir('js/all.js'))}}"></script>
 <script type="text/javascript" src="{{asset('public/js/notify.min.js')}}"></script>
+
 
 
 <script type="text/javascript">
@@ -188,7 +215,7 @@ desired effect
 
     });
 
-    
+
     // Add events
     $('input[type=file]').on('change', prepareUpload);
 
@@ -196,7 +223,7 @@ desired effect
       <?php $icon = asset('public/img/logo-transparent.png'); $loader = asset('public/img/ajax-loader.gif');?>
       $('.modal-body-upload').fadeOut();
       $('.modal-body-generate').fadeIn().html('<h4 class="text-center"><br/><br/>Saving biometrics data into the database.<br/><br/><br/><span class="logo-mini"><img src="{{$icon}}" width="50" style="margin: 0 auto;" /></span><br/><img src="{{$loader}}" style="margin:0 auto;" /><br/><br/><br/>This could take a while. <br/>Have a break, have a Kitkat... ;) </h4>');
-                
+
 
     });
 
@@ -241,29 +268,29 @@ desired effect
           processData: false, // high importance!
           success: function(response)
             {
-              
+
                 if(typeof response.error === 'undefined')
                 {
-                    
-                    console.log(response); 
 
-                   
+                    console.log(response);
+
+
                      if(response.upload == 'success')
                        {
-                        
+
                           $('.modal-body-generate').fadeIn().html('<h4 class="text-center"><br/><br/><span class="logo-mini"><img src="{{$icon}}" width="50" style="margin: 0 auto;" /></span><br/>Saving employee biometrics data into the database.<br/><br/><br/> This may take a while. <br/><img src="{{$loader}}" style="margin:0 auto;" /> <br/>Have a break, have a Kitkat...  </h4>');
-                
+
                           console.log('did step1 = upload success');
-                        
+
                        }
-                     
+
                 }
                 else
                 {
                     // Handle errors here
                     console.log('ERRORS from ajax1: ' + response.error);
                     $('.modal-body-generate').html('<h4 class="text-center text-danger"><br/><br/><span class="logo-mini"><img src="{{$icon}}" width="50" style="margin: 0 auto;" /></span><br/><br/><br/> Error uploading data.</h4><h5 class="text-center">Please try again.</h5> ');
-           
+
                 }
 
             },
@@ -274,9 +301,9 @@ desired effect
                 $('.modal-body-upload').fadeOut('fast',function(){
 
                   $('.modal-body-generate').fadeIn().html('<h4 class="text-center text-danger"><br/><br/><span class="logo-mini"><img src="{{$icon}}" width="50" style="margin: 0 auto;" /></span><br/><br/><br/> Error uploading data.</h4><h5 class="text-center">Please check the file and try again.</h5> ');
-           
+
                 });
-                
+
                 // STOP LOADING SPINNER
             },
             complete: function(response)
@@ -287,30 +314,30 @@ desired effect
                 console.log('did step3= fadeOut');
                 $('.modal-body-generate').fadeIn().html('<h4 class="text-center text-success"><br/><br/><span class="logo-mini"><img src="{{$icon}}" width="50" style="margin: 0 auto;" /></span><br/><br/><br/>Employee biometrics data saved.<br/><br/> </h4>');
                 console.log('did step4= generating...');
-              });   
-              
-                                    
+              });
+
+
             },
-           
+
         });
         //return false;
         $('.modal-body-upload').fadeOut();
         console.log('exit ajax');
 
-    
+
 
 
 
 
       } else{
         alertDiv.addClass('alert alert-danger').fadeIn();
-        alertDiv.html('<span class="success"> <i class="fa fa-warning"></i> This field is required. </span>');  
+        alertDiv.html('<span class="success"> <i class="fa fa-warning"></i> This field is required. </span>');
       } return false;
 
-      
-     
+
+
       console.log('exit on uploaad');
-    });//end upload 
+    });//end upload
 
 
 */ ?>
@@ -319,42 +346,61 @@ desired effect
 
 function validateRequired(param, availability, defaultval) {
 
-        
+
         if (param == null){
 
           availability.addClass('alert alert-danger').fadeIn();
-            availability.html('<span class="success"> <i class="fa fa-warning"></i> This field is required. </span>');  
+            availability.html('<span class="success"> <i class="fa fa-warning"></i> This field is required. </span>');
              return false;
         }
 
-        else if(param.length <= 0 || param === defaultval) { 
-            
+        else if(param.length <= 0 || param === defaultval) {
+
             availability.addClass('alert alert-danger').fadeIn();
-            availability.html('<span class="success"> <i class="fa fa-warning"></i> This field is required. </span>');   
-             return false;         
-            
+            availability.html('<span class="success"> <i class="fa fa-warning"></i> This field is required. </span>');
+             return false;
+
 
         } else{
             availability.removeClass();
             availability.html('');
             return true;
-                      
+
         }
-       
+
 
 }
 
-   
-    
 
-    
 
-</script> 
 
+
+
+</script>
+@if ( isset($include_memo_scripts) && $include_memo_scripts===TRUE )
+ <script src="{{ asset('/public/js/bootstrap-iconpicker.bundle.min.js') }}"></script>
+@endif
+
+@if ( isset($include_rewards_scripts) && $include_rewards_scripts===TRUE )
+ <script src="{{ asset('/public/plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
+ <script src="{{ asset('/public/plugins/pace/pace.js') }}"></script>
+ <script src="{{ asset('/public/plugins/iCheck/icheck.min.js') }}"></script>
+
+ @if ( isset($include_datatables) && $include_datatables===TRUE )
+ <script src="{{ asset('/public/plugins/datatables/jquery.dataTables.js') }}"></script>
+ <script src="{{ asset('/public/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
+ @endif
+@endif
+@if ( isset($include_jqueryform) && $include_jqueryform===TRUE )
+ <script src="{{ asset('/public/plugins/jQuery/jquery.form.js') }}"></script>
+@endif
+@if ( isset($include_ckeditor) && $include_ckeditor===TRUE )
+  <script src="{{ asset('/public/js/ckeditor.js') }}"></script>
+@endif
 
      @yield('footer-scripts')
 
-     
+
 
 <script>
 
@@ -378,21 +424,7 @@ function validateRequired(param, availability, defaultval) {
    });
  });
  </script>
- 
-@if ( isset($include_rewards_scripts) && $include_rewards_scripts===TRUE ) 
- <script src="{{ asset('/public/plugins/timepicker/bootstrap-timepicker.min.js') }}"></script>
- <script src="{{ asset('/public/plugins/pace/pace.js') }}"></script>
- <script src="{{ asset('/public/plugins/iCheck/icheck.min.js') }}"></script>
- 
- @if ( isset($include_datatables) && $include_datatables===TRUE )
- <script src="{{ asset('/public/plugins/datatables/jquery.dataTables.js') }}"></script>
- <script src="{{ asset('/public/plugins/datatables/dataTables.bootstrap.min.js') }}"></script>
- @endif
- 
- @if ( isset($include_jqueryform) && $include_jqueryform===TRUE )
- <script src="{{ asset('/public/plugins/jQuery/jquery.form.js') }}"></script>
- @endif
-@endif
- 
+
+
 </body>
 </html>

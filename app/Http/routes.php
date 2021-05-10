@@ -76,7 +76,9 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
 
     Route::resource('task','TaskController');
 
+    Route::get('announcement/list','AnnouncementController@list');
     Route::resource('announcement','AnnouncementController');
+
 
 
 
