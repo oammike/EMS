@@ -148,7 +148,7 @@ class UserSLController extends Controller
 
     public function create(Request $request)
     {
-        $foreignPartime = null;
+        $foreignPartime = null; $holidayToday=0;
         //check first kung may plotted sched and if approver submitted
         if(is_null($request->for))
             {
@@ -269,8 +269,9 @@ class UserSLController extends Controller
                         
                             /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
                             $holiday = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
-                            if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 && $isBackoffice)
+                            if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 ) //&& $isBackoffice
                             {
+                                $holidayToday=1;
                                 //check mo muna kung Davao holiday at taga Davao sya
                                 if($holiday->first()->holidayType_id == '4' && $user->floor->first()->id == '9')
                                     $used = 0.00;
@@ -365,7 +366,7 @@ class UserSLController extends Controller
                         if($request->debug)
                             return response()->json(['creditsLeft2'=>$creditsLeft2, 'creditsLeft'=>$creditsLeft,'savedCredits'=>$savedCredits->first(),'totalVLearned'=>$totalVLearned,'totalVTO'=>$totalVTO, 'totalAdv'=>$totalAdv,'canSL'=>$canSL,'used'=>$used ]);
                         else
-                            return view('timekeeping.user-sl_create',compact('user', 'forSomeone', 'vl_from','creditsLeft','used','hasSavedCredits','isParttimer','foreignPartime','canSL'));
+                            return view('timekeeping.user-sl_create',compact('user', 'forSomeone', 'vl_from','creditsLeft','used','hasSavedCredits','isParttimer','foreignPartime','canSL','holidayToday'));
 
                     }else return view('access-denied');
 

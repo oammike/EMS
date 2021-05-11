@@ -245,6 +245,8 @@ class UserVLController extends Controller
             $ndy = Team::where('user_id',$user->id)->where('campaign_id',54)->get();
             (count($ndy) > 0) ? $isNDY = 1 : $isNDY=0;
 
+            $holidayToday = 0;
+
 
             //check mo kung leave for himself or if for others and approver sya
             $approvers = $user->approvers;
@@ -319,9 +321,10 @@ class UserVLController extends Controller
                             /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
                             $holiday = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
 
-                            if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 && $isBackoffice) //if (count($holiday) > 0 )
+                            if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) // && $isBackofficeif (count($holiday) > 0 )
                             {
-                                $used = '0.00'; //less 1 day assume wholeday initially
+                                $holidayToday=1; $used = '0.00'; //less 1 day assume wholeday initially
+
                                 if (count($savedCredits)>0){
                                      $hasSavedCredits = true;
                                      $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used + $totalVLearned; - $totalVTO;
@@ -407,7 +410,7 @@ class UserVLController extends Controller
                         //*** override 2wk rule:
                         ($isNDY || $isAdvent || $isDavao || ($anApprover && $isBackoffice) || ($isWorkforce && $anApprover) || $hasAccess || ($isWorkforce && !$isBackoffice) ) ? $canOverrideRule = 1 : $canOverrideRule=0;
 
-                        return view('timekeeping.user-vl_create',compact('user','isAdvent','isNDY', 'isDavao','canOverrideRule', 'vl_from','creditsLeft','used','hasSavedCredits','canVL','totalVTO'));
+                        return view('timekeeping.user-vl_create',compact('user','isAdvent','isNDY', 'isDavao','canOverrideRule', 'vl_from','creditsLeft','used','hasSavedCredits','canVL','totalVTO','holidayToday','holiday'));
 
                     }else return view('access-denied');
 

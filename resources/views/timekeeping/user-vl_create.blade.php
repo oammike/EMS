@@ -210,6 +210,12 @@
   $(function () {
      'use strict';
 
+    @if($holidayToday)
+    alert('No need to use your leave credits because \n{{date("M d, Y", strtotime($vl_from))}} is a holiday.\n\nFile this as an LWOP (Leave Without Pay) instead. Thanks!'); 
+    $('#save').fadeOut();
+    return false;
+    @endif
+
 
      //****** initialize for those with URL param from DTR
      var _token = "{{ csrf_token() }}";
@@ -237,6 +243,8 @@
                 }
               });
     //****** initialize for those with URL param from DTR
+
+
 
     
 
