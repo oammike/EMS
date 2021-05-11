@@ -1568,6 +1568,7 @@ class HomeController extends Controller
       //---------- end cctv backup ------
       //return $pass = bcrypt('');
 
+      
       //---------- 05/07/21: slider announcements now come from db instead of slider.blade ------
           $slider_now = Carbon::now('GMT+8');
           $announcements = Announcement::where('isDraft',0)
@@ -1581,17 +1582,8 @@ class HomeController extends Controller
             ->limit(15)
             ->get();
 
-          if (count($alreadyIn) > 0){}
-          else
-          {
-            $cctv = new User_CCTV;
-            $cctv->user_id = $this->user->id;
-            $cctv->logType = 1;
-            $cctv->created_at = $startToday->format('Y-m-d H:i:s');
-            $cctv->save();
-
-          }
-      //---------- end cctv backup ------
+          
+      
 
       // --------- if user has no subordinates -----------
       if (( ($this->user->userType->name == "HR admin") && count($leadershipcheck)==0 ) || $this->user->userType_id==4)
