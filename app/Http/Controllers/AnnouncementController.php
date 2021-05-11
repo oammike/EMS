@@ -51,7 +51,9 @@ class AnnouncementController extends Controller
     $include_memo_scripts = TRUE;
     $include_jqueryform = TRUE;
     $include_ckeditor = TRUE;
-    return view('announcements.memo-create', compact('announcements','query','slider_now','include_memo_scripts','include_jqueryform','include_ckeditor'));
+    $announcements = Announcement::all();
+    //return view('announcements.memo-create', compact('announcements','query','slider_now','include_memo_scripts','include_jqueryform','include_ckeditor'));
+    return view('announcements.memo-create', compact('announcements','slider_now','include_memo_scripts','include_jqueryform','include_ckeditor'));
   }
 
   public function index()
@@ -59,6 +61,7 @@ class AnnouncementController extends Controller
     $campaign = ImmediateHead_Campaign::find(Team::where('user_id',$this->user->id)->first()->immediateHead_Campaigns_id);
     $campaign_id = $campaign->campaign_id;
     $allowed_users = [564, 83, 491];
+    $announcements = Announcement::all();
 
     if ( !in_array($this->user->id, $allowed_users, true) && $campaign_id!=71 && $campaign_id!=16  ) return view('access-denied');
 
@@ -67,7 +70,7 @@ class AnnouncementController extends Controller
       $can_view_all = true;
     }
 
-    return view('announcements.memo-index', compact('announcements', 'query'));
+    return view('announcements.memo-index', compact('announcements'));
   }
 
   public function list(Request $request){
@@ -233,8 +236,8 @@ class AnnouncementController extends Controller
       //nurses = clinical services = 71, marketing - 16
       //mpamero, mbambico, jmillares
       $allowed_users = [564, 83, 491];
-      $formatted_publish_date = Carbon::createFromFormat('m/d/Y', Input::get('mPublishDate'));
-      $formatted_expiry_date = (empty(Input::get('mExpiryDate')) || trim(Input::get('mExpiryDate'))=='') ? NULL : Carbon::createFromFormat('m/d/Y', Input::get('mPublishDate'));
+      $formatted_publish_date = Carbon::parse(Input::get('mPublishDate'),'Asia/Manila'); //Carbon::createFromFormat('m/d/Y', Input::get('mPublishDate'));
+      $formatted_expiry_date = (empty(Input::get('mExpiryDate')) || trim(Input::get('mExpiryDate'))=='') ? NULL : Carbon::parse(Input::get('mExpiryDate'),'Asia/Manila');
 
       if ( !in_array($this->user->id, $allowed_users, true) && $campaign_id!=71 && $campaign_id!=16  ) return view('access-denied');
 

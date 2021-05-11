@@ -120,9 +120,9 @@
                     <div class="row" id="buttonsWrapper">
                        <br/><br/>
 
-                        <button id="btPreview" class="btn btn-lg btn-secondary pull-left"><i class="fa fa-eye"></i> Load Preview</button>
-                        <button id="btDraft" class="btn btn-lg btn-primary pull-left"><i class="fa fa-folder"></i> Save as Draft</button>
-                        <button id="btCreate" class="btn btn-lg btn-success pull-right"><i class="fa fa-file-o"></i> Create Announcement</button>
+                        <button id="btPreview" class="btn btn-sm btn-secondary pull-left"><i class="fa fa-eye"></i> Load Preview</button>
+                        <button id="btDraft" class="btn btn-sm btn-primary pull-left"><i class="fa fa-folder"></i> Save as Draft</button>
+                        <button id="btCreate" class="btn btn-sm btn-success pull-right"><i class="fa fa-save"></i> Save & Publish </button>
                     </div>
                     <span id="hint_generic" class="help-block"></span>
                   </form>

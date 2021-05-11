@@ -85,14 +85,14 @@
                       <div class="col-xs-6">
                         <h4 class="text-primary">Publish Date:</h4>
                         <span id="hint_publishDate" class="help-block"></span>
-                        <input type="text" required="required" class="form-control" style="width:50%" name="mPublishDate" id="mPublishDate" placeholder="MM/DD/YYYY" value="{{ $publishDate }}" />
+                        <input type="text" required="required" class="form-control" style="width:50%" name="mPublishDate" id="mPublishDate" placeholder="MM/DD/YYYY" value="{{ date('m/d/Y',strtotime($publishDate)) }}" />
 
                       </div>
 
                       <div class="col-xs-6">
                         <h4 class="text-primary">Expiry Date:</h4>
                         <span id="hint_expiryDate" class="help-block"></span>
-                        <input type="text" class="form-control" style="width:50%" name="mExpiryDate" id="mExpiryDate" placeholder="MM/DD/YYYY" value="{{ $publishExpire }}" />
+                        <input type="text" class="form-control" style="width:50%" name="mExpiryDate" id="mExpiryDate" placeholder="MM/DD/YYYY" value="{{ date('m/d/Y', strtotime($publishExpire)) }}" />
 
                       </div>
                     </div>
@@ -142,7 +142,7 @@
                     <div class="row" id="buttonsWrapper">
                        <br/><br/>
                         <button id="btPreview" class="btn btn-lg btn-secondary pull-left"><i class="fa fa-eye"></i> Load Preview</button>
-                        <button id="btCreate" class="btn btn-lg btn-success pull-right"><i class="fa fa-file-o"></i> Save Changes</button>
+                        <button id="btCreate" class="btn btn-lg btn-success pull-right"><i class="fa fa-save"></i> Save Changes</button>
                     </div>
                     <span id="hint_generic" class="help-block"></span>
                   </form>

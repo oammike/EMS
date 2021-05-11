@@ -2,7 +2,7 @@
               @if(count($announcements) >= 1)
                 @foreach($announcements as $key => $memo)
                   @if($memo->template=='memo')
-                    <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item @if($key==0) active @endif" >
+                    <div style="background: url('storage/uploads/memobg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px 20px 20px 50px; " class="item @if($key==0) active @endif" >
                   @else
                     <div class="item @if($key==0) active @endif" >
                   @endif
@@ -12,14 +12,14 @@
                     @endif
 
                       <h4 class="text-orange text-center" style="line-height: 1.5em" >
-                        {{ $memo->title }} @if(!is_null($memo->decorative_title)) <span class="text-primary"> {!! $memo->decorative_title !!} @endif<br/>
+                        {!! $memo->title !!} @if(!is_null($memo->decorative_title)) <span class="text-primary"> {!! $memo->decorative_title !!} @endif<br/>
                           <small>{{ $memo->publishDate }}</small><br/>
                           <img src="storage/uploads/divider.png" />
                       </h4>
 
                       {!! $memo->message_body !!}
 
-                    @if(!is_null($memo->external_link))
+                    @if(!is_null($memo->external_link) && ($memo->external_link !== ""))
                       <input style="font-weight: bold" class="form-control" type="text" id="bundylink" value="{{ $memo->external_link }}" />
                       <button class="cp btn btn-xs btn-primary" data-link="bundylink">Copy Link <i class="fa fa-external-link"></i></button>
                     @endif

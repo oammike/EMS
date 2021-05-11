@@ -28,7 +28,7 @@
             <div class="box-header">
               <div class="box-tools">
                 <!--  <button class="btn btn-sm btn-default" id="bt_filter_toggle">Show Redeemed</button> -->
-                <a href="{{action('AnnouncementController@create')}}" target="_self"><button class="btn btn-sm btn-default"><i class="fa fa-plus"></i> Create New Announcement</button></a>
+                <a class="btn btn-danger pull-right" href="{{action('AnnouncementController@create')}}" target="_self"><i class="fa fa-plus"></i> Create New Announcement</a>
               </div>
               <br/>
             </div>
