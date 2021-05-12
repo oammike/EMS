@@ -289,7 +289,6 @@
             '|',
             'undo',
             'redo',
-            '|',
             'blockQuote',
             'horizontalLine',
             'code'
@@ -305,6 +304,14 @@
             'tableProperties'
           ]
         },
+        plugins: [ 'SimpleUploadAdapter' ],
+        simpleUpload: {
+            uploadUrl: '{{ url('/announcement/attach') }}',
+            withCredentials: true,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        }
     } )
     .then( newEditor => {
         window.editor = newEditor;

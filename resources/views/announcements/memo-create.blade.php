@@ -197,34 +197,32 @@
   ClassicEditor
     .create( document.querySelector( '#editor' ),{
         fontSize: {
-            options: [
-                'tiny',
-                'default',
-                'big',
-                'huge'
-            ]
+          options: [
+            'tiny',
+            'default',
+            'big',
+            'huge'
+          ]
         },
         fontColor: {
-            colors: [
-                {
-                    color: '#666666',
-                    label: 'Default'
-                },
-                {
-                    color: '#3c763d',
-                    label: 'Green'
-                },
-                {
-                    color: '#a94442',
-                    label: 'Red'
-                },
-                {
-                    color: '#3c8dbc',
-                    label: 'Blue'
-                }
-
-                // ...
-            ]
+          colors: [
+            {
+              color: '#666666',
+              label: 'Default'
+            },
+            {
+              color: '#3c763d',
+              label: 'Green'
+            },
+            {
+              color: '#a94442',
+              label: 'Red'
+            },
+            {
+              color: '#3c8dbc',
+              label: 'Blue'
+            }
+          ]
         },
         toolbar: {
           items: [
@@ -245,7 +243,6 @@
             '|',
             'undo',
             'redo',
-            '|',
             'blockQuote',
             'horizontalLine',
             'code'
@@ -269,7 +266,13 @@
             'tableProperties'
           ]
         },
-        plugins: [ 'Base64UploadAdapter' ]
+        simpleUpload: {
+            uploadUrl: '{{ url('/announcement/attach') }}',
+            withCredentials: true,
+            headers: {
+                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            }
+        }
     } )
     .then( newEditor => {
         window.editor = newEditor;

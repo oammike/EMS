@@ -293,7 +293,17 @@ class AnnouncementController extends Controller
       $campaign = ImmediateHead_Campaign::find(Team::where('user_id',$this->user->id)->first()->immediateHead_Campaigns_id);
       $campaign_id = $campaign->campaign_id;
 
-      $announcement = Announcement::where('id',$id)->where('author_campaign_id',$campaign_id)->firstOrFail();
+      $allowed_users = [564, 83, 491];
+      if ( in_array($this->user->id, $allowed_users, true))
+      {
+        $announcement = Announcement::where('id',$id)->firstOrFail();
+      }
+      else
+      {
+        $announcement = Announcement::where('id',$id)->where('author_campaign_id',$campaign_id)->firstOrFail();
+      }
+
+
 
       $slider_now = Carbon::now('GMT+8');
       $include_memo_scripts = TRUE;
@@ -302,5 +312,49 @@ class AnnouncementController extends Controller
       $publishDate = Carbon::createFromFormat('Y-m-d', $announcement->publishDate);
       $publishExpire = (empty($announcement->publishExpire)) ? NULL : Carbon::createFromFormat('Y-m-d', $announcement->publishExpire);
       return view('announcements.memo-edit', compact('announcement','slider_now','publishDate','publishExpire','include_memo_scripts','include_jqueryform','include_ckeditor'));
+    }
+
+    public function attach(Request $request){
+      $campaign = ImmediateHead_Campaign::find(Team::where('user_id',$this->user->id)->first()->immediateHead_Campaigns_id);
+      $campaign_id = $campaign->campaign_id;
+      $allowed_users = [564, 83, 491];
+
+      if ( !in_array($this->user->id, $allowed_users, true) && $campaign_id!=71 && $campaign_id!=16  ) {
+        return response()->json([
+            'success' => false,
+            'message' => 'unauthorized'
+          ], 422);
+      }
+
+        if(Input::file('upload')){
+          try{
+            $image = $request->file('upload');
+            $new_name = "memo_attachment_"  .time() . '.' . $image->getClientOriginalExtension();
+            $storagePath = public_path().'/storage/uploads/';
+
+            $image->move($storagePath, $new_name);
+
+            $url = url('/')."/public/storage/uploads/".$new_name;
+            return response()->json([
+              'success' => true,
+              'message' => 'attachment uploaded succesfully',
+              'url' => $url
+            ], 200);
+          }catch(Exception $e){
+            return response()->json([
+              'success' => false,
+              'message' => array('Could not write to disk. Please try again later.'),
+              'error' => $e->getMessage()
+            ], 422);
+          }
+        }else{
+
+          return response()->json([
+            'success' => false,
+            'message' => 'no file received'
+          ], 422);
+        }
+
+
     }
 }

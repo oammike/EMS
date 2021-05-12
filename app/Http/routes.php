@@ -77,6 +77,7 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
     Route::resource('task','TaskController');
 
     Route::get('announcement/list','AnnouncementController@list');
+    Route::post('announcement/attach','AnnouncementController@attach');
     Route::resource('announcement','AnnouncementController');
 
 
