@@ -232,22 +232,32 @@
             '|',
             'bold',
             'italic',
+            'underline',
             'link',
             'fontSize',
             'fontColor',
             '|',
             'alignment',
             'insertTable',
+            'imageUpload',
             'bulletedList',
             'numberedList',
             '|',
-            'blockQuote',
-            'horizontalLine',
-            '|',
             'undo',
             'redo',
+            '|',
+            'blockQuote',
+            'horizontalLine',
             'code'
           ]
+        },
+        heading: {
+            options: [
+                { model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph announcement-paragraph'},
+                { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+                { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+                { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' }
+            ]
         },
         language: 'en',
         table: {
@@ -259,6 +269,7 @@
             'tableProperties'
           ]
         },
+        plugins: [ 'Base64UploadAdapter' ]
     } )
     .then( newEditor => {
         window.editor = newEditor;
@@ -356,6 +367,7 @@
 
   function submitForm(){
     console.log('submitting form');
+    $('#mDecor').val(window.decorIcon + $('#mDecor').val());
     $('#mMemo').ajaxForm({
         type: "POST",
         dataType: 'json',
@@ -442,7 +454,7 @@
 
     var wrapper_div = null;
     if(type=="memo"){
-      wrapper_div = $('<div style="background: url(\'storage/uploads/memobg.png\')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item" ></div>');
+      wrapper_div = $('<div style="background: url(\'storage/uploads/memobg.png\')top left repeat-y; background-size: 50%;background-color: #fff;padding:60px" class="item" ></div>');
     }else{
       wrapper_div = $('<div class="item" ></div>');
     }

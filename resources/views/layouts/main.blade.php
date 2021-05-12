@@ -83,6 +83,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
     figure.table table{
       width: 100%;
     }
+
+    figure.image img{
+      width: 100%;
+    }
   </style>
 @endif
 </head>

@@ -168,7 +168,7 @@
 
             <div class="box-body" id="mads">
               @if($announcement->template=='announcement')
-                <div style="background: url('{{ url('/') }}/storage/uploads/announcementbg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" >
+                <div style="background: url('{{ url('/') }}/storage/uploads/announcementbg.png')top left repeat-y; background-size: 50%;background-color: #fff;padding:60px" >
               @else
                 <div class="item" >
               @endif
@@ -276,20 +276,22 @@
             '|',
             'bold',
             'italic',
+            'underline',
             'link',
             'fontSize',
             'fontColor',
             '|',
             'alignment',
             'insertTable',
+            'imageUpload',
             'bulletedList',
             'numberedList',
             '|',
-            'blockQuote',
-            'horizontalLine',
-            '|',
             'undo',
             'redo',
+            '|',
+            'blockQuote',
+            'horizontalLine',
             'code'
           ]
         },
@@ -400,6 +402,7 @@
 
   function submitForm(){
     console.log('submitting form');
+    $('#mDecor').val(window.decorIcon + $('#mDecor').val());
     $('#mMemo').ajaxForm({
         type: "PUT",
         dataType: 'json',
@@ -488,7 +491,7 @@
 
     var wrapper_div = null;
     if(type=="memo"){
-      wrapper_div = $('<div style="background: url(\'{{ url('/') }}/storage/uploads/memobg.png\')top left repeat-y; background-size: 50%;background-color: #fff;padding:20px" class="item" ></div>');
+      wrapper_div = $('<div style="background: url(\'{{ url('/') }}/storage/uploads/memobg.png\')top left repeat-y; background-size: 50%;background-color: #fff;padding:60px" class="item" ></div>');
     }else{
       wrapper_div = $('<div class="item" ></div>');
     }
