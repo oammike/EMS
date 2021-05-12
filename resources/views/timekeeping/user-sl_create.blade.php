@@ -38,15 +38,15 @@
         <div class="col-lg-6 text-right">
           <strong>
             @if(Auth::user()->id == $user->id)
-            <a href="{{action('UserVLController@create')}}" class="btn btn-sm  btn-primary"><i class="fa fa-2x fa-plane"></i> VL</a>
+            <a href="{{action('UserVLController@create',['from'=>date('Y-m-d', strtotime($vl_from))])}}" class="btn btn-sm  btn-primary"><i class="fa fa-2x fa-plane"></i> VL</a>
             <a href="{{action('UserController@show',$user->id)}}#ws" class="btn btn-sm  bg-green"><i class="fa fa-2x fa-calendar-times-o"> </i> CWS</a>
-            <a href="{{action('UserLWOPController@create')}}" class="btn btn-sm  bg-yellow"><i class="fa fa-meh-o fa-2x"></i> LWOP</a>
+            <a href="{{action('UserLWOPController@create',['from'=>date('Y-m-d', strtotime($vl_from))])}}" class="btn btn-sm  bg-yellow"><i class="fa fa-meh-o fa-2x"></i> LWOP</a>
             <a href="{{action('UserOBTController@create')}}"class="btn btn-sm  bg-purple"><i class="fa fa-2x fa-briefcase"></i>  OBT</a>
             @else
 
-            <a href="{{action('UserVLController@create',['for'=>$user->id])}}" class="btn btn-sm  btn-primary"><i class="fa fa-2x fa-plane"></i> VL</a>
+            <a href="{{action('UserVLController@create',['for'=>$user->id,'from'=>date('Y-m-d', strtotime($vl_from))])}}" class="btn btn-sm  btn-primary"><i class="fa fa-2x fa-plane"></i> VL</a>
             <a href="{{action('UserController@show',$user->id)}}#ws" class="btn btn-sm  bg-green"><i class="fa fa-2x fa-calendar-times-o"> </i> CWS</a>
-            <a href="{{action('UserLWOPController@create',['for'=>$user->id])}}" class="btn btn-sm  bg-yellow"><i class="fa fa-meh-o fa-2x"></i> LWOP</a>
+            <a href="{{action('UserLWOPController@create',['for'=>$user->id,'from'=>date('Y-m-d', strtotime($vl_from))])}}" class="btn btn-sm  bg-yellow"><i class="fa fa-meh-o fa-2x"></i> LWOP</a>
             <a href="{{action('UserOBTController@create',['for'=>$user->id])}}"class="btn btn-sm  bg-purple"><i class="fa fa-2x fa-briefcase"></i>  OBT</a>
 
             @endif
@@ -823,28 +823,40 @@ function computeCredits(vl_from,vl_to,shift_from,shift_to,creditsleft)
 
                     }else{
 
-                      $("span#credits_vl").html(response.credits);
-                      $("span#credits_vl").attr('data-credits', response.credits);
-
-
-                      
-                        $("#creditsleft").html(response.creditsleft);
-                        $("#creditsleft").attr('data-left',response.creditsleft);
-                      
-
-                      switch(response.shift_from)
+                      if(response.credits == '0')
                       {
-                        case '1': {$('#shiftFrom_1,#shiftFrom_2').html(""); }break;
-                        case '2': { $('#shiftFrom_1').html("<strong>[ "+response.displayShift+ " ]</strong>"); $('#shiftFrom_2').html(""); }break;
-                        case '3': { $('#shiftFrom_2').html("<strong>[ "+response.displayShift+ " ]</strong>"); $('#shiftFrom_1').html("");}break;
+                        $.notify("No need to use leave credits because "+moment(vl_from,"MM/DD/YYYY").format('dddd, MMMM DD')+" falls on a holiday.\n\nKindly file this as an LWOP instead. Thanks!",{className:"error", globalPosition:'right middle',autoHideDelay:5000, clickToHide:true} );
+                        $('#save').fadeOut();
+                      }
+                      else
+                      {
+                        $('#save').fadeIn();
+                        $("span#credits_vl").html(response.credits);
+                        $("span#credits_vl").attr('data-credits', response.credits);
+
+
+                        
+                          $("#creditsleft").html(response.creditsleft);
+                          $("#creditsleft").attr('data-left',response.creditsleft);
+                        
+
+                        switch(response.shift_from)
+                        {
+                          case '1': {$('#shiftFrom_1,#shiftFrom_2').html(""); }break;
+                          case '2': { $('#shiftFrom_1').html("<strong>[ "+response.displayShift+ " ]</strong>"); $('#shiftFrom_2').html(""); }break;
+                          case '3': { $('#shiftFrom_2').html("<strong>[ "+response.displayShift+ " ]</strong>"); $('#shiftFrom_1').html("");}break;
+                        }
+
+                       console.log("100 - "+parseFloat(response.credits)+'/'+parseFloat("{{$creditsLeft}}"));
+                        var bar = parseFloat(100-(parseFloat(response.credits)/(parseFloat(response.creditsleft) +1 )*100));//"{{$creditsLeft}}"
+                        $('#percentage').css({width:bar+'%'});
+
+                        if (parseFloat(response.forLWOP) > 0)
+                        $.notify("You no longer have enough SL credits left to cover your "+ response.credits+ " day leave. \n\n You'll earn an additional "+response.creditsToEarn+ " leave credits towards the end of the year, \nbut the remaining ("+ response.forLWOP +") needed credits will be filed as an LWOP instead.",{className:"error", globalPosition:'right middle',autoHideDelay:25000, clickToHide:true} );
+
                       }
 
-                     console.log("100 - "+parseFloat(response.credits)+'/'+parseFloat("{{$creditsLeft}}"));
-                      var bar = parseFloat(100-(parseFloat(response.credits)/(parseFloat(response.creditsleft) +1 )*100));//"{{$creditsLeft}}"
-                      $('#percentage').css({width:bar+'%'});
-
-                      if (parseFloat(response.forLWOP) > 0)
-                      $.notify("You no longer have enough SL credits left to cover your "+ response.credits+ " day leave. \n\n You'll earn an additional "+response.creditsToEarn+ " leave credits towards the end of the year, \nbut the remaining ("+ response.forLWOP +") needed credits will be filed as an LWOP instead.",{className:"error", globalPosition:'right middle',autoHideDelay:25000, clickToHide:true} );
+                      
 
                     }//end has vl already
                     

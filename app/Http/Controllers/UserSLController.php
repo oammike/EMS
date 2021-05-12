@@ -607,9 +607,10 @@ class UserSLController extends Controller
                 $mayHD = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
                 switch ($shift_from) {
                     case '2':{ 
-                                if (count($mayHD) > 0 && $isBackoffice)
+                                if (count($mayHD) > 0) //&& $isBackoffice
                                 {
-                                    if(($mayHD->first()->holidayType_id == '4' && $user->floor->first()->id == '9') || ($mayHD->first()->holidayType_id != '4' && $isBackoffice))
+                                    if(($mayHD->first()->holidayType_id == '4' && $user->floor->first()->id == '9') || ($mayHD->first()->holidayType_id != '4'))
+                                    // && $isBackoffice
                                         $credits = 0;
                                     else{
                                         ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5; 
@@ -628,9 +629,10 @@ class UserSLController extends Controller
                     
                     case '3':{ 
                                 
-                                if (count($mayHD) > 0 && $isBackoffice)
+                                if (count($mayHD) > 0) //&& $isBackoffice
                                 {
-                                    if(($mayHD->first()->holidayType_id == '4' && $user->floor->first()->id == '9') || ($mayHD->first()->holidayType_id != '4' && $isBackoffice))
+                                    if(($mayHD->first()->holidayType_id == '4' && $user->floor->first()->id == '9') || ($mayHD->first()->holidayType_id != '4'))
+                                    // && $isBackoffice
                                         $credits = 0;
                                     else{
                                         ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5; 
@@ -647,9 +649,10 @@ class UserSLController extends Controller
                              }break;
                     default:{
                                 
-                                if (count($mayHD) > 0 && $isBackoffice)
+                                if (count($mayHD) > 0) //&& $isBackoffice
                                 {
-                                    if(($mayHD->first()->holidayType_id == '4' && $user->floor->first()->id == '9') || ($mayHD->first()->holidayType_id != '4' && $isBackoffice))
+                                    if(($mayHD->first()->holidayType_id == '4' && $user->floor->first()->id == '9') || ($mayHD->first()->holidayType_id != '4' ))
+                                        //&& $isBackoffice
                                         $credits = 0;
                                     else{
                                         ($isParttimer || $isPartForeign) ? $credits = 0.5 : $credits = 1.0; 

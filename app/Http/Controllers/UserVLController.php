@@ -320,8 +320,9 @@ class UserVLController extends Controller
                         
                             /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
                             $holiday = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
+                            //Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()
 
-                            if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) // && $isBackofficeif (count($holiday) > 0 )
+                            if (count($holiday) > 0) // && $isBackofficeif (count($holiday) > 0 )
                             {
                                 $holidayToday=1; $used = '0.00'; //less 1 day assume wholeday initially
 
@@ -410,7 +411,10 @@ class UserVLController extends Controller
                         //*** override 2wk rule:
                         ($isNDY || $isAdvent || $isDavao || ($anApprover && $isBackoffice) || ($isWorkforce && $anApprover) || $hasAccess || ($isWorkforce && !$isBackoffice) ) ? $canOverrideRule = 1 : $canOverrideRule=0;
 
+                        //return $vl_from->format('Y-m-d');
+
                         return view('timekeeping.user-vl_create',compact('user','isAdvent','isNDY', 'isDavao','canOverrideRule', 'vl_from','creditsLeft','used','hasSavedCredits','canVL','totalVTO','holidayToday','holiday'));
+
 
                     }else return view('access-denied');
 
@@ -920,14 +924,35 @@ class UserVLController extends Controller
                 //return $schedForTheDay;
 
                 //if ($shift_from == '2' || $shift_from=='3') $credits -= 0.5;
+                $savedCredits = User_VLcredits::where('user_id', $user->id)->where('creditYear',date('Y'))->orderBy('creditYear','DESC')->get();
+                        
+                $vlEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$user->id)->
+                      join('vlupdate','user_vlearnings.vlupdate_id','=', 'vlupdate.id')->
+                      select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>',Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
+                $totalVLearned = collect($vlEarnings)->sum('credits');
+
+                $allVTOs = DB::table('user_vto')->where('user_vto.user_id',$user->id)->where('user_vto.isApproved',1)->
+                                where('user_vto.deductFrom','VL')->
+                                where('user_vto.productionDate','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->
+                                where('user_vto.productionDate','<=',Carbon::now('GMT+8')->endOfYear()->format('Y-m-d'))->
+                                    select('user_vto.totalHours','user_vto.productionDate', 'user_vto.deductFrom')->
+                                    orderBy('user_vto.productionDate','DESC')->get(); //
+
+                $totalVTO = 0;
+                foreach($allVTOs as $v)
+                {
+                    $totalVTO += ($v->totalHours* 0.125);
+                }
+
 
                 switch ($shift_from) {
                     case '2':{ 
                                 //(count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) ? $credits = 0 : $credits -= 0.5;
 
-                                if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 && $isBackoffice)
+                                if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) //&& $isBackoffice
                                 {
                                     $credits = 0;
+                                    $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used + $totalVLearned; - $totalVTO;
                                 } else 
                                 {
                                     ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5; 
@@ -943,9 +968,10 @@ class UserVLController extends Controller
                     
                     case '3':{ 
                                 //(count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) ? $credits = 0 : $credits -= 0.5; 
-                                if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 && $isBackoffice)
+                                if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) //&& $isBackoffice
                                 {
                                     $credits = 0;
+                                    $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used + $totalVLearned; - $totalVTO;
                                 } else 
                                 {
                                     ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5; 
@@ -958,9 +984,10 @@ class UserVLController extends Controller
                              }break;
                     default:{
                                 //(count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) ? $credits = 0 : $credits = 1.00;
-                                if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 && $isBackoffice)
+                                if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) //&& $isBackoffice
                                 {
                                     $credits = 0;
+                                    $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used + $totalVLearned; - $totalVTO;
                                 } else 
                                 {
                                     ($isParttimer || $isPartForeign) ? $credits = 0.5 : $credits = 1.00; 
@@ -994,7 +1021,7 @@ class UserVLController extends Controller
             if ($vl_from < $prior) $notAllowed='1'; else $notAllowed='0';
 
                         
-
+            //$creditsleft=33.33;
             return response()->json(['notAllowed'=>$notAllowed,'twoWeeks'=>$prior->format('M d, Y'), 'creditsleft'=>$creditsleft,'creditsToEarn'=>$creditsToEarn,'credits'=>$credits,'mayExisting'=>$mayExisting,
             'vf endOfDay'=>$vf->format('Y-m-d H:i:s'),'coll'=>$coll]);//'colldates'=>$colldates
             //return response()->json(['request->date_to'=>$request->date_to, 'shift_from'=>$shift_from, 'hasVLalready'=>$hasVLalready, 'creditsToEarn'=>$creditsToEarn, 'forLWOP'=>abs($forLWOP), 'creditsleft'=>number_format($creditsleft,2), 'credits'=> number_format(abs($credits),2) , 'shift_from'=>$shift_from, 'shift_to'=>$shift_to,'displayShift'=>$displayShift,  'schedForTheDay'=>$schedForTheDay]);
@@ -1007,6 +1034,7 @@ class UserVLController extends Controller
         //**** we now check if VL is filed 2wk prior to day of leave
             $prior = Carbon::now('GMT+8')->addDays(14);
             if ($vl_from < $prior) $notAllowed='1'; else $notAllowed='0';
+
 
         return response()->json(['notAllowed'=>$notAllowed, 'hasVLalready'=>$hasVLalready,'twoWeeks'=>$prior->format('M d, Y'), 'existingVL'=>$coll, 'creditsToEarn'=>0, 'forLWOP'=>0, 'creditsleft'=>0, 'credits'=> 0 , 'shift_from'=>$shift_from, 'shift_to'=>$shift_to,'displayShift'=>$displayShift,  'schedForTheDay'=>null]);
 
