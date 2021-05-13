@@ -26,6 +26,8 @@ select:-webkit-autofill:focus {
   transition: background-color #f2fcff ease-in-out 0s;
 }
 .tab-content label {font-weight: normal}
+figure{width: 100%}
+figure img {width: inherit; margin:0 auto; display: block;position: relative;}
 
 </style>
 
@@ -280,6 +282,10 @@ select:-webkit-autofill:focus {
                       <h3 class="box-title">Announcements</h3>
 
                       <div class="box-tools pull-right">
+                        @if($canAnnounce)
+                        <a class="btn btn-xs btn-default" href="{{action('AnnouncementController@create')}}"><i class="fa fa-plus"></i> New Post</a>
+                        <a class="btn btn-xs btn-default" href="{{action('AnnouncementController@index')}}"><i class="fa fa-gears"></i> Manage All</a>
+                        @endif
                         <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
                         </button>
                         <!-- <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i></button> -->

@@ -87,7 +87,8 @@ window.table = $('#memolist').DataTable({
         { "data" : "template" },
         { "data" : "publishDate" },
         { "data" : "publishExpire" },
-        { "data" : "author" },
+        { "data" : "author",
+          "render": function(data){ return '<small>'+data+'</small>';} },
         {
           "orderable" : false,
           "data" : null,
@@ -125,7 +126,16 @@ window.table = $('#memolist').DataTable({
           "orderable" : false,
           "data" : null,
           "render" : function ( row, type, val, meta ) {
-            return "<a href='{{action('AnnouncementController@index')}}/" + val.id + "/edit' class='btn btn-small btn-primary'><span class='fa fa-edit' aria-hidden='true'></span> Edit</a>";
+
+            var can_view_all="{{$can_view_all}}";
+            var viewer = "{{Auth::user()->id}}";
+            if (can_view_all=='1' || val.user_id == viewer)
+
+            return "<a href='{{action('AnnouncementController@index')}}/" + val.id + "/edit' class='btn btn-small btn-primary' target='_blank'><span class='fa fa-edit' aria-hidden='true'></span> Edit</a>";
+            else
+            return "<a target='_blank' style='text-decoration:line-though' href='{{action('AnnouncementController@index')}}/" + val.id + "/edit' class='btn btn-small btn-primary disabled' title='You are not allowed to edit this'><span class='fa fa-edit' aria-hidden='true'></span> Edit </a>";
+            
+
           }
         }
       ]

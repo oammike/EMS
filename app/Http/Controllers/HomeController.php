@@ -1582,6 +1582,19 @@ class HomeController extends Controller
             ->limit(15)
             ->get();
 
+
+          $campaign_id = Team::where('user_id',$this->user->id)->first()->campaign_id;
+    
+          //nurses = clinical services = 71, marketing - 16, HR=10, Finance=7
+          //mpamero, mbambico, jmillares
+          $allowed_users = [564, 83, 491];
+          $allowed_programs = [71, 16, 10, 7];
+
+          if ( !in_array($this->user->id, $allowed_users, true) && !in_array($campaign_id, $allowed_programs)  )
+            $canAnnounce=0; 
+          else
+            $canAnnounce=1; 
+
           
       
 
@@ -1590,7 +1603,7 @@ class HomeController extends Controller
       { //  AGENT or ADMIN pero agent level
           $employee = User::find($this->user->id);
           $meLeader = $employee->supervisor->first();
-          return view('dashboard-agent', compact('enableClock', 'startToday', 'campform','pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY', 'fromGuideline','prg', 'prg2', 'fromPostmate','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','announcements'));
+          return view('dashboard-agent', compact('enableClock', 'startToday', 'campform','pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY', 'fromGuideline','prg', 'prg2', 'fromPostmate','doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires',  'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','announcements','canAnnounce'));
 
       // ----------- endif user has no subordinates -----------
 
@@ -1598,7 +1611,7 @@ class HomeController extends Controller
       else
       {
 
-          return view('dashboard', compact('enableClock', 'startToday', 'campform', 'pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY','fromGuideline','prg', 'prg2', 'fromPostmate', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','announcements'));
+          return view('dashboard', compact('enableClock', 'startToday', 'campform', 'pendingTask','hasPendingTask','pendingTaskBreak','hasPendingTaskBreak', 'groupedTasks','trackerNDY', 'fromNDY','fromGuideline','prg', 'prg2', 'fromPostmate', 'doneSurvey', 'firstYears','tenYears','fiveYears', 'newHires', 'forApprovals', 'currentPeriod','endPeriod', 'evalTypes', 'evalSetting', 'user','greeting','groupedForm','groupedSelects','reportsTeam','memo','notedMemo','alreadyLoggedIN', 'siteTour','notedTour','announcements','canAnnounce'));
 
       }
 
