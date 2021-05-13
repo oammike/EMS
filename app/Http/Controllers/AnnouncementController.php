@@ -156,7 +156,7 @@ class AnnouncementController extends Controller
       //mpamero, mbambico, jmillares
       $allowed_users = [564, 83, 491];
       $formatted_publish_date = Carbon::createFromFormat('m/d/Y', Input::get('mPublishDate'));
-      $formatted_expiry_date = (empty(Input::get('mExpiryDate')) || trim(Input::get('mExpiryDate'))=='') ? NULL : Carbon::createFromFormat('m/d/Y', Input::get('mPublishDate'));
+      $formatted_expiry_date = (empty(Input::get('mExpiryDate')) || trim(Input::get('mExpiryDate'))=='') ? NULL : Carbon::createFromFormat('m/d/Y', Input::get('mExpiryDate'));
 
       if ( !in_array($this->user->id, $allowed_users, true) && $campaign_id!=71 && $campaign_id!=16  ) return view('access-denied');
       if(Input::get('draftId')!=0){
@@ -188,10 +188,12 @@ class AnnouncementController extends Controller
             $image = $request->file('mFeatureImage');
             $new_name = $memo->id."_feature" .'.' . $image->getClientOriginalExtension();
             $storagePath = public_path().'/storage/uploads/';
+            //$storagePath = storage_path().'/uploads/'; /* -- for testing locally -- */
 
             $image->move($storagePath, $new_name);
 
             $memo->feature_image = url('/')."/public/storage/uploads/".$new_name;
+            //$memo->feature_image = url('/')."/storage/uploads/".$new_name;  /* -- for testing locally -- */
             $memo->save();
           }catch(Exception $e){
             $memo->delete();
@@ -219,7 +221,7 @@ class AnnouncementController extends Controller
 
     public function update(Request $request, $id)
     {
-        $this->validate($request, [
+      $this->validate($request, [
         'mTitle'       => 'required',
         'mType'       => 'required|in:memo,post',
         'mBody' => 'required',
@@ -227,9 +229,7 @@ class AnnouncementController extends Controller
         'mExpiryDate' => 'date',
         'isDraft' => 'boolean',
         'hidden' => 'boolean',
-        'showAlways' => 'boolean'
-
-      ]);
+        'showAlways' => 'boolean']);
 
       $campaign = ImmediateHead_Campaign::find(Team::where('user_id',$this->user->id)->first()->immediateHead_Campaigns_id);
       $campaign_id = $campaign->campaign_id;
@@ -331,10 +331,12 @@ class AnnouncementController extends Controller
             $image = $request->file('upload');
             $new_name = "memo_attachment_"  .time() . '.' . $image->getClientOriginalExtension();
             $storagePath = public_path().'/storage/uploads/';
+            //$storagePath = storage_path().'/uploads/';  /* -- for testing locally -- */
 
             $image->move($storagePath, $new_name);
 
             $url = url('/')."/public/storage/uploads/".$new_name;
+            //$url = url('/')."/storage/uploads/".$new_name;  /* -- for testing locally -- */
             return response()->json([
               'success' => true,
               'message' => 'attachment uploaded succesfully',

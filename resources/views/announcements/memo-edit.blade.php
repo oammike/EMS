@@ -304,7 +304,7 @@
             'tableProperties'
           ]
         },
-        plugins: [ 'SimpleUploadAdapter' ],
+        //plugins: [ 'SimpleUploadAdapter' ],
         simpleUpload: {
             uploadUrl: '{{ url('/announcement/attach') }}',
             withCredentials: true,
