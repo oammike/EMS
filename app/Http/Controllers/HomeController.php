@@ -1575,7 +1575,7 @@ class HomeController extends Controller
             ->where('hidden',0)
             ->where('publishDate','<=',$slider_now)
             ->where(function($query) use ($slider_now){
-              $query->where('publishExpire', '>', $slider_now);
+              $query->where('publishExpire', '>', $slider_now->format('Y-m-d'));
               $query->orWhere('publishExpire', NULL);
             })
             ->orderBy('publishDate', 'desc')
