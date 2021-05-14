@@ -6001,7 +6001,7 @@ class DTRController extends Controller
           $result = $this->fetchLockedDTRs($request->cutoff, null,3);
           */
 
-        $rate = 750.00;
+        //$rate = 750.00;
 
         if($stat == 'p') $statid=18;
         elseif ($stat == 'f') $statid=19;
@@ -6015,12 +6015,13 @@ class DTRController extends Controller
                       leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
                       leftJoin('positions','users.position_id','=','positions.id')->
                       leftJoin('floor','team.floor_id','=','floor.id')->
+                      leftJoin('trainee_rate','trainee_rate.floor_id','=','floor.id')->
                       join('user_dtr', function ($join) use ($cutoff) {
                           $join->on('users.id', '=', 'user_dtr.user_id')
                                ->where('user_dtr.productionDate', '>=', $cutoff[0])
                                ->where('user_dtr.productionDate', '<=', $cutoff[1]);
                       })->
-                      select('users.accesscode','users.traineeCode', 'users.employeeCode','users.id','users.isWFH', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at','user_dtr.created_at')->
+                      select('users.accesscode','users.traineeCode', 'users.employeeCode','users.id','users.isWFH', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at','user_dtr.created_at','trainee_rate.rate as dailyRate')->
                       orderBy('users.lastname')->get();
         $groupedDTRs = collect($allDTRs)->groupBy('user_id');
         $total = count($groupedDTRs);
@@ -6089,7 +6090,7 @@ class DTRController extends Controller
               
             }
 
-            $traineeDTR->push(['id'=>$key->user_id, 'firstname'=>$key->firstname,'lastname'=>$key->lastname,'workedHours'=>$traineeHR,'jobTitle'=>$key->jobTitle,'leaderFname'=>$key->leaderFname,'leaderLname'=>$key->leaderLname,'rate'=>$rate]);
+            $traineeDTR->push(['id'=>$key->user_id, 'firstname'=>$key->firstname,'lastname'=>$key->lastname,'workedHours'=>$traineeHR,'jobTitle'=>$key->jobTitle,'leaderFname'=>$key->leaderFname,'leaderLname'=>$key->leaderLname,'rate'=>$key->dailyRate]);
             $traineeHR=0;
 
           }else{}
