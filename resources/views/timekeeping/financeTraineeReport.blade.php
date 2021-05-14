@@ -196,20 +196,23 @@
                       var htmltags="<tr><th>Trainee</th><th>Trainer</th><th class='text-right'>Total Hours</th><th class='text-right'>Total Allowance</th><th></th></tr>";// "<tr>";
                       var i=0;
 
+                      var sahod = rdata[i]['sahod']; 
+
                       if (rdata.length > 1)
                       {
-                        //var totalDTR = response.payrollPeriod.length;
+                        //var totalDTR = response.payrollPeriod.length; 
+
 
                         for(var i = 0; i < rdata.length;  i++)//members.length;
                         {
 
                           var userid = rdata[i]['id'];
-                          var sahod = parseFloat((rdata[i]['workedHours']/8)*rdata[i]['rate']).toFixed(2);
+                          //var sahod = parseFloat((rdata[i]['workedHours']/8)*rdata[i]['rate']).toFixed(2);
 
                           htmltags += "<tr><td>"+(i+1)+". "+ rdata[i]['lastname']+", "+rdata[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+rdata[i]['jobTitle']+"</small></td>";
                           htmltags += "<td>"+ rdata[i]['leaderFname']+" "+ rdata[i]['leaderLname'] +"</td>";
                           htmltags += "<td class='text-right'>"+ rdata[i]['workedHours'] +"</td>";
-                          htmltags += "<td class='text-right'> Php "+ sahod.toLocaleString("en") +"</td>";
+                          htmltags += "<td class='text-right'> Php "+ sahod +"</td>";
                           htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+rdata[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
                         
 
@@ -220,10 +223,6 @@
 
                       }else{
 
-                          /*htmltags += "<td>"+ rdata[i]['lastname']+", "+rdata[i]['firstname']+"</td></tr>";
-                          var userid = rdata[i]['id'];
-                          */
-                          var sahod = rdata[i]['sahod']; //parseFloat((rdata[i]['workedHours']/8)*rdata[i]['rate']).toFixed(2);
                         
                          htmltags += "<tr><td>"+(i+1)+". "+ rdata[i]['lastname']+", "+rdata[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+rdata[i]['jobTitle']+"</small></td>";
                           htmltags += "<td>"+ rdata[i]['leaderFname']+" "+ rdata[i]['leaderLname'] +"</td>";
