@@ -27,7 +27,7 @@
         <div class="col-xs-7">
           <div class="box">
             <div class="box-heading"></div>
-            <div class="box-body" style="min-height: 1100px; background: url('../storage/uploads/solutions_wall.jpg')bottom center no-repeat; background-size: 100%">
+            <div class="box-body" style="min-height: 1100px;"><!-- background: url('../storage/uploads/solutions_wall.jpg')bottom center no-repeat; background-size: 100% -->
 
               <p class="text-left"><i class="fa fa-info-circle"></i> Create new Memo or Announcement</p>
 
