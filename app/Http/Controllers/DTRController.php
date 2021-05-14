@@ -6090,7 +6090,9 @@ class DTRController extends Controller
               
             }
 
-            $traineeDTR->push(['id'=>$key->user_id, 'firstname'=>$key->firstname,'lastname'=>$key->lastname,'workedHours'=>$traineeHR,'jobTitle'=>$key->jobTitle,'leaderFname'=>$key->leaderFname,'leaderLname'=>$key->leaderLname,'rate'=>$key->dailyRate]);
+            $sahod = number_format(($traineeHR/8)*$key->dailyRate,2);
+
+            $traineeDTR->push(['id'=>$key->user_id, 'firstname'=>$key->firstname,'lastname'=>$key->lastname,'workedHours'=>$traineeHR,'jobTitle'=>$key->jobTitle,'leaderFname'=>$key->leaderFname,'leaderLname'=>$key->leaderLname,'rate'=>$key->dailyRate,'sahod'=>$sahod]);
             $traineeHR=0;
 
           }else{}
