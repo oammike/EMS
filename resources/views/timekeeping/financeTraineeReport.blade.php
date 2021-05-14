@@ -196,7 +196,7 @@
                       var htmltags="<tr><th>Trainee</th><th>Trainer</th><th class='text-right'>Total Hours</th><th class='text-right'>Total Allowance</th><th></th></tr>";// "<tr>";
                       var i=0;
 
-                      var sahod = rdata[i]['sahod']; 
+                      
 
                       if (rdata.length > 1)
                       {
@@ -208,6 +208,7 @@
 
                           var userid = rdata[i]['id'];
                           //var sahod = parseFloat((rdata[i]['workedHours']/8)*rdata[i]['rate']).toFixed(2);
+                          var sahod = rdata[i]['sahod']; 
 
                           htmltags += "<tr><td>"+(i+1)+". "+ rdata[i]['lastname']+", "+rdata[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+rdata[i]['jobTitle']+"</small></td>";
                           htmltags += "<td>"+ rdata[i]['leaderFname']+" "+ rdata[i]['leaderLname'] +"</td>";
@@ -223,7 +224,7 @@
 
                       }else{
 
-                        
+                         var sahod = rdata[i]['sahod']; 
                          htmltags += "<tr><td>"+(i+1)+". "+ rdata[i]['lastname']+", "+rdata[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+rdata[i]['jobTitle']+"</small></td>";
                           htmltags += "<td>"+ rdata[i]['leaderFname']+" "+ rdata[i]['leaderLname'] +"</td>";
                           htmltags += "<td class='text-right'>"+ rdata[i]['workedHours'] +"</td>";
