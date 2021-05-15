@@ -272,6 +272,9 @@
                               return'<small>'+data+'</small><br/><strong>'+full.program+' &nbsp;<a target="_blank" class="text-black" href="./campaign/'+full.campID+'"><i class="fa fa-external-link"></i></a></strong>';
                             } }, // 1
 
+                            @if($stat=='nh')
+                            @else
+
                              { title: "Start Training" ,defaultContent: "<i>empty</i>", data:'startTraining',width:'80', render:function(data,type,full,meta){
 
                               var m = moment(data).format('YYYY-MM-DD');
@@ -282,6 +285,10 @@
                               
                              } }, // 2
 
+                            @endif
+
+                            
+
                              { title: "End Training" ,defaultContent: "<i>empty</i>", data:'endTraining',width:'80', render:function(data,type,full,meta){
 
                               var m = moment(data).format('YYYY-MM-DD');
@@ -291,6 +298,23 @@
                                 return m;
                               
                              } }, // 2
+
+                            @if($stat=='nh')
+                              { title: "Date Hired" ,defaultContent: "<i>empty</i>", data:'dateHired',width:'80', render:function(data,type,full,meta){
+
+                                var m = moment(data).format('YYYY-MM-DD');
+                                if (m == "1970-01-01")
+                                  return "N/A";
+                                else 
+                                  return m;
+                                
+                               } }, // 2
+
+                            @else
+
+                             
+
+                            @endif
 
 
                            
