@@ -122,6 +122,7 @@
                                                 <ul class="nav nav-tabs">
                                                   <li @if(is_null($stat)) class="active" @endif><a href="{{action('UserController@trainees')}}"><strong class="text-primary ">Ongoing Trainees <span id="actives"></span> </strong></a></li>
                                                   <li @if($stat=="p") class="active" @endif><a href="{{action('UserController@trainees',['stat'=>'p'])}}" ><strong class="text-primary">Passed <span id="inactives"></span></strong></a></li>
+                                                  <li @if($stat=="nh") class="active" @endif><a href="{{action('UserController@trainees',['stat'=>'nh'])}}" ><strong class="text-primary">New Hires </strong></a></li>
                                                   <li @if($stat=="f") class="active" @endif><a href="{{action('UserController@trainees',['stat'=>'f'])}}"" ><strong class="text-primary">Fallout <span id="floating"></span></strong></a></li>
                                                   
                                                   

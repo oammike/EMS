@@ -1150,6 +1150,27 @@ class UserController extends Controller
                   select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','users.startTraining','users.endTraining',  'statuses.name as status', 'positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','userType.name as userType','floor.name as location','users.isWFH as isWFH', 'users.claimedCard','users.has2316','users.hasSigned2316','users.enableIDprint')->orderBy('users.lastname')->get(); 
 
         }
+        elseif($status=='nh')
+        {
+          $users = DB::table('users')->where([
+                  ['status_id', '=', 1],
+                  ['status_id', '=', 3],
+                  
+                          ])->
+                  leftJoin('team','team.user_id','=','users.id')->
+                  leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                  leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                  leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                  leftJoin('positions','users.position_id','=','positions.id')->
+                  leftJoin('statuses','users.status_id','=','statuses.id')->
+                  leftJoin('userType','userType.id','=','users.userType_id')->
+                  leftJoin('floor','team.floor_id','=','floor.id')->
+                  //leftJoin('user_forms','user_forms.user_id','=','users.id')->
+
+                  
+                  select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','users.startTraining','users.endTraining',  'statuses.name as status', 'positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','userType.name as userType','floor.name as location','users.isWFH as isWFH', 'users.claimedCard','users.has2316','users.hasSigned2316','users.enableIDprint')->orderBy('users.lastname')->get(); 
+
+        }
         else
         {
           $users = DB::table('users')->where([
@@ -5078,6 +5099,7 @@ class UserController extends Controller
       switch ($stat) {
         case 'p':{$status = "Passed"; }break;
         case 'f':{$status = "Failed"; }break;
+        case 'nh':{$status = "New Hires"; }break;
         
         default: $status = null;
           # code...
