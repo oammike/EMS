@@ -6035,27 +6035,75 @@ class DTRController extends Controller
           */
 
         //$rate = 750.00;
-
         if($stat == 'p') $statid=18;
         elseif ($stat == 'f') $statid=19;
+        elseif ($stat == 'nh')$statid=3;
         else $statid = 2;
         $cutoff = explode('_', $request->cutoff);
 
-        $allDTRs = DB::table('users')->where('users.status_id',$statid)->
+
+        if($stat == 'nh'){
+          $monthAgo = Carbon::now('GMT+8')->addDays(-30);
+          $allDTRs = DB::table('users')->where([
+                  ['status_id', '<=', $statid],
+                          ])->
+                  leftJoin('team','team.user_id','=','users.id')->
+                  leftJoin('campaign','team.campaign_id','=','campaign.id')->
+                  leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                  leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                  leftJoin('positions','users.position_id','=','positions.id')->
+                  leftJoin('statuses','users.status_id','=','statuses.id')->
+                  leftJoin('userType','userType.id','=','users.userType_id')->
+                  leftJoin('floor','team.floor_id','=','floor.id')->
+                  join('user_dtr', function ($join) use ($cutoff) {
+                          $join->on('users.id', '=', 'user_dtr.user_id')
+                               ->where('user_dtr.productionDate', '>=', $cutoff[0])
+                               ->where('user_dtr.productionDate', '<=', $cutoff[1]);
+                      })->
+                  select('users.accesscode','users.traineeCode', 'users.employeeCode','users.id','users.isWFH', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at','user_dtr.created_at')->
+                  where('users.status_id','!=',2)->where('users.endTraining','!=',null)->where('users.endTraining','>=',$monthAgo->format('Y-m-d H:i:s'))->
+                      orderBy('users.lastname')->get();
+
+                      
+
+        }
+        else {
+          $allDTRs = DB::table('users')->where('users.status_id',$statid)->
                       join('team','team.user_id','=','users.id')->
                       leftJoin('campaign','team.campaign_id','=','campaign.id')->
                       leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
                       leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
                       leftJoin('positions','users.position_id','=','positions.id')->
                       leftJoin('floor','team.floor_id','=','floor.id')->
-                      leftJoin('trainee_rate','trainee_rate.floor_id','=','floor.id')->
                       join('user_dtr', function ($join) use ($cutoff) {
                           $join->on('users.id', '=', 'user_dtr.user_id')
                                ->where('user_dtr.productionDate', '>=', $cutoff[0])
                                ->where('user_dtr.productionDate', '<=', $cutoff[1]);
                       })->
-                      select('users.accesscode','users.traineeCode', 'users.employeeCode','users.id','users.isWFH', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at','user_dtr.created_at','trainee_rate.rate as dailyRate')->
+                      select('users.accesscode','users.traineeCode', 'users.employeeCode','users.id','users.isWFH', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at','user_dtr.created_at')->
                       orderBy('users.lastname')->get();
+
+        }
+
+
+
+
+
+        // $allDTRs = DB::table('users')->where('users.status_id',$statid)->
+        //               join('team','team.user_id','=','users.id')->
+        //               leftJoin('campaign','team.campaign_id','=','campaign.id')->
+        //               leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+        //               leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+        //               leftJoin('positions','users.position_id','=','positions.id')->
+        //               leftJoin('floor','team.floor_id','=','floor.id')->
+        //               leftJoin('trainee_rate','trainee_rate.floor_id','=','floor.id')->
+        //               join('user_dtr', function ($join) use ($cutoff) {
+        //                   $join->on('users.id', '=', 'user_dtr.user_id')
+        //                        ->where('user_dtr.productionDate', '>=', $cutoff[0])
+        //                        ->where('user_dtr.productionDate', '<=', $cutoff[1]);
+        //               })->
+        //               select('users.accesscode','users.traineeCode', 'users.employeeCode','users.id','users.isWFH', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at','user_dtr.created_at','trainee_rate.rate as dailyRate')->
+        //               orderBy('users.lastname')->get();
         $groupedDTRs = collect($allDTRs)->groupBy('user_id');
         $total = count($groupedDTRs);
 
