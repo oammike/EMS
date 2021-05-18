@@ -50,7 +50,13 @@
                 </div>
 
               <div class="notes">
-                <h4>There are <strong><span class="text-danger" id="submitted"></span>  TRAINEES </strong> who have validated DTR sheets for that cutoff period.<br/> 
+                @if($stat == 'nh')
+                  <h4>There are <strong><span class="text-danger" id="submitted"></span>  NEW HIRES </strong> who have validated DTR sheets for that cutoff period.<br/> 
+                @else
+                  <h4>There are <strong><span class="text-danger" id="submitted"></span>  TRAINEES </strong> who have validated DTR sheets for that cutoff period.<br/> 
+
+                @endif
+                
 
                <!--  </h4>
 
