@@ -165,8 +165,11 @@
                                   }
                                   elseif( (float)$data['UT'] > 0.0) //meaning di nya complete 8hr, so check kung nag extend from endshift to complete 8hr OT entitlement
                                   {
-                                    $start= \Carbon\Carbon::parse($DproductionDate." ".$data['shiftStart'],'Asia/Manila')->addHours(5); 
-                                    $t1 = \Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); 
+                                    /*$start= \Carbon\Carbon::parse($DproductionDate." ".$data['shiftStart'],'Asia/Manila')->addHours(5); 
+                                    $t1 = \Carbon\Carbon::parse($data['shiftEnd'],'Asia/Manila'); */
+                                    $start = \Carbon\Carbon::parse($data['logIN'],'Asia/Manila');
+                                    $t1 = \Carbon\Carbon::parse($data['logOUT'],'Asia/Manila'); 
+
 
                                   }
                                   else
@@ -212,10 +215,10 @@
                                             $endOT->addMinutes($num);
                                           }
 
-                                           elseif( (float)$data['UT'] > 0.0)
+                                          /* elseif( (float)$data['UT'] > 0.0)
                                           {
-                                            $endOT = \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila')->addMinutes(240+$num);
-                                          }
+                                            //$endOT = \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila')->addMinutes(240+$num);
+                                          }*/
 
                                           else
                                           { 
