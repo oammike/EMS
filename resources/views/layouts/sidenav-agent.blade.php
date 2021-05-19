@@ -13,6 +13,9 @@
             $currentSLbalance ="N/A";
             $updatedSL = false;
 
+            $specialPower = \DB::table('user_specialPowers')->where('user_id',$u->id)->get();
+            (count($specialPower) > 0) ? $hasSpecialPower=1 : $hasSpecialPower=0;
+
 
             //if ($lengthOfservice > 6) //do this if only 6mos++
             //{
@@ -510,6 +513,17 @@
          <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('ADMINISTER_CLEARANCE') ){ ?>
               <li @if (Request::is('user')) class="active" @endif style="padding-left:20px"><a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#clearanceModal"><i class="fa fa-file-o"></i> Clearance Forms </a></li>
              <?php }  ?>
+
+
+       @if($hasSpecialPower)
+       <li class="treeview @if ( Request::is('movement') || Request::is('editUser*') || Request::is('id-printing') ) active @endif">
+          <a href="#"><i class="fa fa-users"></i> <span>Employees</span> <i class="fa fa-angle-left pull-right"></i></a>
+          <ul class="treeview-menu">
+            <li style="padding-left:20px"@if (Request::is('user')) class="active" @endif><a href="{{action('UserController@index')}} "><i class="fa fa-users"></i> View All</a></li>
+
+          </ul>
+        </li>
+       @endif
 
 
 

@@ -11,6 +11,8 @@
             $currentSLbalance ="N/A";
             $updatedSL = false;
 
+            
+
 
             //if ($lengthOfservice > 6) //do this if only 6mos++
             //{
