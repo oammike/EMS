@@ -73,10 +73,10 @@ figure img {width: inherit; margin:0 auto; display: block;position: relative;}
                   <div class="box-body">
                          <h2 class="text-center text-primary"><span style="font-size: smaller;">{{$startToday->format('l M d, Y')}} </span> <br/>
                          <span id="wait" style="font-size: small;" class="text-success">Initializing clock. Please wait...<br/><img src="./storage/uploads/loading.gif" width="30" />  </span><br/>
-                         <span id="clock" style="font-weight: bolder;"></span> <br/><span class="text-gray" style="font-size:0.8em;">(Asia/Manila)</span> </h2>
+                         <span id="clock" style="font-weight: bolder;"></span> <br/><span class="text-gray" style="font-size:0.8em;">(Manila | Taipei)</span> </h2>
                          <p style="padding:30px; font-size: smaller;"><strong class="text-orange"><i class="fa fa-exclamation-triangle"></i> Note:</strong> <!-- Only use this  widget <span class="text-danger">in case of biometric hardware malfunction or unavailability </span> in your office floor. Any timestamp recorded in this system serves only as a backup data for timekeeping purposes. -->
                           Effective immediately, EMS Timekeeping will now be our primary system for daily timekeeping.<br/><br/>
-                          All timelogs should be recorded and clicked here <strong>by TRAINEES &amp; Exempt employees ONLY</strong>. The rest should be using BUNDY.ph for clocking IN &amp; OUT daily.  Check <a href="{{action('DTRController@show',$user->id)}}" style="font-weight: bolder;" target="_blank">My DTR</a> to manage your time record.
+                          All timelogs should be recorded and clicked here <strong>by TRAINEES, TAIPEI personnel, &amp; Exempt employees ONLY</strong>. The rest should be using BUNDY.ph for clocking IN &amp; OUT daily.  Check <a href="{{action('DTRController@show',$user->id)}}" style="font-weight: bolder;" target="_blank">My DTR</a> to manage your time record.
 
                          </p><br/><br/>
                          <p class="text-center">
