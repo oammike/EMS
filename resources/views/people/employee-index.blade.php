@@ -208,7 +208,7 @@
 
 <!-- Page script <small> '+full.employeeNumber+'</small> -->
 
- <?php if($hasUserAccess || $isWorkforce || $canBIR) { ?> 
+ <?php if($hasUserAccess || $isWorkforce || $canBIR || $isSpecial) { ?> 
  <script type="text/javascript">
 
  $(function () {
