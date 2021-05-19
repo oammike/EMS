@@ -3783,7 +3783,7 @@ class DTRController extends Controller
       $allProgram = DB::table('campaign')->select('id','name','hidden')->where('hidden',null)->
                           where([
                             ['campaign.id', '!=','26'], //wv
-                            ['campaign.id', '!=','35'], //ceb
+                            //['campaign.id', '!=','35'], //ceb
 
                           ])->orderBy('name')->get();//
         /*$byTL = collect($allUsers)->groupBy('tlID');

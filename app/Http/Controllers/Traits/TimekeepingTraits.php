@@ -306,7 +306,7 @@ trait TimekeepingTraits
                           ['users.status_id', '!=', 9],
                           ['users.status_id', '!=', 13],
                           ['users.status_id', '!=', 16],
-                          ['floor.id', '!=',10],
+                          //['floor.id', '!=',10],
                           ['floor.id', '!=',11],
                       ])->orderBy('users.lastname')->get();
         $allUsers = DB::table('campaign')->where('campaign.id',$p)->
@@ -325,7 +325,7 @@ trait TimekeepingTraits
                           ['users.status_id', '!=', 9],
                           ['users.status_id', '!=', 13],
                           ['users.status_id', '!=', 16],
-                          ['floor.id', '!=',10],
+                          //['floor.id', '!=',10],
                           ['floor.id', '!=',11],
                       ])->orderBy('users.lastname')->get();
                       //return $allDTRs;
@@ -506,7 +506,7 @@ trait TimekeepingTraits
                           ['users.status_id', '!=', 9],
                           ['users.status_id', '!=', 13],
                           ['users.status_id', '!=', 16],
-                          ['floor.id', '!=',10],
+                          //['floor.id', '!=',10],
                           ['floor.id', '!=',11],
                       ])->orderBy('users.lastname')->get();
         $allUsers = DB::table('campaign')->where('campaign.id',$p)->
@@ -525,7 +525,7 @@ trait TimekeepingTraits
                           ['users.status_id', '!=', 9],
                           ['users.status_id', '!=', 13],
                           ['users.status_id', '!=', 16],
-                          ['floor.id', '!=',10],
+                          //['floor.id', '!=',10],
                           ['floor.id', '!=',11],
                       ])->orderBy('users.lastname')->get();
                       //return $allDTRs;
@@ -1533,7 +1533,7 @@ trait TimekeepingTraits
                   ['users.status_id', '!=', 16],
                   ['users.id','!=', 1], //Ben
                   ['users.id','!=', 184], //Henry
-                  ['floor.id', '!=', 10], //taipei
+                  //['floor.id', '!=', 10], //taipei
                   ['floor.id', '!=', 11], //xiamen
                   ['campaign.hidden',null],
                   ])->orderBy('users.lastname')->get();
