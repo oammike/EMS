@@ -11,6 +11,9 @@
             $currentSLbalance ="N/A";
             $updatedSL = false;
 
+            $specialPower = \DB::table('user_specialPowers')->where('user_id',$u->id)->get();
+            (count($specialPower) > 0) ? $hasSpecialPower=1 : $hasSpecialPower=0;
+
             
 
 
@@ -560,7 +563,7 @@
           <a href="#"><i class="fa fa-users"></i> <span>Employees</span> <i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
 
-            <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('ADMINISTER_CLEARANCE') ){ ?>
+            <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('ADMINISTER_CLEARANCE') && !$hasSpecialPower){ ?>
               <li @if (Request::is('user')) class="active" @endif style="padding-left:20px"><a href="#" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#clearanceModal"><i class="fa fa-file-o"></i> Clearance Forms </a></li>
              <?php }  ?>
 
@@ -583,7 +586,7 @@
             <li style="padding-left:20px"><a href="{{action('UserController@downloadAllUsers')}} "><i class="fa fa-download"></i> Download Masterlist</a></li>
              <?php }  ?>
 
-            <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('MOVE_EMPLOYEE') ){ ?>
+            <?php if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('MOVE_EMPLOYEE') && !$hasSpecialPower){ ?>
             <li style="padding-left:20px" @if (Request::is('movement*')) class="active" @endif><a href="{{action('MovementController@index')}}"><i class="fa fa-exchange"></i> <span>Movements</span></a></li>
           <?php }else if ( OAMPI_Eval\UserType::find(Auth::user()->userType_id)->roles->pluck('label')->contains('MANAGE_TEAM_DISTRIBUTION') ) {?>
           <li style="padding-left:20px" @if (Request::is('movement*')) class="active" @endif><a href="{{action('MovementController@index')}}"><i class="fa fa-exchange"></i> <span>Team Distribution</span></a></li>
