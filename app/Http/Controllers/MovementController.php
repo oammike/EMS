@@ -194,6 +194,8 @@ class MovementController extends Controller
 
         $coll = new Collection;
 
+       
+
         
         
 
@@ -211,8 +213,18 @@ class MovementController extends Controller
                 $immediateHead = ImmediateHead_Campaign::find($sup->immediateHead_Campaigns_id);
                 //$immediateHead = ImmediateHead::find(ImmediateHead_Campaign::find($sup->immediateHead_Campaigns_id)->immediateHead_id); //ImmediateHead::find($sup->first()->immediateHead_id);
 
+                 $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->
+                          select('user_specialPowers_programs.program_id')->get();
+        
+                if (count($specialChild) > 0){
+                  $sc = collect($specialChild)->pluck('program_id')->toArray();
 
-                if ($canMoveEmployees && !$canMoveOthers ) 
+                  (in_array($personnel->supervisor->campaign_id, $sc)) ? $hasSpecialAccess=1 : $hasSpecialAccess=0;
+                }else $hasSpecialAccess=0;
+
+
+                if ($canMoveEmployees && !$canMoveOthers && !$hasSpecialAccess) 
                 { //not super admin but a leader so you need to display their name and from what campaign
                     
                     $req = ImmediateHead::where('employeeNumber',$this->user->employeeNumber)->first(); 

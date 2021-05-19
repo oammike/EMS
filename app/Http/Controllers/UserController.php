@@ -448,12 +448,25 @@ class UserController extends Controller
         //Timekeeping Trait
         $canPlot = $this->checkIfAnApprover($approvers, $this->user);
 
+        $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
+                          leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->
+                          select('user_specialPowers_programs.program_id')->get();
+        
+        if (count($specialChild) > 0){
+          $sc = collect($specialChild)->pluck('program_id')->toArray();
+
+          (in_array($user->supervisor->campaign_id, $sc)) ? $hasAccess=1 : $hasAccess=0;
+        }else $hasAccess=0;
+
+
+
         //if (!$canCWS || !$canPlot) 
         if ( ($canPlot && $isBackoffice)
           || ($isWorkforce && !$isBackoffice)
           || $this->user->userType_id==1 
           || $this->user->userType_id==2 
-          || $this->user->userType_id==5)
+          || $this->user->userType_id==5 
+          || $hasAccess )
         {
           $fellowTeam = Team::where('immediateHead_Campaigns_id',$user->team->immediateHead_Campaigns_id)->get();
           $teams = new Collection;
