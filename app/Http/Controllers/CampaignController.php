@@ -838,6 +838,7 @@ class CampaignController extends Controller
                             ['users.status_id','!=',7],
                             ['users.status_id','!=',8],
                             ['users.status_id','!=',9],
+                            ['users.status_id','!=',19],
                         ])->
                   where('immediateHead_Campaigns.disabled','=',null)->
                   orderBy('immediateHead.lastname','ASC')->get();
@@ -854,6 +855,7 @@ class CampaignController extends Controller
                             ['users.status_id','!=',7],
                             ['users.status_id','!=',8],
                             ['users.status_id','!=',9],
+                            ['users.status_id','!=',19],
                         ])->
                         orderBy('users.lastname','ASC')->
                         get();
