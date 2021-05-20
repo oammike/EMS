@@ -927,6 +927,7 @@ class UserController extends Controller
                   ['status_id', '!=', 7],
                   ['status_id', '!=', 8],
                   ['status_id', '!=', 9],
+                  ['status_id', '!=', 19],
                   ['enableIDprint','=',1],
                           ])->
                   leftJoin('team','team.user_id','=','users.id')->
@@ -993,6 +994,7 @@ class UserController extends Controller
                   ['status_id', '!=', 7],
                   ['status_id', '!=', 8],
                   ['status_id', '!=', 9],
+                  ['status_id', '!=', 19],
                           ])->
                   leftJoin('team','team.user_id','=','users.id')->
                   leftJoin('campaign','team.campaign_id','=','campaign.id')->
@@ -3021,7 +3023,8 @@ class UserController extends Controller
                           orderBy('users.lastname','ASC')->
                           where('users.status_id','!=',7)->
                           where('users.status_id','!=',8)->
-                          where('users.status_id','!=',9)->get();
+                          where('users.status_id','!=',9)->
+                          where('users.status_id','!=',19)->get();
           $allData = $allTeams;
           //$allTeams = collect($allTeams1)->groupBy('program');
          
@@ -3040,7 +3043,8 @@ class UserController extends Controller
                           orderBy('users.lastname','ASC')->
                           where('users.status_id','!=',7)->
                           where('users.status_id','!=',8)->
-                          where('users.status_id','!=',9)->get();
+                          where('users.status_id','!=',9)->
+                          where('users.status_id','!=',19)->get();
 
           //** ALLTEAMS == lahat ng under sayo, along with their own men grouped per campaign 
           $allTeams = collect($allTeams1)->sortBy('program')->groupBy('program');
@@ -3089,7 +3093,8 @@ class UserController extends Controller
                             where('campaign.hidden',null)->
                             where('users.status_id','!=',7)->
                             where('users.status_id','!=',8)->
-                            where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+                            where('users.status_id','!=',9)->
+                            where('users.status_id','!=',19)->orderBy('users.lastname','ASC')->get();
                             //leftJoin('campaign','campaign.id','=','team.campaign_id')->get();
                             // 
                             // 
@@ -3120,7 +3125,8 @@ class UserController extends Controller
                             where('campaign.hidden',null)->
                             where('users.status_id','!=',7)->
                             where('users.status_id','!=',8)->
-                            where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+                            where('users.status_id','!=',9)->
+                            where('users.status_id','!=',19)->orderBy('users.lastname','ASC')->get();
 
                 $n = collect($level3)->pluck('userType_id','employeeNumber');
                 $nextLevel = collect($n)->reject(function ($value,$key) {
@@ -3145,7 +3151,8 @@ class UserController extends Controller
                                 where('campaign.hidden',null)->
                                 where('users.status_id','!=',7)->
                                 where('users.status_id','!=',8)->
-                                where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+                                where('users.status_id','!=',9)->
+                                where('users.status_id','!=',19)->orderBy('users.lastname','ASC')->get();
 
                     $n = collect($level4)->pluck('userType_id','employeeNumber');
                     $nextLevel = collect($n)->reject(function ($value,$key) {
@@ -3170,7 +3177,8 @@ class UserController extends Controller
                                       where('campaign.hidden',null)->
                                       where('users.status_id','!=',7)->
                                       where('users.status_id','!=',8)->
-                                      where('users.status_id','!=',9)->orderBy('users.lastname','ASC')->get();
+                                      where('users.status_id','!=',9)->
+                                      where('users.status_id','!=',19)->orderBy('users.lastname','ASC')->get();
 
                           $n = collect($level5)->pluck('userType_id','employeeNumber');
                           $nextLevel = collect($n)->reject(function ($value,$key) {
@@ -3322,7 +3330,7 @@ class UserController extends Controller
 
                 $emp = User::find($em->user_id);
 
-                if ($emp->status_id !== 7 && $emp->status_id !== 8 && $emp->status_id !== 9){
+                if ($emp->status_id !== 7 && $emp->status_id !== 8 && $emp->status_id !== 9 && $emp->status_id !== 19){
 
                              //to remove own manager from displaying his own self
                         if ($this->user->employeeNumber !== $emp->employeeNumber)
