@@ -173,7 +173,7 @@ class ManpowerController extends Controller
 
         $employee = $this->user;
 
-        if($req->mktgBoost)
+        /*if($req->mktgBoost)
             $HRs = [385,563,564,730]; //added Adrian
         else
             $HRs = [385,563,564]; //jaynee, ms.a 385
@@ -192,11 +192,26 @@ class ManpowerController extends Controller
             }); //end mail
 
         }
-        /* -------------- log updates made --------------------- */
-                     $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+        
+                     $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                         //fwrite($file, "-------------------\n Email sent to ". $newTL->userData->email."\n");
                         fwrite($file, "\n Manpower Req by: ". $this->user->firstname." ". $this->user->lastname." on ". $correct->format('Y-m-d H:i:s')."\n");
-                        fclose($file);     
+                        fclose($file);    */
+
+        $HRs = [564]; 
+        foreach($HRs as $h)
+        {
+            $hr = User::find($h);                 
+                 Mail::send('emails.manpower', [ 'employee'=>$employee, 'request'=>$request,'allStatus'=>$allStatus, 'foreignStatus'=>$foreignStatus], function ($m) use ($hr, $employee,$correct,$request) 
+                 {
+                    $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
+                    $m->to('mpamero@openaccessbpo.com', $hr->lastname.', '.$hr->firstname)->subject('Manpower Request - '. '('.$request[0]->howMany.') '. $request[0]->jobTitle );     
+
+                                     
+                
+
+                }); //end mail
+         }
         
 
         return $req;
