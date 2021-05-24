@@ -206,7 +206,7 @@ class ManpowerController extends Controller
             $s = Mail::send('emails.manpower', [ 'employee'=>$employee, 'request'=>$request,'allStatus'=>$allStatus, 'foreignStatus'=>$foreignStatus], function ($m) use ($hr, $employee,$correct,$request) 
                  {
                     $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
-                    $m->to('mpamero@openaccessbpo.com', $hr->lastname.', '.$hr->firstname)->subject('Manpower Request - '. '('.$request[0]->howMany.') '. $request[0]->jobTitle ); 
+                    $m->to('mpamero@openaccessbpo.net', $hr->lastname.', '.$hr->firstname)->subject('Manpower Request - '. '('.$request[0]->howMany.') '. $request[0]->jobTitle ); 
                 }); //end mail
             if($s){
                 $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
