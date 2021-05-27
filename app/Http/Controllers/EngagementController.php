@@ -1128,7 +1128,7 @@ class EngagementController extends Controller
                     //join('engagement_entryItems','engagement_entryItems.engagement_id','=','engagement.id')->
                     join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
                     leftJoin('users','users.id','=','engagement_entry.user_id')->
-                    select('engagement_entry.id as entryID','engagement_entry.anonymous', 'engagement_entry.user_id as senderID','users.firstname','users.lastname','users.nickname','engagement_entryDetails.entry_itemID', 'engagement_entryDetails.value','engagement_entry.disqualified','engagement_entry.created_at','engagement.bg','engagement.bgcolor')->where('engagement_entry.disqualified','!=','1')->orderBy('engagement_entry.created_at','ASC')->get(); 
+                    select('engagement_entry.id as entryID','engagement_entry.anonymous', 'engagement_entry.user_id as senderID','users.firstname','users.lastname','users.nickname','engagement_entryDetails.entry_itemID', 'engagement_entryDetails.value','engagement_entry.disqualified','engagement_entry.created_at','engagement.bg','engagement.bgcolor')->where('engagement_entry.disqualified','!=','1')->orderBy('engagement_entry.created_at','ASC')->get();
 
 
         $allComments =  DB::table('engagement')->where('engagement.id',$id)->join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
@@ -1161,7 +1161,7 @@ class EngagementController extends Controller
                 (count($p) > 1) ? $img=url('/')."/storage/uploads/".$p[1]->value : $img=null;
 
             }
-            
+
 
             if ($p[0]->anonymous){
                 $posts->push(['id'=>$p[0]->entryID,'disqualified'=>$p[0]->disqualified,

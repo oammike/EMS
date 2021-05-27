@@ -1701,5 +1701,13 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'uses'=>'UserController@rewards_barista') );
 
 
+    //----------- debug sandbox
+    Route::get('/sandbox', array(
+      'as'=> 'sandbox',
+      'uses'=>'SandboxController@index') );
+    Route::get('/sandbox/{id}/wall', array(
+      'as'=> 'sandbox.wall',
+      'uses'=>'SandboxController@index') );
+
   });
 

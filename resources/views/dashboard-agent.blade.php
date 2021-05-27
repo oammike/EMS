@@ -25,7 +25,7 @@ select:-webkit-autofill:focus {
   transition: background-color #f2fcff ease-in-out 0s;
 }
 .tab-content label {font-weight: normal}
-figure img {width: inherit; margin: 0 auto; display: block; position: relative;}
+figure img {width: 100%; margin: 0 auto; display: block; position: relative;}
 
 </style>
 

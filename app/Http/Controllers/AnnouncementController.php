@@ -30,22 +30,22 @@ class AnnouncementController extends Controller
     $this->middleware('auth');
     $this->user =  User::find(Auth::user()->id);
     $this->slider_items = 20;
+
+    //nurses = clinical services = 71, marketing - 16, HR=10, Finance=7
+    //mpamero, mbambico, jmillares
+    $this->allowed_users = [564, 83, 491];
+    $this->allowed_programs = [71, 16, 10, 7];
   }
 
   public function create()
   {
     $campaign_id = Team::where('user_id',$this->user->id)->first()->campaign_id;
-    
-    //nurses = clinical services = 71, marketing - 16, HR=10, Finance=7
-    //mpamero, mbambico, jmillares
-    $allowed_users = [564, 83, 491];
-    $allowed_programs = [71, 16, 10, 7];
 
-    if ( !in_array($this->user->id, $allowed_users, true) && !in_array($campaign_id, $allowed_programs)  ) 
+    if ( !in_array($this->user->id, $this->allowed_users, true) && !in_array($campaign_id, $this->allowed_programs)  )
       return view('access-denied');
 
     $can_view_all = false;
-    if(in_array($this->user->id, $allowed_users, true)){
+    if(in_array($this->user->id, $this->allowed_users, true)){
       $can_view_all = true;
     }
 
@@ -61,27 +61,22 @@ class AnnouncementController extends Controller
   public function index()
   {
     $campaign_id = Team::where('user_id',$this->user->id)->first()->campaign_id;
-    
-    //nurses = clinical services = 71, marketing - 16, HR=10, Finance=7
-    //mpamero, mbambico, jmillares
-    $allowed_users = [564, 83, 491];
-    $allowed_programs = [71, 16, 10, 7];
     $correct = Carbon::now('GMT+8'); //->timezoneName();
 
     $announcements = Announcement::all();
 
-    if ( !in_array($this->user->id, $allowed_users, true) && !in_array($campaign_id, $allowed_programs)  ) {
+    if ( !in_array($this->user->id, $this->allowed_users, true) && !in_array($campaign_id, $this->allowed_programs)  ) {
       if($this->user->id !== 564 ) {
         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
           fwrite($file, "-------------------\n Announce_attempt on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
           fclose($file);
-      } 
+      }
       return view('access-denied');
     }
 
 
     $can_view_all = false;
-    if(in_array($this->user->id, $allowed_users, true)){
+    if(in_array($this->user->id, $this->allowed_users, true)){
       $can_view_all = true;
     }
 
@@ -89,25 +84,20 @@ class AnnouncementController extends Controller
         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
           fwrite($file, "-------------------\n Announce_idx on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
           fclose($file);
-    } 
+    }
 
     return view('announcements.memo-index', compact('announcements','can_view_all'));
   }
 
   public function list(Request $request){
     $campaign_id = Team::where('user_id',$this->user->id)->first()->campaign_id;
-    
-    //nurses = clinical services = 71, marketing - 16, HR=10, Finance=7
-    //mpamero, mbambico, jmillares
-    $allowed_users = [564, 83, 491];
-    $allowed_programs = [71, 16, 10, 7];
     $correct = Carbon::now('GMT+8'); //->timezoneName();
 
 
-    if ( !in_array($this->user->id, $allowed_users, true) && !in_array($campaign_id, $allowed_programs)  ) return view('access-denied');
+    if ( !in_array($this->user->id, $this->allowed_users, true) && !in_array($campaign_id, $this->allowed_programs)  ) return view('access-denied');
 
     $can_view_all = false;
-    if(in_array($this->user->id, $allowed_users, true)){
+    if(in_array($this->user->id, $this->allowed_users, true)){
       $can_view_all = true;
     }
 
@@ -116,7 +106,7 @@ class AnnouncementController extends Controller
     $announcements = DB::table('announcement')
       ->select('announcement.id','announcement.user_id','announcement.template','announcement.title','announcement.decorative_title','announcement.isDraft','announcement.publishDate','announcement.publishExpire','announcement.showAlways','announcement.hidden', DB::raw("CONCAT(`users`.`firstname`, ' ', `users`.`lastname`) AS `author`"));
 
-    
+
     /* show it all na lang, pero limit EDIT access
     if(!$can_view_all)
     {
@@ -175,15 +165,10 @@ class AnnouncementController extends Controller
       ]);
 
       $campaign_id = Team::where('user_id',$this->user->id)->first()->campaign_id;
-    
-      //nurses = clinical services = 71, marketing - 16, HR=10, Finance=7
-      //mpamero, mbambico, jmillares
-      $allowed_users = [564, 83, 491];
-      $allowed_programs = [71, 16, 10, 7];
       $formatted_publish_date = Carbon::createFromFormat('m/d/Y', Input::get('mPublishDate'));
       $formatted_expiry_date = (empty(Input::get('mExpiryDate')) || trim(Input::get('mExpiryDate'))=='') ? NULL : Carbon::createFromFormat('m/d/Y', Input::get('mExpiryDate'));
 
-      if ( !in_array($this->user->id, $allowed_users, true) && !in_array($campaign_id, $allowed_programs)  )  return view('access-denied');
+      if ( !in_array($this->user->id, $this->allowed_users, true) && !in_array($campaign_id, $this->allowed_programs)  )  return view('access-denied');
       if(Input::get('draftId')!=0){
         //find
         $memo = Announcement::where('author_campaign_id',$campaign_id)->where('id',Input::get('draftId'))->firstOrFail();
@@ -255,23 +240,18 @@ class AnnouncementController extends Controller
         'showAlways' => 'boolean']);
 
       $campaign_id = Team::where('user_id',$this->user->id)->first()->campaign_id;
-    
-      //nurses = clinical services = 71, marketing - 16, HR=10, Finance=7
-      //mpamero, mbambico, jmillares
-      $allowed_users = [564, 83, 491];
-      $allowed_programs = [71, 16, 10, 7];
       $correct = Carbon::now('GMT+8'); //->timezoneName();
 
-    
+
       $formatted_publish_date = Carbon::parse(Input::get('mPublishDate'),'Asia/Manila'); //Carbon::createFromFormat('m/d/Y', Input::get('mPublishDate'));
       $formatted_expiry_date = (empty(Input::get('mExpiryDate')) || trim(Input::get('mExpiryDate'))=='') ? NULL : Carbon::parse(Input::get('mExpiryDate'),'Asia/Manila');
 
-      if ( !in_array($this->user->id, $allowed_users, true) && !in_array($campaign_id, $allowed_programs)  )  return view('access-denied');
+      if ( !in_array($this->user->id, $this->allowed_users, true) && !in_array($campaign_id, $this->allowed_programs)  )  return view('access-denied');
       if($this->user->id !== 564 ) {
         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
           fwrite($file, "-------------------\n Update_announce[".$id."] on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
           fclose($file);
-      } 
+      }
 
       $memo = Announcement::where('author_campaign_id',$campaign_id)->where('id',$id)->firstOrFail();
       $memo->user_id       = $this->user->id;
@@ -323,14 +303,9 @@ class AnnouncementController extends Controller
 
   public function edit($id){
       $campaign_id = Team::where('user_id',$this->user->id)->first()->campaign_id;
-    
-      //nurses = clinical services = 71, marketing - 16, HR=10, Finance=7
-      //mpamero, mbambico, jmillares
-      $allowed_users = [564, 83, 491];
-      $allowed_programs = [71, 16, 10, 7];
       $correct = Carbon::now('GMT+8'); //->timezoneName();
 
-      /*if ( in_array($this->user->id, $allowed_users, true))
+      /*if ( in_array($this->user->id, $this->allowed_users, true))
       {
         $announcement = Announcement::where('id',$id)->firstOrFail();
       }
@@ -340,12 +315,12 @@ class AnnouncementController extends Controller
       }*/
       $announcement = Announcement::find($id);
 
-      if( $announcement->author_campaign_id == $campaign_id || in_array($this->user->id, $allowed_users, true) ){
+      if( $announcement->author_campaign_id == $campaign_id || in_array($this->user->id, $this->allowed_users, true) ){
         if($this->user->id !== 564 ) {
           $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n Edit_announce[".$id."] on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
             fclose($file);
-        } 
+        }
 
         $slider_now = Carbon::now('GMT+8');
         $include_memo_scripts = TRUE;
@@ -361,22 +336,17 @@ class AnnouncementController extends Controller
           $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n Attempt_Edit_announce [".$id."] on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
             fclose($file);
-        } 
-        return view('access-denied'); 
+        }
+        return view('access-denied');
       }
-      
+
   }
 
   public function attach(Request $request){
       $campaign_id = Team::where('user_id',$this->user->id)->first()->campaign_id;
-    
-      //nurses = clinical services = 71, marketing - 16, HR=10, Finance=7
-      //mpamero, mbambico, jmillares
-      $allowed_users = [564, 83, 491];
-      $allowed_programs = [71, 16, 10, 7];
       $correct = Carbon::now('GMT+8'); //->timezoneName();
 
-      if ( !in_array($this->user->id, $allowed_users, true) && !in_array($campaign_id, $allowed_programs)  ) {
+      if ( !in_array($this->user->id, $this->allowed_users, true) && !in_array($campaign_id, $this->allowed_programs)  ) {
         return response()->json([
             'success' => false,
             'message' => 'unauthorized'

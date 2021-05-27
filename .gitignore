@@ -3,6 +3,7 @@
 /public/storage
 /public/storage/uploads/*
 /storage/uploads
+/socket_server/config.js
 Homestead.yaml
 Homestead.json
 .env
