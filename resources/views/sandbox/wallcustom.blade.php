@@ -199,10 +199,10 @@
 									<div class="comments" style="display: none;">
 
 										@if(count($commentDito) > 0)
-										<h3 class="text-orange"  style="margin-bottom: 20px">Comments ({{count($commentDito)}}): </h3>
+										<h3 class="text-orange mCommentsHeader{{$posts[$i]['id']}}" style="margin-bottom: 20px">Comments ({{count($commentDito)}}): </h3>
 
 										@else
-										<h3 class="text-orange"  style="margin-bottom: 20px">Comments: </h3>
+										<h3 class="text-orange mCommentsHeader{{$posts[$i]['id']}}" style="margin-bottom: 20px">Comments: </h3>
 
 										@endif
 
@@ -213,17 +213,17 @@
 									@foreach($commentDito as $cmt)
 
 										@if($cmt->anonymous)
-										<p id="comment{{$cmt->commentID}}" style="margin-bottom: 10px; white-space: pre;background-color: #383a3c; padding:20px; width:75%">{!! $cmt->comment !!} -- <strong class="text-primary"><i class="fa fa-user"></i> <em>Anonymous</em>, {{$cmt->program}}  </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small style="color: #666">[ Posted {{ date('l, M d h:i A',strtotime($cmt->created_at))}} ]</small>
+										<p class="comment{{$cmt->commentID}}" style="margin-bottom: 10px; white-space: pre;background-color: #383a3c; padding:20px; width:75%">{!! $cmt->comment !!} -- <strong class="text-primary"><i class="fa fa-user"></i> <em>Anonymous</em>, {{$cmt->program}}  </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small style="color: #666">[ Posted {{ date('l, M d h:i A',strtotime($cmt->created_at))}} ]</small>
 											@if($user_id == $cmt->user_id)
-											<i class="fa fa-trash" style="cursor: pointer; float: right; padding:10px;" data-commentID="{{$cmt->commentID}}"> Delete</i>
+											<i class="fa fa-trash" style="cursor: pointer; float: right; padding:10px;" data-commentid="{{$cmt->commentID}}"> Delete</i>
 											@endif
 										</p>
 
 
 										@else
-										<p id="comment{{$cmt->commentID}}" style="margin-bottom: 10px; white-space: pre; background-color: #383a3c; padding:20px; width:75%">{!! $cmt->comment !!} -- <strong class="text-primary"><i class="fa fa-user"></i> {{$cmt->nickname}} {{$cmt->lastname}}, {{$cmt->program}} </strong>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small style="color: #666">[ Posted {{ date('l, M d h:i A',strtotime($cmt->created_at))}} ]</small>
+										<p class="comment{{$cmt->commentID}}" style="margin-bottom: 10px; white-space: pre; background-color: #383a3c; padding:20px; width:75%">{!! $cmt->comment !!} -- <strong class="text-primary"><i class="fa fa-user"></i> {{$cmt->nickname}} {{$cmt->lastname}}, {{$cmt->program}} </strong>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small style="color: #666">[ Posted {{ date('l, M d h:i A',strtotime($cmt->created_at))}} ]</small>
 											@if($user_id == $cmt->user_id)
-											<i class="fa fa-trash" style="cursor: pointer; float: right; padding:10px;" data-commentID="{{$cmt->commentID}}"> Delete</i>
+											<i class="fa fa-trash" style="cursor: pointer; float: right; padding:10px;" data-commentid="{{$cmt->commentID}}"> Delete</i>
 											@endif
 										</p>
 
@@ -329,10 +329,10 @@
 										$commentDito = collect($allComments)->where('entryID',$post['id']);
 									?>
 									@if(count($commentDito) > 0)
-										<h3 class="text-orange"  style="margin-bottom: 20px">Comments ({{count($commentDito)}}): </h3>
+										<h3 class="text-orange mCommentsHeader{{$post['id']}}"  style="margin-bottom: 20px">Comments ({{count($commentDito)}}): </h3>
 
 										@else
-										<h3 class="text-orange"  style="margin-bottom: 20px">Comments: </h3>
+										<h3 class="text-orange mCommentsHeader{{$post['id']}}"  style="margin-bottom: 20px">Comments: </h3>
 
 									@endif
 
@@ -342,18 +342,18 @@
 
 
 										@if($cmt->anonymous)
-										<p id="comment{{$cmt->commentID}}" style="margin-bottom: 10px; white-space: pre; background-color: #383a3c; padding:20px; width:75%" >{!! $cmt->comment !!} -- <strong class="text-primary"><i class="fa fa-user"></i> <em>Anonymous</em>, {{$cmt->program}}  </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small style="color: #666">[ Posted {{ date('l, M d h:i A',strtotime($cmt->created_at))}} ]</small>
+										<p class="comment{{$cmt->commentID}}" style="margin-bottom: 10px; white-space: pre; background-color: #383a3c; padding:20px; width:75%" >{!! $cmt->comment !!} -- <strong class="text-primary"><i class="fa fa-user"></i> <em>Anonymous</em>, {{$cmt->program}}  </strong> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small style="color: #666">[ Posted {{ date('l, M d h:i A',strtotime($cmt->created_at))}} ]</small>
 											@if($user_id == $cmt->user_id)
-											<i class="fa fa-trash" style="cursor: pointer; float: right ;padding:10px;"data-commentID="{{$cmt->commentID}}"> Delete</i>
+											<i class="fa fa-trash" style="cursor: pointer; float: right ;padding:10px;" data-commentid="{{$cmt->commentID}}"> Delete</i>
 											@endif
 										</p>
 
 
 										@else
-										<p id="comment{{$cmt->commentID}}" style="margin-bottom: 10px; white-space: pre; background-color: #383a3c; padding:20px; width:75%">{!! $cmt->comment !!} -- <strong class="text-primary"><i class="fa fa-user"></i> {{$cmt->nickname}} {{$cmt->lastname}}, {{$cmt->program}} </strong>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+										<p class="comment{{$cmt->commentID}}" style="margin-bottom: 10px; white-space: pre; background-color: #383a3c; padding:20px; width:75%">{!! $cmt->comment !!} -- <strong class="text-primary"><i class="fa fa-user"></i> {{$cmt->nickname}} {{$cmt->lastname}}, {{$cmt->program}} </strong>  &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 											<small style="color: #666">[ Posted {{ date('l, M d h:i A',strtotime($cmt->created_at))}} ]</small> &nbsp;&nbsp;
 											@if($user_id == $cmt->user_id)
-											<i class="fa fa-trash" style="cursor: pointer; float: right; padding:10px;"data-commentID="{{$cmt->commentID}}"> Delete</i>
+											<i class="fa fa-trash" style="cursor: pointer; float: right; padding:10px;" data-commentid="{{$cmt->commentID}}"> Delete</i>
 											@endif
 										</p>
 
@@ -452,13 +452,39 @@
 	<!-- <script type="text/javascript" src="{{url('/')}}/public/js/wall_script.js"></script> -->
 	<script type="text/javascript">
 
+    $(document).keyup(function(e) {
+      if (e.keyCode === 27 && $(".full-message").hasClass("show")) {
+        if ($('.flagged').hasClass('show')) {
+          $('.flagged .close-flag').click();   // esc
+        }
+
+        else if ($('.image-overlay').hasClass('show')) {
+          $('.image-overlay .close-overlay').click();   // esc
+        }
+
+        else {
+          $('.close').click();   // esc
+        }
+      }
+    }) // END $(document).keyup
+
+    $(document).keydown(function(e){
+      if (e.which == 37) {
+        $(".next").click();
+        return false;
+      }
+
+      else if (e.which == 39) {
+        $(".prev").click();
+        return false;
+      }
+    }) // END $(document).keydown
+
 		$(".home").click(function(){
 			window.location.href = "{{action('EngagementController@show',$id)}}";
-
 		});
 
 		$(".next").click(function() {
-			//alert('next');
 			fp = $('.freedom-wall ul li').first().data("post");
 			lp = $('.freedom-wall ul li').last().data("post");
 			postCount = $('.freedom-wall ul').data("postcount");
@@ -467,18 +493,10 @@
 			lpost = $('.freedom-wall ul').data("lpost");
 
 			_token = "{{ csrf_token() }}";
-			// console.log('fp: '+fp+'lp: '+lp);
-			// console.log('fpost: '+fpost+'lpost: '+lpost);
-
-
 
 			postCount = $('.freedom-wall ul').data("maxpost");
 			maxpost = $('.freedom-wall ul').data("maxpost");
 			arrlen =  $('.freedom-wall ul').data("arrlen");
-
-			console.log('next');
-			console.log('fp: '+fp+' lp: '+lp);
-			console.log('fpost: '+fpost+' lpost: '+lpost+' postCount1: '+postCount1+' arrlen: '+arrlen);//+' pointstart: '+pointstart+' pointend:'+pointend);
 
 			if(lp >= arrlen-1)
 			{
@@ -492,22 +510,16 @@
 				// pointend = (pointstart - maxpost)+1;
 				// if (pointend <= 0) pointend=0;
 
-			}else
+			}
+      else
 			{
 				pointstart = (lp + maxpost);
 				pointend = (pointstart - maxpost);
 				if (pointstart >= arrlen-1) pointstart=arrlen-1;
 				window.location.href = "../../employeeEngagement/{{$id}}/wall?l="+pointend+"&f="+pointstart+"&c="+maxpost;
-
 			}
-			console.log('new');
-			console.log('fp: '+fp+' lp: '+lp);
-			console.log('pointstart: '+pointstart+' pointend:'+pointend);
 
-
-
-
-		})
+		}) //END $(".next").clicked
 
 		$(".prev").click(function() {
 			_token = "{{ csrf_token() }}";
@@ -528,38 +540,32 @@
 				pointend = (pointstart - maxpost)+1;
 				if (pointend <= 0) pointend=0;
 
-			}else
+			}
+      else
 			{
 				pointstart = (lp - maxpost)-1;
 				pointend = (pointstart - maxpost)+1;
 				if (pointend <= 0) pointend=0;
-
 			}
-
-
 
 			fpost = $('.freedom-wall ul').data("fpost");
 			lpost = $('.freedom-wall ul').data("lpost");
-			console.log('prev');
-			console.log('fp: '+fp+' lp: '+lp);
-			console.log('fpost: '+fpost+' lpost: '+lpost+' postCount1: '+postCount1+' arrlen: '+arrlen+' pointstart: '+pointstart+' pointend:'+pointend);
-			//console.log('fp: '+fp+' fpost: '+fpost+' lp: '+lp+' postCount1: '+postCount1);
 
-			if (pointstart <= '0') {
-					$('.system-message p').text("You've already reached \nthe last page");
-					$('.system-message').addClass("show");
-					setTimeout(function() {
-				       $( ".system-message" ).removeClass("show");
-				   }, 10000);
-				}
-				else window.location.href = "../../employeeEngagement/{{$id}}/wall?l="+pointend+"&f="+pointstart+"&c="+maxpost;
+			if (pointstart <= '0')
+      {
+				$('.system-message p').text("You've already reached \nthe last page");
+				$('.system-message').addClass("show");
+				setTimeout(function() {
+			       $( ".system-message" ).removeClass("show");
+			   }, 10000);
+			}
+			else window.location.href = "../../employeeEngagement/{{$id}}/wall?l="+pointend+"&f="+pointstart+"&c="+maxpost;
 
-
-		})
+		}) //END $(".prev").clicked
 
 		postID = 0
     window.postID = 0;
-    window.entryID = 0;
+    window.activeEntry = 0;
     window.commentID = 0;
 
 		$(".post-it").click(function() {
@@ -573,38 +579,36 @@
 			likes = $(this).attr('data-totalLikes');
 			alreadyLiked = $(this).attr('data-already');
 
-			console.log(comments[0]['innerHTML']);
-			console.log('likes: '+likes);
 			$(".message p").html(message);
 			$(".message div.commentholder").html(comments[0]['innerHTML']);
 			$(".message span.totalLikes").html("("+likes+")");
 			$(".message span.totalLikes").attr('data-countLike',likes);
 			$(".message span.totalLikes").attr('data-entryID',likes);
-			console.log($(this).find("a .img").css('background-image'));
 
-			if ($(this).find("a .img").css('background-image') != 'none' ) {
+			if ($(this).find("a .img").css('background-image') != 'none' )
+      {
 				var bg_img = $(this).find("a .img").css('background-image').replace(/^url\(['"](.+)['"]\)/, '$1');
-				console.log('var bg_img');
-				console.log(bg_img);
-				if (bg_img.includes("openaccess.svg")) {
+				if (bg_img.includes("openaccess.svg"))
+        {
 					$('.full-message .message').addClass("hidden")
 					$('.full-message .message img').attr("src", '')
 					$('.full-message .message img').css("display", 'none')
 				}
-
-				else {
+				else
+        {
 					$('.full-message .message').removeClass("hidden")
 					$('.full-message .message img').attr("src", bg_img)
 					$('.full-message .message img').css("display", 'inline-block')
 				}
 			}
 
-			if ($(this).find("a .img").css('background-image') == 'none' ) {
+			if ($(this).find("a .img").css('background-image') == 'none' )
+      {
 				$('.full-message .message img').attr("src", '')
 				$('.full-message .message img').css("display", 'none')
 			}
-
-			else if(!$(this).find("a .img").css('background-image')) {
+			else if(!$(this).find("a .img").css('background-image'))
+      {
 				$('.full-message .message img').attr("src", '')
 				$('.full-message .message img').css("display", 'none')
 			}
@@ -612,9 +616,8 @@
 			postID = $(this).data("post");
 			entryID = $(this).attr("data-entryID");
       window.postID = $(this).data("post");
-      window.entryID = $(this).attr("data-entryID");
+      window.activeEntry = $(this).attr("data-entryID");
 
-			console.log('entryID: '+entryID);
 			$(".message .flag").attr("data-messageID", postID);
 			$("#submitReason").attr("data-entryID", entryID);
 			$(".message .like").attr("data-messageID", entryID);
@@ -625,284 +628,210 @@
 			else
 				$(".message .like").addClass('liked');
 
-
-
-		})
+		}) // END $('.post-it').clicked
 
 
 		$(".close").click(function() {
+      window.activeEntry = 0;
 			$(".full-message").toggleClass("show");
 			$(".message").toggleClass("minimized");
 			$(".post-it").removeClass("nohover");
 			$(".pagination").removeClass("hidden");
 			$(".close-flag").click();
 			pagination();
-		})
-
-		$(document).keyup(function(e) {
-			if (e.keyCode === 27 && $(".full-message").hasClass("show")) {
-				if ($('.flagged').hasClass('show')) {
-					$('.flagged .close-flag').click();   // esc
-				}
-
-				else if ($('.image-overlay').hasClass('show')) {
-					$('.image-overlay .close-overlay').click();   // esc
-				}
-
-				else {
-					$('.close').click();   // esc
-				}
-			}
-		});
+		}) // END $('.close').clicked
 
 		$(".message .flag").click(function(){
 			$('.flagged').addClass("show");
 			$('.flagged label textarea').val('')
 		})
 
-		$(".message .like").click(function(){
 
+		$(".message .like").click(function(){
 			var _token = "{{ csrf_token() }}";
 
 			item = $(this);
+      window.item = item;
 
 			likes = item.find('span.totalLikes').attr('data-countLike');
 			likeholder = item.find('span.totalLikes');
 			entryID = item.attr('data-messageID');
 			likedAlready = item.attr('data-already');
-			//console.log(entryID);
 
 			if (likedAlready=='1')
 			{
-
-
 				$.ajax({
-
-                      url:"{{action('EngagementController@unlike')}}",
-                      type:'POST',
-                      data:{
-                        'type':'post',
-                        'entryID': entryID,
-                         _token: _token
-
-                      },
-                      error: function(response)
-                      {
-                      	// console.log("Error saving entry: ");
-                        //  console.log(response);
-                        //  $.notify("Error sending like.\nThat comment must have been deleted already by the user.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-                        alert('Error sending unlike. Please try again.');
-                        return false;
-                      },
-                      success: function(response)
-                      {
-                        console.log(response);
-
-						item.removeClass('liked');
-						likeholder.html('');
-						likeholder.html('('+likes+')');
-                        //$.notify("Comment liked. ",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-
-                        //window.location.reload(true);
-                        if(window.socket!=null){
-                          socket.emit("send", {
-                            event: 'unlike',
-                            entryId: entryID
-                          });
-                        }
-
-
-                      }
-
-                });
+          url:"{{action('EngagementController@unlike')}}",
+          type:'POST',
+          data:{
+            'type':'post',
+            'entryID': entryID,
+            _token: _token
+          },
+          error: function(response)
+          {
+            alert('Error sending unlike. Please try again.');
+            return false;
+          },
+          success: function(response)
+          {
+            $('#post-it'+entryID).attr('data-already',0);
+            item.removeClass('liked');
+            likeholder.html('');
+            likeholder.html('('+(likes - 1)+')');
+            plus = parseInt(likes) - 1;
+            window.item.find('span.totalLikes').attr('data-countLike',plus);
+            if(window.socket!=null){
+              socket.emit("send", {
+                event: 'unlike',
+                entryId: entryID
+              });
+            }else{
+              window.location.reload(true);
+            }
+          }
+        });
 			}
 			else
 			{
 				$.ajax({
+          url:"{{action('EngagementController@like')}}",
+          type:'POST',
+          data:{
+            'type':'post',
+            'entryID': entryID,
+            _token: _token
+          },
+          error: function(response)
+          {
+            alert('Error sending like. Please try again.');
+            return false;
+          },
+          success: function(response)
+          {
 
-                      url:"{{action('EngagementController@like')}}",
-                      type:'POST',
-                      data:{
-                        'type':'post',
-                        'entryID': entryID,
-                         _token: _token
-
-                      },
-                      error: function(response)
-                      {
-                      	// console.log("Error saving entry: ");
-                        //  console.log(response);
-                        //  $.notify("Error sending like.\nThat comment must have been deleted already by the user.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-                        alert('Error sending like. Please try again.');
-                        return false;
-                      },
-                      success: function(response)
-                      {
-                        console.log(response);
-                        plus = parseInt(likes) + 1;
+            plus = parseInt(likes) + 1;
+            $('#post-it'+entryID).attr('data-already',1);
 						item.addClass('liked');
 						likeholder.html('');
 						likeholder.html('('+plus+')');
-                        //$.notify("Comment liked. ",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-
-                        //window.location.reload(true);
-                        if(window.socket!=null){
-                          socket.emit("send", {
-                            event: 'like',
-                            entryId: entryID
-                          });
-                        }
-
-
-                      }
-
-                });
+            window.item.find('span.totalLikes').attr('data-countLike',plus);
+            if(window.socket!=null){
+              socket.emit("send", {
+                event: 'like',
+                entryId: entryID
+              });
+            }else{
+              window.location.reload(true);
+            }
+          }
+        });
 			}
-
-		})
+		}) //END $(".message .like").clicked
 
 
 		$(".close-flag").click(function(){
 			$('.flagged').removeClass("show");
-		})
+		}) //END $(".close-flag").clicked
 
 		$('.commentholder').on('click','i.fa.fa-trash',function(){
-			commentID = $(this).attr('data-commentID');
+			commentID = $(this).attr('data-commentid');
 			yes = confirm("Are you sure you want to delete this comment?");
 			var _token = "{{ csrf_token() }}";
 
-			if(yes)
-			{
+			if(yes){
 				$.ajax({
-
-                      url:"{{action('EngagementController@deleteEntryComment')}}",
-                      type:'POST',
-                      data:{
-
-                        'commentID': commentID,
-                         _token: _token
-
-                      },
-                      error: function(response)
-                      {
-                      	// console.log("Error saving entry: ");
-                        //  console.log(response);
-                        //  $.notify("Error sending like.\nThat comment must have been deleted already by the user.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-                        alert('Error deleting comment. Please try again.');
-                        return false;
-                      },
-                      success: function(response)
-                      {
-                        console.log(response);
-                        //$.notify("Comment liked. ",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-
-                        //window.location.reload(true);
-                        if(window.socket!=null){
-                          socket.emit("send", {
-                            event: 'delete',
-                            entryId: entryID,
-                            commentId: commentID
-                          });
-                        }
-
-
-                      }
-
+            url:"{{action('EngagementController@deleteEntryComment')}}",
+            type:'POST',
+            data:{
+              'commentID': commentID,
+              _token: _token
+            },
+            error: function(response)
+            {
+              alert('Error deleting comment. Please try again.');
+              return false;
+            },
+            success: function(response)
+            {
+              if(window.socket!=null){
+                socket.emit("send", {
+                  event: 'delete',
+                  entryId: entryID,
+                  commentId: commentID
                 });
+                $('.comment'+commentID).remove();
+              }else{
+                window.location.reload(true);
+              }
+            }
+        });
 			}
-			else console.log("no");
-
-		});
+		}) // END $('.commentholder').clicked
 
 		$("#submitReason").click(function(){
 			entryID = $(this).attr('data-entryID');
 			reason = $('.flagged label textarea').val();
 			body = $('.flagged label textarea').val();
 			anonymously = $('input[name="anonymously"]:checked').val();
-
-			console.log(anonymously)
-			console.log(reason)
-
 			var _token = "{{ csrf_token() }}";
 
 			$.ajax({
-
-                      url:"{{action('EngagementController@postEntryComment')}}",
-                      type:'POST',
-                      data:{
-                        'type':'post',
-                        'entryID': entryID,
-                        'body':body,
-                        'anonymously':anonymously,
-                         _token: _token
-
-                      },
-                      error: function(response)
-                      {
-                      	// console.log("Error saving entry: ");
-                        //  console.log(response);
-                        //  $.notify("Error sending like.\nThat comment must have been deleted already by the user.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
-                        alert('Error saving comment. Please try again.');
-                        return false;
-                      },
-                      success: function(response)
-                      {
-                        console.log(response);
-
-                        $('.system-message p').text("Comment posted");
-						$('.system-message').addClass("show");
-						setTimeout(function() {
-					       $( ".system-message" ).removeClass("show");
-					   }, 3000);
-						$(".close-flag").click();
-
-                        //window.location.reload(true);
-                      if(window.socket!=null){
-                          socket.emit("send", {
-                            event: 'newcomment',
-                            entryID: entryID,
-                            body: body,
-                            anonymously: anonymously
-                          });
-                        }
-                      }
-
-                });
+        url:"{{action('EngagementController@postEntryComment')}}",
+        type:'POST',
+        data:{
+          'type':'post',
+          'entryID': entryID,
+          'body':body,
+          'anonymously':anonymously,
+          _token: _token
+        },
+        dataType: 'json',
+        error: function(response)
+        {
+          alert('Error saving comment. Please try again.');
+          return false;
+        },
+        success: function(response)
+        {
+          console.log(response.id);
+          $('.system-message p').text("Comment posted");
+          $('.system-message').addClass("show");
+          setTimeout(function() {
+           $( ".system-message" ).removeClass("show");
+          }, 3000);
+          $(".close-flag").click();
+          var name = (anonymously=='1') ? "Anonymous" : "{{ $profile->name }}";
+          var campaign = '{{ $profile->campaign}}';
 
 
+          if(window.socket!=null){
+            socket.emit("send", {
+              event: 'newcomment',
+              entryId: entryID,
+              commentId: response.id,
+              body: body,
+              name: name,
+              campaign: campaign
+            });
+          }else{
+            window.location.reload(true);
+          }
+        }
+      });
 
-		})
+		}) // END $('#submitReason').clicked
 
 		h2 = $(window).height();
 		h1 = $(".freedom-wall ul").height();
-
-
-
-
-
 		$(".full-message .message img").click(function() {
 			bg = $('.message img').attr("src")
 			$(".full-message .image-overlay").addClass("show");
-
 			$(".full-message .image-overlay img").attr("src", bg)
 		})
-
 		$(".full-message .image-overlay .close-overlay").click(function() {
 			$(".full-message .image-overlay").removeClass("show");
 		})
-
-
-		$(document).keydown(function(e){
-		    if (e.which == 37) {
-		       $(".next").click();
-		       return false;
-		    }
-
-		    else if (e.which == 39) {
-		       $(".prev").click();
-		       return false;
-		    }
-		});
 
 		function pagination() {
 			lp = $('.freedom-wall ul li').last().data("post");
@@ -933,8 +862,6 @@
 			}
 		}
 
-
-
 		pagination();
 
 		$(document).ready(function() {
@@ -945,10 +872,7 @@
 				h1 = $(".freedom-wall ul").height();
 				h2 = $(window).height();
 
-				//console.log('h1: '+h1+' h2: '+h2+' postcount: '+postCount+ ' postCount1: '+postCount1+' maxpost: '+ maxpost);
-
 				if (h1 > h2 || h1 > 590) {
-					// $('.freedom-wall ul li').last().remove();
 					$('.freedom-wall ul li').first().remove();
 					pagination();
 				}
@@ -966,6 +890,15 @@
 			$(window).resize(function(){location.reload();});
 		})
 
+    function generateTimestamp(){
+      //[ Posted Tuesday, May 04 08:54 AM ]
+      const monthNames = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+      var today = new Date();
+      var date = '(Just Now) '+'-'+monthNames[today.getMonth()]+' '+('0'+today.getDate()).slice(-2);
+      var time = ('0'+today.getHours()).slice(-2) + ":" + ('0'+today.getMinutes()).slice(-2) ;
+      return date+' '+time;
+    }
+
     window.socket==null;
     if(io){
       window.socket = io('ws://{{ env('APP_DOMAIN') }}:9972');
@@ -975,15 +908,85 @@
 
         window.socket.on("event", data => {
           console.log(data);
+
+          if(data.data.event=="unlike"){
+              var newvalue = parseInt($('#likecounter'+data.data.entryId).text()) - 1;
+              if(newvalue!=NaN){
+                $('#likecounter'+data.data.entryId).text(newvalue);
+                $('#post-it'+data.data.entryId).attr('data-totalLikes',newvalue);
+              }
+            if(data.emmitter!='{{ $user_id }}' && window.activeEntry == data.data.entryId){
+              var likes = parseInt(window.item.find('span.totalLikes').attr('data-countLike')) - 1;
+              window.item.find('span.totalLikes').attr('data-countLike', likes);
+            }
+          }
+          if(data.data.event=="like"){
+            var newvalue = parseInt($('#likecounter'+data.data.entryId).text()) + 1;
+            if(newvalue!=NaN){
+              $('#likecounter'+data.data.entryId).text(newvalue);
+              $('#post-it'+data.data.entryId).attr('data-totalLikes',newvalue);
+
+            }
+            if(data.emmitter!='{{ $user_id }}' && window.activeEntry == data.data.entryId){
+              var likes = parseInt(window.item.find('span.totalLikes').attr('data-countLike')) + 1;
+              window.item.find('span.totalLikes').attr('data-countLike', likes);
+            }
+          }
+
+          if(data.data.event=="newcomment"){
+            var entryId = data.data.entryId;
+            var commentId = data.data.commentId;
+            var body = data.data.body;
+            var name = data.data.name;
+            var campaign = data.data.campaign;
+
+            var newvalue = parseInt($('#commentcounter'+data.data.entryId).text()) + 1;
+            if(newvalue!=NaN){
+              $('#commentcounter'+data.data.entryId).text(newvalue);
+            }
+
+            var appendelem = $('<p class="comment' + commentId  + '" style="margin-bottom: 10px; white-space: pre; background-color: #383a3c; padding:20px; width:75%" >' + body + ' -- <strong class="text-primary"><i class="fa fa-user"></i> <em>' + name + '</em>, ' + campaign + '</strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<small style="color: #666">[ Posted ' + generateTimestamp() + ' ]</small></p>');
+
+            if(data.emmitter=='{{ $user_id }}'){
+              var deletebutton = $('<i class="fa fa-trash" style="cursor: pointer; float: right ;padding:10px;" data-commentid="' + commentId + '"> Delete</i>');
+              deletebutton.appendTo(appendelem);
+            }
+
+            appendelem.insertAfter($('.mCommentsHeader'+entryId));
+
+
+            /*
+
+                      @if($user_id == $cmt->user_id)
+
+                      @endif
+                    </p>
+                    */
+          }
+
+          if(data.data.event=="delete"){
+            var entryId = data.data.entryId;
+            var commentId = data.data.commentId;
+            $('.comment'+commentId).remove();
+            var newvalue = parseInt($('#commentcounter'+data.data.entryId).text()) - 1;
+            if(newvalue!=NaN){
+              $('#commentcounter'+data.data.entryId).text(newvalue);
+            }
+          }
+
         });
 
         window.socket.on("connect_error", (error) => {
+          window.socket==null;
+          console.log("could not connect to socket server.");
           console.log(error);
         });
       }else{
+        window.socket==null;
         console.log("could not connect to socket server.");
       }
     }else{
+      window.socket==null;
       console.log("socket server not initialized, cannot load socket.io.js")
     }
 

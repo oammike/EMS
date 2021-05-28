@@ -1200,11 +1200,15 @@ class EngagementController extends Controller
         $background = $post[0]->bg;
         $bgcolor = $post[0]->bgcolor;
 
+        $profile = new \stdClass();
+        $profile->name = $this->user->firstname . " " . $this->user->lastname;
+        $profile->campaign  = $this->user->campaign->first()->name;
+
         if  ($background !== null)
-            return view('people.wallcustom',compact('id','user_id','background','bgcolor', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost'));
+            return view('people.wallcustom',compact('id','user_id','background','bgcolor', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost','profile'));
 
         else
-            return view('people.wall2',compact('id','user_id', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost'));
+            return view('people.wall2',compact('id','user_id', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost','profile'));
 
     }
 

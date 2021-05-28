@@ -42,6 +42,7 @@ class SandboxController extends Controller
     }
     $id = 51;
 
+
         $post = DB::table('engagement')->where('engagement.id',$id)->join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
                     //join('engagement_entryItems','engagement_entryItems.engagement_id','=','engagement.id')->
                     join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
@@ -118,10 +119,15 @@ class SandboxController extends Controller
         $background = $post[0]->bg;
         $bgcolor = $post[0]->bgcolor;
 
+        $profile = new \stdClass();
+        $profile->name = $this->user->firstname . " " . $this->user->lastname;
+        $profile->campaign  = $this->user->campaign->first()->name;
+
+
         if  ($background !== null)
-            return view('sandbox.wallcustom',compact('id','user_id','background','bgcolor', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost'));
+            return view('sandbox.wallcustom',compact('id','user_id','background','bgcolor', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost','profile'));
 
         else
-            return view('sandbox.wall2',compact('id','user_id', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost'));
+            return view('sandbox.wall2',compact('id','user_id', 'idArray','allLikes','allComments', 'posts','allpostCount','firstPost','lastPost', 'profile'));
   }
 }
