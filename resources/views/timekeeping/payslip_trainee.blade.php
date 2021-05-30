@@ -1512,7 +1512,7 @@
       <td colspan="3">
         
         <h1 align="center" style="line-height: 0.05em; font-size: 1.5em">
-          <img src="public/img/oam_favicon1-55027f4ev1_site_icon.png" width="60" />
+          <img src="../public/img/oam_favicon1-55027f4ev1_site_icon.png" width="60" />
           OAMPI Inc.<br/><span style="font-size: 0.8em;padding-left: 30px"> Payslip</span></h1>
       </td>
     </tr>
