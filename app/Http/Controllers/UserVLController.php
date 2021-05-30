@@ -542,6 +542,12 @@ class UserVLController extends Controller
 
                         $vtoSL = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','SL')->get();
                         $vtoSL2 = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','AdvSL')->get();
+                        /*$vtoSL = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->where('productionDate','<=',Carbon::now('GMT+8')->endOfYear()->format('Y-m-d'))->where('deductFrom','SL')->get();
+                        $vtoSL2 = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','AdvSL')->get();*/
+
+                         
+
+
                         $totalVTO_sl1 = number_format(collect($vtoSL)->sum('totalHours') * 0.125,2);
                         $totalVTO_sl2 = number_format(collect($vtoSL2)->sum('totalHours') * 0.125,2);
                         $totalVTO_sl = $totalVTO_sl1 + $totalVTO_sl2;
@@ -568,7 +574,15 @@ class UserVLController extends Controller
                             $updatedSL=true;
 
                             //get advanced SLs
-                            $adv = DB::table('user_advancedSL')->where('user_id',$user->id)->get();
+                            //$adv = DB::table('user_advancedSL')->where('user_id',$user->id)->get();
+                            $adv = DB::table('user_advancedSL')->where('user_advancedSL.user_id',$user->id)->
+                                        where('user_advancedSL.periodStart','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->
+                                        where('user_advancedSL.periodEnd','<=',Carbon::now('GMT+8')->endOfYear()->format('Y-m-d'))->
+                                                    select('user_advancedSL.id','user_advancedSL.total', 'user_advancedSL.periodStart','user_advancedSL.periodEnd','user_advancedSL.created_at')->
+                                                    //where('user_advancedSL.periodStart','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->
+                                                    orderBy('user_advancedSL.periodEnd','DESC')->get(); //
+
+
 
                             $advancedSL = 0;
                             foreach ($adv as $a) {
