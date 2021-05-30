@@ -6260,8 +6260,10 @@ class DTRController extends Controller
       $year = $end[0];
       $paydate = Carbon::parse($request->ce,'Asia/Manila')->addDays($dcutoff->paydayInterval)->format('F d, Y');
 
-      return view('timekeeping.payslip_trainee', compact('employee','sahod','worked','cutoff','month','year','paydate'));
-      //return response()->json(['payslip'=>'1','id'=>$id]);
+      //return view('timekeeping.payslip_trainee', compact('employee','sahod','worked','cutoff','month','year','paydate'));
+      $pdf = PDF::loadView('timekeeping.payslip_trainee', compact('employee','sahod','worked','cutoff','month','year','paydate'));
+      return $pdf->stream('payslip['.$request->ce.']_trainee-'.$employee->lastname."_".$employee->firstname.'.pdf');
+
     }
 
 
