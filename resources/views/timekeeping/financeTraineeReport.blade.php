@@ -220,7 +220,8 @@
                           htmltags += "<td>"+ rdata[i]['leaderFname']+" "+ rdata[i]['leaderLname'] +"</td>";
                           htmltags += "<td class='text-right'>"+ rdata[i]['workedHours'] +"</td>";
                           htmltags += "<td class='text-right'> Php "+ sahod +"</td>";
-                          htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+rdata[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
+                          htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+rdata[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a> <a target='_blank' href='./payslips?cs="+cutoffstart+"&ce="+cutoffend+"&id="+rdata[i]['id']+"&w="+rdata[i]['workedHours']+"&s="+sahod+"' class='btn btn-xs btn-primary'><i class='fa fa-print'></i> Payslip</a> </td></tr>";
+
                         
 
                           
@@ -235,7 +236,7 @@
                           htmltags += "<td>"+ rdata[i]['leaderFname']+" "+ rdata[i]['leaderLname'] +"</td>";
                           htmltags += "<td class='text-right'>"+ rdata[i]['workedHours'] +"</td>";
                           htmltags += "<td class='text-right'> Php "+ sahod +"</td>";
-                          htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+rdata[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a></td></tr>";
+                          htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+rdata[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a> <a target='_blank' href='./payslips?cs="+cutoffstart+"&ce="+cutoffend+"&id="+rdata[i]['id']+"&w="+rdata[i]['workedHours']+"&s="+sahod+"' class='btn btn-xs btn-primary'><i class='fa fa-print'></i> Payslip</a> </td></tr>";
 
                       }
                       

@@ -987,6 +987,13 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'uses'=>'DTRController@finance_dlJPS') );
 
 
+      Route::get('/payslips', array(
+      'as'=> 'user_dtr.payslips',
+      'uses'=>'DTRController@payslips') );
+
+
+
+
       Route::get('/wfm_DTRsummary', array(
       'as'=> 'wfm_DTRsummary',
       'uses'=>'DTRController@wfm_DTRsummary') );

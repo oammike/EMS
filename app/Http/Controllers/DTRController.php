@@ -6246,6 +6246,25 @@ class DTRController extends Controller
     }
 
 
+    public function payslips(Request $request)
+    {
+      $employee = User::find($request->id);
+      $sahod = $request->s;
+      $worked = $request->w;
+      $end = explode('-',$request->ce);
+
+      $dcutoff = Cutoff::first();
+      ($end[2]==$dcutoff->second) ? $cutoff="2nd" : $cutoff="1st";
+
+      $month = date('F', strtotime($request->ce));
+      $year = $end[0];
+      $paydate = Carbon::parse($request->ce,'Asia/Manila')->addDays($dcutoff->paydayInterval)->format('F d, Y');
+
+      return view('timekeeping.payslip_trainee', compact('employee','sahod','worked','cutoff','month','year','paydate'));
+      //return response()->json(['payslip'=>'1','id'=>$id]);
+    }
+
+
     //******* used to create DTR sheet entries for locking
     //******* a.k.a function lock()
     public function processSheet($id, Request $request)
