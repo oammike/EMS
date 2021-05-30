@@ -1507,17 +1507,17 @@
 
 <body>
   <!-- Content Header (Page header) -->
-  <table style="border: 3px solid #333; width: 500px; margin: 10px">
+  <table style="border: 3px solid #333; width: 430px; margin: 10px">
     <tr>
       <td colspan="3">
         
-        <h1 align="center" style="line-height: 0.08em; font-size: 1.2em">
+        <h1 align="center" style="line-height: 0.08em; font-size: 1.1em">
           <img src="../public/img/oam_favicon1-55027f4ev1_site_icon.png" width="60" />
           OAMPI Inc.<br/><span style="font-size: 0.6em;padding-left: 30px"> Payslip</span></h1>
       </td>
     </tr>
     <tr>
-      <td colspan="3" style="font-family:serif; padding:10px 40px;font-size: 0.8em">
+      <td colspan="3" style="font-family:serif; padding:10px 40px;font-size: 0.7em">
         <p>Pay Period: {{$month}} {{$cutoff}} Period {{$year}} </p>
         <p>Pay Date: {{$paydate}} </p>
       </td>
@@ -1527,9 +1527,9 @@
         
         
         <div style="border: 1px dotted #333">
-          <div style="position: relative; top:-10px; background-color: #dedede; width: 40%; padding: 5px; text-align: center;">Trainee Information </div>
+          <div style="font-size: 0.7em; position: relative; top:-10px; background-color: #dedede; width: 40%; padding: 5px; text-align: center;">Trainee Information </div>
           
-          <p style="padding-left: 38px; font-size: 0.8em">Trainee Code: {{$employee->employeeCode}} <br/>
+          <p style="padding-left: 38px; font-size: 0.6em">Trainee Code: {{$employee->employeeCode}} <br/>
             Trainee Name: {{$employee->lastname}}, {{$employee->firstname}}
             <br/><br/>
           </p>
@@ -1537,22 +1537,22 @@
         </div>
       </td>
     </tr>
-    <tr style="font-size: 0.8em">
+    <tr style="font-size: 0.7em">
       <td style="font-family:serif; padding:10px 40px"></td>
       <td align="left">Hours</td>
       <td align="center">Amount</td>
     </tr>
-    <tr style="font-size: 0.8em">
+    <tr style="font-size: 0.7em">
       <td style="font-family:serif; padding:10px 40px">EARNINGS:</td>
       <td></td>
       <td></td>
     </tr>
-    <tr style="font-size: 0.8em">
+    <tr style="font-size: 0.7em">
       <td style="font-family:serif; padding:10px 50px;">Training Allowance</td>
       <td>{{$worked}} </td>
       <td style="border-bottom: 1px solid #333">Php {{$sahod}}</td>
     </tr>
-    <tr style="font-size: 0.8em">
+    <tr style="font-size: 0.7em">
       <td style="font-family:serif; padding:10px 40px">NET PAY</td>
       <td></td>
       <td ><strong style="text-decoration-line: underline;  text-decoration-style: double;">Php {{$sahod}}</strong></td>
