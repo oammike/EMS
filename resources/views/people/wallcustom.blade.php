@@ -955,13 +955,7 @@
             appendelem.insertAfter($('.mCommentsHeader'+entryId));
 
 
-            /*
-
-                      @if($user_id == $cmt->user_id)
-
-                      @endif
-                    </p>
-                    */
+            
           }
 
           if(data.data.event=="delete"){
