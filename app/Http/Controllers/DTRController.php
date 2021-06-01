@@ -6159,8 +6159,9 @@ class DTRController extends Controller
                 {
                   if(Carbon::parse($mgaMvt->first()->effectivity,'Asia/Manila')->format('Y-m-d') <= $key->productionDate) 
                     $includeDate=0;
+                  $e->push(['effectivity'=>$mgaMvt->first()->effectivity, 'productionDate'=>$key->productionDate]);
                 }
-                $e->push(['effectivity'=>$mgaMvt->first()->effectivity, 'productionDate'=>$key->productionDate]);
+                
 
               }
               
