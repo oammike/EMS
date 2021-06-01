@@ -6040,6 +6040,7 @@ class DTRController extends Controller
         elseif ($stat == 'nh')$statid=3;
         else $statid = 2;
         $cutoff = explode('_', $request->cutoff);
+        $mvts=null;
 
 
         if($stat == 'nh'){
@@ -6064,6 +6065,15 @@ class DTRController extends Controller
                   select('users.accesscode','users.traineeCode', 'users.employeeCode','users.id','users.isWFH', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at','user_dtr.created_at','trainee_rate.rate as dailyRate')->
                   where('users.status_id','!=',2)->where('users.endTraining','!=',null)->where('users.endTraining','>=',$monthAgo->format('Y-m-d H:i:s'))->
                       orderBy('users.lastname')->get();
+
+
+          // need rin natin kunin mga trainee movements to check kung pasok pa ba sa period yung DTR nila
+          $mvts =  DB::table('movement')->where('movement.personnelChange_id',3)->where('movement.isDone',1)->
+                      where('movement.effectivity','<=',Carbon::parse($cutoff[1],'Asia/Manila')->endofDay()->format('Y-m-d H:i:s'))->
+                      leftJoin('movement_statuses','movement.id','=','movement_statuses.movement_id')->
+                      leftJoin('users','users.id','=','movement.user_id')->
+                      select('users.id','movement.effectivity','movement_statuses.status_id_new as newStat')->
+                      where('movement_statuses.status_id_new',18)->get();
 
                       
 
@@ -6118,6 +6128,8 @@ class DTRController extends Controller
           //$dData = collect($employeeDTR)->sortBy('productionDate')->where('productionDate',$payday->format('Y-m-d'));
           //$dData = collect($allDTRs)->where('id',$employeeDTR->first()->id)->sortBy('productionDate');
 
+          $e = new Collection;
+
           if (count($employeeDTR) > 0)
           {
 
@@ -6133,11 +6145,25 @@ class DTRController extends Controller
               // ** Production Date
               // check if there's holiday
               $holiday = Holiday::where('holidate',$key->productionDate)->get();
+              $includeDate = 1;
 
               (count($holiday) > 0) ? $hday=$holiday->first()->name : $hday = "";
 
               // -------- WORKED HOURS  -------------
-              if (strlen($key->hoursWorked) > 5)
+
+              // ***new: check mo muna kung pasok yung movement period sa cutoff
+              if($mvts)
+              {
+                $mgaMvt = collect($mvts)->where('id',$key->user_id);
+                if(count($mgaMvt) > 0)
+                {
+                  if(Carbon::parse($mgaMvt->first()->effectivity,'Asia/Manila')->format('Y-m-d') <= $key->productionDate) 
+                    $includeDate=0;
+                }
+
+              }
+              
+              if (strlen($key->hoursWorked) > 5 && $includeDate)
               {
                  $wh = strip_tags($key->hoursWorked);
 
@@ -6161,21 +6187,26 @@ class DTRController extends Controller
 
               }else{ 
 
-                if( strpos($key->hoursWorked,"N") !== false)
+                if( strpos($key->hoursWorked,"N") !== false || !$includeDate)
                   $traineeHR += 0; //strip_tags($key->hoursWorked);
                 else
                   $traineeHR += (float)strip_tags($key->hoursWorked);
               }
 
+              $e->push(['effectivity'=>$mgaMvt->first()->effectivity, 'productionDate'=>$key->productionDate]);
               
+            }//end foreach dtr
 
+            if($traineeHR > 0)
+            {
+              $sahod = number_format(($traineeHR/8)*$key->dailyRate,2);
+              $traineeDTR->push(['id'=>$key->user_id, 'firstname'=>$key->firstname,'lastname'=>$key->lastname,'workedHours'=>$traineeHR,'jobTitle'=>$key->jobTitle,'leaderFname'=>$key->leaderFname,'leaderLname'=>$key->leaderLname,'rate'=>$key->dailyRate,'sahod'=>$sahod,'mvt'=>$mvts,'es'=>$e]);
 
-              
             }
+            
 
-            $sahod = number_format(($traineeHR/8)*$key->dailyRate,2);
-
-            $traineeDTR->push(['id'=>$key->user_id, 'firstname'=>$key->firstname,'lastname'=>$key->lastname,'workedHours'=>$traineeHR,'jobTitle'=>$key->jobTitle,'leaderFname'=>$key->leaderFname,'leaderLname'=>$key->leaderLname,'rate'=>$key->dailyRate,'sahod'=>$sahod]);
+            
+            
             $traineeHR=0;
 
           }else{}
@@ -6252,6 +6283,7 @@ class DTRController extends Controller
       $sahod = $request->s;
       $worked = $request->w;
       $end = explode('-',$request->ce);
+      $stamp = Carbon::now('GMT+8');
 
       $dcutoff = Cutoff::first();
       ($end[2]==$dcutoff->second) ? $cutoff="2nd" : $cutoff="1st";
@@ -6259,6 +6291,12 @@ class DTRController extends Controller
       $month = date('F', strtotime($request->ce));
       $year = $end[0];
       $paydate = Carbon::parse($request->ce,'Asia/Manila')->addDays($dcutoff->paydayInterval)->format('F d, Y');
+
+      if($this->user->id !== 564){
+        $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n Payslip_".$employee->id." on ".$stamp->format('Y-m-d H:i')." by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+      } 
 
       //return view('timekeeping.payslip_trainee', compact('employee','sahod','worked','cutoff','month','year','paydate'));
       $pdf = PDF::loadView('timekeeping.payslip_trainee', compact('employee','sahod','worked','cutoff','month','year','paydate'));
