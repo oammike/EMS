@@ -507,8 +507,8 @@ class DTRController extends Controller
                                     if($includeDate)
                                     {
                                         // -------- ACCESS CODE -------------
-                                        //$arr[$i] = strtoupper($key->employeeCode); $i++;
-                                        $arr[$i] = strtoupper($key->employeeNumber); $i++;
+                                        $arr[$i] = strtoupper($key->employeeCode); $i++;
+                                        //$arr[$i] = strtoupper($key->employeeNumber); $i++;
 
                                         // -------- FORMAL NAME -------------
                                         $arr[$i] = strtoupper($key->lastname).", ".strtoupper($key->firstname)." ".strtoupper($key->middlename); $i++;
@@ -2286,8 +2286,8 @@ class DTRController extends Controller
                           $i = 0;
 
                           //['Employee Code', 'Formal Name','Program', 'Immediate head', 'Locked DTR entries'];
-                          //$arr[$i] = $jps['deets']->employeeCode; $i++;
-                          $arr[$i] = $jps['deets']->employeeNumber; $i++;
+                          $arr[$i] = $jps['deets']->employeeCode; $i++;
+                          //$arr[$i] = $jps['deets']->employeeNumber; $i++;
                           $arr[$i] = $jps['deets']->lastname.", ".$jps['deets']->firstname; $i++;
 
                           //PROGRAM
