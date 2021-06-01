@@ -6160,6 +6160,7 @@ class DTRController extends Controller
                   if(Carbon::parse($mgaMvt->first()->effectivity,'Asia/Manila')->format('Y-m-d') <= $key->productionDate) 
                     $includeDate=0;
                 }
+                $e->push(['effectivity'=>$mgaMvt->first()->effectivity, 'productionDate'=>$key->productionDate]);
 
               }
               
@@ -6193,7 +6194,7 @@ class DTRController extends Controller
                   $traineeHR += (float)strip_tags($key->hoursWorked);
               }
 
-              $e->push(['effectivity'=>$mgaMvt->first()->effectivity, 'productionDate'=>$key->productionDate]);
+              
               
             }//end foreach dtr
 
