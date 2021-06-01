@@ -198,7 +198,7 @@ class DTRController extends Controller
                                ->where('user_dtr.productionDate', '>=', $cutoff[0])
                                ->where('user_dtr.productionDate', '<=', $cutoff[1]);
                       })->
-                      select('users.accesscode','users.employeeCode','users.id','users.isWFH', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at','user_dtr.created_at','users.dateHired','users.endTraining')->
+                      select('users.accesscode','users.employeeNumber', 'users.employeeCode','users.id','users.isWFH', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at','user_dtr.created_at','users.dateHired','users.endTraining')->
                       where([
                           ['users.status_id', '!=', 2],
                           ['users.status_id', '!=', 18],
@@ -507,7 +507,8 @@ class DTRController extends Controller
                                     if($includeDate)
                                     {
                                         // -------- ACCESS CODE -------------
-                                        $arr[$i] = strtoupper($key->employeeCode); $i++;
+                                        //$arr[$i] = strtoupper($key->employeeCode); $i++;
+                                        $arr[$i] = strtoupper($key->employeeNumber); $i++;
 
                                         // -------- FORMAL NAME -------------
                                         $arr[$i] = strtoupper($key->lastname).", ".strtoupper($key->firstname)." ".strtoupper($key->middlename); $i++;
@@ -2181,7 +2182,7 @@ class DTRController extends Controller
                 join('users','users.id','=','user_dtr.user_id')->
                 join('team','team.user_id','=','users.id')->
                 join('campaign','campaign.id','=','team.campaign_id')->
-                select('user_dtr.user_id','users.employeeCode', 'users.lastname','users.firstname','campaign.name as program', 'user_dtr.productionDate')->
+                select('user_dtr.user_id','users.employeeNumber', 'users.employeeCode', 'users.lastname','users.firstname','campaign.name as program', 'user_dtr.productionDate')->
                 orderBy('users.lastname')->get())->groupBy('user_id');
 
       $cutoffStart = Carbon::parse($cutoff[0],'Asia/Manila');
@@ -2285,7 +2286,8 @@ class DTRController extends Controller
                           $i = 0;
 
                           //['Employee Code', 'Formal Name','Program', 'Immediate head', 'Locked DTR entries'];
-                          $arr[$i] = $jps['deets']->employeeCode; $i++;
+                          //$arr[$i] = $jps['deets']->employeeCode; $i++;
+                          $arr[$i] = $jps['deets']->employeeNumber; $i++;
                           $arr[$i] = $jps['deets']->lastname.", ".$jps['deets']->firstname; $i++;
 
                           //PROGRAM
@@ -2322,7 +2324,8 @@ class DTRController extends Controller
                           //['Employee Code', 'Formal Name','Program', 'Immediate head', 'Locked DTR entries'];
                           $jps = collect($allUsers)->where('id',$j); //->first();
 
-                          $arr[$i] = collect($allUsers)->where('id',$j)->pluck('employeeCode')->first(); $i++;
+                          //$arr[$i] = collect($allUsers)->where('id',$j)->pluck('employeeCode')->first(); $i++;
+                          $arr[$i] = collect($allUsers)->where('id',$j)->pluck('employeeNumber')->first(); $i++;
                           $arr[$i] = collect($allUsers)->where('id',$j)->pluck('lastname')->first().", ".collect($allUsers)->where('id',$j)->pluck('firstname')->first(); $i++;
 
                           //PROGRAM

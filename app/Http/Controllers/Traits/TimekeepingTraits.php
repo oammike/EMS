@@ -1333,7 +1333,7 @@ trait TimekeepingTraits
                     join('biometrics','user_cws.biometrics_id','=','biometrics.id')->
                     join('team','team.user_id','=','user_cws.user_id')->
                     join('campaign','campaign.id','=','team.campaign_id')->
-                  select('biometrics.productionDate','user_cws.isApproved','user_cws.isRD','user_cws.timeStart_old','user_cws.timeEnd_old','user_cws.timeStart','user_cws.timeEnd','users.accesscode as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program','user_cws.approver','user_cws.updated_at','user_cws.notes')->get();
+                  select('biometrics.productionDate','user_cws.isApproved','user_cws.isRD','user_cws.timeStart_old','user_cws.timeEnd_old','user_cws.timeStart','user_cws.timeEnd','users.employeeNumber as accesscode', 'users.id as userID','users.lastname','users.firstname','campaign.name as program','user_cws.approver','user_cws.updated_at','user_cws.notes')->get();
 
        }
         
@@ -1342,7 +1342,7 @@ trait TimekeepingTraits
                     ['user_cws.biometrics_id',$p->id]
                     ])->join('users','users.id','=','user_cws.user_id')->
                     join('biometrics','user_cws.biometrics_id','=','biometrics.id')->
-                  select('biometrics.productionDate','user_cws.isApproved','user_cws.isRD','user_cws.timeStart_old','user_cws.timeEnd_old','user_cws.timeStart','user_cws.timeEnd','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                  select('biometrics.productionDate','user_cws.isApproved','user_cws.isRD','user_cws.timeStart_old','user_cws.timeEnd_old','user_cws.timeStart','user_cws.timeEnd','users.employeeNumber as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
 
        }
         
@@ -1381,26 +1381,26 @@ trait TimekeepingTraits
                   ['user_vl.leaveEnd','<=', $endCutoff." 23:59:00"],
                   ])->join('users','users.id','=','user_vl.user_id')->
                   
-                select('user_vl.productionDate','user_vl.leaveStart','user_vl.leaveEnd','user_vl.isApproved','user_vl.totalCredits','user_vl.halfdayFrom','user_vl.halfdayTo', 'user_vl.created_at', 'user_vl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                select('user_vl.productionDate','user_vl.leaveStart','user_vl.leaveEnd','user_vl.isApproved','user_vl.totalCredits','user_vl.halfdayFrom','user_vl.halfdayTo', 'user_vl.created_at', 'user_vl.notes','users.employeeNumber as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
     $SL = DB::table('user_sl')->where([ 
                   ['user_sl.leaveStart','>=', $startCutoff." 00:00:00"],
                   ['user_sl.leaveEnd','<=', $endCutoff." 23:59:00"],
                   ])->join('users','users.id','=','user_sl.user_id')->
                   
-                select('user_sl.productionDate','user_sl.leaveStart','user_sl.leaveEnd','user_sl.isApproved','user_sl.totalCredits','user_sl.halfdayFrom','user_sl.halfdayTo', 'user_sl.created_at', 'user_sl.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                select('user_sl.productionDate','user_sl.leaveStart','user_sl.leaveEnd','user_sl.isApproved','user_sl.totalCredits','user_sl.halfdayFrom','user_sl.halfdayTo', 'user_sl.created_at', 'user_sl.notes','users.employeeNumber as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
 
     $all_vto = DB::table('user_vto')->where([ 
                   ['user_vto.productionDate','>=', $startCutoff],
                   ['user_vto.productionDate','<=', $endCutoff],
                   ])->join('users','users.id','=','user_vto.user_id')->
-                  select('user_vto.deductFrom', 'user_vto.productionDate', 'user_vto.startTime','user_vto.endTime', 'user_vto.isApproved','user_vto.totalHours','user_vto.created_at', 'user_vto.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                  select('user_vto.deductFrom', 'user_vto.productionDate', 'user_vto.startTime','user_vto.endTime', 'user_vto.isApproved','user_vto.totalHours','user_vto.created_at', 'user_vto.notes','users.employeeNumber as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
 
     $LWOP = DB::table('user_lwop')->where([ 
                   ['user_lwop.leaveStart','>=', $startCutoff." 00:00:00"],
                   ['user_lwop.leaveEnd','<=', $endCutoff." 23:59:00"],
                   ])->join('users','users.id','=','user_lwop.user_id')->
                   
-                select('user_lwop.productionDate','user_lwop.leaveStart','user_lwop.leaveEnd','user_lwop.isApproved','user_lwop.totalCredits','user_lwop.halfdayFrom','user_lwop.halfdayTo', 'user_lwop.created_at', 'user_lwop.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                select('user_lwop.productionDate','user_lwop.leaveStart','user_lwop.leaveEnd','user_lwop.isApproved','user_lwop.totalCredits','user_lwop.halfdayFrom','user_lwop.halfdayTo', 'user_lwop.created_at', 'user_lwop.notes','users.employeeNumber as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
 
    //allocate 1month for FLs
     $startExt = Carbon::parse($startCutoff,'Asia/Manila')->addDays(-31);
@@ -1412,7 +1412,7 @@ trait TimekeepingTraits
                   
                   ])->join('users','users.id','=','user_familyleaves.user_id')->
                   
-                select('user_familyleaves.productionDate', 'user_familyleaves.leaveType', 'user_familyleaves.leaveStart','user_familyleaves.leaveEnd','user_familyleaves.isApproved','user_familyleaves.totalCredits','user_familyleaves.halfdayFrom','user_familyleaves.halfdayTo', 'user_familyleaves.created_at', 'user_familyleaves.notes','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                select('user_familyleaves.productionDate', 'user_familyleaves.leaveType', 'user_familyleaves.leaveStart','user_familyleaves.leaveEnd','user_familyleaves.isApproved','user_familyleaves.totalCredits','user_familyleaves.halfdayFrom','user_familyleaves.halfdayTo', 'user_familyleaves.created_at', 'user_familyleaves.notes','users.employeeNumber as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
 
     
     $total = count($VL) + count($SL) + count($LWOP) + count($FL);
@@ -1459,7 +1459,7 @@ trait TimekeepingTraits
                           leftJoin('users','team.user_id','=','users.id')->
                           leftJoin('user_ot','user_ot.user_id','=','users.id')->
                           leftJoin('biometrics','biometrics.id','=','user_ot.biometrics_id')->
-                          select('biometrics.productionDate','user_ot.id as leaveID', 'user_ot.isApproved','user_ot.filed_hours','user_ot.billable_hours', 'user_ot.timeStart','user_ot.timeEnd','user_ot.reason as notes', 'users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.nickname', 'users.firstname','campaign.name as program','campaign.id as programID')->
+                          select('biometrics.productionDate','user_ot.id as leaveID', 'user_ot.isApproved','user_ot.filed_hours','user_ot.billable_hours', 'user_ot.timeStart','user_ot.timeEnd','user_ot.reason as notes', 'users.employeeNumber as accesscode', 'users.id as userID','users.lastname','users.nickname', 'users.firstname','campaign.name as program','campaign.id as programID')->
                           where('biometrics.productionDate','<=',$endCutoff)->
                           where('biometrics.productionDate','>=',$startCutoff)->orderBy('user_ot.isApproved','ASC')->get();
 
@@ -1477,7 +1477,7 @@ trait TimekeepingTraits
                           leftJoin('team','team.user_id','=','user_ot.user_id')->
                           leftJoin('campaign','campaign.id','=','team.campaign_id')->
                           join('biometrics','user_ot.biometrics_id','=','biometrics.id')->
-                        select('biometrics.productionDate','user_ot.id as leaveID', 'user_ot.isApproved','user_ot.filed_hours','user_ot.billable_hours', 'user_ot.timeStart','user_ot.timeEnd','user_ot.reason as notes', 'users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.nickname', 'users.firstname','campaign.name as program','campaign.id as programID')->get();
+                        select('biometrics.productionDate','user_ot.id as leaveID', 'user_ot.isApproved','user_ot.filed_hours','user_ot.billable_hours', 'user_ot.timeStart','user_ot.timeEnd','user_ot.reason as notes', 'users.employeeNumber as accesscode', 'users.id as userID','users.lastname','users.nickname', 'users.firstname','campaign.name as program','campaign.id as programID')->get();
 
               if (count($ot) > 0) {
                 $allOTs->push($ot);
@@ -1542,7 +1542,7 @@ trait TimekeepingTraits
       $allLocked = DB::table('user_dtr')->where([ 
                 ['user_dtr.productionDate','>=',$startCutoff],
                 ['user_dtr.productionDate','<=',$endCutoff]
-                ])->join('users','users.id','=','user_dtr.user_id')->select('user_dtr.productionDate','user_dtr.workshift','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                ])->join('users','users.id','=','user_dtr.user_id')->select('user_dtr.productionDate','user_dtr.workshift','users.employeeNumber as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
 
       
       foreach ($period as $p) 
@@ -1681,7 +1681,7 @@ trait TimekeepingTraits
                       ['user_dtr.productionDate',$p->productionDate]
                       ])->join('users','users.id','=','user_dtr.user_id')->
                       
-                    select('user_dtr.productionDate','user_dtr.workshift','users.employeeCode as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
+                    select('user_dtr.productionDate','user_dtr.workshift','users.employeeNumber as accesscode', 'users.id as userID','users.lastname','users.firstname')->get();
         if (count($ot) > 0) {
           $allOTs->push($ot);
           $total += count($ot);
@@ -1730,7 +1730,7 @@ trait TimekeepingTraits
                       ])->orderBy('users.lastname')->
                       join('user_dtr','user_dtr.user_id','=','users.id')->
                       where('user_dtr.productionDate',$p->holidate)->
-                      select('user_dtr.productionDate','user_dtr.OT_approved as filed_hours','user_dtr.OT_billable','user_dtr.timeIN as timeStart','user_dtr.timeOUT as timeEnd','users.employeeCode as accesscode','users.id as userID','users.lastname', 'users.firstname','campaign.name as program','user_dtr.hoursWorked','user_dtr.workshift','users.status_id')->
+                      select('user_dtr.productionDate','user_dtr.OT_approved as filed_hours','user_dtr.OT_billable','user_dtr.timeIN as timeStart','user_dtr.timeOUT as timeEnd','users.employeeNumber as accesscode','users.id as userID','users.lastname', 'users.firstname','campaign.name as program','user_dtr.hoursWorked','user_dtr.workshift','users.status_id')->
                       where('user_dtr.OT_approved','=','0.00')->
                       where([
                           ['user_dtr.timeIN','!=','<strong class="text-danger"> N / A </strong><a tit'],
