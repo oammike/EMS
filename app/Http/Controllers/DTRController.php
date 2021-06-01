@@ -6157,7 +6157,7 @@ class DTRController extends Controller
                 $mgaMvt = collect($mvts)->where('id',$key->user_id);
                 if(count($mgaMvt) > 0)
                 {
-                  if(Carbon::parse($mgaMvt->first()->effectivity,'Asia/Manila')->format('Y-m-d') <= $key->productionDate) 
+                  if(Carbon::parse($mgaMvt->first()->effectivity,'Asia/Manila')->format('Y-m-d') < $key->productionDate) 
                     $includeDate=0;
                   $e->push(['effectivity'=>$mgaMvt->first()->effectivity, 'productionDate'=>$key->productionDate]);
                 }
