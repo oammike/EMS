@@ -6216,7 +6216,7 @@ class DTRController extends Controller
 
         }//end foreach employee
 
-        return response()->json(['DTRs'=>$allDTRs,'total'=>$total,'submitted'=>$total, 'program'=>'TRAINEES', 'groupedDTRs'=>$groupedDTRs,'cutoffstart'=>$cutoff[0],'cutoffend'=>$cutoff[1],'traineeDTR'=>$traineeDTR]);
+        return response()->json(['DTRs'=>$allDTRs,'total'=>$total,'submitted'=>count($traineeDTR), 'program'=>'TRAINEES', 'groupedDTRs'=>$groupedDTRs,'cutoffstart'=>$cutoff[0],'cutoffend'=>$cutoff[1],'traineeDTR'=>$traineeDTR]);
 
        
       }
