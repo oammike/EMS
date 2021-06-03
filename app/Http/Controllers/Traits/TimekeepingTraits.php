@@ -8174,7 +8174,7 @@ trait TimekeepingTraits
                       
                       $workedHours = number_format(($wh/60),2); //."<br/><small>[ *Late IN* ]</small>";
 
-                      if ($stat == 12 || $stat ==14)
+                      if ($stat == 12 || $stat ==14) //kung Part timer or foreign part timer
                       {
                         //$startTime = Carbon::parse($shiftStart->format('Y-m-d H:i:s'),'Asia/Manila')->addHours(5);
                         //check mo muna kung entilted sya for OT
@@ -8207,6 +8207,7 @@ trait TimekeepingTraits
                           $workedHours = number_format($ending->diffInMinutes($startTime) / 60,2);
 
                           if($workedHours > 8.0) {$billableForOT = $workedHours - 8.0; $OTattribute = $OTicons;}
+
                           elseif($workedHours <= 8.0){ $billableForOT = 0; $OTattribute=null; $workedHours=8.0; }
 
 
@@ -8229,6 +8230,7 @@ trait TimekeepingTraits
 
 
                           if($workedHours > 8.0) {$billableForOT = $workedHours - 8.0; $OTattribute = $OTicons;}
+                          elseif($workedHours > 4.0 && $workedHours < 8.0) { $billableForOT = 0; $OTattribute=null; $workedHours=4.0; }
                           elseif($workedHours <= 8.0){ $billableForOT = 0; $OTattribute=null; }
 
                         }
@@ -8239,7 +8241,7 @@ trait TimekeepingTraits
                       }
                   }
                   else {
-                    $workedHours = number_format(($wh/60)+5,2)."<br/><small>[ Late IN ]</small>";
+                    $workedHours = number_format(($wh/60)+5,2); //"<br/><small>[ Late IN ]</small>";
                     $UT = round(((240.0 - $wh)/60)-1,2); //4h instead of 8H
                     $billableForOT = 0;
                     $OTattribute = $OTicons;
@@ -8259,9 +8261,13 @@ trait TimekeepingTraits
                   //$workedHours = number_format(($wh/60)+1,2);
                   if($leaveType == 'VL' || $leaveType == 'SL')
                     $workedHours = 8.0; //number_format(($wh/60)+4,2);
-                  else
-                    $workedHours = number_format(($wh/60),2);
-                    //."<br/><small>[ *Late IN* ]</small>"
+                  else {
+                    $wh1 = number_format(($wh/60),2);
+                    if($wh1 > 4.0 && $wh1 < 8.0) { $billableForOT = 0; $OTattribute=null; $workedHours=4.0; }
+                    else{ $billableForOT = 0; $OTattribute=null; $workedHours=$wh1; }
+                  }
+                    
+                  
 
                   
                   $UT = 0;
@@ -8419,13 +8425,21 @@ trait TimekeepingTraits
                         $workedHours += 4.0;
                         $UT = round((480.0 - $wh)/60,2);  //full 8h work dapat
 
-                        if($workedHours > 8.0) $billableForOT = $workedHours - 8.0;
+
+                        if($workedHours > 8.0) {$billableForOT = $workedHours - 8.0; $OTattribute = $OTicons;}
+                        elseif($workedHours > 4.0 && $workedHours < 8.0) { $billableForOT = 0; $OTattribute=null; $workedHours=4.0; }
+                        elseif($workedHours <= 8.0){ $billableForOT = 0; $OTattribute=null; }
+
+                        //if($workedHours > 8.0) $billableForOT = $workedHours - 8.0;
                       }
                   }
                   else {
-                    $workedHours = number_format(($wh/60)+5,2)."<br/><small>[ Late IN ]</small>";
+                    $workedHours = number_format(($wh/60)+5,2); //."<br/><small>[ Late IN ]</small>";
                     $UT = round(((240.0 - $wh)/60)-1,2); //4h instead of 8H
                     $billableForOT = 0;
+
+                    if($workedHours > 4.0 && $workedHours < 8.0) { $OTattribute=null; $workedHours=4.0; }
+                    elseif($workedHours <= 8.0){ $billableForOT = 0; $OTattribute=null; }
                   }
 
 
