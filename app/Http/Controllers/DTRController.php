@@ -6356,6 +6356,7 @@ class DTRController extends Controller
       //$user = User::find($id);
       $dtrSheet = $request->dtrsheet;
       $coll = new Collection;
+      $now = Carbon::now('GMT+8');
 
       foreach ($dtrSheet as $d) {
 
@@ -6380,6 +6381,8 @@ class DTRController extends Controller
           $dtr->OT_approved = $d['OT_approved'];
           $dtr->OT_id = $d['OT_id'];
           $dtr->UT = $d['UT'];
+          $dtr->created_at = $now->format('Y-m-d H:i:s');
+          $dtr->updated_at = $now->format('Y-m-d H:i:s');
           $dtr->push();
           $coll->push($dtr);
 
@@ -6404,6 +6407,8 @@ class DTRController extends Controller
           $dtr->OT_approved = $d['OT_approved'];
           $dtr->OT_id = $d['OT_id'];
           $dtr->UT = $d['UT'];
+          $dtr->created_at = $now->format('Y-m-d H:i:s');
+          $dtr->updated_at = $now->format('Y-m-d H:i:s');
           $dtr->save();
           $coll->push($dtr);
 
