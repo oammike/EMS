@@ -3304,18 +3304,36 @@ trait TimekeepingTraits
       $hasFL = false; //$hasLeave=false;
       $flDeet = null;
     }
-
-
-
-
-
-
    
 
+    $davao = Team::where('user_id',$id)->where('floor_id',9)->get();
+    (count($davao) > 0) ? $isDavao = 1 : $isDavao=0;
+
+    (count(Team::where('user_id',$id)->where('floor_id',10)->get()) > 0) ? $isTaipei = 1 : $isTaipei=0;
+    (count(Team::where('user_id',$id)->where('floor_id',11)->get()) > 0) ? $isXiamen = 1 : $isXiamen=0;
+
+
+    if (count($holidayToday) > 0){
+
+      
+      if($holidayToday->first()->holidayType_id == 4) // Davao
+      {
+          ($isDavao) ? $hasHolidayToday = 1 : $hasHolidayToday = 0;
+
+      }elseif($holidayToday->first()->holidayType_id == 5) // Taipei
+      {
+          ($isTaipei) ? $hasHolidayToday = 1 : $hasHolidayToday = 0;
+
+      }elseif($holidayToday->first()->holidayType_id == 6) // Xiamen
+      {
+          ($isXiamen) ? $hasHolidayToday = 1 : $hasHolidayToday = 0;
+
+      }else{ $hasHolidayToday = 1; }
+
+    } else $hasHolidayToday = 0;
 
 
 
-    if (count($holidayToday) > 0) $hasHolidayToday = true;
 
     $hasApprovedDTRP1 = User_DTRP::where('user_id',$id)->where('isApproved',true)->where('biometrics_id',$biometrics_id)->where('logType_id',$logType_id)->orderBy('updated_at','DESC')->get();
 
@@ -4046,12 +4064,12 @@ trait TimekeepingTraits
                                $icons = "<a title=\"Verify Biometrics data\" class=\"pull-right text-gray\" target=\"_blank\" style=\"font-size:1.2em;\" href=\"$link#$biometrics_id\"><i class=\"fa fa-clock-o\"></i></a>";
                                 
                                 
-                               if ($hasHolidayToday && $isBackoffice)
+                               if ($hasHolidayToday  && $isBackoffice)//&& count($holidayToday) > 0
                                {
                                 $log = "<strong class=\"text-danger\"> N / A </strong>". $icons;
                                 $workedHours = $holidayToday->first()->name;
 
-                               }else if ($hasHolidayToday && !$isBackoffice)
+                               }else if ($hasHolidayToday && !$isBackoffice )// && count($holidayToday) > 0
                                {
                                 if($logType_id == 1) {$log = "<strong class=\"text-danger\">No IN</strong>". $icons;}
                                 else {$log = "<strong class=\"text-danger\">No OUT</strong>". $icons;}
@@ -4078,7 +4096,7 @@ trait TimekeepingTraits
                                           
                                   }
 
-                                }//end if has LWOP
+                               }//end if has LWOP
                                 
                                 /*else if ($hasVTO)
                                  {
@@ -4722,8 +4740,42 @@ trait TimekeepingTraits
       $holidayToday = Holiday::where('holidate', $thisPayrollDate)->get();
       (Team::where('user_id',$user_id)->first()->floor_id == 9) ? $isDavao=true : $isDavao=false;
 
+      (Team::where('user_id',$user_id)->first()->floor_id == 10 || Team::where('user_id',$user_id)->first()->floor_id == 11) ? $isTaipei=1 : $isTaipei=0;
 
-      if (count($holidayToday) > 0) $hasHolidayToday = true;
+      if( count($holidayToday) > 0 )
+      {
+        $h =  $holidayToday->first();
+
+        if ($h->holidayType_id == 4)
+        {
+          if($isDavao)
+            {
+              $holidayToday = $hol; 
+              $hasHolidayToday = true;
+
+            } 
+            else { $holidayToday=null; }
+        }
+        elseif($h->holidayType_id == 5) // Taipei holiday
+        {
+
+        }
+        elseif($h->holidayType_id == 6) // Xiamen holiday
+        {
+
+        }
+        else {
+
+          if($isTaipei)
+            {$holidayToday = null;  $hasHolidayToday = 0;} 
+          else
+          {$holidayToday = $holidayToday;  $hasHolidayToday = true;} 
+        }
+
+      }else
+        $holidayToday = $holidayToday; //Holiday::where('holidate', $payday)->get();
+
+
 
       // check first if there's an RD override:
       $hasOverride = User_RDoverride::where('biometrics_id',$biometrics->id)->where('user_id',$user_id)->get();
@@ -5730,6 +5782,8 @@ trait TimekeepingTraits
     $hol = Holiday::where('holidate', $payday)->get();
     (Team::where('user_id',$user->id)->first()->floor_id == 9) ? $isDavao=true : $isDavao=false;
 
+    (Team::where('user_id',$user->id)->first()->floor_id == 10 || Team::where('user_id',$user->id)->first()->floor_id == 11) ? $isTaipei=1 : $isTaipei=0;
+
     if( count($hol) > 0 )
     {
       $h =  $hol->first();
@@ -5744,8 +5798,34 @@ trait TimekeepingTraits
           } 
           else { $holidayToday=null; }
       }
+      elseif($h->holidayType_id == 5) // Taipei holiday
+      {
+        if($isTaipei)
+          {
+            $holidayToday = $hol; //Holiday::where('holidate', $payday)->get();
+            $hasHolidayToday = true;
+
+          } 
+          else { $holidayToday=null; }
+
+      }
+      elseif($h->holidayType_id == 6) // Xiamen holiday
+      {
+        if($isTaipei)
+          {
+            $holidayToday = $hol; //Holiday::where('holidate', $payday)->get();
+            $hasHolidayToday = true;
+
+          } 
+          else { $holidayToday=null; }
+
+      }
       else {
-        $holidayToday = $hol;  $hasHolidayToday = true; //Holiday::where('holidate', $payday)->get();
+
+        if($isTaipei)
+          {$holidayToday = null;  $hasHolidayToday = 0;} //Holiday::where('holidate', $payday)->get();}
+        else
+        {$holidayToday = $hol;  $hasHolidayToday = true;} //Holiday::where('holidate', $payday)->get();}
       }
 
     }else
@@ -7458,8 +7538,8 @@ trait TimekeepingTraits
 
       
 
-
-      if ($hasHolidayToday) /***--- we will need to check if Non-Ops personnel, may pasok kasi pag OPS **/
+      /***--- we will need to check if Non-Ops personnel, may pasok kasi pag OPS**/
+      if ($hasHolidayToday)  
       {
 
         $whs = "(8.0)<br/> <strong>[* " . $holidayToday->first()->name . " *]</strong>";

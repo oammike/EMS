@@ -262,24 +262,29 @@ class UserSLController extends Controller
                         {
                             $totalVTO += ($v->totalHours* 0.125);
                         }
-
-
-
-                        
                         
                             /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
                             $holiday = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
-                            if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 ) //&& $isBackoffice
-                            {
-                                $holidayToday=1;
-                                //check mo muna kung Davao holiday at taga Davao sya
-                                if($holiday->first()->holidayType_id == '4' && $user->floor->first()->id == '9')
-                                    $used = 0.00;
-                                elseif($holiday->first()->holidayType_id != '4')
-                                    $used = 0.00;
-                                else
-                                    $used = 1.00;
+                            $davao = Team::where('user_id',$user->id)->where('floor_id',9)->get();
+                            (count($davao) > 0) ? $isDavao = 1 : $isDavao=0;
+                            (count(Team::where('user_id',$user->id)->where('floor_id',10)->get()) > 0) ? $isTaipei = 1 : $isTaipei=0;
+                            (count(Team::where('user_id',$user->id)->where('floor_id',11)->get()) > 0) ? $isXiamen = 1 : $isXiamen=0;
 
+                            if (count($holiday) > 0 ) //&& $isBackoffice
+                            {
+                                if($holiday->first()->holidayType_id == 4) // Davao
+                                {
+                                    if($isDavao){ $used = 0;$holidayToday=1;} else $used = 1.0;
+
+                                }elseif($holiday->first()->holidayType_id == 5) // Taipei
+                                {
+                                    if($isTaipei){ $used = 0;$holidayToday=1;} else $used = 1.0;
+
+                                }elseif($holiday->first()->holidayType_id == 6) // Xiamen
+                                {
+                                    if($isXiamen){ $used = 0;$holidayToday=1;} else $used = 1.0;
+
+                                }else{ $used = 0; $holidayToday=1; }
 
                                 
                                 if (count($savedCredits)>0){
@@ -461,6 +466,13 @@ class UserSLController extends Controller
         ($user->status_id == 12 || $user->status_id == 14) ? $isParttimer = true : $isParttimer=false;
         $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
 
+        $davao = Team::where('user_id',$user->id)->where('floor_id',9)->get();
+        (count($davao) > 0) ? $isDavao = 1 : $isDavao=0;
+        (count(Team::where('user_id',$user->id)->where('floor_id',10)->get()) > 0) ? $isTaipei = 1 : $isTaipei=0;
+        (count(Team::where('user_id',$user->id)->where('floor_id',11)->get()) > 0) ? $isXiamen = 1 : $isXiamen=0;
+
+
+
         $vl_from = Carbon::parse($request->date_from,"Asia/Manila");
         $vf = Carbon::parse($request->date_from,"Asia/Manila");
         $dateFrom = Carbon::parse($request->date_from,"Asia/Manila");
@@ -609,12 +621,22 @@ class UserSLController extends Controller
                     case '2':{ 
                                 if (count($mayHD) > 0) //&& $isBackoffice
                                 {
-                                    if(($mayHD->first()->holidayType_id == '4' && $user->floor->first()->id == '9') || ($mayHD->first()->holidayType_id != '4'))
-                                    // && $isBackoffice
-                                        $credits = 0;
-                                    else{
-                                        ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5; 
-                                    }
+                                    if($mayHD->first()->holidayType_id == 4) // Davao
+                                    {
+                                        if($isDavao){ $credits = 0;$holidayToday=1;} else $credits = 0.5;
+
+                                    }elseif($mayHD->first()->holidayType_id == 5) // Taipei
+                                    {
+                                        if($isTaipei){ $credits = 0;$holidayToday=1;} else $credits = 0.5;
+
+                                    }elseif($mayHD->first()->holidayType_id == 6) // Xiamen
+                                    {
+                                        if($isXiamen){ $credits = 0;$holidayToday=1;} else $credits = 0.5;
+
+                                    }else{ ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5;  }
+
+
+                                    
                                 } else 
                                 {
                                     ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5; 
@@ -631,12 +653,20 @@ class UserSLController extends Controller
                                 
                                 if (count($mayHD) > 0) //&& $isBackoffice
                                 {
-                                    if(($mayHD->first()->holidayType_id == '4' && $user->floor->first()->id == '9') || ($mayHD->first()->holidayType_id != '4'))
-                                    // && $isBackoffice
-                                        $credits = 0;
-                                    else{
-                                        ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5; 
-                                    }
+                                   if($mayHD->first()->holidayType_id == 4) // Davao
+                                    {
+                                        if($isDavao){ $credits = 0;$holidayToday=1;} else $credits = 0.5;
+
+                                    }elseif($mayHD->first()->holidayType_id == 5) // Taipei
+                                    {
+                                        if($isTaipei){ $credits = 0;$holidayToday=1;} else $credits = 0.5;
+
+                                    }elseif($mayHD->first()->holidayType_id == 6) // Xiamen
+                                    {
+                                        if($isXiamen){ $credits = 0;$holidayToday=1;} else $credits = 0.5;
+
+                                    }else{ ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5;  }
+
                                 } else 
                                 {
                                     ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5; 
@@ -651,12 +681,20 @@ class UserSLController extends Controller
                                 
                                 if (count($mayHD) > 0) //&& $isBackoffice
                                 {
-                                    if(($mayHD->first()->holidayType_id == '4' && $user->floor->first()->id == '9') || ($mayHD->first()->holidayType_id != '4' ))
-                                        //&& $isBackoffice
-                                        $credits = 0;
-                                    else{
-                                        ($isParttimer || $isPartForeign) ? $credits = 0.5 : $credits = 1.0; 
-                                    }
+                                    if($mayHD->first()->holidayType_id == 4) // Davao
+                                    {
+                                        if($isDavao){ $credits = 0;$holidayToday=1;} else $credits = 1.0;
+
+                                    }elseif($mayHD->first()->holidayType_id == 5) // Taipei
+                                    {
+                                        if($isTaipei){ $credits = 0;$holidayToday=1;} else $credits = 1.0;
+
+                                    }elseif($mayHD->first()->holidayType_id == 6) // Xiamen
+                                    {
+                                        if($isXiamen){ $credits = 0;$holidayToday=1;} else $credits = 1.0;
+
+                                    }else{ ($isParttimer || $isPartForeign) ? $credits = 0.5 : $credits = 1.0;  }
+
                                 } else 
                                 {
                                     ($isParttimer || $isPartForeign) ? $credits = 0.5 : $credits = 1.0; 
@@ -685,8 +723,7 @@ class UserSLController extends Controller
 
             }
 
-            return response()->json(['creditsleft'=>$creditsleft,'creditsToEarn'=>$creditsToEarn,'credits'=>$credits]);//'colldates'=>$colldates
-            //return response()->json(['request->date_to'=>$request->date_to, 'shift_from'=>$shift_from, 'hasVLalready'=>$hasVLalready, 'creditsToEarn'=>$creditsToEarn, 'forLWOP'=>abs($forLWOP), 'creditsleft'=>number_format($creditsleft,2), 'credits'=> number_format(abs($credits),2) , 'shift_from'=>$shift_from, 'shift_to'=>$shift_to,'displayShift'=>$displayShift,  'schedForTheDay'=>$schedForTheDay]);
+            return response()->json(['creditsleft'=>$creditsleft,'creditsToEarn'=>$creditsToEarn,'credits'=>$credits]);
 
 
 

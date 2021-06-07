@@ -1821,8 +1821,7 @@ class UserController extends Controller
     {
       $vl_to = Carbon::parse($request->vl_day,'Asia/Manila')->format('Y-m-d');
       $user = User::find($id);
-      $isStylized = $request->isStylized;
-      $sched = $this->getWorkSchedForTheDay1($user,$vl_to,null,$isStylized);
+      $sched = $this->getWorkSchedForTheDay1($user,$vl_to,null,$request->isStylized);
       //return (['vl_to'=>$vl_to, 'sched'=>$sched]);;
       return $sched;
 

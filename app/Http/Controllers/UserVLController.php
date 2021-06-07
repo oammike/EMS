@@ -242,6 +242,9 @@ class UserVLController extends Controller
             $davao = Team::where('user_id',$user->id)->where('floor_id',9)->get();
             (count($davao) > 0) ? $isDavao = 1 : $isDavao=0;
 
+
+            (count(Team::where('user_id',$user->id)->where('floor_id',10)->get()) > 0 || count(Team::where('user_id',$user->id)->where('floor_id',11)->get()) > 0) ? $isTaipei = 1 : $isTaipei=0;
+
             $ndy = Team::where('user_id',$user->id)->where('campaign_id',54)->get();
             (count($ndy) > 0) ? $isNDY = 1 : $isNDY=0;
 
@@ -324,7 +327,27 @@ class UserVLController extends Controller
 
                             if (count($holiday) > 0) // && $isBackofficeif (count($holiday) > 0 )
                             {
-                                $holidayToday=1; $used = '0.00'; //less 1 day assume wholeday initially
+                                if($holiday->first()->holidayType_id == 4) // Davao
+                                {
+                                    if($isDavao){ $holidayToday=1; $used = '0.00'; } 
+                                    else { $holidayToday=0; $used = '1.00';  }
+
+                                }elseif($holiday->first()->holidayType_id == 5) // Taipei
+                                {
+                                    if($isTaipei){ $holidayToday=1; $used = '0.00';  } 
+                                    else { $holidayToday=0; $used = '1.00';}
+
+                                }elseif($holiday->first()->holidayType_id == 6) // Xiamen
+                                {
+                                    if($isTaipei){ $holidayToday=1; $used = '0.00'; } 
+                                    else { $holidayToday=0; $used = '1.00'; }
+
+                                }else{
+
+                                    $holidayToday=1; $used = '0.00'; //less 1 day assume wholeday initially
+
+                                }
+                                
 
                                 if (count($savedCredits)>0){
                                      $hasSavedCredits = true;
@@ -791,6 +814,13 @@ class UserVLController extends Controller
         ($user->status_id == 12 || $user->status_id == 14) ? $isParttimer = true : $isParttimer=false;
         $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
 
+        $davao = Team::where('user_id',$user->id)->where('floor_id',9)->get();
+        (count($davao) > 0) ? $isDavao = 1 : $isDavao=0;
+
+        (count(Team::where('user_id',$user->id)->where('floor_id',10)->get()) > 0) ? $isTaipei = 1 : $isTaipei=0;
+        (count(Team::where('user_id',$user->id)->where('floor_id',11)->get()) > 0) ? $isXiamen = 1 : $isXiamen=0;
+
+
         $vl_from = Carbon::parse($request->date_from,"Asia/Manila");
         $vf = Carbon::parse($request->date_from,"Asia/Manila");
         $dateFrom = Carbon::parse($request->date_from,"Asia/Manila");
@@ -958,15 +988,29 @@ class UserVLController extends Controller
                     $totalVTO += ($v->totalHours* 0.125);
                 }
 
+                $hToday = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
+
 
                 switch ($shift_from) {
                     case '2':{ 
-                                //(count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) ? $credits = 0 : $credits -= 0.5;
-
-                                if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) //&& $isBackoffice
+                                if (count($hToday) > 0) 
                                 {
-                                    $credits = 0;
+                                    if($hToday->first()->holidayType_id == 4) // Davao
+                                    {
+                                        ($isDavao) ? $credits = 0 : $credits = 0.5;
+
+                                    }elseif($hToday->first()->holidayType_id == 5) // Taipei
+                                    {
+                                        ($isTaipei) ? $credits = 0 : $credits = 0.5;
+
+                                    }elseif($hToday->first()->holidayType_id == 6) // Xiamen
+                                    {
+                                        ($isXiamen) ? $credits = 0 : $credits = 0.5;
+
+                                    }else{ $credits = 0; }
+
                                     $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used + $totalVLearned; - $totalVTO;
+                                    
                                 } else 
                                 {
                                     ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5; 
@@ -981,15 +1025,25 @@ class UserVLController extends Controller
 
                     
                     case '3':{ 
-                                //(count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) ? $credits = 0 : $credits -= 0.5; 
-                                if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) //&& $isBackoffice
+                                if (count($hToday) > 0) 
                                 {
-                                    $credits = 0;
+                                    if($hToday->first()->holidayType_id == 4) // Davao
+                                    {
+                                        ($isDavao) ? $credits = 0 : $credits = 0.5;
+
+                                    }elseif($hToday->first()->holidayType_id == 5) // Taipei
+                                    {
+                                        ($isTaipei) ? $credits = 0 : $credits = 0.5;
+
+                                    }elseif($hToday->first()->holidayType_id == 6) // Xiamen
+                                    {
+                                        ($isXiamen) ? $credits = 0 : $credits = 0.5;
+
+                                    }else{ $credits = 0; }
+
                                     $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used + $totalVLearned; - $totalVTO;
-                                } else 
-                                {
-                                    ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5; 
-                                }
+                                    
+                                } else {  ($isParttimer || $isPartForeign) ? $credits = 0.25 : $credits = 0.5; }
 
                                 $start = Carbon::parse($schedForTheDay->first()->timeEnd)->addHour(-4)->format('h:i A');
                                 $end = Carbon::parse($schedForTheDay->first()->timeEnd)->format('h:i A');
@@ -997,11 +1051,24 @@ class UserVLController extends Controller
                                 //$creditsleft -= $credits;
                              }break;
                     default:{
-                                //(count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) ? $credits = 0 : $credits = 1.00;
-                                if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) //&& $isBackoffice
+                                if (count($hToday) > 0) 
                                 {
-                                    $credits = 0;
+                                    if($hToday->first()->holidayType_id == 4) // Davao
+                                    {
+                                        ($isDavao) ? $credits = 0 : $credits = 1;
+
+                                    }elseif($hToday->first()->holidayType_id == 5) // Taipei
+                                    {
+                                        ($isTaipei) ? $credits = 0 : $credits = 1;
+
+                                    }elseif($hToday->first()->holidayType_id == 6) // Xiamen
+                                    {
+                                        ($isXiamen) ? $credits = 0 : $credits = 1;
+
+                                    }else{ $credits = 0; }
+
                                     $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used + $totalVLearned; - $totalVTO;
+                                    
                                 } else 
                                 {
                                     ($isParttimer || $isPartForeign) ? $credits = 0.5 : $credits = 1.00; 
@@ -1037,9 +1104,7 @@ class UserVLController extends Controller
                         
             //$creditsleft=33.33;
             return response()->json(['notAllowed'=>$notAllowed,'twoWeeks'=>$prior->format('M d, Y'), 'creditsleft'=>$creditsleft,'creditsToEarn'=>$creditsToEarn,'credits'=>$credits,'mayExisting'=>$mayExisting,
-            'vf endOfDay'=>$vf->format('Y-m-d H:i:s'),'coll'=>$coll]);//'colldates'=>$colldates
-            //return response()->json(['request->date_to'=>$request->date_to, 'shift_from'=>$shift_from, 'hasVLalready'=>$hasVLalready, 'creditsToEarn'=>$creditsToEarn, 'forLWOP'=>abs($forLWOP), 'creditsleft'=>number_format($creditsleft,2), 'credits'=> number_format(abs($credits),2) , 'shift_from'=>$shift_from, 'shift_to'=>$shift_to,'displayShift'=>$displayShift,  'schedForTheDay'=>$schedForTheDay]);
-
+            'vf endOfDay'=>$vf->format('Y-m-d H:i:s'),'coll'=>$coll]);
 
 
         /*}//end may existing nang VL application*/
