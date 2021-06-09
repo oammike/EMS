@@ -668,7 +668,7 @@
 
 
 
-         <li class="treeview  @if ( Request::is('user_dtr*') || Request::is('user_vl*') || Request::is('user_sl*') || Request::is('DTRlockReport*') || Request::is('track_EMSaccess') ) active @endif ">
+         <li class="treeview  @if ( Request::is('user_dtr*') || Request::is('user_vl*') || Request::is('user_sl*') || Request::is('DTRlockReport*') || Request::is('track_EMSaccess') || Request::is('financeReports*') ) active @endif ">
           <a href="#" class="text-yellow">
             <i class="fa fa-clock-o"></i> <span>Timekeeping</span>
             <i class="fa fa-angle-left pull-right"></i>
@@ -682,7 +682,9 @@
             <li style="padding-left:20px"><a href="{{action('HomeController@module')}}"><i class="fa fa-calendar-times-o"></i> File DTRP</a></li> -->
             <li style="padding-left:20px" @if ( Request::is('user_vl*') ) class="active" @endif ><a href="{{action('UserVLController@showCredits',Auth::user()->id)}}"><i class="fa fa-bar-chart"></i> Leave Credits</a></li>
 
-            <li style="padding-left:20px" @if ( Request::is('user_vl*') ) class="active" @endif ><a href="{{action('DTRController@financeReports')}}"><i class="fa fa-clipboard"></i> Finance Reports</a></li>
+            <li style="padding-left:20px" @if ( Request::is('financeReports*') ) class="active" @endif ><a href="{{action('DTRController@financeReports')}}"><i class="fa fa-clipboard"></i> Finance Reports</a></li>
+
+            <li style="padding-left:20px" @if ( Request::is('financeReports*') ) class="active" @endif ><a href="{{action('DTRController@financeReports',['type'=>'s'])}}"><i class="fa fa-calendar"></i> Default Work Sched Report</a></li>
 
             <li style="padding-left:20px" @if ( Request::is('user_vl*') ) class="active" @endif ><a href="{{action('DTRController@finance_JPS')}}"><i class="fa fa-calculator"></i>JPS Templates </a></li>
 

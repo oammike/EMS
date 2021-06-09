@@ -11,6 +11,8 @@
   <!-- Content Header (Page header) -->
     <section class="content-header">
       <h4><i class="fa fa-calendar"></i> Default Work Schedule Report  </h4>
+      <p>This will download default work schedules for a specific cutoff period.<br/>
+         Updated work schedules with approved CWS request should be downloaded via JPS templates instead.</p>
       <ol class="breadcrumb">
         <li><a href="{{action('HomeController@index')}}"><i class="fa fa-dashboard"></i> Home</a></li>
         <li>DTR</li>
