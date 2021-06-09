@@ -74,7 +74,7 @@
 
                 <p class="text-center"> 
                   <button type="submit" class="btn btn-lg btn-success" id="dl"><i class="fa fa-file-excel-o"></i> Download Spreadsheet</button> 
-                  <input type="hidden" name="dltype" id="dltype" />
+                  <input type="hidden" name="dltype" id="dltype" value="1" />
                   
 
                 </p>
@@ -259,7 +259,10 @@
   }); 
 
   $('#dl').on('click',function(){
-      $('input[name="dltype"]').val(1);
+       
+        //$('input[name="dltype"]').val(1);
+        $.notify("Generating CSV file for download. Please wait...",{className:"success",globalPosition:'right bottom',autoHideDelay:7000, clickToHide:true} );
+
   });
 
   $('#dl2').on('click',function(){

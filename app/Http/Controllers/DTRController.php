@@ -174,7 +174,7 @@ class DTRController extends Controller
 
       DB::connection()->disableQueryLog();
       $correct = Carbon::now('GMT+8'); //->timezoneName();
-      $passedTrainees=null; $allUsers=null;$allFixedWS=null;$allMonthlyWS=null;
+      $passedTrainees=null; $allUsers=null;$allFixedWS=null;$allMonthlyWS=null; $allDTRs=null;
       $fileType = "DTRsummary_";
 
       if($request->reportType == 'dailyLogs') // used for Finance Report
@@ -310,89 +310,7 @@ class DTRController extends Controller
                 fclose($file);
         } 
 
-        //we need to do this for each production date
-        $coff = Carbon::parse($cutoffStart->format('Y-m-d'),'Asia/Manila');
-        $arr = [];
-        $coll = new Collection;
-
-        while ($coff->format('Y-m-d') <= $cutoffEnd->format('Y-m-d')) {
-
-          foreach($allUsers as $j)
-          {
-
-
-                $c=0;
-                $arr[$c] = $j->accesscode; $c++;
-                $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
-
-
-                $s = $coff;
-               
-
-                //*** ShiftDate
-                $arr[$c] = $s->format('m/d/Y'); $c++;
-
-                 //*** Status
-                $stat = "Approved";
-                
-
-                $arr[$c] = $stat; $c++;
-
-                //*** CurrentDailySchedule FLEXI-TIME 8 HOURS
-                //check mo kung exempt employee
-                $ex = DB::table('user_schedType')->where('user_schedType.user_id',$j->userID)->
-                        join('schedType','schedType.id','=','user_schedType.schedType_id')->select('user_schedType.user_id','schedType.name')->get();
-
-                if(count($ex) > 0)
-                {
-                  //exempt employee
-                  $schedNya = $this->getWorkSchedForTheDay1(User::find($j->userID), $coff->format('Y-m-d'),0,1);
-
-                  if ($schedNya['isRD'])
-                   {
-                       $arr[$c] = "FLEXI-TIME 8 HOURS"; $c++; 
-                       $arr[$c] = "FLEXI-TIME 8 HOURS";$c++;
-                       $arr[$c] = "Rest Day"; $c++;
-                       $arr[$c] = "Rest Day"; $c++;
-                   }
-                   else{
-                     $arr[$c] = $ex[0]->name; $c++;
-                     $arr[$c] = $ex[0]->name; $c++; 
-                     $arr[$c] = "Regular Day"; $c++;
-                     $arr[$c] = "Regular Day"; $c++;
-                   }
-                }
-                else
-                {
-                  //check kung alin mas updated, fixed or monthly
-                  $schedNya = $this->getWorkSchedForTheDay1(User::find($j->userID), $coff->format('Y-m-d'),0,1);
-
-                  
-                  if ($schedNya['isRD'])
-                   {
-                       $arr[$c] = "FLEXI-TIME 8 HOURS"; $c++; 
-                       $arr[$c] = "FLEXI-TIME 8 HOURS";$c++;
-                       $arr[$c] = "Rest Day"; $c++;
-                       $arr[$c] = "Rest Day"; $c++;
-                   }
-                   else{
-                     $arr[$c] = date('h:i A',strtotime($schedNya['timeStart']))." - ". date('h:i A',strtotime($schedNya['timeEnd'])); $c++;
-                     $arr[$c] = date('h:i A',strtotime($schedNya['timeStart']))." - ". date('h:i A',strtotime($schedNya['timeEnd'])); $c++; 
-                     $arr[$c] = "Regular Day"; $c++;
-                     $arr[$c] = "Regular Day"; $c++;
-                   }
-
-                }
-                //$sheet->appendRow($arr);
-                $coll->push($arr);
-           
-
-          }//end foreach employee
-           
-           $coff->addDays(1);
-        }
-        return $coll;
-        return response()->json(['users'=>$allUsers, 'fixed_schedules'=>collect($allFixedWS)->groupBy('userID'), 'monthly_schedules'=>collect($allMonthlyWS)->groupBy('userID')]);
+        //return response()->json(['users'=>$allUsers, 'fixed_schedules'=>collect($allFixedWS)->groupBy('userID'), 'monthly_schedules'=>collect($allMonthlyWS)->groupBy('userID')]);
 
       }
       elseif ($request->reportType == 'trainees')
@@ -547,7 +465,7 @@ class DTRController extends Controller
         
         
 
-        Excel::create($fileType.$pname."_".$cutoffStart->format('M-d'),function($excel) use($reportType, $program,$pname, $allDTR, $allDTRs,$ecqStats, $cutoffStart, $cutoffEnd, $headers,$description, $passedTrainees,$allUsers,$allFixedWS,$allMonthlyWS) 
+        Excel::create($fileType.$pname."_".$cutoffStart->format('M-d'),function($excel) use($fileType,$reportType, $program,$pname, $allDTR, $allDTRs,$ecqStats, $cutoffStart, $cutoffEnd, $headers,$description, $passedTrainees,$allUsers,$allFixedWS,$allMonthlyWS) 
                {
                       
 
@@ -1348,14 +1266,14 @@ class DTRController extends Controller
                       }
                       elseif($reportType == 'sched')
                       {
-                        $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$type);
+                        $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$fileType);
                         $excel->setCreator('Programming Team')
                               ->setCompany('OpenAccessBPO');
 
                         // Call them separately
                         $excel->setDescription($description);
 
-                        $excel->sheet("Sheet1", function($sheet) use ($type, $allUsers,$allFixedWS,$allMonthlyWS, $cutoffStart, $cutoffEnd, $headers,$description)
+                        $excel->sheet("Sheet1", function($sheet) use ($allUsers,$allFixedWS,$allMonthlyWS, $cutoffStart, $cutoffEnd, $headers,$description)
                         {
                           $sheet->appendRow($headers);      
 
@@ -1363,7 +1281,10 @@ class DTRController extends Controller
 
                           //we need to do this for each production date
                           $coff = Carbon::parse($cutoffStart->format('Y-m-d'),'Asia/Manila');
-                          while ($coff->format('Y-m-d') <= $cutoffEnd->format('Y-m-d')) {
+                          $arr = [];
+                         
+
+                          while ($coff->format('Y-m-d') <= $cutoffEnd->format('Y-m-d')){
 
                             foreach($allUsers as $j)
                             {
@@ -1394,10 +1315,12 @@ class DTRController extends Controller
                                   if(count($ex) > 0)
                                   {
                                     //exempt employee
-                                    if (($j->workshift == "* RD * - * RD *") || strpos($j->workshift, 'RD') !== false)
+                                    $schedNya = $this->getWorkSchedForTheDay1(User::find($j->userID), $coff->format('Y-m-d'),0,1);
+
+                                    if ($schedNya['isRD'])
                                      {
-                                         $arr[$c] = $ex[0]->name; $c++; 
-                                         $arr[$c] = $ex[0]->name;$c++;
+                                         $arr[$c] = "FLEXI-TIME 8 HOURS"; $c++; 
+                                         $arr[$c] = "FLEXI-TIME 8 HOURS";$c++;
                                          $arr[$c] = "Rest Day"; $c++;
                                          $arr[$c] = "Rest Day"; $c++;
                                      }
@@ -1412,8 +1335,9 @@ class DTRController extends Controller
                                   {
                                     //check kung alin mas updated, fixed or monthly
                                     $schedNya = $this->getWorkSchedForTheDay1(User::find($j->userID), $coff->format('Y-m-d'),0,1);
+
                                     
-                                    if (($j->workshift == "* RD * - * RD *") || strpos($j->workshift, 'RD') !== false)
+                                    if ($schedNya['isRD'])
                                      {
                                          $arr[$c] = "FLEXI-TIME 8 HOURS"; $c++; 
                                          $arr[$c] = "FLEXI-TIME 8 HOURS";$c++;
@@ -1421,23 +1345,21 @@ class DTRController extends Controller
                                          $arr[$c] = "Rest Day"; $c++;
                                      }
                                      else{
-                                       $arr[$c] = strip_tags($j->workshift); $c++;
-                                       $arr[$c] = strip_tags($j->workshift); $c++; 
+                                       $arr[$c] = date('h:i A',strtotime($schedNya['timeStart']))." - ". date('h:i A',strtotime($schedNya['timeEnd'])); $c++;
+                                       $arr[$c] = date('h:i A',strtotime($schedNya['timeStart']))." - ". date('h:i A',strtotime($schedNya['timeEnd'])); $c++; 
                                        $arr[$c] = "Regular Day"; $c++;
                                        $arr[$c] = "Regular Day"; $c++;
                                      }
 
                                   }
                                   $sheet->appendRow($arr);
+                                  
                              
 
                             }//end foreach employee
-                             
-                             $coff->addDays(1);
-                          }
-
-
-
+                            $coff->addDays(1);
+                            
+                          }//end while
                           
                         });//end sheet1
                       }
