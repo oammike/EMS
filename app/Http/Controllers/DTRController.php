@@ -174,7 +174,8 @@ class DTRController extends Controller
 
       DB::connection()->disableQueryLog();
       $correct = Carbon::now('GMT+8'); //->timezoneName();
-      $passedTrainees=null;
+      $passedTrainees=null; $allUsers=null;$allFixedWS=null;$allMonthlyWS=null;
+      $fileType = "DTRsummary_";
 
       if($request->reportType == 'dailyLogs') // used for Finance Report
       {
@@ -247,6 +248,151 @@ class DTRController extends Controller
                 fwrite($file, "-------------------\n DL_FINANCE cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " for Program: ".$program->name. " by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);
         } 
+
+      }
+      elseif($request->reportType == 'sched') // used for Finance Default Work Sched Report
+      {
+        $program = Campaign::find($request->program);
+        $pname = $program->name;
+        $headers = ['EmployeeCode', 'EmployeeName','ShiftDate','Status','CurrentDailySchedule','NewDailySchedule','CurrentDayType','NewDayType']; $type="WorkSchedules"; 
+        
+        $reportType = 'sched';
+        $fileType= "Default_WorkSched-";
+        
+
+        //$result = $this->fetchLockedDTRs($request->cutoff, $request->program,1);
+        $allFixedWS = DB::table('campaign')->where('campaign.id',$request->program)->
+                      join('team','team.campaign_id','=','campaign.id')->
+                      join('users','team.user_id','=','users.id')->
+                      leftJoin('fixed_schedules','fixed_schedules.user_id','=','team.user_id')->
+
+                      /*DB::table('fixed_schedules')->
+                          join('team','team.user_id','=','fixed_schedules.user_id')->
+                          join('users','team.user_id','=','users.id')->
+                          join('campaign','team.campaign_id','=','campaign.id')->*/
+                          select('users.id as userID','campaign.name as program','fixed_schedules.workday','fixed_schedules.timeStart','fixed_schedules.timeEnd','fixed_schedules.schedEffectivity','fixed_schedules.isRD','fixed_schedules.created_at')->
+                          where('campaign.id',$request->program)->
+                          orderBy('fixed_schedules.id','DESC')->get();
+        $allMonthlyWS = DB::table('monthly_schedules')->
+                            leftJoin('users','monthly_schedules.user_id','=','users.id')->
+                            select('users.id as userID','monthly_schedules.timeStart','monthly_schedules.timeEnd','monthly_schedules.productionDate','monthly_schedules.isRD','monthly_schedules.created_at')->
+                            where('monthly_schedules.productionDate','>=',$cutoffStart->format('Y-m-d'))->
+                            where('monthly_schedules.productionDate','<=',$cutoffEnd->format('Y-m-d'))->
+                            orderBy('monthly_schedules.id','DESC')->get();
+        
+        
+       $allUsers = DB::table('campaign')->where('campaign.id',$request->program)->
+                      join('team','team.campaign_id','=','campaign.id')->
+                      join('users','team.user_id','=','users.id')->
+                      /*leftJoin('immediateHead_Campaigns','team.immediateHead_Campaigns_id','=','immediateHead_Campaigns.id')->
+                      leftJoin('immediateHead','immediateHead_Campaigns.immediateHead_id','=','immediateHead.id')->
+                      leftJoin('positions','users.position_id','=','positions.id')->
+                      leftJoin('floor','team.floor_id','=','floor.id')->
+                      
+                      select('users.accesscode','users.id', 'users.firstname','users.middlename', 'users.lastname','users.nickname','users.dateHired','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','floor.name as location')->*/
+                      select('users.employeeCode as accesscode','users.id as userID', 'users.firstname','users.middlename', 'users.lastname','users.nickname','users.dateHired','campaign.id as campID', 'campaign.name as program','users.employeeNumber')->
+                      where([
+                          ['users.status_id', '!=', 2],
+                          ['users.status_id', '!=', 18],
+                          ['users.status_id', '!=', 19],
+                          ['users.status_id', '!=', 7],
+                          ['users.status_id', '!=', 8],
+                          ['users.status_id', '!=', 9],
+                          ['users.status_id', '!=', 13],
+                          ['users.status_id', '!=', 16],
+                      ])->orderBy('users.lastname')->get();
+
+
+
+        if($this->user->id !== 564 ) {
+              $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                fwrite($file, "-------------------\n DL_Sched cutoff: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " for Program: ".$program->name. " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fclose($file);
+        } 
+
+        //we need to do this for each production date
+        $coff = Carbon::parse($cutoffStart->format('Y-m-d'),'Asia/Manila');
+        $arr = [];
+        $coll = new Collection;
+
+        while ($coff->format('Y-m-d') <= $cutoffEnd->format('Y-m-d')) {
+
+          foreach($allUsers as $j)
+          {
+
+
+                $c=0;
+                $arr[$c] = $j->accesscode; $c++;
+                $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
+
+
+                $s = $coff;
+               
+
+                //*** ShiftDate
+                $arr[$c] = $s->format('m/d/Y'); $c++;
+
+                 //*** Status
+                $stat = "Approved";
+                
+
+                $arr[$c] = $stat; $c++;
+
+                //*** CurrentDailySchedule FLEXI-TIME 8 HOURS
+                //check mo kung exempt employee
+                $ex = DB::table('user_schedType')->where('user_schedType.user_id',$j->userID)->
+                        join('schedType','schedType.id','=','user_schedType.schedType_id')->select('user_schedType.user_id','schedType.name')->get();
+
+                if(count($ex) > 0)
+                {
+                  //exempt employee
+                  $schedNya = $this->getWorkSchedForTheDay1(User::find($j->userID), $coff->format('Y-m-d'),0,1);
+
+                  if ($schedNya['isRD'])
+                   {
+                       $arr[$c] = "FLEXI-TIME 8 HOURS"; $c++; 
+                       $arr[$c] = "FLEXI-TIME 8 HOURS";$c++;
+                       $arr[$c] = "Rest Day"; $c++;
+                       $arr[$c] = "Rest Day"; $c++;
+                   }
+                   else{
+                     $arr[$c] = $ex[0]->name; $c++;
+                     $arr[$c] = $ex[0]->name; $c++; 
+                     $arr[$c] = "Regular Day"; $c++;
+                     $arr[$c] = "Regular Day"; $c++;
+                   }
+                }
+                else
+                {
+                  //check kung alin mas updated, fixed or monthly
+                  $schedNya = $this->getWorkSchedForTheDay1(User::find($j->userID), $coff->format('Y-m-d'),0,1);
+
+                  
+                  if ($schedNya['isRD'])
+                   {
+                       $arr[$c] = "FLEXI-TIME 8 HOURS"; $c++; 
+                       $arr[$c] = "FLEXI-TIME 8 HOURS";$c++;
+                       $arr[$c] = "Rest Day"; $c++;
+                       $arr[$c] = "Rest Day"; $c++;
+                   }
+                   else{
+                     $arr[$c] = date('h:i A',strtotime($schedNya['timeStart']))." - ". date('h:i A',strtotime($schedNya['timeEnd'])); $c++;
+                     $arr[$c] = date('h:i A',strtotime($schedNya['timeStart']))." - ". date('h:i A',strtotime($schedNya['timeEnd'])); $c++; 
+                     $arr[$c] = "Regular Day"; $c++;
+                     $arr[$c] = "Regular Day"; $c++;
+                   }
+
+                }
+                //$sheet->appendRow($arr);
+                $coll->push($arr);
+           
+
+          }//end foreach employee
+           
+           $coff->addDays(1);
+        }
+        return $coll;
+        return response()->json(['users'=>$allUsers, 'fixed_schedules'=>collect($allFixedWS)->groupBy('userID'), 'monthly_schedules'=>collect($allMonthlyWS)->groupBy('userID')]);
 
       }
       elseif ($request->reportType == 'trainees')
@@ -388,8 +534,8 @@ class DTRController extends Controller
 
         
 
-        $dtr = $request->dtr;
-        $cutoff = explode('_', $request->cutoff);
+        //$dtr = $request->dtr;
+        //$cutoff = explode('_', $request->cutoff);
 
         //$cutoffStart = Carbon::parse($request->cutoffstart,'Asia/Manila');
         
@@ -401,7 +547,7 @@ class DTRController extends Controller
         
         
 
-        Excel::create("DTRsummary_".$pname."_".$cutoffStart->format('M-d'),function($excel) use($reportType, $program,$pname, $allDTR, $allDTRs,$ecqStats, $cutoffStart, $cutoffEnd, $headers,$description, $passedTrainees) 
+        Excel::create($fileType.$pname."_".$cutoffStart->format('M-d'),function($excel) use($reportType, $program,$pname, $allDTR, $allDTRs,$ecqStats, $cutoffStart, $cutoffEnd, $headers,$description, $passedTrainees,$allUsers,$allFixedWS,$allMonthlyWS) 
                {
                       
 
@@ -1200,8 +1346,102 @@ class DTRController extends Controller
                           
 
                       }
+                      elseif($reportType == 'sched')
+                      {
+                        $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$type);
+                        $excel->setCreator('Programming Team')
+                              ->setCompany('OpenAccessBPO');
 
-                      
+                        // Call them separately
+                        $excel->setDescription($description);
+
+                        $excel->sheet("Sheet1", function($sheet) use ($type, $allUsers,$allFixedWS,$allMonthlyWS, $cutoffStart, $cutoffEnd, $headers,$description)
+                        {
+                          $sheet->appendRow($headers);      
+
+                          $arr = [];
+
+                          //we need to do this for each production date
+                          $coff = Carbon::parse($cutoffStart->format('Y-m-d'),'Asia/Manila');
+                          while ($coff->format('Y-m-d') <= $cutoffEnd->format('Y-m-d')) {
+
+                            foreach($allUsers as $j)
+                            {
+
+
+                                  $c=0;
+                                  $arr[$c] = $j->accesscode; $c++;
+                                  $arr[$c] = $j->lastname.", ".$j->firstname; $c++;
+
+
+                                  $s = $coff;
+                                 
+
+                                  //*** ShiftDate
+                                  $arr[$c] = $s->format('m/d/Y'); $c++;
+
+                                   //*** Status
+                                  $stat = "Approved";
+                                  
+
+                                  $arr[$c] = $stat; $c++;
+
+                                  //*** CurrentDailySchedule FLEXI-TIME 8 HOURS
+                                  //check mo kung exempt employee
+                                  $ex = DB::table('user_schedType')->where('user_schedType.user_id',$j->userID)->
+                                          join('schedType','schedType.id','=','user_schedType.schedType_id')->select('user_schedType.user_id','schedType.name')->get();
+
+                                  if(count($ex) > 0)
+                                  {
+                                    //exempt employee
+                                    if (($j->workshift == "* RD * - * RD *") || strpos($j->workshift, 'RD') !== false)
+                                     {
+                                         $arr[$c] = $ex[0]->name; $c++; 
+                                         $arr[$c] = $ex[0]->name;$c++;
+                                         $arr[$c] = "Rest Day"; $c++;
+                                         $arr[$c] = "Rest Day"; $c++;
+                                     }
+                                     else{
+                                       $arr[$c] = $ex[0]->name; $c++;
+                                       $arr[$c] = $ex[0]->name; $c++; 
+                                       $arr[$c] = "Regular Day"; $c++;
+                                       $arr[$c] = "Regular Day"; $c++;
+                                     }
+                                  }
+                                  else
+                                  {
+                                    //check kung alin mas updated, fixed or monthly
+                                    $schedNya = $this->getWorkSchedForTheDay1(User::find($j->userID), $coff->format('Y-m-d'),0,1);
+                                    
+                                    if (($j->workshift == "* RD * - * RD *") || strpos($j->workshift, 'RD') !== false)
+                                     {
+                                         $arr[$c] = "FLEXI-TIME 8 HOURS"; $c++; 
+                                         $arr[$c] = "FLEXI-TIME 8 HOURS";$c++;
+                                         $arr[$c] = "Rest Day"; $c++;
+                                         $arr[$c] = "Rest Day"; $c++;
+                                     }
+                                     else{
+                                       $arr[$c] = strip_tags($j->workshift); $c++;
+                                       $arr[$c] = strip_tags($j->workshift); $c++; 
+                                       $arr[$c] = "Regular Day"; $c++;
+                                       $arr[$c] = "Regular Day"; $c++;
+                                     }
+
+                                  }
+                                  $sheet->appendRow($arr);
+                             
+
+                            }//end foreach employee
+                             
+                             $coff->addDays(1);
+                          }
+
+
+
+                          
+                        });//end sheet1
+                      }
+
                       else //old paper DTR sheets
                       {
                         $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$pname.' DTR Sheet');
@@ -3845,11 +4085,14 @@ class DTRController extends Controller
       if($type == 't'){
         $stat = Input::get('stat');
         return view('timekeeping.financeTraineeReport',compact('payrollPeriod','paycutoffs','allProgram','stat'));
-      }
+      }elseif($type == 's')
+        return view('timekeeping.financeWSReport',compact('payrollPeriod','paycutoffs','allProgram'));
       else
         return view('timekeeping.financeReport',compact('payrollPeriod','paycutoffs','allProgram'));
 
     }
+
+    
 
     public function finance_JPS()
     {

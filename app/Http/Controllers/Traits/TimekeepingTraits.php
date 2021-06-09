@@ -7596,7 +7596,7 @@ trait TimekeepingTraits
       $productionDate = Carbon::parse($vl_to,'Asia/Manila');
       $pd = $productionDate->format('Y-m-d');
 
-      $today = Carbon::create(date('Y'), date('m'), date('d'),0,0,0, 'Asia/Manila');
+      $today = Carbon::now('GMT+8'); //create(date('Y'), date('m'), date('d'),0,0,0, 'Asia/Manila');
       $endDate = Carbon::parse($vl_to,'Asia/Manila');
       
       $coll = new Collection;
