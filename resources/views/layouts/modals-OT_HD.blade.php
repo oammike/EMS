@@ -4,7 +4,7 @@
       <div class="modal-header">
         
           <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-          <h4 class="modal-title text-primary" id="myModalLabel"><i class="fa fa-clock-o"></i> File an HD Overtime</h4>
+          <h4 class="modal-title text-primary" id="myModalLabel"><i class="fa fa-clock-o"></i> File HD Overtime</h4>
         
       </div> {{ Form::open(['route' => 'user_ot.store','class'=>'col-lg-12', 'id'=>'reportIssue', 'name'=>'reportIssue' ]) }}
       <input type="hidden" name="biometrics_id" value="{{$biometrics_id}}" />

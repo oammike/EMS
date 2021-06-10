@@ -5829,7 +5829,7 @@ trait TimekeepingTraits
       }
 
     }else
-      $holidayToday = $hol; //Holiday::where('holidate', $payday)->get();
+      $holidayToday = null; //$hol; //Holiday::where('holidate', $payday)->get();
 
     
 
