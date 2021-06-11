@@ -51,9 +51,9 @@
 
               <div class="notes">
                 @if($stat == 'nh')
-                  <h4>There are <strong><span class="text-danger" id="submitted"></span>  NEW HIRES </strong> who have validated DTR sheets for that cutoff period.<br/> 
+                  <h4>PAYROLL JOURNAL for: <strong><span class="text-danger" id="submitted"></span>  NEW HIRES </strong> <br/> 
                 @else
-                  <h4>There are <strong><span class="text-danger" id="submitted"></span>  TRAINEES </strong> who have validated DTR sheets for that cutoff period.<br/> 
+                  <h4>PAYROLL JOURNAL for:  <strong><span class="text-danger" id="submitted"></span>  TRAINEES </strong> <br/> 
 
                 @endif
                 
@@ -62,7 +62,7 @@
 
                   <p>Please remind the following employees to have their DTR sheets locked and verified for this cutoff period:</p> -->
 
-                <span style="font-size: smaller;"> Proceed with the DTR download?</span></h4>
+                <span style="font-size: smaller;"> Proceed with the DTR Summary download?</span></h4>
 
                 <table class="table table-striped" id="team">
                   
@@ -199,7 +199,7 @@
                       $('#team').html('');
 
                       
-                      var htmltags="<tr><th>Trainee</th><th>Trainer</th><th class='text-right'>Total Hours</th><th class='text-right'>Total Allowance</th><th></th></tr>";// "<tr>";
+                      var htmltags="<tr><th>Trainee</th><th>Employee ID</th><th class='text-right'>Total Hours</th><th style='text-align:right'>Monthly/Daily</th><th class='text-right'>Total Allowance</th><th></th></tr>";// "<tr>";
                       var i=0;
 
                       
@@ -217,8 +217,9 @@
                           var sahod = rdata[i]['sahod']; 
 
                           htmltags += "<tr><td>"+(i+1)+". "+ rdata[i]['lastname']+", "+rdata[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+rdata[i]['jobTitle']+"</small></td>";
-                          htmltags += "<td>"+ rdata[i]['leaderFname']+" "+ rdata[i]['leaderLname'] +"</td>";
+                          htmltags += "<td>"+ rdata[i]['traineeCode'] +"</td>";
                           htmltags += "<td class='text-right'>"+ rdata[i]['workedHours'] +"</td>";
+                          htmltags += "<td class='text-right'>"+ rdata[i]['rate'] +"</td>";
                           htmltags += "<td class='text-right'> Php "+ sahod +"</td>";
                           htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+rdata[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a> <a target='_blank' href='./payslips?cs="+cutoffstart+"&ce="+cutoffend+"&id="+rdata[i]['id']+"&w="+rdata[i]['workedHours']+"&s="+sahod+"' class='btn btn-xs btn-primary'><i class='fa fa-print'></i> Payslip</a> </td></tr>";
 
@@ -233,8 +234,9 @@
 
                          var sahod = rdata[i]['sahod']; 
                          htmltags += "<tr><td>"+(i+1)+". "+ rdata[i]['lastname']+", "+rdata[i]['firstname']+"<br/><small style='font-weight:normal' class='text-primary'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+rdata[i]['jobTitle']+"</small></td>";
-                          htmltags += "<td>"+ rdata[i]['leaderFname']+" "+ rdata[i]['leaderLname'] +"</td>";
+                          htmltags += "<td>"+ rdata[i]['traineeCode'] +"</td>";
                           htmltags += "<td class='text-right'>"+ rdata[i]['workedHours'] +"</td>";
+                          htmltags += "<td class='text-right'>"+ rdata[i]['rate'] +"</td>";
                           htmltags += "<td class='text-right'> Php "+ sahod +"</td>";
                           htmltags += "<td class='text-center'><a target='_blank' href='./user_dtr/"+rdata[i]['id']+"?from="+cutoffstart+"&to="+cutoffend+"'  class='btn btn-xs btn-default'><i class='fa fa-calendar-o'></i> View DTR </a> <a target='_blank' href='./payslips?cs="+cutoffstart+"&ce="+cutoffend+"&id="+rdata[i]['id']+"&w="+rdata[i]['workedHours']+"&s="+sahod+"' class='btn btn-xs btn-primary'><i class='fa fa-print'></i> Payslip</a> </td></tr>";
 

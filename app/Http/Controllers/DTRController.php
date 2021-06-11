@@ -6409,7 +6409,7 @@ class DTRController extends Controller
             if($traineeHR > 0)
             {
               $sahod = number_format(($traineeHR/8)*$key->dailyRate,2);
-              $traineeDTR->push(['id'=>$key->user_id, 'firstname'=>$key->firstname,'lastname'=>$key->lastname,'workedHours'=>$traineeHR,'jobTitle'=>$key->jobTitle,'leaderFname'=>$key->leaderFname,'leaderLname'=>$key->leaderLname,'rate'=>$key->dailyRate,'sahod'=>$sahod,'mvt'=>$mvts,'es'=>$e]);
+              $traineeDTR->push(['traineeCode'=>$key->traineeCode, 'id'=>$key->user_id, 'firstname'=>$key->firstname,'lastname'=>$key->lastname,'workedHours'=>$traineeHR,'jobTitle'=>$key->jobTitle,'leaderFname'=>$key->leaderFname,'leaderLname'=>$key->leaderLname,'rate'=>number_format($key->dailyRate,2),'sahod'=>$sahod,'mvt'=>$mvts,'es'=>$e]);
 
             }
             
