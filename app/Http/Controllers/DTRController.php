@@ -1915,7 +1915,7 @@ class DTRController extends Controller
                               do
                               {
                                 array_push($productionDates, $d->format('Y-m-d'));
-                                array_push($headers, $d->format('m/d'));
+                                array_push($headers, $d->format('m/d/Y'));
                                 //array_push($header3, substr($d->format('l'), 0,3) );
                                 $d->addDay();
                                 $totalPD++;
