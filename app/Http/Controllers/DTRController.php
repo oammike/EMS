@@ -1856,7 +1856,7 @@ class DTRController extends Controller
       {
         //return $allDTR;
 
-        Excel::create("Trainee DTR Summary",function($excel) use($program, $pname, $allDTR, $cutoffStart, $cutoffEnd, $headers,$description) 
+        Excel::create("Trainee DTR Summary_".$cutoffStart->format('Y-m-d'),function($excel) use($program, $pname, $allDTR, $cutoffStart, $cutoffEnd, $headers,$description) 
                {
                       $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$pname.' DTR Sheet');
 
@@ -1904,6 +1904,7 @@ class DTRController extends Controller
                           $ct = 0;
                           
                           $d = Carbon::parse($cutoffStart->format('Y-m-d'),'Asia/Manila');
+                          $totalPD = 0;
 
                           foreach($allDTR as $employeeDTR)
                           {
@@ -1917,6 +1918,7 @@ class DTRController extends Controller
                                 array_push($headers, $d->format('m/d'));
                                 //array_push($header3, substr($d->format('l'), 0,3) );
                                 $d->addDay();
+                                $totalPD++;
                               }while($d->format('Y-m-d') <= $cutoffEnd->format('Y-m-d')); //all production dates
 
                               array_push($headers,"TOTAL");
@@ -2015,6 +2017,22 @@ class DTRController extends Controller
                           $sheet->cells("D2:U".($ct+1), function($cells) {
                             $cells->setAlignment('center');
                           });
+
+                          $cdtr = count($allDTR)+1;
+
+                          if($totalPD > 15){
+                              $sheet->cells("T2:T".$cdtr, function($cells) {
+                              $cells->setBackground('#7ebb55');
+                              $cells->setFontWeight('bold');
+                            });
+
+                          }else{
+                            $sheet->cells("S2:S".$cdtr, function($cells) {
+                              $cells->setBackground('#7ebb55');
+                              $cells->setFontWeight('bold');
+                            });
+
+                          }
 
                           $sheet->freezeFirstColumn();
 
