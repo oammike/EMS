@@ -1929,10 +1929,10 @@ class DTRController extends Controller
                               //   $cells->setAlignment('center');
                               // });
                               $sheet->row(1, function($cells) {
-                                $cells->setFontSize(18);
+                                $cells->setFontSize(14);
                                 $cells->setFontWeight('bold');
                                 $cells->setAlignment('center');
-                                $cells->setBackground('##1a8fcb');
+                                $cells->setBackground('#d8dcf1');
                               });
                               $ct++;
 
