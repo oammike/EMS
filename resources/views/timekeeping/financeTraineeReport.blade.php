@@ -261,12 +261,10 @@
   }); 
 
   $('#dl').on('click',function(){
-      $('input[name="dltype"]').val(1);
-  });
-
-  $('#dl2').on('click',function(){
       $('input[name="dltype"]').val(2);
   });
+
+ 
 
   
 
