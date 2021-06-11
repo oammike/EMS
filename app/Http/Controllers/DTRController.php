@@ -380,7 +380,7 @@ class DTRController extends Controller
         
         if($this->user->id !== 564 ) {
               $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
-                fwrite($file, "-------------------\n DL_TRAINEES_[".$stat."] summary: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " for Program: ".$program->name. " by [". $this->user->id."] ".$this->user->lastname."\n");
+                fwrite($file, "-------------------\n DL_TRAINEES_[".$stat."] summary: -- ".$cutoffStart->format('M d')." on " . $correct->format('M d h:i A'). " by [". $this->user->id."] ".$this->user->lastname."\n");
                 fclose($file);
         } 
 
