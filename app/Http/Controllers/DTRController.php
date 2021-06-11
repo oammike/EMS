@@ -174,7 +174,7 @@ class DTRController extends Controller
 
       DB::connection()->disableQueryLog();
       $correct = Carbon::now('GMT+8'); //->timezoneName();
-      $passedTrainees=null; $allUsers=null;$allFixedWS=null;$allMonthlyWS=null; $allDTRs=null;
+      $passedTrainees=null; $allUsers=null;$allFixedWS=null;$allMonthlyWS=null; $allDTRs=null;$mvts=null;
       $fileType = "DTRsummary_";
 
       if($request->reportType == 'dailyLogs') // used for Finance Report
@@ -316,6 +316,7 @@ class DTRController extends Controller
       elseif ($request->reportType == 'trainees')
       {
         $program =null;
+        
         $pname="Trainees";
         $headers = ['Trainee Code', 'Formal Name','Date','Day','Time IN','Time OUT','Hours', 'OT billable','OT Approved','OT Start','OT End', 'OT hours','OT Reason','Locked Timestamp'];
         
@@ -353,6 +354,15 @@ class DTRController extends Controller
                   select('users.accesscode','users.traineeCode', 'users.employeeCode','users.id','users.isWFH', 'users.firstname','users.lastname','users.middlename', 'users.nickname','positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead_Campaigns.id as tlID', 'immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','floor.name as location','user_dtr.productionDate','user_dtr.biometrics_id','user_dtr.workshift','user_dtr.isCWS_id as cwsID','user_dtr.leaveType','user_dtr.leave_id','user_dtr.timeIN','user_dtr.timeOUT','user_dtr.hoursWorked','user_dtr.OT_billable','user_dtr.OT_approved','user_dtr.OT_id','user_dtr.UT', 'user_dtr.user_id','user_dtr.updated_at','user_dtr.created_at')->
                   where('users.status_id','!=',2)->where('users.endTraining','!=',null)->where('users.endTraining','>=',$monthAgo->format('Y-m-d H:i:s'))->
                       orderBy('users.lastname')->get();
+
+           // need rin natin kunin mga trainee movements to check kung pasok pa ba sa period yung DTR nila
+            $mvts =  DB::table('movement')->where('movement.personnelChange_id',3)->where('movement.isDone',1)->
+                      where('movement.effectivity','<=',Carbon::parse($cutoff[1],'Asia/Manila')->endofDay()->format('Y-m-d H:i:s'))->
+                      leftJoin('movement_statuses','movement.id','=','movement_statuses.movement_id')->
+                      leftJoin('users','users.id','=','movement.user_id')->
+                      select('users.id','movement.effectivity','movement_statuses.status_id_new as newStat')->
+                      where('movement_statuses.status_id_new',18)->get();
+
 
                       
 
@@ -1856,7 +1866,7 @@ class DTRController extends Controller
       {
         //return $allDTR;
 
-        Excel::create("Trainee DTR Summary_".$cutoffStart->format('Y-m-d'),function($excel) use($program, $pname, $allDTR, $cutoffStart, $cutoffEnd, $headers,$description) 
+        Excel::create("Trainee DTR Summary_".$cutoffStart->format('Y-m-d'),function($excel) use($program, $pname, $allDTR, $cutoffStart, $cutoffEnd, $headers,$description,$mvts) 
                {
                       $excel->setTitle($cutoffStart->format('Y-m-d').' to '. $cutoffEnd->format('Y-m-d').'_'.$pname.' DTR Sheet');
 
@@ -1869,7 +1879,7 @@ class DTRController extends Controller
                       $payday = $cutoffStart;
 
 
-                      $excel->sheet("DTR Summary", function($sheet) use ($program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$payday,$pname)
+                      $excel->sheet("DTR Summary", function($sheet) use ($mvts,$program, $allDTR, $cutoffStart, $cutoffEnd, $headers,$payday,$pname)
                         {
                           $header1 = ['Open Access BPO | DTR Summary','','','','','','','','','','','','','','',''];
                           $header2 = [$cutoffStart->format('M d Y')." to ". $cutoffEnd->format('M d Y') ,'Status: ',$pname,'','','','','','','','','','','','',''];
@@ -1904,7 +1914,7 @@ class DTRController extends Controller
                           $ct = 0;
                           
                           $d = Carbon::parse($cutoffStart->format('Y-m-d'),'Asia/Manila');
-                          $totalPD = 0;
+                          $totalPD = 0;$traineeHR = 0;
 
                           foreach($allDTR as $employeeDTR)
                           {
@@ -1965,29 +1975,58 @@ class DTRController extends Controller
 
                               foreach ($productionDates as $prodDate) 
                               {
+                                 
+
+                                 $includeDate=1;
                                  $entry = collect($employeeDTR)->where('productionDate',$prodDate);
 
                                  if (count($entry) > 0)
                                  {
                                   $e = strip_tags($entry->first()->hoursWorked);
-                                  if ( strpos($e, '[') !== false )
-                                  {
-                                    $x = explode('[', $e);
-                                    $totalHours += (float)$x[0];
-                                    $overAllTotal += $totalHours;
-                                    $arr[$i] = $e; //."_x-".$totalHours; //number_format((float)$x[0], 2, '.', '');
-                                  }else
-                                  {
-                                    if (is_numeric($e)){
-                                      $arr[$i] = number_format((float)$e, 2, '.', ''); //."_num-".$totalHours;
-                                      $totalHours += (float)$e;
-                                      $overAllTotal += $totalHours;
-                                    }
-                                    else
-                                      $arr[$i] = $e; //."_".$totalHours;
 
-                                   
+                                  // ***new: check mo muna kung pasok yung movement period sa cutoff
+                                  if($mvts)
+                                  {
+                                    $mgaMvt = collect($mvts)->where('id',$employeeDTR->first()->id);
+                                    if(count($mgaMvt) > 0)
+                                    {
+                                      if(Carbon::parse($mgaMvt->first()->effectivity,'Asia/Manila')->format('Y-m-d') < $prodDate) 
+                                        $includeDate=0;
+                                      //$e->push(['effectivity'=>$mgaMvt->first()->effectivity, 'productionDate'=>$prodDate]);
+                                    }
+                                    
+
                                   }
+
+                                  if($includeDate){
+                                      if ( strpos($e, '[') !== false )
+                                      {
+                                        $x = explode('[', $e);
+                                        $totalHours += (float)$x[0];
+                                        $overAllTotal += $totalHours;
+                                        $arr[$i] = $e; //."_x-".$totalHours; //number_format((float)$x[0], 2, '.', '');
+                                      }else
+                                      {
+                                        if (is_numeric($e)){
+                                          $arr[$i] = number_format((float)$e, 2, '.', ''); //."_num-".$totalHours;
+                                          $totalHours += (float)$e;
+                                          $overAllTotal += $totalHours;
+                                        }
+                                        else
+                                          $arr[$i] = $e; //."_".$totalHours;
+
+                                       
+                                      }
+
+                                  }else{
+                                      $totalHours += 0;
+                                      $overAllTotal += $totalHours;
+                                        $arr[$i] = "N/A";
+
+                                  }
+
+
+                                  
                                   
                                  
                                   
@@ -1998,6 +2037,9 @@ class DTRController extends Controller
                                   $arr[$i] = '<unlocked>'; $i++;
                                  }
                               }
+
+                              $traineeHR=0;
+
 
                               $arr[$i]= number_format($totalHours,2);
                               $sheet->appendRow($arr); $ct++;
