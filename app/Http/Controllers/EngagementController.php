@@ -670,24 +670,14 @@ class EngagementController extends Controller
                                 leftJoin('engagement_entryComments','engagement_entryComments.entryID','=','engagement_entry.id')->
                                 leftJoin('users','engagement_entryComments.user_id','=','users.id')->
                                 select('engagement_entry.id as entryID','engagement_entryComments.id as commentID', 'users.lastname','users.firstname', 'engagement_entryComments.body as comment','engagement_entryComments.inappropriate', 'engagement_entryComments.created_at')->get();
-                                //join('engagement_entryComments','engagement_entryComments.entryID','=','engagement_entry.id')->get();
-                                /*
                                 
-                                join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
-                                join('engagement_entryItems','engagement_entryDetails.entry_itemID','=','engagement_entryItems.id')->
-                                join('engagement_elements','engagement_entryItems.element_id','=','engagement_elements.id')->
-
-                                join('users','engagement_entryComments.user_id','=','users.id')->
-                                join('team','team.user_id','=','users.id')->
-                                join('campaign','team.campaign_id','=','campaign.id')->
-                                join('positions','users.position_id','=','positions.id')->
-                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entryComments.id as commentID','engagement_entryComments.body as comment','engagement_entryComments.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entryComments.created_at','engagement_entryComments.anonymous','engagement_entry.created_at')->get();*/
 
                 //return $allEntries;
                 $userEntries = collect($allEntries)->groupBy('entryID');
                 $userComments = collect($allComments)->groupBy('entryID');
                 $uniqueUsers = collect($allEntries)->sortBy('lastname')->groupBy('user_id')->unique();
-                $totalComments = count($allComments);
+                $totalComments = count($allComments) - count(collect($allComments)->where('commentID',null));
+                
                 $postsWithComments = collect($allComments)->groupBy('entryID');
                 //return $postsWithComments;
 

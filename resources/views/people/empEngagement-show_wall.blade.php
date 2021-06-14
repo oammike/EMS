@@ -217,10 +217,12 @@
                             <!-- /.box-header -->
                             <div class="box-body" id="comments">
                               @foreach($postsWithComments as $e)
+                                  <?php $d = collect($allEntries)->where('entryID',$e[0]->entryID);?>
 
+                                  <?php if (count($d) > 0 && $e->first()->commentID !==null ) { ?>
                                   <div class="col-sm-3"  style="border: dotted 1px #333; margin:3px">
 
-                                    <?php $d = collect($allEntries)->where('entryID',$e[0]->entryID);?>
+                                    
                                     <h5><strong>Post:</strong></h5>
                                     <blockquote style="font-size: small;">
                                       {{$d->first()->value}}
@@ -249,7 +251,8 @@
 
                                       
                                      
-                                  </div>    
+                                  </div>   
+                                  <?php } ?> 
 
                               @endforeach
                               <div class="clearfix"></div>
