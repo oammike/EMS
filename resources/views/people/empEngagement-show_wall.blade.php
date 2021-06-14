@@ -2,6 +2,9 @@
 
 @section('metatags')
 <title>Employee Engagement Activities | EMS</title>
+<style type="text/css">
+  .inappropriate{ color:#b58d8d; }
+</style>
 @endsection
 
 @section('content')
@@ -33,6 +36,7 @@
                 <hr/>
 
                 @if($canModerate)
+                <!--POSTS -->
                 <div class="row">
                   <div class="col-lg-12">
                     <!-- ******** collapsible box ********** -->
@@ -182,6 +186,72 @@
                                   </tbody>
                                 </table>
                           
+                              <div class="clearfix"></div>
+                            
+
+
+                              
+                            </div>
+                            <!-- /.box-body -->
+                          </div>
+                         <!-- ******** end collapsible box ********** -->
+                  </div>
+                </div>
+
+                <!--COMMENTS-->
+                <div class="row">
+                  <div class="col-lg-12">
+                    <!-- ******** collapsible box ********** -->
+                          <div class="box box-primary collapsed-box" style="margin-top: 20px">
+                            <div class="box-header with-border">
+                             <h3 class="text-primary"> All Comments <strong class="text-orange">({{$totalComments}})</strong> :
+                              </h3>
+                             
+                              <div class="box-tools pull-right">
+                               
+                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                                </button>
+                              </div>
+                              <!-- /.box-tools -->
+                            </div>
+                            <!-- /.box-header -->
+                            <div class="box-body" id="comments">
+                              @foreach($postsWithComments as $e)
+
+                                  <div class="col-sm-3"  style="border: dotted 1px #333; margin:3px">
+
+                                    <?php $d = collect($allEntries)->where('entryID',$e[0]->entryID);?>
+                                    <h5><strong>Post:</strong></h5>
+                                    <blockquote style="font-size: small;">
+                                      {{$d->first()->value}}
+                                    </blockquote>
+                                    <p>
+
+                                    <h5 class="text-primary"><br/>Comments: </h5>
+                                    <table class="table table-hover">
+                                      <tbody>
+                                      @foreach($e as $ent)
+                                        <tr>
+                                          @if($ent->inappropriate)
+                                          <td><p class="inappropriate">{{$ent->comment}}</p> 
+                                            <a data-cid="{{$ent->commentID}}" class="btn btn-xs btn-danger pull-right inapp">Inappropriate</a>
+                                          </td>
+                                          @else
+                                          <td><p>{{$ent->comment}}</p> 
+                                            <a data-cid="{{$ent->commentID}}" class="btn btn-xs btn-default pull-right mark">Mark Inapproriate</a>
+                                          </td>
+                                          @endif
+                                        </tr>
+                                      @endforeach
+                                      </tbody>
+                                      
+                                    </table>
+
+                                      
+                                     
+                                  </div>    
+
+                              @endforeach
                               <div class="clearfix"></div>
                             
 
@@ -668,7 +738,7 @@
       });
 
      
-      $('#allEntries').DataTable();
+      $('#allEntries').DataTable({ "order": [ 3, "desc" ]});
 
       $('.del.btn').on('click',function(){
         setTimeout(function () {
@@ -707,6 +777,85 @@
               return false;
 
           }
+      });
+
+      $('#comments').on('click','.btn.btn-xs.btn-default.pull-right.mark',function(){
+        //alert('Mark this comment as INAPPROPRIATE?');
+        $(this).removeClass('btn-default mark').addClass('btn-danger inapp');
+        $(this).html(''+'Inappropriate');
+        $(this).siblings('p').addClass('inappropriate');
+        var _token = "{{ csrf_token() }}";
+        $.ajax({
+
+                    url:"{{action('EngagementController@disqualify')}}",
+                    type:'POST',
+                    data:{
+
+                      'cid': $(this).attr('data-cid'),
+                      'type': 'c',
+                      'inapp':'1',
+                      _token: _token
+
+                    },
+                    error: function(response)
+                    { console.log("Error saving entry: ");
+                      console.log(response);
+                      $.notify("Error processing request. Please try again.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); 
+                      return false;
+                    },
+                    success: function(response)
+                    {
+                      console.log(response);
+                      $.notify("Comment flagged as inappropriate.",{className:"success", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                     
+                      
+
+                    }
+
+              });
+        
+                      
+
+
+      });
+
+      $('#comments').on('click','.btn.btn-xs.btn-danger.pull-right.inapp',function(){
+        //alert('Mark this comment as INAPPROPRIATE?');
+        $(this).removeClass('btn-danger iapp').addClass('btn-default mark');
+        $(this).html(''+'Mark Inappropriate');
+        $(this).siblings('p').removeClass('inappropriate');
+        var _token = "{{ csrf_token() }}";
+        $.ajax({
+
+                    url:"{{action('EngagementController@disqualify')}}",
+                    type:'POST',
+                    data:{
+
+                      'cid': $(this).attr('data-cid'),
+                      'type': 'c',
+                      'inapp':'0',
+                      _token: _token
+
+                    },
+                    error: function(response)
+                    { console.log("Error saving entry: ");
+                      console.log(response);
+                      $.notify("Error processing request. Please try again.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} ); 
+                      return false;
+                    },
+                    success: function(response)
+                    {
+                      console.log(response);
+                      $.notify("Comment is now unflagged.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );
+                     
+                      
+
+                    }
+
+              });
+       
+
+
       });
 
   });

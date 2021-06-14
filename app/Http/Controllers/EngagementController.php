@@ -161,14 +161,30 @@ class EngagementController extends Controller
 
     public function disqualify(Request $request)
     {
-        $d = Engagement_Entry::find($request->entry_id);
-        $d->disqualified = $request->q;
-        $d->push();
-         if( \Auth::user()->id !== 564 ) {
-                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-                  fwrite($file, "-------------------\n FlaggedNote on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
-                  fclose($file);
-              }
+        if($request->type=='c')//comment sya
+        {
+            //return response()->json(['id'=>$request->cid,'inapp'=>$request->inapp]);
+            $d = Engagement_EntryComments::find($request->cid);
+            ($request->inapp =='1') ?  $d->inappropriate = $request->inapp : $d->inappropriate=null;
+            $d->push();
+            if( \Auth::user()->id !== 564 ) {
+                    $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                      fwrite($file, "-------------------\n FlagComment on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                      fclose($file);
+                  }
+
+        }else{
+            $d = Engagement_Entry::find($request->entry_id);
+            $d->disqualified = $request->q;
+            $d->push();
+             if( \Auth::user()->id !== 564 ) {
+                    $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                      fwrite($file, "-------------------\n FlaggedNote on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
+                      fclose($file);
+                  }
+
+        }
+        
         return response()->json(['success'=>1, 'entry'=>$d]);
 
     }
@@ -634,7 +650,7 @@ class EngagementController extends Controller
                 return view('people.empEngagement-show_hiddenLogo',compact('engagement','id','hasEntry','allPosts','alreadyVoted','triggers','myTrigger','myTriggerArray','itemIDs','existingEntry','canModerate','userEntries','itemTypes'));
 
             }
-            else if($id >= 5 && !$engagement[0]->isContest) // == 5 || $id == 9 || $id == 10 || $id== 11|| $id== 12|| $id== 13 || $id== 14 || $id== 15 || $id ==16 || $id ==17 ) //OPEN WALL
+            else if($id >= 5 && !$engagement[0]->isContest) //OPEN WALL
             {
                 $waysto = 11; // rewards_waysto ID for EE
                 $allPosts = collect($existingEntry)->groupBy('entryID');
@@ -649,8 +665,33 @@ class EngagementController extends Controller
                                 join('positions','users.position_id','=','positions.id')->
                                 select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entry.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entry.created_at','engagement_entry.anonymous','engagement_entry.created_at')->get();
                                 //where('engagement_entry.disqualified',NULL)->get();
+                $allComments = DB::table('engagement')->where('engagement.id',$id)->
+                                leftJoin('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
+                                leftJoin('engagement_entryComments','engagement_entryComments.entryID','=','engagement_entry.id')->
+                                leftJoin('users','engagement_entryComments.user_id','=','users.id')->
+                                select('engagement_entry.id as entryID','engagement_entryComments.id as commentID', 'users.lastname','users.firstname', 'engagement_entryComments.body as comment','engagement_entryComments.inappropriate', 'engagement_entryComments.created_at')->get();
+                                //join('engagement_entryComments','engagement_entryComments.entryID','=','engagement_entry.id')->get();
+                                /*
+                                
+                                join('engagement_entryDetails','engagement_entryDetails.engagement_entryID','=','engagement_entry.id')->
+                                join('engagement_entryItems','engagement_entryDetails.entry_itemID','=','engagement_entryItems.id')->
+                                join('engagement_elements','engagement_entryItems.element_id','=','engagement_elements.id')->
+
+                                join('users','engagement_entryComments.user_id','=','users.id')->
+                                join('team','team.user_id','=','users.id')->
+                                join('campaign','team.campaign_id','=','campaign.id')->
+                                join('positions','users.position_id','=','positions.id')->
+                                select('engagement.name as activity','engagement.withVoting', 'engagement_entry.id as entryID','engagement_entry.disqualified', 'engagement_entryItems.ordering', 'engagement_entryDetails.value as value','engagement_elements.label as elemType','engagement_entryItems.label','engagement_entryComments.id as commentID','engagement_entryComments.body as comment','engagement_entryComments.user_id','users.firstname','users.lastname','users.nickname','positions.name as jobTitle' ,'campaign.name as program','engagement_entryComments.created_at','engagement_entryComments.anonymous','engagement_entry.created_at')->get();*/
+
+                //return $allEntries;
                 $userEntries = collect($allEntries)->groupBy('entryID');
+                $userComments = collect($allComments)->groupBy('entryID');
                 $uniqueUsers = collect($allEntries)->sortBy('lastname')->groupBy('user_id')->unique();
+                $totalComments = count($allComments);
+                $postsWithComments = collect($allComments)->groupBy('entryID');
+                //return $postsWithComments;
+
+                
 
                 if( \Auth::user()->id !== 564 ) {
                 $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
@@ -660,7 +701,7 @@ class EngagementController extends Controller
 
                 //return $engagement[0]->id;
 
-                return view('people.empEngagement-show_wall',compact('engagement','id','hasEntry','allPosts','alreadyVoted','triggers','myTrigger','myTriggerArray','itemIDs','existingEntry','canModerate','canAward', 'userEntries','itemTypes','uniqueUsers','waysto'));
+                return view('people.empEngagement-show_wall',compact('engagement','id','hasEntry','allPosts','alreadyVoted','triggers','myTrigger','myTriggerArray','itemIDs','existingEntry','canModerate','canAward', 'userEntries','allEntries', 'itemTypes','uniqueUsers','waysto','userComments','totalComments','postsWithComments'));
 
             }
             else
@@ -1136,7 +1177,7 @@ class EngagementController extends Controller
                     leftJoin('users','users.id','=','engagement_entryComments.user_id')->
                     leftJoin('team','team.user_id','=','engagement_entryComments.user_id')->
                     leftJoin('campaign','campaign.id','=','team.campaign_id')->
-                    select('engagement_entry.id as entryID','engagement_entryComments.id as commentID', 'engagement_entryComments.user_id','users.firstname','users.lastname','users.nickname','campaign.name as program','campaign.id as programID', 'engagement_entryComments.created_at','engagement_entryComments.body as comment','engagement_entryComments.anonymous', 'engagement_entry.disqualified')->where('engagement_entry.disqualified','!=','1')->orderBy('engagement_entryComments.created_at','DESC')->get();
+                    select('engagement_entry.id as entryID','engagement_entryComments.id as commentID','engagement_entryComments.inappropriate', 'engagement_entryComments.user_id','users.firstname','users.lastname','users.nickname','campaign.name as program','campaign.id as programID', 'engagement_entryComments.created_at','engagement_entryComments.body as comment','engagement_entryComments.anonymous', 'engagement_entry.disqualified')->where('engagement_entry.disqualified','!=','1')->where('engagement_entryComments.inappropriate',null)->orderBy('engagement_entryComments.created_at','DESC')->get(); //
 
         $allLikes =  DB::table('engagement')->where('engagement.id',$id)->join('engagement_entry','engagement_entry.engagement_id','=','engagement.id')->
                     join('engagement_entryLikes','engagement_entry.id','=','engagement_entryLikes.entryID')->
@@ -1155,7 +1196,8 @@ class EngagementController extends Controller
 
             if($id >=41) //valentines 2021 and beyond, new location na
             {
-                (count($p) > 1) ? $img="https://internal.openaccess.bpo/EMS/public/storage/uploads/".$p[1]->value : $img=null;
+                //(count($p) > 1) ? $img="https://internal.openaccess.bpo/EMS/public/storage/uploads/".$p[1]->value : $img=null;
+                (count($p) > 1) ? $img="https://172.17.0.2/EMS/public/storage/uploads/".$p[1]->value : $img=null;
 
             }else{
                 (count($p) > 1) ? $img=url('/')."/storage/uploads/".$p[1]->value : $img=null;
