@@ -1225,10 +1225,14 @@ class UserController extends Controller
                   leftJoin('statuses','users.status_id','=','statuses.id')->
                   leftJoin('userType','userType.id','=','users.userType_id')->
                   leftJoin('floor','team.floor_id','=','floor.id')->
+                  leftJoin('movement','movement.user_id','=','users.id')->
+                  leftJoin('movement_statuses','movement_statuses.movement_id','=','movement.id')->
+                  leftJoin('trainee_fallout','trainee_fallout.movement_id','=','movement.id')->
                   //leftJoin('user_forms','user_forms.user_id','=','users.id')->
 
                   
-                  select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','users.startTraining','users.endTraining',  'statuses.name as status', 'positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','userType.name as userType','floor.name as location','users.isWFH as isWFH', 'users.claimedCard','users.has2316','users.hasSigned2316','users.enableIDprint')->orderBy('users.lastname')->get(); 
+                  select('users.id','users.status_id', 'users.firstname','users.lastname','users.nickname','users.dateHired','users.startTraining','users.endTraining',  'statuses.name as status', 'positions.name as jobTitle','campaign.id as campID', 'campaign.name as program','immediateHead.firstname as leaderFname','immediateHead.lastname as leaderLname','users.employeeNumber','userType.name as userType','floor.name as location','users.isWFH as isWFH', 'users.claimedCard','users.has2316','users.hasSigned2316','users.enableIDprint','movement.personnelChange_id','movement.effectivity','trainee_fallout.reason')->
+                  where('movement.personnelChange_id',3)->orderBy('users.lastname')->get(); 
 
         }
         elseif($status=='nh')

@@ -288,7 +288,17 @@
                             @endif
 
                             
+                            @if($stat=='f')
+                            { title: "Fallout Date" ,defaultContent: "<i>empty</i>", data:'effectivity',width:'80', render:function(data,type,full,meta){
 
+                              var m = moment(data).format('YYYY-MM-DD');
+                              if (m == "1970-01-01")
+                                return "N/A";
+                              else 
+                                return m;
+                              
+                             } }, // 2
+                            @else
                              { title: "End Training" ,defaultContent: "<i>empty</i>", data:'endTraining',width:'80', render:function(data,type,full,meta){
 
                               var m = moment(data).format('YYYY-MM-DD');
@@ -298,6 +308,7 @@
                                 return m;
                               
                              } }, // 2
+                             @endif
 
                             @if($stat=='nh')
                               { title: "Date Hired" ,defaultContent: "<i>empty</i>", data:'dateHired',width:'80', render:function(data,type,full,meta){
@@ -322,9 +333,19 @@
                             { title: "Trainer / Ops Support", defaultContent: " ", data:'leaderFname',width:'90', render:function(data,type,full,meta){
                                return '<small>'+data+" "+full.leaderLname+'</small>';
                             }}, // 1
+
+                            @if($stat=='f')
+                            { title: "Fallout Reason", defaultContent: " ", data:'reason',width:'50', render:function(data,type,full,meta){
+                              return "<em style=\"font-size:small\">"+data+"</em>";
+                            }}, // 1
+
+                            @else
                              { title: "Location", defaultContent: " ", data:'location',width:'50', render:function(data,type,full,meta){
                               return data;
                             }}, // 1
+                            @endif
+
+
                             { title: "Actions", data:'id', class:'text-center', sorting:false, render: function ( data, type, full, meta ) {
                               //console.log(type);
                               var deleteLink = "./user/deleteThisUser/"+full.id;
