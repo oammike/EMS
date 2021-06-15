@@ -332,31 +332,40 @@ div.scroll i {
                             <div class="items" id="carousel-items_{{$ctr}}">
 
                               
+                                     
+                                    
 
+                                     <div class="item">
+                                        <img class="item-image" src="{{asset('public/img/useravatar.png')}}" />
+                                        <span class="item-title"> MEMBERS: </span>
+                                        
+                                              <div class="item-description opacity-none text-center" style="font-size: xx-small;" > </div>
+                                     </div>
+                                     
 
                                      @foreach($hasMembers as $member)
-                                     <div class="item">
-                                      @if ( file_exists('public/img/employees/'.$member->userID.'.jpg') )
-                                        <img class="item-image" src={{asset('public/img/employees/'.$member->userID.'.jpg')}} />
-                                      @else
-                                        <img class="item-image" src="{{asset('public/img/useravatar.png')}}" />
+                                         <div class="item">
+                                            @if ( file_exists('public/img/employees/'.$member->userID.'.jpg') )
+                                              <img class="item-image" src={{asset('public/img/employees/'.$member->userID.'.jpg')}} />
+                                            @else
+                                              <img class="item-image" src="{{asset('public/img/useravatar.png')}}" />
 
-                                      @endif
+                                            @endif
 
-                                      @if(!is_null($member->nickname)) 
-                                      <span class="item-title"> {{$member->lastname}}, {{$member->nickname}} </span>
-                                     
-                                      @else
-                                      <span class="item-title"> {{$member->lastname}}, {{$member->firstname}} </span>
+                                            @if(!is_null($member->nickname)) 
+                                            <span class="item-title"> {{$member->lastname}}, {{$member->nickname}} </span>
+                                           
+                                            @else
+                                            <span class="item-title"> {{$member->lastname}}, {{$member->firstname}} </span>
 
-                                      @endif
+                                            @endif
 
 
-                                      
-                                      <a href="{{action('UserController@show',$member->userID)}}" target="_blank"><span class="item-load-icon button opacity-none" style="font-size: x-small;"><i class="fa fa-play"></i><br/> 
-                                      View Profile</span></a>
-                                      <div class="item-description opacity-none text-center" style="font-size: xx-small;" >{{$member->jobTitle }}</div>
-                                    </div>
+                                            
+                                            <a href="{{action('UserController@show',$member->userID)}}" target="_blank"><span class="item-load-icon button opacity-none" style="font-size: x-small;"><i class="fa fa-play"></i><br/> 
+                                            View Profile</span></a>
+                                            <div class="item-description opacity-none text-center" style="font-size: xx-small;" >{{$member->jobTitle }}</div>
+                                        </div>
 
                                      
                                                              
