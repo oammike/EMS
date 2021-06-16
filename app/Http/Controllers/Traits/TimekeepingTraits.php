@@ -2767,11 +2767,13 @@ trait TimekeepingTraits
                   where('user_dtrp.actualLogdate','<=',$b2->format('Y-m-d'))->
                   join('user_dtrpInfo','user_dtrpInfo.dtrp_id','=','user_dtrp.id')->
                   join('biometrics','biometrics.id','=','user_dtrp.biometrics_id')->
+                  leftJoin('logType','user_dtrp.logType_id','=','logType.id')->
                   leftJoin('user_dtrpReasons','user_dtrpInfo.reasonID','=','user_dtrpReasons.id')->
                   leftJoin('users','user_dtrp.user_id','=','users.id')->
                   leftJoin('team','team.user_id','=','users.id')->
                   leftJoin('campaign','campaign.id','=','team.campaign_id')->
-                  select('user_dtrp.actualLogdate','user_dtrp.id','user_dtrpInfo.id as infoID', 'user_dtrp.biometrics_id','user_dtrp.user_id','user_dtrp.notes','user_dtrp.logTime','user_dtrp.logType_id','user_dtrp.isApproved','user_dtrp.approvedBy','users.nickname', 'users.firstname','users.lastname','campaign.name as program','campaign.id as programID', 'user_dtrpInfo.attachments','user_dtrpReasons.name as reason','user_dtrpInfo.reasonID','user_dtrpInfo.clearedBy','user_dtrpInfo.created_at','biometrics.productionDate','user_dtrpInfo.isCleared as validated','user_dtrp.isApproved','user_dtrp.reviewed')->
+
+                  select('user_dtrp.actualLogdate','user_dtrp.id','user_dtrpInfo.id as infoID', 'user_dtrp.biometrics_id','user_dtrp.user_id','user_dtrp.notes','user_dtrp.logTime','user_dtrp.logType_id','user_dtrp.isApproved','user_dtrp.approvedBy','users.nickname', 'users.firstname','users.lastname','campaign.name as program','campaign.id as programID', 'user_dtrpInfo.attachments','user_dtrpReasons.name as reason','user_dtrpInfo.reasonID','user_dtrpInfo.clearedBy','user_dtrpInfo.created_at','biometrics.productionDate','user_dtrpInfo.isCleared as validated','user_dtrp.isApproved','user_dtrp.reviewed','logType.name as dtrpType')->
                   where('user_dtrp.logType_id','1')->get();
 
         }break;
@@ -2783,11 +2785,12 @@ trait TimekeepingTraits
                     //where('user_dtrp.actualLogdate','<=',$b2->format('Y-m-d'))->
                     join('user_dtrpInfo','user_dtrpInfo.dtrp_id','=','user_dtrp.id')->
                     join('biometrics','biometrics.id','=','user_dtrp.biometrics_id')->
+                    leftJoin('logType','user_dtrp.logType_id','=','logType.id')->
                     leftJoin('user_dtrpReasons','user_dtrpInfo.reasonID','=','user_dtrpReasons.id')->
                     leftJoin('users','user_dtrp.user_id','=','users.id')->
                     leftJoin('team','team.user_id','=','users.id')->
                     leftJoin('campaign','campaign.id','=','team.campaign_id')->
-                    select('user_dtrp.actualLogdate','user_dtrp.id','user_dtrpInfo.id as infoID', 'user_dtrp.biometrics_id','user_dtrp.user_id','user_dtrp.notes','user_dtrp.logTime','user_dtrp.logType_id','user_dtrp.isApproved','user_dtrp.approvedBy','users.nickname','users.firstname','users.lastname','campaign.name as program','campaign.id as programID','user_dtrpInfo.attachments','user_dtrpReasons.name as reason','user_dtrpInfo.reasonID','user_dtrpInfo.clearedBy','user_dtrpInfo.created_at','biometrics.productionDate','user_dtrpInfo.isCleared as validated','user_dtrp.isApproved','user_dtrp.reviewed')->
+                    select('user_dtrp.actualLogdate','user_dtrp.id','user_dtrpInfo.id as infoID', 'user_dtrp.biometrics_id','user_dtrp.user_id','user_dtrp.notes','user_dtrp.logTime','user_dtrp.logType_id','user_dtrp.isApproved','user_dtrp.approvedBy','users.nickname','users.firstname','users.lastname','campaign.name as program','campaign.id as programID','user_dtrpInfo.attachments','user_dtrpReasons.name as reason','user_dtrpInfo.reasonID','user_dtrpInfo.clearedBy','user_dtrpInfo.created_at','biometrics.productionDate','user_dtrpInfo.isCleared as validated','user_dtrp.isApproved','user_dtrp.reviewed','logType.name as dtrpType')->
                     where('user_dtrp.logType_id','2')->get();
 
       }
@@ -2806,7 +2809,8 @@ trait TimekeepingTraits
                           leftJoin('users','team.user_id','=','users.id')->
                           leftJoin('user_dtrp','user_dtrp.user_id','=','users.id')->
                           leftJoin('biometrics','biometrics.id','=','user_dtrp.biometrics_id')->
-                          select('user_dtrp.actualLogdate','user_dtrp.id','user_dtrp.biometrics_id','users.employeeCode', 'user_dtrp.user_id','user_dtrp.notes','user_dtrp.logTime','user_dtrp.logType_id','user_dtrp.isApproved','user_dtrp.approvedBy','users.nickname','users.firstname','users.lastname','campaign.name as program','campaign.id as programID','biometrics.productionDate','user_dtrp.isApproved','user_dtrp.reviewed','user_dtrp.updated_at', 'team.immediateHead_Campaigns_id as ihID')->
+                          leftJoin('logType','user_dtrp.logType_id','=','logType.id')->
+                          select('user_dtrp.actualLogdate','user_dtrp.id','user_dtrp.biometrics_id','users.employeeCode', 'user_dtrp.user_id','user_dtrp.notes','user_dtrp.logTime','user_dtrp.logType_id','user_dtrp.isApproved','user_dtrp.approvedBy','users.nickname','users.firstname','users.lastname','campaign.name as program','campaign.id as programID','biometrics.productionDate','user_dtrp.isApproved','user_dtrp.reviewed','user_dtrp.updated_at', 'team.immediateHead_Campaigns_id as ihID','logType.name as dtrpType')->
                           where('biometrics.productionDate','<=',$t->first()->productionDate)->
                           where('biometrics.productionDate','>=',$f->first()->productionDate)->orderBy('user_dtrp.isApproved','ASC')->get();//
 
@@ -2815,10 +2819,11 @@ trait TimekeepingTraits
                           $all = DB::table('user_dtrp')->where('user_dtrp.biometrics_id','>=',$f->first()->id)->
                           where('user_dtrp.biometrics_id','<=',$t->first()->id)->
                           join('biometrics','biometrics.id','=','user_dtrp.biometrics_id')->
+                          leftJoin('logType','user_dtrp.logType_id','=','logType.id')->
                           leftJoin('users','user_dtrp.user_id','=','users.id')->
                           leftJoin('team','team.user_id','=','users.id')->
                           leftJoin('campaign','campaign.id','=','team.campaign_id')->
-                          select('user_dtrp.actualLogdate','user_dtrp.id','user_dtrp.biometrics_id','users.employeeCode', 'user_dtrp.user_id','user_dtrp.notes','user_dtrp.logTime','user_dtrp.logType_id','user_dtrp.isApproved','user_dtrp.approvedBy','users.nickname','users.firstname','users.lastname','campaign.name as program','campaign.id as programID','biometrics.productionDate','user_dtrp.isApproved','user_dtrp.reviewed','user_dtrp.updated_at','team.immediateHead_Campaigns_id as ihID')->get();
+                          select('user_dtrp.actualLogdate','user_dtrp.id','user_dtrp.biometrics_id','users.employeeCode', 'user_dtrp.user_id','user_dtrp.notes','user_dtrp.logTime','user_dtrp.logType_id','user_dtrp.isApproved','user_dtrp.approvedBy','users.nickname','users.firstname','users.lastname','campaign.name as program','campaign.id as programID','biometrics.productionDate','user_dtrp.isApproved','user_dtrp.reviewed','user_dtrp.updated_at','team.immediateHead_Campaigns_id as ihID','logType.name as dtrpType')->get();
 
                     }
                     

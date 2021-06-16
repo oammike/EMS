@@ -146,6 +146,7 @@
                             <th>Program</th>
                             
                             <th>Production Date</th>
+                            <th>Type</th>
                             <th>Approver Status</th>
                             
                             @if($type !== 'OLD')<th>Details</th><th>Validation Status</th>@endif
@@ -158,8 +159,11 @@
                                 <td>{{$vl->lastname}}</td>
                                 <td style="font-size: x-small;">{{$vl->firstname}}</td>
                                 <td>{{$vl->program}}</td>
+
                                 <!--PROD DATE-->
                                 <td style="font-size: smaller;">{{$vl->productionDate}} </td>
+                                <td>{{$vl->dtrpType}}</td>
+                                
 
                                 <!--STATUS-->
                                 <td style="font-size: smaller;">
