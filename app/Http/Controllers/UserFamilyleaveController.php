@@ -144,6 +144,13 @@ class UserFamilyleaveController extends Controller
             $isBackoffice = ( Campaign::find(Team::where('user_id',$user->id)->first()->campaign_id)->isBackoffice ) ? true : false;
             $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
 
+            $davao = Team::where('user_id',$user->id)->where('floor_id',9)->get();
+            (count($davao) > 0) ? $isDavao = 1 : $isDavao=0;
+
+
+            (count(Team::where('user_id',$user->id)->where('floor_id',10)->get()) > 0 || count(Team::where('user_id',$user->id)->where('floor_id',11)->get()) > 0) ? $isTaipei = 1 : $isTaipei=0;
+
+
            // if ($isBackoffice && $isWorkforce && ($this->user->id != $user->id && !$anApprover) )  return view('access-denied');
             $specialChild = DB::table('user_specialPowers')->where('user_specialPowers.user_id',$this->user->id)->
                           leftJoin('user_specialPowers_programs','user_specialPowers_programs.specialPower_id','=','user_specialPowers.id')->get();
@@ -213,8 +220,35 @@ class UserFamilyleaveController extends Controller
 
                         /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
                         $holiday = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
+                        if (count($holiday) > 0) // && $isBackofficeif (count($holiday) > 0 )
+                            {
+                                if($holiday->first()->holidayType_id == 4) // Davao
+                                {
+                                    if($isDavao){ $holidayToday=1; $used = '0.00'; } 
+                                    else { $holidayToday=0; $used = '1.00';  }
 
-                        (count($holiday) > 0 ) ? $used = '0.00' : $used='1.00';
+                                }elseif($holiday->first()->holidayType_id == 5) // Taipei
+                                {
+                                    if($isTaipei){ $holidayToday=1; $used = '0.00';  } 
+                                    else { $holidayToday=0; $used = '1.00';}
+
+                                }elseif($holiday->first()->holidayType_id == 6) // Xiamen
+                                {
+                                    if($isTaipei){ $holidayToday=1; $used = '0.00'; } 
+                                    else { $holidayToday=0; $used = '1.00'; }
+
+                                }else{
+
+                                    $holidayToday=1; $used = '0.00'; //less 1 day assume wholeday initially
+
+                                }
+                                
+
+                               
+                                 
+                            }else  $used='1.00';
+
+                        //(count($holiday) > 0 ) ? $used = '0.00' : $used='1.00';
 
 
                         
@@ -308,10 +342,15 @@ class UserFamilyleaveController extends Controller
         
         $shift_from = $request->shift_from;$shift_to = $request->shift_to;
         $schedules = new Collection;
-        $displayShift = ""; $credits = 0;
+        $displayShift = ""; $credits = 0; $holidayToday=null;
 
         $hasVLalready=false;
         
+        $davao = Team::where('user_id',$user->id)->where('floor_id',9)->get();
+            (count($davao) > 0) ? $isDavao = 1 : $isDavao=0;
+
+
+            (count(Team::where('user_id',$user->id)->where('floor_id',10)->get()) > 0 || count(Team::where('user_id',$user->id)->where('floor_id',11)->get()) > 0) ? $isTaipei = 1 : $isTaipei=0;
 
         /*** we need to check first kung may existing pending or approved VL na
              para iwas doble filing **/
@@ -439,10 +478,39 @@ class UserFamilyleaveController extends Controller
                 //return $schedForTheDay;
 
                 //if ($shift_from == '2' || $shift_from=='3') $credits -= 0.5;
+                /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
+                $holiday = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
+                if (count($holiday) > 0) // && $isBackofficeif (count($holiday) > 0 )
+                    {
+                        if($holiday->first()->holidayType_id == 4) // Davao
+                        {
+                            if($isDavao){ $holidayToday=1; $credits = 0; } 
+                            else { $holidayToday=0; $credits = 1.00;  }
+
+                        }elseif($holiday->first()->holidayType_id == 5) // Taipei
+                        {
+                            if($isTaipei){ $holidayToday=1; $credits = 0;  } 
+                            else { $holidayToday=0; $credits = 1.00;}
+
+                        }elseif($holiday->first()->holidayType_id == 6) // Xiamen
+                        {
+                            if($isTaipei){ $holidayToday=1; $credits = 0; } 
+                            else { $holidayToday=0; $credits = 1.00; }
+
+                        }else{
+
+                            $holidayToday=1; $credits = 0; //less 1 day assume wholeday initially
+
+                        }
+                        
+
+                       
+                         
+                    }else  $used='1.00';
 
                 switch ($shift_from) {
                     case '2':{ 
-                                (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) ? $credits = 0 : $credits -= 0.5; 
+                                ($holidayToday) ? $credits = 0 : $credits = 0.5; 
                                 $start = Carbon::parse($schedForTheDay->first()->timeStart)->format('h:i A');
                                 $end = Carbon::parse($schedForTheDay->first()->timeStart)->addHour(4)->format('h:i A');
                                 $displayShift = $start." - ".$end;
@@ -451,14 +519,14 @@ class UserFamilyleaveController extends Controller
 
                     
                     case '3':{ 
-                                (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) ? $credits = 0 : $credits -= 0.5; 
+                                ($holidayToday) ? $credits = 0 : $credits = 0.5; 
                                 $start = Carbon::parse($schedForTheDay->first()->timeEnd)->addHour(-4)->format('h:i A');
                                 $end = Carbon::parse($schedForTheDay->first()->timeEnd)->format('h:i A');
                                 $displayShift = $start." - ".$end;
                                 //$creditsleft -= $credits;
                              }break;
                     default:{
-                                (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0) ? $credits = 0 : $credits = 1.00;
+                                ($holidayToday) ? $credits = 0 : $credits = 1.00;
                                 $displayShift =  Carbon::parse($schedForTheDay->first()->timeStart)->format('h:i A'). " - ". Carbon::parse($schedForTheDay->first()->timeEnd)->format('h:i A');
                                 //$creditsleft;
 
@@ -556,8 +624,9 @@ class UserFamilyleaveController extends Controller
         (count($specialChild) > 0) ? $hasAccess=true : $hasAccess=false;
 
         //wag ka na mag-sendout ng notif since sent by special powers yung request
-        if(!$hasAccess) $unotif = $this->notifySender($vl,$theNotif->first(),11); 
-        else $unotif = null;
+        //if(!$hasAccess) $unotif = $this->notifySender($vl,$theNotif->first(),11); 
+        //else 
+        $unotif = null;
 
         /* //Next, delete all user-notif associated with this:
         $theNotif = Notification::where('relatedModelID',$vl->id)->where('type',6)->first();
