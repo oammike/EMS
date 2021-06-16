@@ -52,6 +52,8 @@
               <div class="notes">
                 @if($stat == 'nh')
                   <h4>PAYROLL JOURNAL for: <strong><span class="text-danger" id="submitted"></span>  NEW HIRES </strong> <br/> 
+                @elseif($stat == 'p')
+                  <h4>PAYROLL JOURNAL for: <strong><span class="text-danger" id="submitted"></span>  PASSED TRAINEES </strong> <br/> 
                 @else
                   <h4>PAYROLL JOURNAL for:  <strong><span class="text-danger" id="submitted"></span>  TRAINEES </strong> <br/> 
 
