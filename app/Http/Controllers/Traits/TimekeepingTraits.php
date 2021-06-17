@@ -8220,7 +8220,7 @@ trait TimekeepingTraits
               else if ($deet->halfdayFrom == 3){
                 $log="<strong><small><i class=\"fa ".$i." \"></i> <em> 2nd Shift ".$l." (for approval) </em></small></strong>".$icons;
                 //$workedHours = number_format(($wh/60)+5,2)."<br/><small>[Late IN]</small>";$billableForOT=0;
-                $workedHours = number_format(($wh/60),2)."<br/><small>[Late IN]</small>";$billableForOT=0;
+                $workedHours = number_format(($wh/60),2)."<br/><small>[Early OUT]</small>";$billableForOT=0;
                 //$UT = round(((240.0 - $wh)/60)-1,2); //4h instead of 8H
                 $UT = round(((480.0 - $wh)/60),2); //4h instead of 8H
               }
