@@ -6261,7 +6261,7 @@ trait TimekeepingTraits
 
       }else
       {
-          $flexedWH = 33.33;
+          //$flexedWH = 33.33;
 
           if ($inTime->format('Y-m-d H:i') > $scheduleStart->format('Y-m-d H:i'))
           {
@@ -8212,7 +8212,7 @@ trait TimekeepingTraits
 
               if ($deet->halfdayFrom == 2){
                 $log="<strong><small><i class=\"fa ".$i." \"></i> <em> 1st Shift ".$l." (for approval) </em></small></strong>".$icons;
-                $workedHours = number_format(($wh/60),2)."<br/><small>[Late IN]</small>";$billableForOT=0;
+                $workedHours = number_format(($wh/60),2);$billableForOT=0; //."<br/><small>[Late IN]</small>"
                 $UT = round(((420.0 - $wh)/60),2); //4h instead of 8H
               }
               
