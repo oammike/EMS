@@ -530,180 +530,168 @@ class UserVLController extends Controller
                     $today=Carbon::today();
                     $lengthOfService = Carbon::parse($user->dateHired,"Asia/Manila")->diffInMonths($today);
 
-                    //actually, pwede na basta regular
+                    if (empty($request->from)) $vl_from = Carbon::today(); else $vl_from = Carbon::parse($request->from,"Asia/Manila");
 
+                    $hasSavedCredits=false;
+
+                    $savedCredits = User_VLcredits::where('user_id', $user->id)->where('creditYear',date('Y'))->get();
                     
-                        if (empty($request->from))
-                            $vl_from = Carbon::today();
-                        else $vl_from = Carbon::parse($request->from,"Asia/Manila");
+                    $vlEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$user->id)->
+                          join('vlupdate','user_vlearnings.vlupdate_id','=', 'vlupdate.id')->
+                          select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>',Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
+                    $totalVLearned = collect($vlEarnings)->sum('credits');
+
+                    $slEarnings = DB::table('user_slearnings')->where('user_slearnings.user_id',$user->id)->
+                          join('slupdate','user_slearnings.slupdate_id','=', 'slupdate.id')->
+                          select('slupdate.credits','slupdate.period')->where('slupdate.period','>', Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
+                    $totalSLearned = collect($slEarnings)->sum('credits');
+                    $slCredits = $user->slCredits;
+
+                    $avail = $user->vlCredits;
+
+                    $leave1 = Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d');
+                    $leave2 = Carbon::parse(date('Y').'-12-31','Asia/Manila')->format('Y-m-d');
+
+                    $vtoVL = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','VL')->get();
+                    $totalVTO_vl = number_format(collect($vtoVL)->sum('totalHours') * 0.125,2);
+
+                    $vtoSL = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','SL')->get();
+                    $vtoSL2 = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','AdvSL')->get();
+                    /*$vtoSL = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->where('productionDate','<=',Carbon::now('GMT+8')->endOfYear()->format('Y-m-d'))->where('deductFrom','SL')->get();
+                    $vtoSL2 = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','AdvSL')->get();*/
+
+                     
+
+
+                    $totalVTO_sl1 = number_format(collect($vtoSL)->sum('totalHours') * 0.125,2);
+                    $totalVTO_sl2 = number_format(collect($vtoSL2)->sum('totalHours') * 0.125,2);
+                    $totalVTO_sl = $totalVTO_sl1 + $totalVTO_sl2;
+
+                     /************ for VL ************/
+                    if (count($avail)>0){
+                      $vls = $user->vlCredits->sortByDesc('creditYear');
+
+                      if($vls->contains('creditYear',date('Y')))
+                      {
+                        $updatedVL=true;
+                        $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used + $totalVLearned) - $vls->first()->paid - $totalVTO_vl;
+                      }
+                      else{$currentVLbalance = "N/A";}
+                    }else {$currentVLbalance = "N/A";}
+
+                    /************ for SL ************/
+                    if (count($slCredits)>0)
+                    {
+                      $sls = $user->slCredits->sortByDesc('creditYear');
+
+                      if($sls->contains('creditYear',date('Y')))
+                      {
+                        $updatedSL=true;
+
+                        //get advanced SLs
+                        //$adv = DB::table('user_advancedSL')->where('user_id',$user->id)->get();
+                        $adv = DB::table('user_advancedSL')->where('user_advancedSL.user_id',$user->id)->
+                                    where('user_advancedSL.periodStart','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->
+                                    where('user_advancedSL.periodEnd','<=',Carbon::now('GMT+8')->endOfYear()->format('Y-m-d'))->
+                                                select('user_advancedSL.id','user_advancedSL.total', 'user_advancedSL.periodStart','user_advancedSL.periodEnd','user_advancedSL.created_at')->
+                                                //where('user_advancedSL.periodStart','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->
+                                                orderBy('user_advancedSL.periodEnd','DESC')->get(); //
 
 
 
-                        
-                        $hasSavedCredits=false;
-
-                        $savedCredits = User_VLcredits::where('user_id', $user->id)->where('creditYear',date('Y'))->get();
-                        
-                        $vlEarnings = DB::table('user_vlearnings')->where('user_vlearnings.user_id',$user->id)->
-                              join('vlupdate','user_vlearnings.vlupdate_id','=', 'vlupdate.id')->
-                              select('vlupdate.credits','vlupdate.period')->where('vlupdate.period','>',Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
-                        $totalVLearned = collect($vlEarnings)->sum('credits');
-
-                        $slEarnings = DB::table('user_slearnings')->where('user_slearnings.user_id',$user->id)->
-                              join('slupdate','user_slearnings.slupdate_id','=', 'slupdate.id')->
-                              select('slupdate.credits','slupdate.period')->where('slupdate.period','>', Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d'))->get();
-                        $totalSLearned = collect($slEarnings)->sum('credits');
-                        $slCredits = $user->slCredits;
-
-                        $avail = $user->vlCredits;
-
-                        $leave1 = Carbon::parse(date('Y').'-01-01','Asia/Manila')->format('Y-m-d');
-                        $leave2 = Carbon::parse(date('Y').'-12-31','Asia/Manila')->format('Y-m-d');
-
-                        $vtoVL = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','VL')->get();
-                        $totalVTO_vl = number_format(collect($vtoVL)->sum('totalHours') * 0.125,2);
-
-                        $vtoSL = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','SL')->get();
-                        $vtoSL2 = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','AdvSL')->get();
-                        /*$vtoSL = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->where('productionDate','<=',Carbon::now('GMT+8')->endOfYear()->format('Y-m-d'))->where('deductFrom','SL')->get();
-                        $vtoSL2 = User_VTO::where('user_id',$user->id)->where('isApproved',1)->where('productionDate','>=',$leave1)->where('productionDate','<=',$leave2)->where('deductFrom','AdvSL')->get();*/
-
-                         
-
-
-                        $totalVTO_sl1 = number_format(collect($vtoSL)->sum('totalHours') * 0.125,2);
-                        $totalVTO_sl2 = number_format(collect($vtoSL2)->sum('totalHours') * 0.125,2);
-                        $totalVTO_sl = $totalVTO_sl1 + $totalVTO_sl2;
-
-                         /************ for VL ************/
-                        if (count($avail)>0){
-                          $vls = $user->vlCredits->sortByDesc('creditYear');
-
-                          if($vls->contains('creditYear',date('Y')))
-                          {
-                            $updatedVL=true;
-                            $currentVLbalance= ($vls->first()->beginBalance - $vls->first()->used + $totalVLearned) - $vls->first()->paid - $totalVTO_vl;
-                          }
-                          else{$currentVLbalance = "N/A";}
-                        }else {$currentVLbalance = "N/A";}
-
-                        /************ for SL ************/
-                         if (count($slCredits)>0)
-                         {
-                          $sls = $user->slCredits->sortByDesc('creditYear');
-
-                          if($sls->contains('creditYear',date('Y')))
-                          {
-                            $updatedSL=true;
-
-                            //get advanced SLs
-                            //$adv = DB::table('user_advancedSL')->where('user_id',$user->id)->get();
-                            $adv = DB::table('user_advancedSL')->where('user_advancedSL.user_id',$user->id)->
-                                        where('user_advancedSL.periodStart','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->
-                                        where('user_advancedSL.periodEnd','<=',Carbon::now('GMT+8')->endOfYear()->format('Y-m-d'))->
-                                                    select('user_advancedSL.id','user_advancedSL.total', 'user_advancedSL.periodStart','user_advancedSL.periodEnd','user_advancedSL.created_at')->
-                                                    //where('user_advancedSL.periodStart','>=',Carbon::now('GMT+8')->startOfYear()->format('Y-m-d'))->
-                                                    orderBy('user_advancedSL.periodEnd','DESC')->get(); //
-
-
-
-                            $advancedSL = 0;
-                            foreach ($adv as $a) {
-                              $advancedSL += $a->total;
-                            }
-
-                            $currentSLbalance = (($sls->first()->beginBalance - $sls->first()->used + $totalSLearned) - $sls->first()->paid)-$advancedSL - $totalVTO_sl;
-                                               
-                          }
-                          else { $currentSLbalance = "N/A"; }
-                        }else { $currentSLbalance = "N/A"; }
-                        
-
-                        
-                        
-                            /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
-                            $holiday = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
-
-                            if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 && $isBackoffice) //if (count($holiday) > 0 )
-                            {
-                                $used = '0.00'; //less 1 day assume wholeday initially
-                                if (count($savedCredits)>0){
-                                     $hasSavedCredits = true;
-                                     $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used;
-                                 }else {
-
-                                    //check muna kung may existing approved VLs
-                                    $approvedVLs = User_VL::where('user_id',$user->id)->where('isApproved',true)->get();
-                                    if (count($approvedVLs) > 0 )
-                                    {
-                                        $usedC = 0;
-                                        foreach ($approvedVLs as $key) {
-                                            $usedC += $key->totalCredits;
-                                        }
-                                        $creditsLeft = (0.84 * $today->format('m')) - $usedC ;
-                                    }
-                                    else
-                                    $creditsLeft = (0.84 * $today->format('m')) ;
-                                 }
-                                 
-                            }
-                            else{
-
-                                $schedForTheDay = $this->getWorkSchedForTheDay1($user,$vl_from,null,false);
-
-                                //if 4HRs lang work nya, part timer sya or foreign na part timer
-                                //dapat half lang credit nila
-                                if( Carbon::parse($schedForTheDay->timeStart,'Asia/Manila')->diffInHours(Carbon::parse($schedForTheDay->timeEnd,'Asia/Manila')) > 4)
-                                    $foreignPartime = 0;
-                                    //credits = 1;
-                                else
-                                    $foreignPartime = 1; // 0.5;
-
-
-                                ($isParttimer || $foreignPartime) ? $used = 0.5 : $used = 1.00; 
-
-                                if (count($savedCredits)>0){
-                                    $hasSavedCredits = true;
-                                     $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used - $used) + $totalVLearned;
-                                 }else 
-                                 {
-
-                                    //check muna kung may existing approved VLs
-                                    $approvedVLs = User_VL::where('user_id',$user->id)->where('isApproved',true)->get();
-                                    if (count($approvedVLs) > 0 )
-                                    {
-                                        $usedC = 0;
-                                        foreach ($approvedVLs as $key) {
-                                            $usedC += $key->totalCredits;
-                                        }
-                                        $creditsLeft =((0.84 * $today->format('m')) - $usedC) - $used ;
-                                    }
-                                    else
-                                        $creditsLeft = (0.84 * $today->format('m')) - $used ;
-                                }
-                            } 
-
-                        
-                        //return (['creditsleft'=>$creditsLeft, 'vl_from'=>$vl_from]);
-
-                        // we now check which credits to use
-                        $useCredits ="";
-
-                        
-                        if($currentVLbalance == "N/A" || $currentSLbalance == "N/A") $useCredits="LWOP";
-                        else
-                        {
-                            if (number_format($currentVLbalance,2) > 0.125) $useCredits="VL";
-                            else if(number_format($currentSLbalance,2) > 0.125) $useCredits="SL";
-                            else $useCredits="LWOP";
-
+                        $advancedSL = 0;
+                        foreach ($adv as $a) {
+                          $advancedSL += $a->total;
                         }
 
+                        $currentSLbalance = (($sls->first()->beginBalance - $sls->first()->used + $totalSLearned) - $sls->first()->paid)-$advancedSL - $totalVTO_sl;
+                                           
+                      }
+                      else { $currentSLbalance = "N/A"; }
+                    }else { $currentSLbalance = "N/A"; }
+                    
 
-                        
+                    
+                    
+                    /*---- check mo muna kung may holiday today to properly initialize credits used ---*/
+                    $holiday = Holiday::where('holidate',$vl_from->format('Y-m-d'))->get();
 
-                        
-                        return view('timekeeping.user-VTO_create',compact('user', 'vl_from','creditsLeft','used','hasSavedCredits','currentSLbalance','currentVLbalance','useCredits','isNDY'));
+                    if (count(Holiday::where('holidate',$vl_from->format('Y-m-d'))->get()) > 0 && $isBackoffice) //if (count($holiday) > 0 )
+                    {
+                        $used = '0.00'; //less 1 day assume wholeday initially
+                        if (count($savedCredits)>0){
+                             $hasSavedCredits = true;
+                             $creditsLeft = $savedCredits->first()->beginBalance - $savedCredits->first()->used;
+                         }else {
+
+                            //check muna kung may existing approved VLs
+                            $approvedVLs = User_VL::where('user_id',$user->id)->where('isApproved',true)->get();
+                            if (count($approvedVLs) > 0 )
+                            {
+                                $usedC = 0;
+                                foreach ($approvedVLs as $key) {
+                                    $usedC += $key->totalCredits;
+                                }
+                                $creditsLeft = (0.84 * $today->format('m')) - $usedC ;
+                            }
+                            else
+                            $creditsLeft = (0.84 * $today->format('m')) ;
+                         }
+                         
+                    }
+                    else{
+
+                        $schedForTheDay = $this->getWorkSchedForTheDay1($user,$vl_from,null,false);
+
+                        //if 4HRs lang work nya, part timer sya or foreign na part timer
+                        //dapat half lang credit nila
+                        if( Carbon::parse($schedForTheDay->timeStart,'Asia/Manila')->diffInHours(Carbon::parse($schedForTheDay->timeEnd,'Asia/Manila')) > 4)
+                            $foreignPartime = 0;
+                            //credits = 1;
+                        else
+                            $foreignPartime = 1; // 0.5;
+
+
+                        ($isParttimer || $foreignPartime) ? $used = 0.5 : $used = 1.00; 
+
+                        if (count($savedCredits)>0){
+                            $hasSavedCredits = true;
+                             $creditsLeft = ($savedCredits->first()->beginBalance - $savedCredits->first()->used - $used) + $totalVLearned;
+                         }else 
+                         {
+
+                            //check muna kung may existing approved VLs
+                            $approvedVLs = User_VL::where('user_id',$user->id)->where('isApproved',true)->get();
+                            if (count($approvedVLs) > 0 )
+                            {
+                                $usedC = 0;
+                                foreach ($approvedVLs as $key) {
+                                    $usedC += $key->totalCredits;
+                                }
+                                $creditsLeft =((0.84 * $today->format('m')) - $usedC) - $used ;
+                            }
+                            else
+                                $creditsLeft = (0.84 * $today->format('m')) - $used ;
+                        }
+                    } 
+
+                
+                    //return (['creditsleft'=>$creditsLeft, 'vl_from'=>$vl_from]);
+
+                    // we now check which credits to use
+                    $useCredits ="";
+
+                    
+                    if($currentVLbalance == "N/A" || $currentSLbalance == "N/A") $useCredits="LWOP";
+                    else
+                    {
+                        if (number_format($currentVLbalance,2) > 0.125) $useCredits="VL";
+                        else if(number_format($currentSLbalance,2) > 0.125) $useCredits="SL";
+                        else $useCredits="LWOP";
+
+                    }
+
+                    return view('timekeeping.user-VTO_create',compact('user', 'vl_from','creditsLeft','used','hasSavedCredits','currentSLbalance','currentVLbalance','useCredits','isNDY'));
 
                     
 
@@ -1446,26 +1434,14 @@ class UserVLController extends Controller
 
         
         $vl = new User_VTO;
-        $user_id = $request->id;
-        $leaveStart =  $request->leaveFrom;
-        
-        $notes = $request->reason_vl;
-        $totalhours= $request->totalhours;
-        $timeStart = $request->timeStart;
-        $timeEnd = $request->timeEnd;
-        $useCredits = $request->useCredits;
-
-
-
-        //return response()->json(['useCredits'=>$useCredits, 'leaveStart'=>$leaveStart,'notes'=>$notes,'totalhours'=>$totalhours,'timeStart'=>$timeStart,'timeEnd'=>$timeEnd,'success'=>1]);
-        
+      
 
         $employee = User::find($request->id);
 
         $vl->user_id = $employee->id;
-        $vl->productionDate = $request->leaveFrom;
-        $vl->startTime = date('H:i:s',strtotime($request->timeStart));
-        $vl->endTime = date('H:i:s',strtotime($request->timeEnd));
+        $vl->productionDate = Carbon::parse($request->leaveFrom,'Asia/Manila')->format('Y-m-d');
+        $vl->startTime = Carbon::parse($request->timeStart,'Asia/Manila')->format('H:i:s'); //date('H:i:s',strtotime($request->timeStart));
+        $vl->endTime =  Carbon::parse($request->timeEnd,'Asia/Manila')->format('H:i:s'); //date('H:i:s',strtotime($request->timeEnd));
         $vl->totalhours = $request->totalhours;
         $vl->deductFrom = $request->useCredits;
         $vl->forced = $request->forced;
@@ -1609,8 +1585,8 @@ class UserVLController extends Controller
 
 
          /* -------------- log updates made --------------------- */
-         $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
-            fwrite($file, "-------------------\n". $employee->id .",". $employee->lastname." VL submission ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
+         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+            fwrite($file, "-------------------\n". $employee->id .",". $employee->lastname." VTO submission ". date('M d h:i:s'). " by ". $this->user->firstname.", ".$this->user->lastname."\n");
             fclose($file);
          
 

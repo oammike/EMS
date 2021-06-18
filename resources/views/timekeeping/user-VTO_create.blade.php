@@ -2,7 +2,7 @@
 
 @section('metatags')
 <title>New VTO Request | Employee Management System</title>
-
+<link href="{{asset('public/js/jquery.datetimepicker.min.css')}}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -82,35 +82,29 @@
                               </div><br/>
 
                               <div class="row">
-                                  <div class="col-lg-6">
+                                
+                                  <div class="col-lg-6"><p class="text-danger"><i class="fa fa-exclamation-circle"></i> Please note that time is in <strong>24-hour format</strong></p>
 
                                     <div class="row">
                                       <div class="col-sm-6">
-                                        <label for="vl_from">From: <input required type="text" class="dates form-control datepicker" name="vl_from" id="vl_from" value="{{$vl_from->format('m/d/Y')}}" /></label><div id="alert-vl_from" style="margin-top:10px"></div>
+                                        <label for="vl_from">From: 
+                                          <input type="text" name="vl_from" id="vl_from"/>
+
+                                          </label>
+                                          <div id="alert-vl_from" style="margin-top:10px"></div>
                                       </div>
-                                      <div class="col-sm-6"></div>
+                                      <div class="col-sm-6">
+                                        <label for="search-to-date">Until: 
+                                        <input type="text" name="vl_to" id="vl_to"/></label>
+                                        <div id="alert-vl_to" style="margin-top:10px"></div>
+                                      </div>
                                     </div>
 
-                                    <div class="row">
-                                      <div class="col-sm-4">
-                                         <label for="vl_from">Time Start: <input required type="text" class="form-control" name="timeStart" id="timeStart" placeholder="HH:MM" /></label><div id="alert-timeStart" style="margin-top:10px"></div>
-                                      </div>
-                                      <div class="col-sm-2 text-left" style="padding-top: 10px">
-                                        <label><input type="radio" name="amStart" value="AM" checked="checked"> AM</label>
-                                        <label><input type="radio" name="amStart" value="PM"> PM</label>
-                                      </div>
-                                      <div class="col-sm-4">
-                                        <label for="vl_from">Time End: <input required type="text" class="form-control" name="timeEnd" id="timeEnd" placeholder="HH:MM" /></label><div id="alert-timeEnd" style="margin-top:10px"></div>
-                                      </div>
-                                      <div class="col-sm-2 text-left" style="padding-top: 10px">
-                                        <label><input type="radio" name="amEnd" value="AM" checked="checked"> AM</label>
-                                        <label><input type="radio" name="amEnd" value="PM"> PM</label>
-                                      </div>
-                                    </div>
+                                    
 
                                     <div class="row">
                                       <div class="col-sm-12">
-                                        <label for="totalhours">Total Hours: <input required type="text" class="form-control " name="totalhours" id="totalhours" placeholder="xx.xx" /></label><div id="alert-hours" style="margin-top:10px"></div>
+                                        <label for="totalhours">Total Hours: <strong class="text-success" id="vtohr" style="font-size: x-large;"></strong> <input type="hidden" class="form-control " name="totalhours" id="totalhours" disable="disable" /></label><div id="alert-hours" style="margin-top:10px"></div>
                                       </div>
                                     </div>
 
@@ -161,9 +155,9 @@
                                       @endif
                                     @endif
 
-                                    <label style="margin-right: 15px"><input type="radio" name="useCredits" value="AdvSL"  @if($useCredits=='AdvSL') checked="checked" @endif> Advanced SL</label>
+                                   <!--  <label style="margin-right: 15px"><input type="radio" name="useCredits" value="AdvSL"  @if($useCredits=='AdvSL') checked="checked" @endif> Advanced SL</label> -->
                                     <label style="margin-right: 15px"><input type="radio" name="useCredits" value="LWOP"  @if($useCredits=='LWOP') checked="checked" @endif> LWOP</label>
-                                    <div id="deduct" style="margin-top: 20px"><i class="fa fa-exclamation-circle"></i> Total credits to be deducted: <strong></strong> </div>
+                                    <div id="deduct" style="margin-top: 20px"><i class="fa fa-exclamation-circle"></i> Total leave credits to be used: <strong></strong> </div>
                                    
                                 </div>
                               </div>
@@ -237,6 +231,7 @@
 @section('footer-scripts')
 
 <script src="{{URL::asset('public/js/moment.min.js')}}" ></script>
+<script src="{{URL::asset('public/js/jquery.datetimepicker.full.min.js')}}" ></script>
 <script>
   $.widget.bridge('uibutton', $.ui.button);
 </script>
@@ -248,6 +243,8 @@
 
   $(function () {
      'use strict';
+
+     jQuery('#vl_from, #vl_to').datetimepicker({step:15, value:"{{$vl_from->format('Y-m-d')}}"});
 
 
      //****** initialize for those with URL param from DTR
@@ -289,33 +286,27 @@
             var user_id = $(this).attr('data-userid');
             var selectedDate = $(this).attr('data-date');
             var requestType = $(this).attr('data-requesttype');
-            var timestart = $('input[name="timeStart"]').val();
-            var timeend = $('input[name="timeEnd"]').val();
-            var amStart = $('input[name="amStart"]:checked').val();
-            var amEnd = $('input[name="amEnd"]:checked').val();
+            
             
 
             var vl_from = $('input[name="vl_from"]').val(); // MM/dd/YYYY
+            var vl_to = $('input[name="vl_to"]').val(); // MM/dd/YYYY
+            var timestart = moment(vl_from,"YYYY/MM/DD HH:mm");
+            var timeend =  moment(vl_to,"YYYY/MM/DD HH:mm");
             
 
            
             var reason_vl = $('textarea[name="reason_vl"]').val();
             var totalhours = $('input[name="totalhours"]').val();
 
-            var mfrom = moment(vl_from,"MM/D/YYYY").format('YYYY-MM-D');
-           
-            
-            var leaveFrom = moment(vl_from,"MM/D/YYYY").format('YYYY-MM-D H:mm:ss'); 
+            if (totalhours > 8) totalhours--;
 
             var useCredits = $('input[name="useCredits"]:checked').val();
             var forced = $('input[name="forced"]:checked').val();
            
 
-            var mayExisting = checkExisting(leaveFrom,_token);
-            console.log('amStart:amEnd');
-            console.log(amStart + '-'+ amEnd);
-            console.log(useCredits);
-
+            var mayExisting = checkExisting(timestart.format('YYYY-MM-D'),_token);
+            
             if (mayExisting)
             {
               $.notify("An existing VTO has already been filed covering those dates.\nIf you wish to file a new one, go to employee\'s DTR Requests page and cancel previously submitted VTO.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false; 
@@ -324,20 +315,14 @@
             else
             {
 
-              if (reason_vl == ""){ $.notify("Please include a brief reason about your leave for HR-Finance's review.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false; }
+              if (reason_vl == ""){ $.notify("Please include a brief reason about your Voluntary Time Off for HR-Finance's review.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false; }
               else
               {
-                    var isValidTime = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(timestart);
-                    var isValidTime2 = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(timeend);
+                    
 
-
-                    if (isValidTime && isValidTime2)
-                    {
-                      $('input[name="leaveFrom"]').val(leaveFrom);
-
-                      if ( $.isNumeric(totalhours) == false )
+                      if ( $.isNumeric(totalhours) == false || timestart == timeend || timestart >= timeend )
                       {
-                        $.notify("Invalid total hours indicated.",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false;
+                        $.notify("Invalid VTO hours indicated. Kindly check entered values and try again",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false;
 
                       }else
                       {
@@ -359,11 +344,11 @@
                                   type:'POST',
                                   data:{ 
                                     'id': user_id,
-                                    'leaveFrom': leaveFrom,
+                                    'leaveFrom': timestart.format('YYYY-MM-D'),
                                     'reason_vl': reason_vl,
                                     'totalhours': totalhours,
-                                    'timeStart': timestart+' '+amStart,
-                                    'timeEnd':  timeend+' '+amEnd,
+                                    'timeStart': timestart.format('HH:mm'),
+                                    'timeEnd':  timeend.format('YYYY-MM-D HH:mm'),
                                     'useCredits': useCredits,
                                     'forced': forced,
                                     '_token':_token
@@ -393,11 +378,8 @@
 
                       
                       
-                    }
-                    else
-                    {
-                      $.notify("Invalid time format. Please make sure you indicate the correct start & end time for this VTO ",{className:"error", globalPosition:'right middle',autoHideDelay:7000, clickToHide:true} );return false;
-                    }
+                    
+                    
 
                     
               }
@@ -410,16 +392,31 @@
 
 
      
-     $( ".datepicker" ).datepicker({dateFormat:"YYYY-mm-dd"});
+    // $( ".datepicker" ).datepicker({dateFormat:"YYYY-mm-dd"});
 
      
 
 
 
-     $('#vl_from').on('focusout', function(){
+     $('#vl_from,#vl_to').on('focusout', function(){
           var vl_from = $('input[name="vl_from"]').val(); 
-          var vl_from1 = moment(vl_from,"MM/DD/YYYY");
+          var vl_from1 = moment(vl_from,"YYYY/MM/DD HH:mm");
+
+          console.log('vl_from1:' + vl_from1.format('YYYY-MM-DD HH:mm'));
+
           var vl_to = $('input[name="vl_to"]').val();
+          var vl_to1 = moment(vl_to,"YYYY/MM/DD HH:mm");
+          console.log('vl_to1:' + vl_to1.format('YYYY-MM-DD HH:mm'));
+
+          var vtohrs = moment.duration(vl_to1.diff(vl_from1)).asHours(); 
+
+          if (vtohrs > 8) vtohrs--;
+
+          console.log("duration: "+ vtohrs);
+          $('#totalhours').val(vtohrs);
+          $("#vtohr").html(vtohrs);
+
+
           var toval = moment(vl_from,"MM/DD/YYYY").format('MMM DD ddd');
           var theshift = $('input[name="coveredshift"]:checked').val();
           var shift2 = $('input[name="coveredshift2"]:checked').val();
@@ -447,51 +444,40 @@
                   $('input[name="timeend_old"]').val(response.timeEnd);
                 }
               });
+
+
+          var isNDY = "{{$isNDY}}";
+
+          
+          var useCredits = $('input[name="useCredits"]:checked').val();
+
+          var creds = 0.125 * vtohrs;
+
+            if(isNDY !== '1')
+            {
+               if( creds > parseFloat("{{$currentVLbalance}}") && useCredits=="VL" ) 
+                alert("Note that you have insufficient VL leave credits."); 
+              else if( creds > parseFloat("{{$currentSLbalance}}") && useCredits=="SL" )
+                alert("Note that you have insufficient SL leave credits."); 
+
+            }
+
+           
+
+            $('#deduct strong').html('');
+            $('#deduct strong').html(creds);
+
+
+          
+
+
       });
-
-     $('#timeStart,#timeEnd').on('focusout',function(){
-
-      var t = $(this).val();
-      var isValidTime = /^([01]?[0-9]|2[0-3]):[0-5][0-9]$/.test(t);
-
-     // alert("Invalid Time Format.\nMake sure it's in this time format [hh:mm] ");
-
-     });
+    
 
 
-     $('#totalhours').on('focusout',function(){
-
-      var isNDY = "{{$isNDY}}";
-
-      var val = $(this).val();
-      var useCredits = $('input[name="useCredits"]:checked').val();
-
-      if ( $.isNumeric(val) == false ) alert("Invalid number of hours indicated!");
-      else
-      {
-        var creds = 0.125 * val;
-
-        if(isNDY !== '1')
-        {
-           if( creds > parseFloat({{$currentVLbalance}}) && useCredits=="VL" ) 
-            alert("Note that you have insufficient VL leave credits."); 
-          else if( creds > parseFloat({{$currentSLbalance}}) && useCredits=="SL" )
-            alert("Note that you have insufficient SL leave credits."); 
-
-        }
-
-       
-
-        $('#deduct strong').html('');
-        $('#deduct strong').html(creds);
 
 
-      }
-      
-
-     });
-
-
+     
 
 
       
