@@ -688,7 +688,7 @@ trait UserTraits
                   if (empty($l)) $logo = "white_logo_small.png";
                   else $logo = $l;
 
-                  if ($emp->status_id !== 7 && $emp->status_id !== 8 && $emp->status_id !== 9 && $empCamp1->hidden !== 1){
+                  if ($emp->status_id !== 7 && $emp->status_id !== 8 && $emp->status_id !== 9 && $emp->status_id !== 19 && $empCamp1->hidden !== 1){
 
                                //to remove own manager from displaying his own self
                           if ($myEmployeeNumber !== $emp->employeeNumber)
