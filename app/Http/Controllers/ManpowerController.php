@@ -198,7 +198,8 @@ class ManpowerController extends Controller
                         fwrite($file, "\n Manpower Req by: ". $this->user->firstname." ". $this->user->lastname." on ". $correct->format('Y-m-d H:i:s')."\n");
                         fclose($file);    */
 
-        $HRs = [564]; 
+        
+        $HRs = [385,563,564];
         foreach($HRs as $h)
         {
             $hr = User::find($h);    
@@ -206,7 +207,7 @@ class ManpowerController extends Controller
             $s = Mail::send('emails.manpower', [ 'employee'=>$employee, 'request'=>$request,'allStatus'=>$allStatus, 'foreignStatus'=>$foreignStatus], function ($m) use ($hr, $employee,$correct,$request) 
                  {
                     $m->from('EMS@openaccessbpo.net', 'EMS | OAMPI Employee Management System');
-                    $m->to('mpamero@openaccessbpo.net', $hr->lastname.', '.$hr->firstname)->subject('Manpower Request - '. '('.$request[0]->howMany.') '. $request[0]->jobTitle ); 
+                    $m->to($hr->email, $hr->lastname.', '.$hr->firstname)->subject('Manpower Request - '. '('.$request[0]->howMany.') '. $request[0]->jobTitle ); 
                 }); //end mail
             if($s){
                 $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
