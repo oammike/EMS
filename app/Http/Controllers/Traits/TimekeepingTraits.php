@@ -8458,7 +8458,8 @@ trait TimekeepingTraits
               $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ ".$label." ]</em></small></strong>".$icons;
             }
             
-            if($leaveType=='LWOP' || ($leaveType=='FL' && $isML) ) $workedHours  .= "0.0<br/>".$log;
+            if($leaveType=='LWOP') $workedHours  .= "0.0<br/>".$log;
+            elseif($leaveType=='FL' && $isML) $workedHours = "0.0<br/>".$log;
             else
             $workedHours .= "<br/>".$log;
 
