@@ -4440,7 +4440,7 @@ class DTRController extends Controller
                                 }elseif($theHoliday->first()->holidayType_id == 5) // Taipei
                                 {
                                     ($isTaipei) ? $isHoliday=1 : $isHoliday=0; 
-                                }elseif($holiday->first()->holidayType_id == 6) // Xiamen
+                                }elseif($theHoliday->first()->holidayType_id == 6) // Xiamen
                                 {
                                     ($isTaipei) ? $isHoliday=1 : $isHoliday=0; 
                                 }
@@ -4890,7 +4890,7 @@ class DTRController extends Controller
                                 }elseif($theHoliday->first()->holidayType_id == 5) // Taipei
                                 {
                                     ($isTaipei) ? $isHoliday=1 : $isHoliday=0; 
-                                }elseif($holiday->first()->holidayType_id == 6) // Xiamen
+                                }elseif($theHoliday->first()->holidayType_id == 6) // Xiamen
                                 {
                                     ($isTaipei) ? $isHoliday=1 : $isHoliday=0; 
                                 }
