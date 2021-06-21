@@ -4492,6 +4492,54 @@ class DTRController extends Controller
 
                                       }
 
+                                    }elseif($theHoliday->first()->holidayType_id == 4)
+                                    {
+                                      if ($isTaipei)
+                                      {
+                                        $startDate = Carbon::parse($j->productionDate." ".$wshift[0],'Asia/Manila');
+
+                                        if($isBackoffice){
+                                          $startTime = Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila');
+                                          $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours)->addHours(1);
+                                          $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$j->timeEnd,'Asia/Manila')->addHours(1);
+                                        }
+                                        else {
+                                            $startTime = $startDate; //Carbon::parse($startDate->format('Y-m-d')." ".$wshift[0],'Asia/Manila');
+                                            $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours);
+                                            $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$j->timeEnd,'Asia/Manila')->addHours(1);
+                                          
+                                        }
+
+                                      }
+                                      else //hindi taga taipei, so wala dapat syang holiday
+                                      {
+
+                                      }
+
+                                    }elseif($theHoliday->first()->holidayType_id == 5)
+                                    {
+                                      if ($isTaipei)
+                                      {
+                                        $startDate = Carbon::parse($j->productionDate." ".$wshift[0],'Asia/Manila');
+
+                                        if($isBackoffice){
+                                          $startTime = Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila');
+                                          $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours)->addHours(1);
+                                          $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$j->timeEnd,'Asia/Manila')->addHours(1);
+                                        }
+                                        else {
+                                            $startTime = $startDate; //Carbon::parse($startDate->format('Y-m-d')." ".$wshift[0],'Asia/Manila');
+                                            $endDate =  Carbon::parse($startDate->format('Y-m-d')." ".$j->timeStart,'Asia/Manila')->addHours($j->filed_hours);
+                                            $endTime = Carbon::parse($endDate->format('Y-m-d')." ".$j->timeEnd,'Asia/Manila')->addHours(1);
+                                          
+                                        }
+
+                                      }
+                                      else //hindi taga taipei, so wala dapat syang holiday
+                                      {
+
+                                      }
+
                                     }
                                     else //regular holiday
                                     {
@@ -4629,6 +4677,51 @@ class DTRController extends Controller
 
                                     }
                                     else if($theHoliday->first()->holidayType_id == 5) //TWN
+                                    {
+                                      if ($isTaipei)
+                                      {
+                                        if ($isBackoffice){ $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1; }
+                                        else
+                                        {
+                                          if(count($sched) > 0)
+                                          {
+                                            if (($sched[0]->workshift === '* RD * - * RD *') || strpos($sched[0]->workshift, 'RD') !== false) {  $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1; }
+                                            else
+                                            {
+                                              // check muna kung PT or not
+                                              
+
+                                              if ($isParttimer)
+                                              {
+                                                
+                                                $hoursFiled = $j->billable_hours + 4.0;
+                                                $hoursApproved = $j->filed_hours + 4.0;
+                                              }
+                                              else
+                                              {
+                                                
+                                                $hoursFiled = $j->billable_hours + 8.0;
+                                                $hoursApproved = $j->filed_hours + 8.0;
+
+                                              }
+                                            }
+
+                                          }
+                                          else{ $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1;}
+
+                                        }
+                                        
+
+                                        
+                                      }
+                                      else //hindi taga davao, so wala dapat syang holiday
+                                      {
+                                        $hoursFiled = $j->billable_hours; $hoursApproved =$j->filed_hours; goto proceedSaving1;
+
+                                      }
+
+                                    }
+                                    else if($theHoliday->first()->holidayType_id == 6) //TWN
                                     {
                                       if ($isTaipei)
                                       {
