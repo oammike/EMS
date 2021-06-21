@@ -4432,7 +4432,7 @@ class DTRController extends Controller
                               
                               (count(Team::where('user_id',$j->userID)->where('floor_id',10)->get()) > 0 || count(Team::where('user_id',$j->userID)->where('floor_id',11)->get()) > 0) ? $isTaipei = 1 : $isTaipei=0;
 
-                              /*if (count($theHoliday) > 0) 
+                              if (count($theHoliday) > 0) 
                               {
                                 if($theHoliday->first()->holidayType_id == 4) // Davao
                                 {
@@ -4445,9 +4445,9 @@ class DTRController extends Controller
                                     ($isTaipei) ? $isHoliday=1 : $isHoliday=0; 
                                 }
 
-                              }else $isHoliday=0;*/
+                              }else $isHoliday=0;
 
-                              $isHoliday = (count($theHoliday) > 0) ? 1 : 0;
+                              //$isHoliday = (count($theHoliday) > 0) ? 1 : 0;
 
 
                               //-----we get first employee's schedule from locked DTR
@@ -4876,11 +4876,26 @@ class DTRController extends Controller
                             
 
                             $theHoliday = Holiday::where('holidate',$jps[0]->productionDate)->get();
-                            $isHoliday = (count($theHoliday) > 0) ? true : false;
+                            //$isHoliday = (count($theHoliday) > 0) ? true : false;
                             $isBackoffice = ( Campaign::find(Team::where('user_id',$jps[0]->userID)->first()->campaign_id)->isBackoffice ) ? true : false;
                             $isDavao = ( Team::where('user_id',$jps[0]->userID)->first()->floor_id == 9) ? true : false;
 
                             (count(Team::where('user_id',$jps[0]->userID)->where('floor_id',10)->get()) > 0 || count(Team::where('user_id',$jps[0]->userID)->where('floor_id',11)->get()) > 0) ? $isTaipei = 1 : $isTaipei=0;
+
+                            if (count($theHoliday) > 0) 
+                              {
+                                if($theHoliday->first()->holidayType_id == 4) // Davao
+                                {
+                                  ($isDavao) ? $isHoliday=1 : $isHoliday=0;
+                                }elseif($theHoliday->first()->holidayType_id == 5) // Taipei
+                                {
+                                    ($isTaipei) ? $isHoliday=1 : $isHoliday=0; 
+                                }elseif($holiday->first()->holidayType_id == 6) // Xiamen
+                                {
+                                    ($isTaipei) ? $isHoliday=1 : $isHoliday=0; 
+                                }
+
+                              }else $isHoliday=0;
 
 
                             //-----we get first employee's schedule from locked DTR
