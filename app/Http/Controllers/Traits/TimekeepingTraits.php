@@ -7980,7 +7980,7 @@ trait TimekeepingTraits
 
   public function processLeaves($payday, $leaveType,$withIssue,$wh, $deet,$hasPending,$icons,$ins,$outs,$shiftEnd, $shiftStart)//$userLogIN[0]['logs'] || $userLogOUT[0]['logs']
   {
-    $log=null;
+    $log=null; $isML=null;
     switch ($leaveType) {
       case 'OBT':{$link = action('UserOBTController@show',$deet->id);$lTitle = "OBT request";
                     if($deet->isApproved)
@@ -8073,7 +8073,7 @@ trait TimekeepingTraits
                                       $i = "fa-female";
                                       $lTitle = "ML request";
                                       $l = "ML";
-                                      $label = "Maternity Leave";
+                                      $label = "Maternity Leave"; $isML=1;
                         }break;
 
 
@@ -8108,7 +8108,7 @@ trait TimekeepingTraits
                                       $i = "fa-info-circle";
                                       $lTitle = "ML request";
                                       $l = "ML";
-                                      $label = "ML denied";
+                                      $label = "ML denied"; $isML;
                         }break;
 
                         case 'MC':{
@@ -8192,7 +8192,8 @@ trait TimekeepingTraits
             
           }else{
 
-            if($leaveType=='LWOP') $workedHours = 0;
+            if($leaveType=='LWOP' || ($leaveType=='FL' && $isML) ) $workedHours = 0;
+           
             //else $workedHours = 8.0;
             $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[  ".$label." ] </em></small></strong>".$icons;
             
@@ -8457,7 +8458,7 @@ trait TimekeepingTraits
               $log="<strong><small><i class=\"fa ".$i."\"></i> <em>[ ".$label." ]</em></small></strong>".$icons;
             }
             
-            if($leaveType=='LWOP') $workedHours  .= "0.0<br/>".$log;
+            if($leaveType=='LWOP' || ($leaveType=='FL' && $isML) ) $workedHours  .= "0.0<br/>".$log;
             else
             $workedHours .= "<br/>".$log;
 
