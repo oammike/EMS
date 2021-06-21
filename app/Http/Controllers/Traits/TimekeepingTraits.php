@@ -8137,7 +8137,7 @@ trait TimekeepingTraits
                     }
                     
                     
-                    $workedHours = "N/A";
+                    $workedHours = "8.0";
               # code...
               }break;
 
