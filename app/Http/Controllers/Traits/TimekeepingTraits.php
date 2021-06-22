@@ -56,6 +56,7 @@ use OAMPI_Eval\User_Familyleave;
 use OAMPI_Eval\User_LWOP;
 use OAMPI_Eval\User_RDoverride;
 use OAMPI_Eval\User_LogOverride;
+use OAMPI_Eval\User_PTextension;
 use OAMPI_Eval\Holiday;
 use OAMPI_Eval\HolidayType;
 use OAMPI_Eval\Paycutoff;
@@ -7152,7 +7153,24 @@ trait TimekeepingTraits
         {
 
             if ($isPartTimer || $ptSched || $isPartTimerForeign ) {
-              $wh = Carbon::parse($userLogOUT[0]['logTxt'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila"));
+
+              //**** check mo muna baka may PT extension
+              $ptExt = User_PTextension::where('user_id',$user->id)->where('productionDate',$payday)->get();
+
+              if(count($ptExt) > 0){
+
+                if($outTime->format('Y-m-d H:i') > $endOfShift->format('Y-m-d H:i') ) //may butal na minutes, so isara natin sa endshift
+                {
+                  $newEnd = Carbon::parse($endOfShift->format('Y-m-d H:i'),'Asia/Manila')->addMinutes($ptExt->first()->filed_hours*60);
+                  $wh = $startOfShift->diffInMinutes($newEnd); 
+                }
+                    //Carbon::parse($payday." ".$ptExt->first()->timeStart,'Asia/Manila')->addMinutes($ptExt->first()->filed_hours*60);
+                else
+                  $wh = Carbon::parse($userLogOUT[0]['logTxt'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila"));
+
+
+              }else
+                $wh = Carbon::parse($userLogOUT[0]['logTxt'],"Asia/Manila")->diffInMinutes(Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila"));
             }
             else
             {

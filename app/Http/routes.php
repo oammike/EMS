@@ -969,6 +969,13 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       'as'=> 'user_dtr.processSheet',
       'uses'=>'DTRController@processSheet') );
 
+      
+      Route::post('/extendPT', array(
+      'as'=> 'user_dtr.extendPT',
+      'uses'=>'DTRController@extendPT') );
+
+
+
       Route::get('/financeReports', array(
       'as'=> 'financeReports',
       'uses'=>'DTRController@financeReports') );
@@ -1010,6 +1017,12 @@ Route::group( [ 'middleware' => ['auth'] ], function ()
       Route::post('/plotSchedule', array(
       'as'=> 'monthlySchedule.plot',
       'uses'=>'MonthlyScheduleController@plot') );
+
+      Route::post('/removePTextension/{id}', array(
+      'as'=> 'user_dtr.removePTextension',
+      'uses'=>'DTRController@removePTextension') );
+
+
 
       Route::get('/seen-unlockRequest/{id}', array(
       'as'=> 'user_dtr.seenzoned',

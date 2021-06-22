@@ -794,29 +794,60 @@
 
                                                           @else
 
-                                                            @if($theImmediateHead || $anApprover)<!-- || $canChangeSched -->
-                                                            <td class="text-center">
-                                                               <?php /*@if($data['isFlexitime']) <strong class="text-green"><i class="fa fa-refresh"></i> Flexi Sched</strong><br/> @endif */ ?>
-
-                                                               @if($isExempt)
-                                                               <strong class="text-primary" style="font-size:0.6em; font-style: italic;" >{{$exemptEmp[0]->name}} </strong><br/>
-                                                               @endif
-                                                               {!! $data['shiftStart2'] !!} - {!! $data['shiftEnd2'] !!} <!-- <strong><a data-toggle="modal" data-target="#editCWS_{{$data['payday']}}" title="Change Work Sched " class="text-primary pull-right" href="#" > <i class="fa fa-pencil"></i></a></strong> --> 
-                                                             </td>
                                                             
-
-                                                            @else
-                                                            <td class="text-center">
+                                                             <td class="text-center">
                                                                
-                                                               <?php /*@if($data['isFlexitime']) <strong class="text-green"><i class="fa fa-refresh"></i> Flexi Sched</strong><br/> @endif */ ?>
+                                                               
 
                                                                @if($isExempt)
                                                                <strong class="text-primary" style="font-size:0.6em; font-style: italic;" >{{$exemptEmp[0]->name}} </strong><br/>
                                                                @endif
 
-                                                               {!! $data['shiftStart2'] !!} - {!! $data['shiftEnd2'] !!} <!-- <strong><a data-toggle="modal" data-target="#myModal_{{$data['payday']}}" title="Report DTRP " class="text-primary pull-right" href="#" > <i class="fa fa-flag-checkered"></i></a></strong> --> 
+                                                               {!! $data['shiftStart2'] !!} - {!! $data['shiftEnd2'] !!}  
+
+                                                               <!-- ****** new if WFM & PT, option to extend part time sched *****-->
+
+                                                               @if ( !$data['isRDToday'] && $isParttimer && ($isWorkforce || $isFinance) && count($verifiedDTR->where('productionDate',$data['payday'])) <= 0)
+
+                                                                  @if($data['hasPTextension'])
+
+                                                                    <strong><a data-toggle="modal" data-target="#myModalPText{{$data['hasPTextension']}}" data-id="{{$data['hasPTextension']}}" title="Remove PT extension" class="text-primary pull-right" href="#" > <i class="fa fa-minus-circle"></i></a></strong>
+
+                                                                    @include('layouts.modals-del', [
+                                                                            'modelRoute'=>'user_dtr.removePTextension',
+                                                                            'modelID' => $data['hasPTextension'], 
+                                                                            'modelType'=> 'PText',
+                                                                            'modelName'=>"PT Work Schedule Extension ", 
+                                                                            'modalTitle'=>'Remove', 
+                                                                            'modalMessage' => "Are you sure you want to remove PT work schedule: ".$data['shiftStart']."-".$data['shiftEnd']."?",
+                                                                            
+                                                                            'formID'=>'delPT',
+                                                                            'icon'=>'fa fa-trash' ])
+
+                                                                  @else
+                                                                   <strong><a data-toggle="modal" data-target="#PTextend{{$data['payday']}}" title="Extend PT Work sched" class="text-primary pull-right" href="#" > <i class="fa fa-plus-square-o"></i></a></strong>
+
+                                                                   @include('layouts.modals-PTextend', [
+                                                                            
+                                                                            'modelID' => $data["payday"], 
+                                                                            'modelName'=>"Overtime ", 
+                                                                            'modalTitle'=>'Submit', 
+                                                                            'Dday' =>$data["day"],
+                                                                            'DproductionDate' =>$data["productionDate"],
+                                                                            'biometrics_id'=> $data["biometrics_id"],
+                                                                            'sStart' => $data['shiftStart'],
+                                                                            'sEnd'=> $data['shiftEnd'],
+                                                                            'isRD'=> $data["isRD"],
+                                                                            'formID'=>'submitPT',
+                                                                            'icon'=>'glyphicon-up' ])
+                                                                  @endif
+
+                                                                   
+
+                                                               @endif
+
                                                              </td>
-                                                            @endif
+                                                           
 
                                                              
                                                               <input type="hidden" name="workshift_{{$data['biometrics_id']}}" class="dtr_{{$data['biometrics_id']}}" value="{{$data['shiftStart']}} - {{$data['shiftEnd']}}" />
@@ -1775,31 +1806,6 @@
 
                                                      @endif
 
-                                                        
-
-
-
-
-                                                         <!-- @if ($theImmediateHead || $anApprover)
-                                                            @include('layouts.modals-editDTR', [
-                                                                  'modelRoute'=>'user_cws.store',
-                                                                  'modelID' => '_'.$data["payday"], 
-                                                                  'modelName'=>"Employee DTR ", 
-                                                                  'modalTitle'=>'Edit', 
-                                                                  'Dday' =>$data["day"],
-                                                                  'DproductionDate' =>$data["productionDate"],
-                                                                  'biometrics_id'=> $data["biometrics_id"],
-                                                                  'approver' => $user->supervisor->immediateHead_Campaigns_id,
-                                                                  'isRD'=> $data["isRD"],
-                                                                  'timeStart_old'=>$data['shiftStart'],
-                                                                  'timeEnd_old'=>$data['shiftEnd'],
-                                                                  'formID'=>'reportIssue',
-                                                                  'icon'=>'glyphicon-up' ])
-
-                                                        @else -->
-                                                            
-                                                       <!--  @endif -->
-
 
                                                         @if ($data['hasOT'])
                                                             
@@ -1875,18 +1881,24 @@
                                                                     'formID'=>'submitOT',
                                                                     'icon'=>'glyphicon-up' ])
                                                                 @else
-                                                                  @include('layouts.modals-OT', [
-                                                                    'modelRoute'=>'user_ot.store',
-                                                                    'modelID' => '_OT'.$data["payday"], 
-                                                                    'modelName'=>"Overtime ", 
-                                                                    'modalTitle'=>'Submit', 
-                                                                    'Dday' =>$data["day"],
-                                                                    'DproductionDate' =>$data["productionDate"],
-                                                                    'biometrics_id'=> $data["biometrics_id"],
-                                                                    'approver' => $user->supervisor->immediateHead_Campaigns_id,
-                                                                    'isRD'=> $data["isRD"],
-                                                                    'formID'=>'submitOT',
-                                                                    'icon'=>'glyphicon-up' ])
+
+                                                                  @if($data['hasPTextension'])
+                                                                    <!-- **** meaning PT sya so hindi sya dapat mag OT excess of 8hr **** -->
+
+                                                                  @else
+                                                                    @include('layouts.modals-OT', [
+                                                                      'modelRoute'=>'user_ot.store',
+                                                                      'modelID' => '_OT'.$data["payday"], 
+                                                                      'modelName'=>"Overtime ", 
+                                                                      'modalTitle'=>'Submit', 
+                                                                      'Dday' =>$data["day"],
+                                                                      'DproductionDate' =>$data["productionDate"],
+                                                                      'biometrics_id'=> $data["biometrics_id"],
+                                                                      'approver' => $user->supervisor->immediateHead_Campaigns_id,
+                                                                      'isRD'=> $data["isRD"],
+                                                                      'formID'=>'submitOT',
+                                                                      'icon'=>'glyphicon-up' ])
+                                                                  @endif
 
                                                                 @endif
                                                                 
@@ -1921,7 +1933,7 @@
 
                                            
                                     </div>
-                                    <p><small style="font-size: x-small;">{{$cp0}}-{{$cp1}}</small></p>
+                                    
 
                             </div>
                             

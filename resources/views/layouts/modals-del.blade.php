@@ -12,9 +12,9 @@
       </div>
       <div class="modal-footer no-border">
         {{ Form::open(['route' => [$modelRoute, $modelID], 'method'=>'POST','class'=>'btn-outline pull-right', 'id'=> $formID ]) }}     
-          <button type="submit" class="btn btn-primary {{$icon}} glyphicon ">Yes</button>
+          <button type="submit" class="btn btn-primary btn-md ">Yes</button>
         
-        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>{{ Form::close() }}
+        <button type="button" class="btn btn-default btn-sm" data-dismiss="modal">Cancel</button>{{ Form::close() }}
       </div>
     </div>
   </div>

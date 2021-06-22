@@ -52,6 +52,7 @@ use OAMPI_Eval\User_VL;
 use OAMPI_Eval\User_VTO;
 use OAMPI_Eval\User_LWOP;
 use OAMPI_Eval\User_OBT;
+use OAMPI_Eval\User_PTextension;
 use OAMPI_Eval\User_Familyleave;
 use OAMPI_Eval\Holiday;
 use OAMPI_Eval\HolidayType;
@@ -4203,6 +4204,33 @@ class DTRController extends Controller
 
     }
 
+    public function extendPT(Request $request)
+    {
+      $paystart = $request->paystart;
+      $payend = $request->payend;
+      $user = User::find($request->user_id);
+      $personnel = $this->user;
+      $productionDate = $request->productionDate;
+      $sStart = Carbon::parse($productionDate." ".$request->sStart,'Asia/Manila');
+      $sEnd = Carbon::parse($productionDate." ".$request->sStart,'Asia/Manila')->addHours(4);
+
+      $pt = new User_PTextension;
+      $pt->user_id = $user->id;
+      $pt->productionDate = Carbon::parse($productionDate,'Asia/Manila')->format('Y-m-d');
+      $pt->timeStart = $sStart->format('H:i:s');
+      $pt->timeEnd = $sEnd->addMinutes($request->hrextend*60)->format('H:i:s');
+      $pt->filed_hours = $request->hrextend;
+      $pt->personnel = $personnel->id;
+      $pt->created_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+      $pt->updated_at = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
+      $pt->save();
+
+      return redirect()->action('DTRController@show',['id'=>$user->id,'from'=>$paystart,'to'=>$payend]);
+
+      //return response()->json(['timeStart'=>$sStart->format('Y-m-d H:i'),'timeEnd' =>$sEnd->addMinutes($request->hrextend*60)->format('Y-m-d H:i'), 'start'=>$paystart,'end'=>$payend, 'user'=>$user,'personnel'=>$personnel]);
+
+    }
+
 
 
     public function financeReports()
@@ -4237,7 +4265,12 @@ class DTRController extends Controller
             } 
         
       
+      $financeDept = Campaign::where('name',"Finance")->first();
+      $finance = Team::where('user_id',$this->user->id)->where('campaign_id',$financeDept->id)->get();
+      (count($finance) > 0) ? $isFinance = 1 : $isFinance=0;
 
+      if(!$isFinance && $this->user->status_id != 1) return view('access-denied');
+      
       if($type == 't'){
         $stat = Input::get('stat');
         return view('timekeeping.financeTraineeReport',compact('payrollPeriod','paycutoffs','allProgram','stat'));
@@ -7086,6 +7119,15 @@ class DTRController extends Controller
 
     }
 
+    public function removePTextension($id, Request $request)
+    {
+      $del = User_PTextension::find($id);
+      $del->delete();
+
+      return Redirect::back(); //response()->json(['item'=>$del]);
+
+    }
+
 
     public function requestUnlock($id, Request $request)
     {
@@ -7336,7 +7378,7 @@ class DTRController extends Controller
 
         if (is_null($user)) return view('empty');
 
-        ($user->status_id == 12 || $user->status_id == 14) ? $isParttimer = true : $isParttimer=false;
+        ($user->status_id == 12 || $user->status_id == 14) ? $isParttimer = 1 : $isParttimer=0;
 
         $collect = new Collection; 
         $coll = new Collection;
@@ -7761,8 +7803,8 @@ class DTRController extends Controller
              
 
                                                  
-            $cp0 =$currentPeriod[0]; 
-            $cp1 = $currentPeriod[1];
+            /*$cp0 =$currentPeriod[0]; 
+            $cp1 = $currentPeriod[1];*/
             $paystart = $currentPeriod[0];
             $payend = $currentPeriod[1];
             /*if (  count($verifiedDTR) >= count($payrollPeriod)  )//|| ($currentPeriod[0] == $currentPeriod[1])
@@ -7891,6 +7933,7 @@ class DTRController extends Controller
              {
                 
                 $bioForTheDay1 = Biometrics::where('productionDate',$payday)->get();//first();
+                $hasPTextension = null;
 
                 if(count($bioForTheDay1) <= 0) break;
                 else $bioForTheDay =  $bioForTheDay1->first();
@@ -7969,21 +8012,6 @@ class DTRController extends Controller
                   $RDsched = $actualSchedToday->RDsched;
                   $isFixedSched =  $actualSchedToday->isFixedSched;
                   $allRD = $actualSchedToday->allRD;
-
-                  //$workSched = $actualSchedToday->workSched;
-                  /*$check_fixed_WS = $actualSchedToday->check_fixed_WS;
-                   $check_fixed_RD =$actualSchedToday->check_fixed_RD;
-                   $check_monthly_RD =$actualSchedToday->check_monthly_RD;
-                   $check_monthly_WS =$actualSchedToday->check_monthly_WS;
-                   $ard = $hybridSched;
-                   $wd = $actualSchedToday->wd;*/
-                   /*$hybridSched_RD_monthly = $actualSchedToday->hybridSched_RD_monthly;
-                   $hybridSched_RD_fixed = $actualSchedToday->hybridSched_RD_fixed;*/
-
-                  //another check if part timer: FOR FOREIGN CONTRACTUAL. check if 4h > work hours
-                  /*( Carbon::parse($schedForToday['timeStart'],'Asia/Manila')->diffInHours(Carbon::parse($schedForToday['timeEnd'],'Asia/Manila')) > 4) ? $isParttimer=false : $isParttimer=true;
-
-                  return response()->json(['isParttimer'=>$isParttimer, 'schedForToday'=>$schedForToday]);*/
                   
 
                   $actualSchedKahapon = $this->getActualSchedForToday($user,$id,$prevDay->format('Y-m-d'),$bioForYest, $hybridSched,$isFixedSched,$hybridSched_WS_fixed,$hybridSched_WS_monthly, $hybridSched_RD_fixed, $hybridSched_RD_monthly, $workSched, $RDsched, $approvedCWS);
@@ -8204,6 +8232,7 @@ class DTRController extends Controller
                                       'hasOT'=>$hasOT,
                                       'hasPendingIN' => $data[0]['hasPendingIN'],
                                       'hasPendingOUT' => $data[0]['hasPendingOUT'],
+                                      'hasPTextension'=>$hasPTextension,
                                       'isRDToday'=>$isRDToday, 
                                       'isRD'=>$isRDToday,
                                       'isFixedSched'=>$isFixedSched,
@@ -8259,6 +8288,7 @@ class DTRController extends Controller
                                     'hasOT'=>$hasOT,
                                     'hasPendingIN' => $data[0]['hasPendingIN'],
                                     'hasPendingOUT' => $data[0]['hasPendingOUT'],
+                                    'hasPTextension'=>$hasPTextension,
                                     'isRDToday'=>$isRDToday, 
                                     'isRD'=>$isRDToday,
                                     'isFixedSched'=>$isFixedSched,
@@ -8329,40 +8359,55 @@ class DTRController extends Controller
 
                                   if ($isParttimer)
                                   {
-                                    if (is_null($schedForToday['timeStart']))
+
+                                    //******* new update: Flexi PT extensions **********
+                                    $ptExtension = User_PTextension::where('user_id',$id)->where('productionDate',$payday)->orderBy('created_at','DESC')->get();
+                                    if (count($ptExtension) > 0)
                                     {
-                                      $shiftStart2 = '<span class="text-danger" style="font-weight:bold">No Work Sched</span>';
-                                      $schedForToday = collect([
-                                        'timeStart'=>null, 
-                                        'timeEnd'=>null,'isFlexitime'=>false,'isRD'=>0]);
-                                      $shiftEnd = null;
+                                      $hasPTextension= $ptExtension->first()->id;
+                                      $shiftEnd =  date('H:i A', strtotime($ptExtension->first()->timeEnd));
+                                      $schedForToday = collect(['timeStart'=>$ptExtension->first()->timeStart, 'timeEnd'=>$ptExtension->first()->timeEnd,'isFlexitime'=>0,'isRD'=>0]);
 
-                                    }else
-                                    {
-
-                                        // ----- we now have to check kung may PT-override
-                                        $hasPToverride = DB::table('pt_override')->where('user_id',$user->id)->where('overrideStart','<=',$payday)->where('overrideEnd','>=',$payday)->get();
-
-                                        if (count($hasPToverride) > 0)
-                                        {
-                                          $pt = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHours(9);
-                                          $shiftEnd =  date('h:i A',strtotime($pt->format('H:i:s')));
-                                          $f = $schedForToday['isFlexitime'];
-                                          $schedForToday = collect(['timeStart'=>$s->format('H:i:s'), 'timeEnd'=>$pt->format('H:i:s'),'isFlexitime'=>$f,'isRD'=>0]);
-
-                                        }
-                                        else
-                                        {
-                                          $pt = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHours(4);
-                                          $shiftEnd =  date('h:i A',strtotime($pt->format('H:i:s')));
-                                          $f = $schedForToday['isFlexitime'];
-                                          $schedForToday = collect(['timeStart'=>$s->format('H:i:s'), 'timeEnd'=>$pt->format('H:i:s'),'isFlexitime'=>$f,'isRD'=>0]);
-
-
-                                        }
-                                        
-                                        
                                     }
+                                    else
+                                    {
+                                      if (is_null($schedForToday['timeStart']))
+                                      {
+                                        $shiftStart2 = '<span class="text-danger" style="font-weight:bold">No Work Sched</span>';
+                                        $schedForToday = collect([
+                                          'timeStart'=>null, 
+                                          'timeEnd'=>null,'isFlexitime'=>false,'isRD'=>0]);
+                                        $shiftEnd = null;
+
+                                      }else
+                                      {
+
+                                          // ----- we now have to check kung may PT-override
+                                          $hasPToverride = DB::table('pt_override')->where('user_id',$user->id)->where('overrideStart','<=',$payday)->where('overrideEnd','>=',$payday)->get();
+
+                                          if (count($hasPToverride) > 0)
+                                          {
+                                            $pt = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHours(9);
+                                            $shiftEnd =  date('h:i A',strtotime($pt->format('H:i:s')));
+                                            $f = $schedForToday['isFlexitime'];
+                                            $schedForToday = collect(['timeStart'=>$s->format('H:i:s'), 'timeEnd'=>$pt->format('H:i:s'),'isFlexitime'=>$f,'isRD'=>0]);
+
+                                          }
+                                          else
+                                          {
+                                            $pt = Carbon::parse($payday." ".$schedForToday['timeStart'],"Asia/Manila")->addHours(4);
+                                            $shiftEnd =  date('h:i A',strtotime($pt->format('H:i:s')));
+                                            $f = $schedForToday['isFlexitime'];
+                                            $schedForToday = collect(['timeStart'=>$s->format('H:i:s'), 'timeEnd'=>$pt->format('H:i:s'),'isFlexitime'=>$f,'isRD'=>0]);
+
+
+                                          }
+                                          
+                                          
+                                      }
+
+                                    }//end no PT extension
+                                    
                                    
                                    
                                   }else
@@ -8649,6 +8694,7 @@ class DTRController extends Controller
                                       
                                       $myDTR->push(['isRDToday'=>null,'payday'=>$payday,'biometrics_id'=>$bioForTheDay->id,
                                                     'hasCWS'=>$hasCWS,
+                                                    'hasPTextension'=>$hasPTextension,
                                                     'usercws'=>$usercws,
                                                     'userOT'=>$userOT,
                                                     'hasOT'=>$hasOT,
@@ -8717,6 +8763,7 @@ class DTRController extends Controller
                                       'hasLeave' => $hasLeave, //$userLogIN[0]['hasLeave'],
                                       'hasPendingIN' => $userLogIN[0]['hasPendingDTRP'],
                                       'hasPendingOUT' => $userLogOUT[0]['hasPendingDTRP'],
+                                      'hasPTextension'=>$hasPTextension,
                                       'hdToday'=>$hdToday,
 
                                       'isAproblemShift'=>$isAproblemShift,
@@ -8778,6 +8825,7 @@ class DTRController extends Controller
                                       'hasLeave' => $hasLeave, //$userLogIN[0]['hasLeave'],
                                       'hasPendingIN' => $userLogIN[0]['hasPendingDTRP'],
                                       'hasPendingOUT' => $userLogOUT[0]['hasPendingDTRP'],
+                                      'hasPTextension'=>$hasPTextension,
                                       'hdToday'=>$hdToday,
 
                                       'isAproblemShift'=>$isAproblemShift,
@@ -8887,7 +8935,7 @@ class DTRController extends Controller
            //return response()->json(['currentVLbalance'=>$currentVLbalance,'currentSLbalance'=>$currentSLbalance]);
 
            
-           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves',  'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isFinance', 'canPreshift', 'vlEarnings','slEarnings','isParttimer', 'canVL','canSL','isNDY','cp0','cp1','isExempt','exemptEmp','paystart','payend','anApprover','hasAccess','isWorkforce','isBackoffice','leader_lv1','leader_lv2','leader_lv3','canViewTeamDTR','canViewOtherDTR'));
+           return view('timekeeping.myDTR', compact('id', 'ecq','allECQ', 'wfhData', 'fromYr', 'entitledForLeaves',  'TLapprover', 'DTRapprovers', 'canChangeSched', 'paycutoffs', 'shifts','shift4x11', 'partTimes','cutoffID','verifiedDTR', 'myDTR','camps','user','theImmediateHead', 'immediateHead','cutoff','noWorkSched', 'prevTo','prevFrom','nextTo','nextFrom','memo','notedMemo','payrollPeriod','currentVLbalance','currentSLbalance','isFinance', 'canPreshift', 'vlEarnings','slEarnings', 'canVL','canSL','isNDY','isExempt','exemptEmp','paystart','payend','anApprover','hasAccess','isParttimer', 'isWorkforce','isBackoffice','leader_lv1','leader_lv2','leader_lv3','canViewTeamDTR','canViewOtherDTR'));
 
 
         } else return view('access-denied');
