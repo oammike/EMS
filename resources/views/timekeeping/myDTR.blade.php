@@ -811,7 +811,7 @@
 
                                                                   @if($data['hasPTextension'])
 
-                                                                    <strong><a data-toggle="modal" data-target="#myModalPText{{$data['hasPTextension']}}" data-id="{{$data['hasPTextension']}}" title="Remove PT extension" class="text-primary pull-right" href="#" > <i class="fa fa-minus-circle"></i></a></strong>
+                                                                    <strong><a id="pt_{{$data['biometrics_id']}}" data-toggle="modal" data-target="#myModalPText{{$data['hasPTextension']}}" data-id="{{$data['hasPTextension']}}" title="Remove PT extension" class="text-primary pull-right" href="#" > <i class="fa fa-minus-circle"></i></a></strong>
 
                                                                     @include('layouts.modals-del', [
                                                                             'modelRoute'=>'user_dtr.removePTextension',
@@ -825,7 +825,7 @@
                                                                             'icon'=>'fa fa-trash' ])
 
                                                                   @else
-                                                                   <strong><a data-toggle="modal" data-target="#PTextend{{$data['payday']}}" title="Extend PT Work sched" class="text-primary pull-right" href="#" > <i class="fa fa-plus-square-o"></i></a></strong>
+                                                                   <strong><a  id="pt_{{$data['biometrics_id']}}" data-toggle="modal" data-target="#PTextend{{$data['payday']}}" title="Extend PT Work sched" class="text-primary pull-right" href="#" > <i class="fa fa-plus-square-o"></i></a></strong>
 
                                                                    @include('layouts.modals-PTextend', [
                                                                             
@@ -2419,6 +2419,7 @@ $('select.end.form-control').on('change',function(){
   $('#unlock').fadeOut();
   $('#lockDTR').on('click', function(){
 
+    
     var reply = confirm("\n\nThis will mark your DTR as verified and will be submitted to Finance for payroll processing. Any form of dispute found after this verification will be proccessed in the next payroll cutoff instead.\n\n Clicking 'OK' means that you agree all entries in this DTR sheet are correct.");
 
     if (reply == true){
@@ -2428,26 +2429,26 @@ $('select.end.form-control').on('change',function(){
 
      for (var c = 0; c < dtrshit.length; c++)
      {
-      var valu = dtrshit[c].value;
-      productionDate = $('input[name="productionDate_'+valu+'"]').val();
-      ws = $('input[name="workshift_'+valu+'"]').val();
-      cws_id = $('input[name="cws_id_'+valu+'"]').val();
-      timeIN = $('input[name="logIN_'+valu+'"]').val();
-      timeOUT = $('input[name="logOUT_'+valu+'"]').val();
-      dtrpIN = $('input[name="isDTRPin_'+valu+'"]').val();
-      dtrpOUT = $('input[name="isDTRPout_'+valu+'"]').val();
+        var valu = dtrshit[c].value;
+        productionDate = $('input[name="productionDate_'+valu+'"]').val();
+        ws = $('input[name="workshift_'+valu+'"]').val();
+        cws_id = $('input[name="cws_id_'+valu+'"]').val();
+        timeIN = $('input[name="logIN_'+valu+'"]').val();
+        timeOUT = $('input[name="logOUT_'+valu+'"]').val();
+        dtrpIN = $('input[name="isDTRPin_'+valu+'"]').val();
+        dtrpOUT = $('input[name="isDTRPout_'+valu+'"]').val();
 
-      hoursWorked = $('input[name="workedHours_'+valu+'"]').val();
-      leaveID = $('input[name="leaveID_'+valu+'"]').val();
-      leaveType = $('input[name="leaveType_'+valu+'"]').val();
-      OT_billable = $('input[name="OT_billable_'+valu+'"]').val();
-      OT_approved = $('input[name="OT_approved_'+valu+'"]').val();
-      OT_id = $('input[name="OT_id_'+valu+'"]').val();
-     
+        hoursWorked = $('input[name="workedHours_'+valu+'"]').val();
+        leaveID = $('input[name="leaveID_'+valu+'"]').val();
+        leaveType = $('input[name="leaveType_'+valu+'"]').val();
+        OT_billable = $('input[name="OT_billable_'+valu+'"]').val();
+        OT_approved = $('input[name="OT_approved_'+valu+'"]').val();
+        OT_id = $('input[name="OT_id_'+valu+'"]').val();
+       
 
-      UT = $('input[name="UT_'+valu+'"]').val();
-      dtrsheet[c] = {"id":valu, "productionDate": productionDate, "workshift": ws, "cws_id":cws_id,  "timeIN":timeIN, "timeOUT":timeOUT, "dtrpIN":dtrpIN, "dtrpOUT":dtrpOUT, "hoursWorked": hoursWorked,"leaveID":leaveID, "leaveType":leaveType, "OT_billable":OT_billable, "OT_approved": OT_approved,"OT_id":OT_id, "UT":UT};
-      console.log(dtrsheet[c].value);
+        UT = $('input[name="UT_'+valu+'"]').val();
+        dtrsheet[c] = {"id":valu, "productionDate": productionDate, "workshift": ws, "cws_id":cws_id,  "timeIN":timeIN, "timeOUT":timeOUT, "dtrpIN":dtrpIN, "dtrpOUT":dtrpOUT, "hoursWorked": hoursWorked,"leaveID":leaveID, "leaveType":leaveType, "OT_billable":OT_billable, "OT_approved": OT_approved,"OT_id":OT_id, "UT":UT};
+        console.log(dtrsheet[c].value);
      }
 
      var _token = "{{ csrf_token() }}";
@@ -2469,7 +2470,9 @@ $('select.end.form-control').on('change',function(){
                     $('#unlock').fadeIn().css({"visibility":"visible"});
 
                    $('a[data-original-title="File this OT"], a[data-original-title="Report DTRP "]').hide();
-                   $('#lockDTR').delay(1000).animate({ height: 'toggle', opacity: 'toggle' }, 'slow');
+
+                   
+                   $('#lockDTR').delay(1000).animate({ height: 'toggle', opacity: 'toggle' }, 'fast');
                     location.reload(true);
                     //window.location = "{{action('HomeController@index')}}";
                      
@@ -2557,6 +2560,7 @@ $('select.end.form-control').on('change',function(){
                     //location.reload(true);
                     //window.location = "{{action('HomeController@index')}}";
                     $('#preshift_'+biometrics_id).fadeOut();
+                    $('a#pt_'+biometrics_id).fadeOut();
                      
                   }, error: function(res){
                     console.log("ERROR");
