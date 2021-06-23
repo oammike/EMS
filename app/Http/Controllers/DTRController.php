@@ -4269,7 +4269,7 @@ class DTRController extends Controller
       $finance = Team::where('user_id',$this->user->id)->where('campaign_id',$financeDept->id)->get();
       (count($finance) > 0) ? $isFinance = 1 : $isFinance=0;
 
-      if(!$isFinance && $this->user->status_id != 1) return view('access-denied');
+      if(!$isFinance && $this->user->userType_id != 1) return view('access-denied');
       
       if($type == 't'){
         $stat = Input::get('stat');
