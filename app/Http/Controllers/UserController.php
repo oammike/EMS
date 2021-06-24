@@ -1384,6 +1384,13 @@ class UserController extends Controller
     public function getMyRequests($id)
     {
       DB::connection()->disableQueryLog();
+      $roles = UserType::find($this->user->userType_id)->roles->pluck('label');
+      $isWorkforce =  ($roles->contains('STAFFING_MANAGEMENT')) ? '1':'0';
+      $financeDept = Campaign::where('name',"Finance")->first();
+      $financeteam = Team::where('user_id',$this->user->id)->where('campaign_id',$financeDept->id)->get();
+      (count($financeteam) > 0) ? $isFinance=1 : $isFinance=0;
+
+
       if (is_null($id))
       {
         $cws = User_CWS::where('user_id',$this->user->id)->orderBy('updated_at','DESC')->get();
@@ -1453,7 +1460,7 @@ class UserController extends Controller
         $productionDay = Carbon::parse($prod,"Asia/Manila")->format('l');
         $prodDate = Carbon::parse($prod,"Asia/Manila");
 
-        ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
+        ($prodDate<$pastPayroll && !($isFinance || $isWorkforce) ) ? $irrevocable=true : $irrevocable=false;
         $requests->push(['type'=>"Change Work Schedule",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,  "typeid"=>'6','approver'=>$approver, 'tlPic'=>$tlPic, 'icon'=>"fa-calendar-times-o",'nickname'=>$nickname, 'details'=>$key]);
       }
 
@@ -1479,7 +1486,7 @@ class UserController extends Controller
         $productionDay = Carbon::parse($prod,"Asia/Manila")->format('l');
         $prodDate = Carbon::parse($prod,"Asia/Manila");
 
-        ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
+        ($prodDate<$pastPayroll && !($isFinance || $isWorkforce) ) ? $irrevocable=true : $irrevocable=false;
 
         if($key->preshift)
           $requests->push(['type'=>"Overtime (Pre-shift)",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay, "typeid"=>'15','icon'=>"fa-clock-o",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,   'details'=>$key,'billedType'=>$key->billedType,'preshift'=>$key->preshift]);
@@ -1591,7 +1598,7 @@ class UserController extends Controller
         $productionDay = Carbon::parse($prod,"Asia/Manila")->format('l');
         $prodDate = Carbon::parse($prod,"Asia/Manila");
 
-        ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
+        ($prodDate<$pastPayroll && !($isFinance || $isWorkforce) ) ? $irrevocable=true : $irrevocable=false;
 
         $requests->push(['type'=>"Vacation Leave",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'10','icon'=>"fa-plane",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,  'details'=>$key]);
       }
@@ -1625,7 +1632,7 @@ class UserController extends Controller
         $productionDay = Carbon::parse($prod,"Asia/Manila")->format('l');
         $prodDate = Carbon::parse($prod,"Asia/Manila");
 
-        ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
+        ($prodDate<$pastPayroll && !($isFinance || $isWorkforce) ) ? $irrevocable=true : $irrevocable=false;
 
         $requests->push(['type'=>"VTO",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'21','icon'=>"fa-history",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,  'details'=>$key]);
       }
@@ -1658,7 +1665,7 @@ class UserController extends Controller
         $productionDay = Carbon::parse($prod,"Asia/Manila")->format('l');
         $prodDate = Carbon::parse($prod,"Asia/Manila");
 
-        ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
+        ($prodDate<$pastPayroll && !($isFinance || $isWorkforce) ) ? $irrevocable=true : $irrevocable=false;
 
         $requests->push(['type'=>"Sick Leave",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'11','icon'=>"fa-stethoscope",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,  'details'=>$key]);
       }
@@ -1680,7 +1687,7 @@ class UserController extends Controller
         $productionDay = Carbon::parse($prod,"Asia/Manila")->format('l');
         $prodDate = Carbon::parse($prod,"Asia/Manila");
 
-        ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
+        ($prodDate<$pastPayroll && !($isFinance || $isWorkforce) ) ? $irrevocable=true : $irrevocable=false;
 
         $requests->push(['type'=>"Leave Without Pay",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'12','icon'=>"fa-meh-o",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,  'details'=>$key]);
       }
@@ -1701,7 +1708,7 @@ class UserController extends Controller
         $productionDay = Carbon::parse($prod,"Asia/Manila")->format('l');
         $prodDate = Carbon::parse($prod,"Asia/Manila");
 
-        ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
+        ($prodDate<$pastPayroll && !($isFinance || $isWorkforce) ) ? $irrevocable=true : $irrevocable=false;
 
         $requests->push(['type'=>"Official Business Trip",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'13','icon'=>"fa-suitcase",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,  'details'=>$key]);
       }
@@ -1720,7 +1727,7 @@ class UserController extends Controller
         $productionDay = Carbon::parse($prod,"Asia/Manila")->format('l');
         $prodDate = Carbon::parse($prod,"Asia/Manila");
 
-        ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
+        ($prodDate<$pastPayroll && !($isFinance || $isWorkforce) ) ? $irrevocable=true : $irrevocable=false;
 
         $requests->push(['type'=>"Maternity Leave",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'16','icon'=>"fa-female",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,  'details'=>$key]);
       }
@@ -1740,7 +1747,7 @@ class UserController extends Controller
         $productionDay = Carbon::parse($prod,"Asia/Manila")->format('l');
         $prodDate = Carbon::parse($prod,"Asia/Manila");
 
-        ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
+        ($prodDate<$pastPayroll && !($isFinance || $isWorkforce) ) ? $irrevocable=true : $irrevocable=false;
 
         $requests->push(['type'=>"Magna Carta Leave",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'22','icon'=>"fa-female",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,  'details'=>$key]);
       }
@@ -1761,7 +1768,7 @@ class UserController extends Controller
         $productionDay = Carbon::parse($prod,"Asia/Manila")->format('l');
         $prodDate = Carbon::parse($prod,"Asia/Manila");
 
-        ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
+        ($prodDate<$pastPayroll && !($isFinance || $isWorkforce) ) ? $irrevocable=true : $irrevocable=false;
 
         $requests->push(['type'=>"Paternity Leave",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'17','icon'=>"fa-male",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,  'details'=>$key]);
       }
@@ -1780,7 +1787,7 @@ class UserController extends Controller
         $productionDay = Carbon::parse($prod,"Asia/Manila")->format('l');
         $prodDate = Carbon::parse($prod,"Asia/Manila");
 
-        ($prodDate<$pastPayroll) ? $irrevocable=true : $irrevocable=false;
+        ($prodDate<$pastPayroll && !($isFinance || $isWorkforce) ) ? $irrevocable=true : $irrevocable=false;
 
         $requests->push(['type'=>"Single-parent Leave",'irrevocable'=>$irrevocable, 'productionDate'=>$prodDate->format('M d, Y'),'productionDay'=>$productionDay,   "typeid"=>'18','icon'=>"fa-street-view",'approver'=>$approver, 'tlPic'=>$tlPic,'nickname'=>$nickname,  'details'=>$key]);
       }
