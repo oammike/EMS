@@ -211,8 +211,21 @@ class EvalFormController extends Controller
         (empty($t)) ? $type = 6 : $type = $t; 
         
         $campaigns = Campaign::all();
-       
-        return view('evaluation.allApproved', compact( 'type', 'campaigns'));
+
+        $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
+        $canViewAll =  ($roles->contains('VIEW_ALL_EVALS')) ? '1':'0';
+        $hrDept = Campaign::where('name',"HR")->first();
+        $financeDept = Campaign::where('name',"Finance")->first();
+
+        $hrTeam = Team::where('user_id',$this->user->id)->where('campaign_id',$hrDept->id)->get();
+        (count($hrTeam) > 0) ? $isHR=1 : $isHR=0;
+        $financeteam = Team::where('user_id',$this->user->id)->where('campaign_id',$financeDept->id)->get();
+        (count($financeteam) > 0) ? $isFinance=1 : $isFinance=0;
+
+        
+        if ( ($canViewAll && $isHR) || ($canViewAll && $isFinance) || $this->user->userType_id==1 )
+          return view('evaluation.allApproved', compact( 'type', 'campaigns'));
+        else return view('access-denied');
     }
 
     public function allDenied()
@@ -222,8 +235,21 @@ class EvalFormController extends Controller
         (empty($t)) ? $type = 6 : $type = $t; 
         
         $campaigns = Campaign::all();
-       
-        return view('evaluation.allDenied', compact( 'type', 'campaigns'));
+
+        $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
+        $canViewAll =  ($roles->contains('VIEW_ALL_EVALS')) ? '1':'0';
+        $hrDept = Campaign::where('name',"HR")->first();
+        $financeDept = Campaign::where('name',"Finance")->first();
+
+        $hrTeam = Team::where('user_id',$this->user->id)->where('campaign_id',$hrDept->id)->get();
+        (count($hrTeam) > 0) ? $isHR=1 : $isHR=0;
+        $financeteam = Team::where('user_id',$this->user->id)->where('campaign_id',$financeDept->id)->get();
+        (count($financeteam) > 0) ? $isFinance=1 : $isFinance=0;
+
+        
+        if ( ($canViewAll && $isHR) || ($canViewAll && $isFinance) || $this->user->userType_id==1 )
+          return view('evaluation.allDenied', compact( 'type', 'campaigns'));
+        else return view('access-denied');
     }
 
     public function allPendings()
@@ -233,8 +259,21 @@ class EvalFormController extends Controller
         (empty($t)) ? $type = 6 : $type = $t; 
         
         $campaigns = Campaign::all();
-       
-        return view('evaluation.allPendings', compact( 'type', 'campaigns'));
+
+        $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
+        $canViewAll =  ($roles->contains('VIEW_ALL_EVALS')) ? '1':'0';
+        $hrDept = Campaign::where('name',"HR")->first();
+        $financeDept = Campaign::where('name',"Finance")->first();
+
+        $hrTeam = Team::where('user_id',$this->user->id)->where('campaign_id',$hrDept->id)->get();
+        (count($hrTeam) > 0) ? $isHR=1 : $isHR=0;
+        $financeteam = Team::where('user_id',$this->user->id)->where('campaign_id',$financeDept->id)->get();
+        (count($financeteam) > 0) ? $isFinance=1 : $isFinance=0;
+
+        
+        if ( ($canViewAll && $isHR) || ($canViewAll && $isFinance) || $this->user->userType_id==1 )
+          return view('evaluation.allPendings', compact( 'type', 'campaigns'));
+        else return view('access-denied');
     }
 
 
