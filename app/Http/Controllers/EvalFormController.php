@@ -57,135 +57,150 @@ class EvalFormController extends Controller
 
     public function index()
     {
-        $t = Input::get('type');
-        switch ($t) {
-          case '1': $type = 1;
-            # code...
-            break;
-          case '2': $type = 2;
-            # code...
-            break;
-          case '3': $type = 3;
-            # code...
-            break;
-          case '4': $type = 4;
-            # code...
-            break;
-          case '5': $type = 5;
-            # code...
-            break;
-          case '6': $type = 6;
-            # code...
-            break;
-          
-          default: $type=6;
-            # code...
-            break;
-        }
+        $roles = UserType::find($this->user->userType_id)->roles->pluck('label'); //->where('label','MOVE_EMPLOYEES');
+        $canViewAll =  ($roles->contains('VIEW_ALL_EVALS')) ? '1':'0';
+        $hrDept = Campaign::where('name',"HR")->first();
+        $financeDept = Campaign::where('name',"Finance")->first();
+
+        $hrTeam = Team::where('user_id',$this->user->id)->where('campaign_id',$hrDept->id)->get();
+        (count($hrTeam) > 0) ? $isHR=1 : $isHR=0;
+        $financeteam = Team::where('user_id',$this->user->id)->where('campaign_id',$financeDept->id)->get();
+        (count($financeteam) > 0) ? $isFinance=1 : $isFinance=0;
 
         
-        $campaigns = Campaign::all();
-        /*$coll = new Collection;
-
-        $evaluations = new Collection;
-
-        foreach ($allForms as $eval) {
-          if ( !$eval->details->isEmpty() )
-            $evaluator = ImmediateHead::find(ImmediateHead_Campaign::find($eval->evaluatedBy)->immediateHead_id);
-
-          if (empty($evaluator)){
-
-                if ($eval->evalSetting_id == 3 || $eval->evalSetting_id == 4) //regularization
-                $evaluations->push(['id'=>$eval->id, 
-                  'user_id'=>$eval->user_id, 
-                  'increase'=> "N/A", 
-                  'type'=>EvalSetting::find($eval->evalSetting_id)->name, 
-                  'lastname'=> $eval->owner->lastname, 
-                  'firstname'=> $eval->owner->firstname, 
-                  'campaign'=> $eval->owner->campaign->first()->name, 
-                  'head'=> null,
-                  'score'=>$eval->overAllScore,
-                  'dateEvaluated'=> $eval->created_at ]);
-
-              else $evaluations->push(['id'=>$eval->id, 
-                  'user_id'=>$eval->user_id, 
-                  'increase'=> $eval->salaryIncrease, 
-                  'type'=>EvalSetting::find($eval->evalSetting_id)->name, 
-                  'lastname'=> $eval->owner->lastname, 
-                  'firstname'=> $eval->owner->firstname, 
-                  'campaign'=> $eval->owner->campaign->first()->name, 
-                  'head'=> null,
-                  'score'=>$eval->overAllScore,
-                  'dateEvaluated'=> $eval->created_at ]);
-
-          } else {
-
-
-            $leader = User::where('employeeNumber',$evaluator->employeeNumber)->first();
-            (empty($leader->nickname)) ? $fname = $leader->firstname : $fname = $leader->nickname;
-
-            if ($eval->evalSetting_id == 3 || $eval->evalSetting_id == 4) //REGULARIZATION
-            {
-              if ($eval->isDraft)
-                $evaluations->push(['id'=>$eval->id, 
-                  'user_id'=>$eval->user_id, 
-                  'increase'=>"N/A", 
-                  'type'=> date("Y", strtotime($eval->startPeriod)). " ". EvalSetting::find($eval->evalSetting_id)->name, 
-                  'lastname'=> $eval->owner->lastname, 
-                  'firstname'=> $eval->owner->firstname, 
-                  'campaign'=> Campaign::find(ImmediateHead_Campaign::find($eval->evaluatedBy)->campaign_id)->name, //$camp, //$eval->owner->campaign->first()->name, 
-                  'head'=> $fname." ".$evaluator->lastname,
-                  'score'=>"DRAFT",
-                  'dateEvaluated'=> $eval->created_at->format('Y-m-d')]);
-              
-              else
-
-                $evaluations->push(['id'=>$eval->id, 
-                  'user_id'=>$eval->user_id, 
-                  'increase'=>"N/A", 
-                  'type'=>date("Y", strtotime($eval->startPeriod)). " ". EvalSetting::find($eval->evalSetting_id)->name, 
-                  'lastname'=> $eval->owner->lastname, 
-                  'firstname'=> $eval->owner->firstname, 
-                  'campaign'=> Campaign::find(ImmediateHead_Campaign::find($eval->evaluatedBy)->campaign_id)->name, //$camp, //$eval->owner->campaign->first()->name, 
-                  'head'=> $fname." ".$evaluator->lastname,
-                  'score'=>$eval->overAllScore,
-                  'dateEvaluated'=> $eval->created_at->format('Y-m-d') ]);
-
-            }  else {
-
-                if ($eval->isDraft)
-                  $evaluations->push(['id'=>$eval->id, 
-                  'user_id'=>$eval->user_id, 
-                  'increase'=>"DRAFT", 
-                  'type'=>date("Y", strtotime($eval->startPeriod)). " ". EvalSetting::find($eval->evalSetting_id)->name, 
-                  'lastname'=> $eval->owner->lastname, 
-                  'firstname'=> $eval->owner->firstname, 
-                  'campaign'=> Campaign::find(ImmediateHead_Campaign::find($eval->evaluatedBy)->campaign_id)->name, //$eval->owner->campaign->first()->name, 
-                  'head'=> $fname." ".$evaluator->lastname,
-                  'score'=>"DRAFT",
-                  'dateEvaluated'=>$eval->created_at->format('Y-m-d') ]);
-
-                else
-                  $evaluations->push(['id'=>$eval->id, 
-                  'user_id'=>$eval->user_id, 
-                  'increase'=>$eval->salaryIncrease, 
-                  'type'=>date("Y", strtotime($eval->startPeriod)). " ". EvalSetting::find($eval->evalSetting_id)->name, 
-                  'lastname'=> $eval->owner->lastname, 
-                  'firstname'=> $eval->owner->firstname, 
-                  'campaign'=> Campaign::find(ImmediateHead_Campaign::find($eval->evaluatedBy)->campaign_id)->name, //$eval->owner->campaign->first()->name, 
-                  'head'=> $fname." ".$evaluator->lastname,
-                  'score'=>$eval->overAllScore,
-                  'dateEvaluated'=> $eval->created_at->format('Y-m-d') ]);
-
-              }
-                
-
+        if ( ($canViewAll && $isHR) || ($canViewAll && $isFinance) || $this->user->userType_id==1 )
+        {
+          $t = Input::get('type');
+          switch ($t) {
+            case '1': $type = 1;
+              # code...
+              break;
+            case '2': $type = 2;
+              # code...
+              break;
+            case '3': $type = 3;
+              # code...
+              break;
+            case '4': $type = 4;
+              # code...
+              break;
+            case '5': $type = 5;
+              # code...
+              break;
+            case '6': $type = 6;
+              # code...
+              break;
+            
+            default: $type=6;
+              # code...
+              break;
           }
 
-            
-        }*/
+          
+          $campaigns = Campaign::all();
+          /*$coll = new Collection;
+
+          $evaluations = new Collection;
+
+          foreach ($allForms as $eval) {
+            if ( !$eval->details->isEmpty() )
+              $evaluator = ImmediateHead::find(ImmediateHead_Campaign::find($eval->evaluatedBy)->immediateHead_id);
+
+            if (empty($evaluator)){
+
+                  if ($eval->evalSetting_id == 3 || $eval->evalSetting_id == 4) //regularization
+                  $evaluations->push(['id'=>$eval->id, 
+                    'user_id'=>$eval->user_id, 
+                    'increase'=> "N/A", 
+                    'type'=>EvalSetting::find($eval->evalSetting_id)->name, 
+                    'lastname'=> $eval->owner->lastname, 
+                    'firstname'=> $eval->owner->firstname, 
+                    'campaign'=> $eval->owner->campaign->first()->name, 
+                    'head'=> null,
+                    'score'=>$eval->overAllScore,
+                    'dateEvaluated'=> $eval->created_at ]);
+
+                else $evaluations->push(['id'=>$eval->id, 
+                    'user_id'=>$eval->user_id, 
+                    'increase'=> $eval->salaryIncrease, 
+                    'type'=>EvalSetting::find($eval->evalSetting_id)->name, 
+                    'lastname'=> $eval->owner->lastname, 
+                    'firstname'=> $eval->owner->firstname, 
+                    'campaign'=> $eval->owner->campaign->first()->name, 
+                    'head'=> null,
+                    'score'=>$eval->overAllScore,
+                    'dateEvaluated'=> $eval->created_at ]);
+
+            } else {
+
+
+              $leader = User::where('employeeNumber',$evaluator->employeeNumber)->first();
+              (empty($leader->nickname)) ? $fname = $leader->firstname : $fname = $leader->nickname;
+
+              if ($eval->evalSetting_id == 3 || $eval->evalSetting_id == 4) //REGULARIZATION
+              {
+                if ($eval->isDraft)
+                  $evaluations->push(['id'=>$eval->id, 
+                    'user_id'=>$eval->user_id, 
+                    'increase'=>"N/A", 
+                    'type'=> date("Y", strtotime($eval->startPeriod)). " ". EvalSetting::find($eval->evalSetting_id)->name, 
+                    'lastname'=> $eval->owner->lastname, 
+                    'firstname'=> $eval->owner->firstname, 
+                    'campaign'=> Campaign::find(ImmediateHead_Campaign::find($eval->evaluatedBy)->campaign_id)->name, //$camp, //$eval->owner->campaign->first()->name, 
+                    'head'=> $fname." ".$evaluator->lastname,
+                    'score'=>"DRAFT",
+                    'dateEvaluated'=> $eval->created_at->format('Y-m-d')]);
+                
+                else
+
+                  $evaluations->push(['id'=>$eval->id, 
+                    'user_id'=>$eval->user_id, 
+                    'increase'=>"N/A", 
+                    'type'=>date("Y", strtotime($eval->startPeriod)). " ". EvalSetting::find($eval->evalSetting_id)->name, 
+                    'lastname'=> $eval->owner->lastname, 
+                    'firstname'=> $eval->owner->firstname, 
+                    'campaign'=> Campaign::find(ImmediateHead_Campaign::find($eval->evaluatedBy)->campaign_id)->name, //$camp, //$eval->owner->campaign->first()->name, 
+                    'head'=> $fname." ".$evaluator->lastname,
+                    'score'=>$eval->overAllScore,
+                    'dateEvaluated'=> $eval->created_at->format('Y-m-d') ]);
+
+              }  else {
+
+                  if ($eval->isDraft)
+                    $evaluations->push(['id'=>$eval->id, 
+                    'user_id'=>$eval->user_id, 
+                    'increase'=>"DRAFT", 
+                    'type'=>date("Y", strtotime($eval->startPeriod)). " ". EvalSetting::find($eval->evalSetting_id)->name, 
+                    'lastname'=> $eval->owner->lastname, 
+                    'firstname'=> $eval->owner->firstname, 
+                    'campaign'=> Campaign::find(ImmediateHead_Campaign::find($eval->evaluatedBy)->campaign_id)->name, //$eval->owner->campaign->first()->name, 
+                    'head'=> $fname." ".$evaluator->lastname,
+                    'score'=>"DRAFT",
+                    'dateEvaluated'=>$eval->created_at->format('Y-m-d') ]);
+
+                  else
+                    $evaluations->push(['id'=>$eval->id, 
+                    'user_id'=>$eval->user_id, 
+                    'increase'=>$eval->salaryIncrease, 
+                    'type'=>date("Y", strtotime($eval->startPeriod)). " ". EvalSetting::find($eval->evalSetting_id)->name, 
+                    'lastname'=> $eval->owner->lastname, 
+                    'firstname'=> $eval->owner->firstname, 
+                    'campaign'=> Campaign::find(ImmediateHead_Campaign::find($eval->evaluatedBy)->campaign_id)->name, //$eval->owner->campaign->first()->name, 
+                    'head'=> $fname." ".$evaluator->lastname,
+                    'score'=>$eval->overAllScore,
+                    'dateEvaluated'=> $eval->created_at->format('Y-m-d') ]);
+
+                }
+                  
+
+            }
+
+              
+          }*/
        
         return view('evaluation.index', compact( 'type', 'campaigns'));
+
+        } else return view('access-denied');
     }
 
 
