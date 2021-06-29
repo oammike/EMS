@@ -191,14 +191,15 @@
 
 
                             @if ($movement->personnelChange_id == "3")
-                            <td>Status: <strong>{{$personnel->status->name}} </strong></td>
+                            <td>Status: <strong>{{$hisPrev->name}} </strong></td><!-- $personnel->status->name -->
                             <td><select name="status" id="status" class="choices form-control">
                               
                               @foreach ($statuses as $c)
-                                @if ($c->id !== $personnel->status_id)
+                                
                                 <option @if ($hisNew->id == $c->id) selected="selected" @endif value="{{$c->id}}">{{$c->name}} </option> 
+                                
+                               
 
-                                @endif
                               @endforeach</select>
                               <br/><div id='alert-status'></div><div id='newStatus'></div></td>
 
@@ -226,16 +227,33 @@
 
                         <div id="alert-requestedBy" style="margin-top:10px"></div>
                         <select name="requestedBy" id="requestedBy" class="required form-control text-center"style="width:70%; margin:0 auto">
-                          <option value="0" class="text-center"  selected="selected"> -- Select a leader --</option>
-                          @foreach ($leaders as $leader)
-                            <option @if ($movement->requestedBy == $leader->id) @endif value="{{$leader->id}}" data-position="{{$leader->position}}" data-campaign="{{$leader->campaign}}">{{$leader->lastname}}, {{$leader->firstname}} -- {{$leader->campaign}} </option>
-                          @endforeach
+                           @if ($movement->personnelChange_id == "3")
+                           <option value="{{$tlRequestor->id}}" data-position="" data-campaign="">{{$tlRequestor->lastname}}, {{$tlRequestor->firstname}} </option>
+
+                           @else
+                              <option value="0" class="text-center"> -- Select a leader --</option>
+                              @foreach ($leaders as $leader)
+                                <option @if ($movement->requestedBy == $leader->id) selected="selected" @endif value="{{$leader->id}}" data-position="{{$leader->position}}" data-campaign="{{$leader->campaign}}">{{$leader->lastname}}, {{$leader->firstname}} -- {{$leader->campaign}} </option>
+                              @endforeach
+
+                           @endif
+                          
                         </select>
                         <br>
                         <em id="requestorPosition"></em></td>
-                     <td  class="text-center"><strong>Approved by: <br /><br/><br/> <p>&nbsp;</p><p>&nbsp;</p>
-                        {{$theApprover->firstname}} {{$theApprover->lastname}} </strong><br>
-                        <em>{{$theApproverTitle->name}} </em></td>
+                      <td  class="text-center">
+                        <strong>Approved by: <br /><br/><br/> <p>&nbsp;</p><p>&nbsp;</p>
+                        
+                          @if($setLeader)
+                            {{$setLeader[0]->firstname}} {{$setLeader[0]->lastname}}</strong><br>
+                            <em>{{$setLeader[0]->jobTitle}} </em>
+                          @else
+                            {{$theApprover->firstname}} {{$theApprover->lastname}} </strong><br>
+                            <em>{{$theApproverTitle->name}} </em>
+                          @endif
+                        
+                        
+                      </td>
 
                     </tr>
 
@@ -244,14 +262,12 @@
                         <strong>{{$personnel->firstname}} {{$personnel->lastname}}</strong><br/>
                        Employee Signature / Date</td><p>&nbsp;</p><p>&nbsp;</p>
                       <td class="text-center"><strong>Noted by:</strong> <br /><br/><br/><p>&nbsp;</p><p>&nbsp;</p> 
-                        <div id="alert-hrPersonnel" style="margin-top:10px"></div>
-                        <select name="hrPersonnel" id="hrPersonnel" class="form-control text-center" style="width:45%; margin:0 auto" required>
-                          <option value="0"> -- Select HR personnel --</option>
-                          @foreach ($hrPersonnels as $leader)
-                            <option @if ($movement->notedBy == $leader->id) selected="selected" @endif class="text-center" value="{{$leader->id}}" data-position="{{$leader->position}}" data-campaign="{{$leader->campaign}}">{{$leader->lastname}}, {{$leader->firstname}} </option>
-                          @endforeach
-                        </select><br>
-                        <em id="personnelPosition"></em></td>
+
+                       
+                        <?php $p = collect($hrPersonnels)->where('id',$movement->notedBy)->first(); ?>
+                        <strong>{{$p->lastname}}, {{$p->firstname}}</strong><br/>
+                        <em>{{$p->position}} </em>
+                      </td>
 
                     </tr>
 
@@ -315,10 +331,24 @@
    'use strict';
 
    //$('#changeNotice').validate();
+   @if($falloutreason)
+       $(document).on('ready',function(){
+        var stat = "{{$movement->personnelChange_id}}";
+
+        if(stat=="3")
+        {
+          
+          var htmlcode = "<tr id='fallout'><td colspan='2'><label>Indicate Trainee fallout reason(s):</label><textarea class='form-control' name='falloutreason' id='falloutreason'> {{$falloutreason[0]->reason}} </textarea></td><tr>"; 
+            var holder = $('#details').after(htmlcode);
+
+        }
+        
+       });
+   @endif
 
 
 
-    $("select[name='program']").on('change', function(){
+   $("select[name='program']").on('change', function(){
       var camp = $(this).find(':selected').val();
 
       if (camp !== 0){
@@ -373,7 +403,7 @@
 
       }); //end select on change
 
-    $("select[name='position']").on('change', function(){
+   $("select[name='position']").on('change', function(){
      var pos =  $(this).find(':selected').val();
 
      if (pos == "-1"){ //add new position
@@ -399,18 +429,16 @@
       var h4 = $('#alert-hrPersonnel');
 
       //check sub selects
+      var reason = $('input[name="reason" ]:checked').val();
+      var withinProgram;
 
-        var reason = $('input[name="reason" ]:checked').val();
-        var withinProgram;
+      
 
-       
-
-      if (!validateRequired(v3,h3,"0") || !validateRequired(v4,h4,"0") ) { 
+      if ((!validateRequired(v3,h3,"0") || !validateRequired(v4,h4,"0") ) && reason !== '3') { 
         console.log('not valid, preventDefault'); e.preventDefault(); e.stopPropagation(); 
-
-        
-
       } else {
+
+        var falloutreason=null;
 
         switch(reason){
           case '1': { 
@@ -456,7 +484,7 @@
                                                                   success: function(response)
                                                                   {
                                                                     var posID = response.id;
-                                                                    saveMovement(posID, withinProgram,v2, false, v3, v1, v4, reason);
+                                                                    saveMovement(posID, withinProgram,v2, false, v3, v1, v4, reason,falloutreason);
 
                                                                   }//end success
 
@@ -477,7 +505,8 @@
                       withinProgram = true; 
                       var new_id = $('select[name="status"]').find(':selected').val();
                       console.log('id for status: '+new_id);
-                      saveMovement(new_id, withinProgram,v2, false, v3, v1, v4, reason);
+                      falloutreason = $('#falloutreason').val();
+                      saveMovement(new_id, withinProgram,v2, false, v3, v1, v4, reason, falloutreason);
 
                     }break;
 
@@ -490,7 +519,13 @@
 
          
 
-      }//!validateRequired(v1,h1,null) || !validateRequired(v2,h2,null) ||
+      }
+
+      
+
+       
+
+      
      
 
     
@@ -502,6 +537,49 @@
    });
 
    $( ".datepicker" ).datepicker();
+
+   $(document).on('change', 'select[name="status"]',function(){
+      var stat =  $(this).find(':selected').val();
+      var fallout = $('#fallout');
+
+
+
+      if (stat == 7 || stat == 8 || stat == 9 )
+      {
+        $('#requestedLabel').html("");
+        $('#requestedLabel').html("Immediate Supervisor:");
+        fallout.hide();
+        console.log(stat);
+
+      } 
+      else if(stat == 19) //TRAINEE FALLOUT
+      {
+        
+        @if($falloutreason)
+          var htmlcode = "<tr id='fallout'><td colspan='2'><label>Indicate Trainee fallout reason(s):</label><textarea class='form-control' name='falloutreason' id='falloutreason'>{{$falloutreason[0]->reason}}</textarea></td><tr>"; 
+          var holder = $('#details').after(htmlcode);
+
+        @else 
+
+          var htmlcode = "<tr id='fallout'><td colspan='2'><label>Indicate Trainee fallout reason(s):</label><textarea class='form-control' name='falloutreason' id='falloutreason'></textarea></td><tr>"; 
+          var holder = $('#details').after(htmlcode);
+
+        @endif
+        
+        
+
+
+      }
+      else {
+        $('#requestedLabel').html("");
+        $('#requestedLabel').html("Requested By:");
+        console.log(stat);
+        fallout.hide();
+      }
+
+    
+
+   });
 
 
 
@@ -578,7 +656,7 @@ function saveProgramMovement(campaign,new_id,new_floor, withinProgram,v2, isAppr
 
 }
 
-function saveMovement(new_id, withinProgram,v2, isApproved, v3, v1, v4, reason){
+function saveMovement(new_id, withinProgram,v2, isApproved, v3, v1, v4, reason, falloutreason){
 
   var _token = "{{ csrf_token() }}";
         $.ajax({
@@ -596,6 +674,8 @@ function saveMovement(new_id, withinProgram,v2, isApproved, v3, v1, v4, reason){
                         'dateRequested': v1,
                         'notedBy': v4,
                         'personnelChange_id': reason,
+                        'falloutreason': falloutreason,
+                        'reasontype': reason,
                         _token:_token},
 
                       error: function(response)

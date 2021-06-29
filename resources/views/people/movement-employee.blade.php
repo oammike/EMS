@@ -68,10 +68,10 @@
                             <td>{{$movement['effectivity']}}</td>
                             
                             <td>
-                              <a class="btn btn-xs btn-primary" href="{{action('MovementController@show',$movement['id'] )}} "><i class="fa fa-file-o"></i> Show Form </a>
+                              <a class="btn btn-xs btn-primary" target="_blank" href="{{action('MovementController@show',$movement['id'] )}} "><i class="fa fa-file-o"></i> Show Form </a>
 
                               @if ($canEditMvt)
-                              <a class="btn btn-xs btn-primary" href="{{action('MovementController@edit',$movement['id'] )}} "><i class="fa fa-pencil"></i> Edit </a>@endif
+                              <a class="btn btn-xs btn-primary" target="_blank" href="{{action('MovementController@edit',$movement['id'] )}} "><i class="fa fa-pencil"></i> Edit </a>@endif
 
                               @if ($canDeleteMvt)
                               <a class="btn btn-xs btn-primary" data-toggle="modal" data-target="#myModal{{$movement['id']}}"><i class="fa fa-trash"></i> Delete </a>

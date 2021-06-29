@@ -40,6 +40,7 @@ use OAMPI_Eval\Movement_ImmediateHead;
 use OAMPI_Eval\Movement_Positions;
 use OAMPI_Eval\Movement_Status;
 use OAMPI_Eval\User_Leader;
+use OAMPI_Eval\Trainee_Fallout;
 
 
 
@@ -824,7 +825,7 @@ class MovementController extends Controller
                 $floors = Floor::all();
                 $hisFloor = Floor::find($personnel->team->floor_id);
 
-                $previousTL=null; $previousCamp=null;
+                $previousTL=null; $previousCamp=null; $hisPrev=null; $tlRequestor=null; $setLeader=null;$falloutreason=null;
                
 
                 switch ($movement->personnelChange_id){
@@ -922,18 +923,32 @@ class MovementController extends Controller
                                 $details = Movement_Positions::where('movement_id', $movement->id)->first(); 
                                 $hisNew = Position::find($details->position_id_new);
                                 $hisNewIDvalue = $details->position_id_new;
+                                $hisPrev = Position::find($details->position_id_old);
+
+
 
                             }break;
                     case 3: {
                                 $details = Movement_Status::where('movement_id', $movement->id)->first(); 
                                 $hisNew = Status::find($details->status_id_new);
                                 $hisNewIDvalue = $details->status_id_new;
+                                $hisPrev = Status::find($details->status_id_old);
+
+                                $setLeader = DB::table('movement_approver')->where('movement_approver.movement_id',$movement->id)->
+                                        join('users','movement_approver.leader','=','users.id')->
+                                        join('positions','positions.id','=','movement_approver.position_id')->
+                                        select('users.firstname','users.lastname','positions.name as jobTitle')->get();
+                                $falloutreason = DB::table('trainee_fallout')->where('trainee_fallout.movement_id',$movement->id)->
+                                                    select('reason')->get();
+
+                                
 
                             }break;
 
                 }
-
-
+                    
+                    //return $tlRequestor;
+                    $tlRequestor = ImmediateHead::find($movement->requestedBy);
 
                     //$TLs = ImmediateHead::where('lastname','!=','')->orderBy('lastname','ASC')->get();
                     $TLs = ImmediateHead_Campaign::all();
@@ -979,6 +994,8 @@ class MovementController extends Controller
 
 
 
+
+
                     //********* we get the PM or Director for approval
                     
                     // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico, myka, jusayan
@@ -988,7 +1005,7 @@ class MovementController extends Controller
 
                         $l1 = $personnel->supervisor;
                         
-                        if (count($l1) > 0){
+                        if ($l1){
                             $l2 = User::where('employeeNumber', ImmediateHead_Campaign::find($l1->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
 
                             
@@ -1020,8 +1037,8 @@ class MovementController extends Controller
                         }else $theApprover= User::find(1784);
                         $theApproverTitle = Position::find($theApprover->position_id); 
 
-                 
-                        return view('people.changePersonnel-edit', compact('users','floors','hisFloor', 'movementTypes', 'leaders', 'TLset', 'hisNew', 'hisNewIDvalue',  'hrPersonnels','theApproverTitle','theApprover', 'hisCampaign','personnel',  'campaigns', 'movement','statuses','positions','previousCamp','previousTL'));
+                        
+                        return view('people.changePersonnel-edit', compact('users','floors','hisFloor', 'movementTypes', 'leaders', 'TLset', 'hisNew', 'hisNewIDvalue',  'hrPersonnels','theApproverTitle','theApprover', 'hisCampaign','personnel',  'campaigns', 'movement','statuses','positions','previousCamp','previousTL','details','hisPrev','tlRequestor','setLeader','falloutreason'));
 
 
         }//end if else can Edit
@@ -2200,27 +2217,43 @@ class MovementController extends Controller
 
     public function update(Request $request)
     {
-
-       
-
-
+        $now = Carbon::now('GMT+8');
         $movement = Movement::find($request->id);
 
+        if($request->reasontype == '3')
+        {
+            //$movement->withinProgram = $request->withinProgram;
+            $movement->effectivity = date("Y-m-d", strtotime($request->effectivity));
+            //$movement->isApproved = $request->isApproved;
+            //$movement->requestedBy = ImmediateHead_Campaign::find($request->requestedBy)->immediateHead_id;
+            $movement->dateRequested = date("Y-m-d", strtotime($request->dateRequested));
+            //$movement->notedBy = $request->notedBy;
 
-        //$movement->new_id = $request->new_id;
-        $movement->withinProgram = $request->withinProgram;
-        $movement->effectivity = date("Y-m-d", strtotime($request->effectivity));
-        $movement->isApproved = $request->isApproved;
-        $movement->requestedBy = ImmediateHead_Campaign::find($request->requestedBy)->immediateHead_id;
-        $movement->dateRequested = date("Y-m-d", strtotime($request->dateRequested));
-        $movement->notedBy = $request->notedBy;
+            // check mo kung from Trainee fail eh nabago, delete mo dapat kung may reason existing
+            $changes = Movement_Status::where('movement_id',$movement->id)->first();
 
 
-       
-        
-        //return response()->json($new_id) ;
-        
-        
+            if($changes->status_id_new == 19 &&  $request->new_id !== 19) //Trainee FAILED dati, then nabago so remove past remarks
+            {
+                $d = Trainee_Fallout::where('movement_id',$movement->id)->get();
+                foreach ($d as $key) {
+                    $key->delete();
+                }
+                
+            }
+
+
+        }else
+        {
+            $movement->withinProgram = $request->withinProgram;
+            $movement->effectivity = date("Y-m-d", strtotime($request->effectivity));
+            $movement->isApproved = $request->isApproved;
+            $movement->requestedBy = ImmediateHead_Campaign::find($request->requestedBy)->immediateHead_id;
+            $movement->dateRequested = date("Y-m-d", strtotime($request->dateRequested));
+            $movement->notedBy = $request->notedBy;
+
+
+        }
 
 
         // *** once you save a movement, determine what type it is and then save corresponding relational tables
@@ -2318,6 +2351,7 @@ class MovementController extends Controller
                         
                         break; }
             case 3: {   $moveHead = Movement_Status::where('movement_id',$movement->id)->first();
+                        $employee = User::find($movement->user_id);
                         
                         if($request->new_id !== $moveHead->status_id_new)
                         {
@@ -2325,16 +2359,27 @@ class MovementController extends Controller
                             $moveHead->push();
                         }
                         
+                        // -------- check mo kung Trainee fallout
+                        if($request->falloutreason &&  $request->new_id == 19) //status: trainee_FAILED
+                        {
+
+                            
+                            $fr = DB::insert('insert into trainee_fallout (user_id, movement_id, reason, created_at, updated_at) values (?,?,?,?,?)', [$movement->user_id, $movement->id,$request->falloutreason,$now->format('Y-m-d H:i:s'),$now->format('Y-m-d H:i:s')]);
+                             /* -------------- log updates made --------------------- */
+                                         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                                            fwrite($file, "-------------------\n");
+                                            fwrite($file, "\n Trainee Fallout for:  ". $employee->firstname." ".$employee->lastname. " by ". $this->user->firstname. " ". $this->user->lastname."on ". $now->format('Y-m-d H:i'). "\n");
+                                            fclose($file); 
+                        }
+                      
                         // -------- after creating movement, update employee profile
                         // -------- * check mo kung sakop ng effectivity date ung current date
-
-
 
                         if (  $movement->effectivity <= date("Y-m-d") ) //if effectivity is past or today
                         {
 
                             //get the Team table
-                            $employee = User::find($movement->user_id);
+                            
                             $employee->status_id = $request->new_id;
                             $employee->push();
 
@@ -2355,5 +2400,7 @@ class MovementController extends Controller
                        
 
     }
+
+    
 }               
 
