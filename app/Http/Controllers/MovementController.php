@@ -837,28 +837,43 @@ class MovementController extends Controller
                                     $details = Movement_ImmediateHead::where('movement_id', $movement->id)->first(); 
                                     //$hisNew = ImmediateHead::find($details->imHeadCampID_new)->campaigns;
                                     $hisNew = Campaign::find(ImmediateHead_Campaign::find($details->imHeadCampID_new)->campaign_id);
-                                    $hisNewIDvalue = $details->imHeadCampID_new;
+
+                                    $hisNewIDvalue = $details->imHeadCampID_new; //ImmediateHead_Campaign::find($details->imHeadCampID_new)->immediateHead_id;
                                     
+                                    //return $hisNew;
 
+                                    // if ( $hisNew->empty() ){
+                                    //     $TLset = new Collection;
+                                    //     $TLset1 = new Collection;
 
-                                    if (count($hisNew) > 1){
-                                        $TLset = new Collection;
-                                        $TLset1 = new Collection;
-
-                                        foreach($hisNew as $h){
+                                    //     foreach($hisNew as $h){
                                             
-                                            $TLset->push(Campaign::find($h->id)->leaders);
-                                        }
+                                    //         $TLset->push(Campaign::find($h->id)->leaders);
+                                    //     }
 
-                                    } else {
+                                    // } else {
                                         $TLset1 = Campaign::find($hisNew->id)->leaders;
-                                        $TLset = $TLset1->filter(function($value, $key){ 
+                                        // $TLset = $TLset1->filter(function($value, $key){ 
+                                        //     return $value->lastname != "";
+                                        // });
+
+                                        $TLsetb = $TLset1->filter(function($value, $key){ 
                                             return $value->lastname != "";
                                         });
-                                       
-                                    }
 
-                                    $coll->push(['tlSet'=>$TLset]);
+                                        $TLset = new Collection;
+
+                                        foreach ($TLsetb as $key) {
+
+                                            $tlid = ImmediateHead_Campaign::where('campaign_id',$hisNew->id)->where('immediateHead_id',$key->id)->first();
+                                            $emp = User::where('employeeNumber',$key->employeeNumber)->first();
+                                             if ($emp->status_id != 7  && $emp->status_id != 8  && $emp->status_id != 9 )
+                                            $TLset->push(['id'=>$tlid->id, 'lastname'=>$key->lastname, 'firstname'=>$key->firstname]);
+                                        }
+                                       
+                                    //}
+
+                                    //$coll->push(['tlSet'=>$TLset]);
 
                                 } else{
 
@@ -871,41 +886,24 @@ class MovementController extends Controller
                                     $hisNewIDvalue = $details->imHeadCampID_new;
                                     $hisOldIDvalue = $details->imHeadCampID_old;
 
-                                    if (count($hisNew) > 1){
-                                        $TLset = new Collection;
-                                        $TLset1 = new Collection;
+                                    $TLset1 = Campaign::find($hisNew->id)->leaders;
+                                        // $TLset = $TLset1->filter(function($value, $key){ 
+                                        //     return $value->lastname != "";
+                                        // });
 
-                                        foreach($hisNew as $h){
-                                            
-                                            $TLset->push(Campaign::find($h->id)->leaders);
-                                        }
-
-                                    } else {
-                                        $TLset1 = Campaign::find($hisNew->id)->leaders;
-                                        $TLset = $TLset1->filter(function($value, $key){ 
+                                        $TLsetb = $TLset1->filter(function($value, $key){ 
                                             return $value->lastname != "";
                                         });
-                                       
-                                    }
 
-                                    if (count($hisOld) > 1){
                                         $TLset = new Collection;
-                                        $TLset1 = new Collection;
 
-                                        foreach($hisOld as $h){
-                                            
-                                            $TLset->push(Campaign::find($h->id)->leaders);
+                                        foreach ($TLsetb as $key) {
+
+                                            $tlid = ImmediateHead_Campaign::where('campaign_id',$hisNew->id)->where('immediateHead_id',$key->id)->first();
+                                            $emp = User::where('employeeNumber',$key->employeeNumber)->first();
+                                             if ($emp->status_id != 7  && $emp->status_id != 8  && $emp->status_id != 9 )
+                                            $TLset->push(['id'=>$tlid->id, 'lastname'=>$key->lastname, 'firstname'=>$key->firstname]);
                                         }
-
-                                    } else {
-                                        $TLset1 = Campaign::find($hisOld->id)->leaders;
-                                        $TLset = $TLset1->filter(function($value, $key){ 
-                                            return $value->lastname != "";
-                                        });
-                                       
-                                    }
-
-                                    $coll->push(['tlSet'=>$TLset]);
                                 }
 
                                 // get old TL from Movement_ImmHead
@@ -949,6 +947,7 @@ class MovementController extends Controller
                     
                     //return $tlRequestor;
                     $tlRequestor = ImmediateHead::find($movement->requestedBy);
+                    $actualTL = ImmediateHead_Campaign::where('immediateHead_id',$tlRequestor->id)->where('campaign_id',$hisNew->id)->first();
 
                     //$TLs = ImmediateHead::where('lastname','!=','')->orderBy('lastname','ASC')->get();
                     $TLs = ImmediateHead_Campaign::all();
@@ -997,48 +996,62 @@ class MovementController extends Controller
 
 
                     //********* we get the PM or Director for approval
-                    
-                    // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico, myka, jusayan
-                    $theApprover = null;
-                    $allowedPMs = [1,184,344,1784,1611,464,163,225,431,305,2502];
+                    //check mo muna kung may saved na movement_approver
+                    $mvtapprover = DB::table('movement_approver')->where('movement_approver.movement_id',$movement->id)->
+                                        leftJoin('users','users.id','=','movement_approver.leader')->
+                                        leftJoin('positions','positions.id','=','movement_approver.position_id')->
+                                        select('users.firstname','users.lastname','users.nickname','positions.name as jobTitle','positions.id as position_id')->get();
+                    if (count($mvtapprover) > 0)
+                    {
+                        $theApprover = $mvtapprover[0];
+
+                    }else{
+                        // Ben, Henry, Lisa, Joy, Emelda, Nate,kaye,May de guzman,madarico, myka, jusayan
+                        $theApprover = null;
+                        $allowedPMs = [1,184,344,1784,1611,464,163,225,431,305,2502];
 
 
-                        $l1 = $personnel->supervisor;
-                        
-                        if ($l1){
-                            $l2 = User::where('employeeNumber', ImmediateHead_Campaign::find($l1->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
-
+                            $l1 = $personnel->supervisor;
                             
-                            if (in_array($l2->id, $allowedPMs))
-                            {
-                                $theApprover = $l2;
-                            }else{
+                            if ($l1){
+                                $l2 = User::where('employeeNumber', ImmediateHead_Campaign::find($l1->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
+
+                                
+                                if (in_array($l2->id, $allowedPMs))
+                                {
+                                    $theApprover = $l2;
+                                }else{
 
 
-                                $l3 = User::where('employeeNumber', ImmediateHead_Campaign::find($l2->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
+                                    $l3 = User::where('employeeNumber', ImmediateHead_Campaign::find($l2->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
 
-                                //return $l3;
-                                if (in_array($l3->id, $allowedPMs)){
+                                    //return $l3;
+                                    if (in_array($l3->id, $allowedPMs)){
 
-                                    $theApprover = $l3;
+                                        $theApprover = $l3;
 
-                                } else{
+                                    } else{
 
-                                    $l4 =  User::where('employeeNumber', ImmediateHead_Campaign::find($l3->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
+                                        $l4 =  User::where('employeeNumber', ImmediateHead_Campaign::find($l3->supervisor->immediateHead_Campaigns_id)->immediateHeadInfo->employeeNumber)->first();
 
-                                    if (in_array($l4->id, $allowedPMs)){
-                                        $theApprover = $l4;
+                                        if (in_array($l4->id, $allowedPMs)){
+                                            $theApprover = $l4;
 
-                                    } else $theApprover = User::find(1784);
+                                        } else $theApprover = User::find(1784);
+                                    }
+
                                 }
 
-                            }
+                            }else $theApprover= User::find(1784);
 
-                        }else $theApprover= User::find(1784);
-                        $theApproverTitle = Position::find($theApprover->position_id); 
-
-                        
-                        return view('people.changePersonnel-edit', compact('users','floors','hisFloor', 'movementTypes', 'leaders', 'TLset', 'hisNew', 'hisNewIDvalue',  'hrPersonnels','theApproverTitle','theApprover', 'hisCampaign','personnel',  'campaigns', 'movement','statuses','positions','previousCamp','previousTL','details','hisPrev','tlRequestor','setLeader','falloutreason'));
+                    }
+                    
+                    
+                    $theApproverTitle = Position::find($theApprover->position_id); 
+                    //return response()->json(['actualTL'=>$actualTL, 'mvt'=>$movement, 'leader'=>$leaders]);
+                    //return response()->json(['tlset'=>$TLset, 'newID'=>$hisNewIDvalue]);
+                    
+                    return view('people.changePersonnel-edit', compact('users','floors','hisFloor', 'movementTypes', 'leaders', 'TLset', 'hisNew', 'hisNewIDvalue',  'hrPersonnels','theApproverTitle','theApprover', 'hisCampaign','personnel',  'campaigns', 'movement','statuses','positions','previousCamp','previousTL','details','hisPrev','tlRequestor','setLeader','falloutreason','actualTL'));
 
 
         }//end if else can Edit
@@ -1823,21 +1836,21 @@ class MovementController extends Controller
                         $moveHead->oldFloor = $request->oldFloor;
                         $moveHead->save();
 
+                         // ***** add in NOTIFICATION for TL
+
+                        $notification = new Notification;
+                        $notification->relatedModelID = $movement->id;
+                        $notification->type = 2;
+                        $notification->from = $movement->requestedBy;
+                        $notification->save();
 
 
-
-                        // ***** add in NOTIFICATION for TL
-
-                            $notification = new Notification;
-                            $notification->relatedModelID = $movement->id;
-                            $notification->type = 2;
-                            $notification->from = $movement->requestedBy;
-                            $notification->save();
-
-
-                         if (!$movement->withinProgram) 
-                         { 
+                        if (!$movement->withinProgram) 
+                        { 
                             $employee = User::find($movement->user_id);
+
+                            //-- we now save new approver setting
+                            DB::insert('insert into movement_approver (movement_id, leader, position_id, created_at, updated_at) values (?,?,?,?,?)', [$movement->id,$request->approverid, $request->positionid,$now->format('Y-m-d H:i:s'),$now->format('Y-m-d H:i:s')]);
                              
 
                             if ($this->user->userType_id != 3 && $this->user->userType_id != 4) //if SUPER ADMINS and HR admin
@@ -2018,6 +2031,9 @@ class MovementController extends Controller
 
                                 }); //end mail
 
+                                 //-- we now save new approver setting
+                                DB::insert('insert into movement_approver (movement_id, leader, position_id, created_at, updated_at) values (?,?,?,?,?)', [$movement->id,$request->approverid, $request->positionid,$now->format('Y-m-d H:i:s'),$now->format('Y-m-d H:i:s')]);
+
                             return response()->json(['withinProgram'=>$movement->withinProgram , 'id'=>$movement->id, 'info1'=>$employee->firstname." ".$employee->lastname, 'info2'=>date("M d, Y",strtotime($movement->effectivity) )]);
                         }//end else 
                         break; 
@@ -2049,21 +2065,19 @@ class MovementController extends Controller
                              
                              $employee->position_id = $moveHead->position_id_new;
                              $employee->push();
-                                                 
-                                                
-                            //inform person concerned
-                            
 
-                            $nu = new User_Notification;
-                            $nu->user_id = $movement->user_id;
-                            $nu->notification_id = $notification->id;
-                            $nu->seen = false;
-                            $nu->save();
+                             
 
+                             //inform person concerned
+                             $nu = new User_Notification;
+                             $nu->user_id = $movement->user_id;
+                             $nu->notification_id = $notification->id;
+                             $nu->seen = false;
+                             $nu->save();
 
-                                    $movement->isDone=true;
-                                    $movement->isApproved = true;
-                                    $movement->push();
+                             $movement->isDone=true;
+                             $movement->isApproved = true;
+                             $movement->push();
 
                         }
                         else
@@ -2105,14 +2119,17 @@ class MovementController extends Controller
                             }
 
                         }
+                        //-- we now save new approver setting
+                             DB::insert('insert into movement_approver (movement_id, leader, position_id, created_at, updated_at) values (?,?,?,?,?)', [$movement->id,$request->approverid, $request->positionid,$now->format('Y-m-d H:i:s'),$now->format('Y-m-d H:i:s')]);
+
                         /* -------------- log updates made --------------------- */
-                                         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
-                                            fwrite($file, "-------------------\n");
-                                            fwrite($file, "\n New Position for:  ". $employee->firstname." ".$employee->lastname. " by ". $this->user->firstname. " ". $this->user->lastname."\n");
-                                            fclose($file);   
+                         $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
+                            fwrite($file, "-------------------\n");
+                            fwrite($file, "\n New Position for:  ". $employee->firstname." ".$employee->lastname. " by ". $this->user->firstname. " ". $this->user->lastname."\n");
+                            fclose($file);   
 
 
-                            return response()->json(['interCampaign'=>true, 'withinProgram'=>$movement->withinProgram , 'id'=>$movement->id, 'info1'=>$employee->firstname." ".$employee->lastname, 'info2'=>date("M d, Y",strtotime($movement->effectivity) )]);
+                         return response()->json(['interCampaign'=>true, 'withinProgram'=>$movement->withinProgram , 'id'=>$movement->id, 'info1'=>$employee->firstname." ".$employee->lastname, 'info2'=>date("M d, Y",strtotime($movement->effectivity) )]);
                         break; 
                     }
 
@@ -2248,9 +2265,9 @@ class MovementController extends Controller
             $movement->withinProgram = $request->withinProgram;
             $movement->effectivity = date("Y-m-d", strtotime($request->effectivity));
             $movement->isApproved = $request->isApproved;
-            $movement->requestedBy = ImmediateHead_Campaign::find($request->requestedBy)->immediateHead_id;
+            //$movement->requestedBy = ImmediateHead_Campaign::find($request->requestedBy)->immediateHead_id;
             $movement->dateRequested = date("Y-m-d", strtotime($request->dateRequested));
-            $movement->notedBy = $request->notedBy;
+            //$movement->notedBy = $request->notedBy;
 
 
         }
@@ -2260,18 +2277,13 @@ class MovementController extends Controller
         switch ($movement->personnelChange_id) {
             case 1: { //immediateHead
 
-                // generate MOvement_ImmediateHead from campaign and head id
-                //$new_id = ImmediateHead_Campaign::where('campaign_id',$request->campaign_id)->where('immediateHead_id',$request->new_id)->first()->id;
-                $new_id = $request->new_id;
-                //get first id of old head
-                $moveHead = Movement_ImmediateHead::where('movement_id',$movement->id)->first();
-               // $old_id = $moveHead->imHeadCampID_old;
-
-
-                $movement->push();
-
-               
-                
+                        // generate MOvement_ImmediateHead from campaign and head id
+                        //$new_id = ImmediateHead_Campaign::where('campaign_id',$request->campaign_id)->where('immediateHead_id',$request->new_id)->first()->id;
+                        $new_id = $request->new_id;
+                        //get first id of old head
+                        $moveHead = Movement_ImmediateHead::where('movement_id',$movement->id)->first();
+                       // $old_id = $moveHead->imHeadCampID_old;
+                        $movement->push();
                         
                         //$moveHead->imHeadCampID_old = $old_id;
                         $moveHead->imHeadCampID_new = $new_id;
@@ -2286,7 +2298,7 @@ class MovementController extends Controller
 
 
 
-                        if (  $movement->effectivity <= date("Y-m-d") ) //if effectivity is past or today
+                        if (  $movement->effectivity <= Carbon::now('GMT+8')->format('Y-m-d') ) //if effectivity is past or today
                         {
 
                             //get the Team table
@@ -2341,12 +2353,14 @@ class MovementController extends Controller
                         
             case 2: { 
                         $moveHead = Movement_Positions::where('movement_id',$movement->id)->first();
+                        $new_id = $request->new_id;
 
                         if($new_id !== $moveHead->position_id_new)
                         {
                             $moveHead->position_id_new = $new_id;
                             $moveHead->push();
                         }
+                        $movement->push();
                        
                         
                         break; }

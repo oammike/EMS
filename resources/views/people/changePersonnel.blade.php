@@ -97,7 +97,9 @@
                     <tr>
                       <td><h4>Date Requested: </h4> <input required type="text" class="form-control datepicker" style="width:50%" name="requestDate" id="requestDate" />
                        <div id="alert-requestDate" style="margin-top:10px"></div></td>
-                      <td><h4>Effectivity Date: </h4> <input required type="text" class="form-control datepicker" style="width:50%" name="effectivityDate" id="effectivityDate" /> 
+                      <td><h4>Effectivity Date: <br/>
+                        <span style="font-size: small;" class="text-danger">for Trainee status (passed/fallout) == <strong>end of training</strong><br/>
+                        for Trainee nesting == <strong>date of transfer</strong> from current to new trainer</span></h4> <input required type="text" class="form-control datepicker" style="width:50%" name="effectivityDate" id="effectivityDate" /> 
                       <div id="alert-effectivityDate" style="margin-top:10px"></div></td>
 
                     </tr>
@@ -290,6 +292,8 @@
       var h4 = $('#alert-hrPersonnel');
 
       var _token = "{{ csrf_token() }}";
+      var positionid = $('select[name="approver"]').find(':selected').attr('data-positionid');
+      var approverid = $('select[name="approver"]').find(':selected').val(); 
 
       //check sub selects
 
@@ -298,6 +302,7 @@
         switch(reason){
           case "1": { 
                       var program = $('select[name="program"]').find(':selected').val();
+                     
                       var floor = $('select[name="newFloor"]').find(':selected').val();
                       var head = $('select[name="newHead"]').find(':selected').val();
                       var hp = $('#alert-program');
@@ -346,7 +351,7 @@
                                                                 if ({{$personnel->campaign->first()->id}} == program) withinProgram=true; 
                                                                
                                                                 
-                                                                saveProgramMovement("{{$personnel->id}}","{{$immediateHead->id}}", head, floor, "{{$personnel->floor[0]->id}}", program, "{{$personnel->team->id}}" , withinProgram, response[0].fromPeriod,v2, false, v3,v1,v4,reason,_token );
+                                                                saveProgramMovement("{{$personnel->id}}","{{$immediateHead->id}}", head, floor, "{{$personnel->floor[0]->id}}", program, "{{$personnel->team->id}}" , withinProgram, response[0].fromPeriod,v2, false, v3,v1,v4,reason,_token, positionid, approverid );
                                                                
                                                               }
                                               });
@@ -419,7 +424,7 @@
                                                                                           success: function(response)
                                                                                           {
                                                                                             console.log(response[0].fromPeriod);
-                                                                                            saveMovement("{{$personnel->id}}","{{$personnel->position_id}}", posID, withinProgram, response[0].fromPeriod,v2, false, v3,v1,v4,reason,_token );
+                                                                                            saveMovement("{{$personnel->id}}","{{$personnel->position_id}}", posID, withinProgram, response[0].fromPeriod,v2, false, v3,v1,v4,reason,_token,positionid,approverid );
 
 
                                                                                           }//end success
@@ -471,7 +476,7 @@
                                                       success: function(response)
                                                       {
                                                         console.log(response[0].fromPeriod);
-                                                        saveMovement("{{$personnel->id}}","{{$personnel->position_id}}", program, withinProgram, response[0].fromPeriod,v2, false, v3,v1,v4,reason,_token );
+                                                        saveMovement("{{$personnel->id}}","{{$personnel->position_id}}", program, withinProgram, response[0].fromPeriod,v2, false, v3,v1,v4,reason,_token,positionid,approverid );
 
 
 
@@ -770,7 +775,7 @@
 
 
 
-function saveProgramMovement(user_id, old_id, new_id, new_floor, old_floor, campaign_id, oldTeam_id, withinProgram, fromPeriod, effectivity, isApproved, requestedBy, dateRequested, notedBy, personnelChange_id,_token ){
+function saveProgramMovement(user_id, old_id, new_id, new_floor, old_floor, campaign_id, oldTeam_id, withinProgram, fromPeriod, effectivity, isApproved, requestedBy, dateRequested, notedBy, personnelChange_id,_token, positionid, approverid ){
 
    //save movement
       $.ajax({
@@ -792,6 +797,8 @@ function saveProgramMovement(user_id, old_id, new_id, new_floor, old_floor, camp
                       'oldFloor': old_floor,
                       'oldTeam_id' : oldTeam_id,
                       'campaign_id': campaign_id,
+                      'positionid': positionid,
+                      'approverid': approverid,
                       _token:_token},
 
                     error: function(response2)
@@ -879,7 +886,7 @@ function saveStatusMovement(user_id, old_id, new_id, withinProgram, fromPeriod, 
 
 }
 
-function saveMovement(user_id, old_id, new_id, withinProgram, fromPeriod, effectivity, isApproved, requestedBy, dateRequested, notedBy, personnelChange_id,_token ){
+function saveMovement(user_id, old_id, new_id, withinProgram, fromPeriod, effectivity, isApproved, requestedBy, dateRequested, notedBy, personnelChange_id,_token,  positionid, approverid  ){
 
    //save movement
       $.ajax({
@@ -897,6 +904,8 @@ function saveMovement(user_id, old_id, new_id, withinProgram, fromPeriod, effect
                       'dateRequested': dateRequested,
                       'notedBy': notedBy,
                       'personnelChange_id': personnelChange_id,
+                      'positionid': positionid,
+                      'approverid': approverid,
                       _token:_token},
 
                     error: function(response2)

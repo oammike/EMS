@@ -148,7 +148,7 @@
                                   <select name='newHead' id='newhead' class='form-control'>
                                     <option value='{{$hisNewIDvalue}}'> -- Select Leader -- </option>
                                     @foreach ($TLset as $tl)
-                                    <option value="{{$tl->id}}" @if ($hisNewIDvalue == $tl->id) selected="selected" @endif>{{$tl->lastname}}, {{$tl->firstname}} </option>
+                                    <option value="{{$tl['id']}}" @if ($hisNewIDvalue == $tl['id']) selected="selected" @endif>{{$tl['lastname']}}, {{$tl['firstname']}} </option>
 
                                     @endforeach
                                   </select><br/><div id='alert-newHead'></div>
@@ -172,7 +172,7 @@
                             @endif
 
                             @if ($movement->personnelChange_id == "2")
-                            <td>Position: <strong>{{$personnel->position->name}} </strong></td>
+                            <td>Position: <strong>{{$hisPrev->name}} </strong></td>
                             <td><select name="position" id="position" class="choices form-control">
                               <option value=\"0\">Select New Job Position</option>
                               
@@ -227,16 +227,9 @@
 
                         <div id="alert-requestedBy" style="margin-top:10px"></div>
                         <select name="requestedBy" id="requestedBy" class="required form-control text-center"style="width:70%; margin:0 auto">
-                           @if ($movement->personnelChange_id == "3")
+                           
                            <option value="{{$tlRequestor->id}}" data-position="" data-campaign="">{{$tlRequestor->lastname}}, {{$tlRequestor->firstname}} </option>
 
-                           @else
-                              <option value="0" class="text-center"> -- Select a leader --</option>
-                              @foreach ($leaders as $leader)
-                                <option @if ($movement->requestedBy == $leader->id) selected="selected" @endif value="{{$leader->id}}" data-position="{{$leader->position}}" data-campaign="{{$leader->campaign}}">{{$leader->lastname}}, {{$leader->firstname}} -- {{$leader->campaign}} </option>
-                              @endforeach
-
-                           @endif
                           
                         </select>
                         <br>
@@ -434,7 +427,7 @@
 
       
 
-      if ((!validateRequired(v3,h3,"0") || !validateRequired(v4,h4,"0") ) && reason !== '3') { 
+      if ( !validateRequired(v3,h3,"0") && reason !== '3') { //|| !validateRequired(v4,h4,"0")
         console.log('not valid, preventDefault'); e.preventDefault(); e.stopPropagation(); 
       } else {
 
