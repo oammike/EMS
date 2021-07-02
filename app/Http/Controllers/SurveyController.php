@@ -554,7 +554,9 @@ class SurveyController extends Controller
                                   else
                                      $arr[$i]= "--";
 
-                                  $i = $i+2;
+                                  $i++;
+                                  $arr[$i] = "... ";
+                                  $i++;
                                   //$arr[$i]= $employee->essay;
                                   //$arr[$i] = collect($allResp)->where('userID',$employee->id)->first()->essay;
                                 } else if($qCounter == 15){
