@@ -1279,7 +1279,7 @@ class SurveyController extends Controller
                             ])->get(); 
 
                   $nspq = DB::table('survey_questions')->where('survey_id',$id)->where('ordering',13)->first();
-                  $nspResponses = collect($allResp)->whereIn('question',[$nspq]);
+                  $nspResponses = collect($allResp)->whereIn('question',[$nspq->id]);
                  
                   $groupedResp = collect($allResp)->sortBy('lastname')->groupBy('userID');
                   $groupedNPS = collect($nspResponses)->groupBy('userID'); 
@@ -2119,7 +2119,7 @@ class SurveyController extends Controller
                         join('campaign','team.campaign_id','=','campaign.id')->
                         //leftJoin('survey_notes','survey_notes.user_id','=','survey_responses.user_id')->
                         select('categoryTags.label','survey_questions.value as question','survey_questions.survey_id as surveyID','survey_questions.id as questionID','survey_questions.img',  'survey_responses.survey_optionsID as answer', 'campaign.name as program', 'survey_responses.user_id', 'survey_user.isDone')->
-                        where('survey_questions.survey_id',$s)->
+                        where('survey_questions.survey_id','=',$s)->
                         where('survey_user.isDone',1)->get();
             $questions = collect($categoryData)->groupBy('questionID');
             $surveyID = $s; //$categoryData[0]->surveyID;
@@ -2141,7 +2141,7 @@ class SurveyController extends Controller
         }
         
         
-        //return $questions;
+        //return $categoryData;
 
         $chartData = new Collection;
         $colors = [ "rgba(255,92,83,1)","#f99123","#f9e123","#37d04b","#3b8ee6","#6551d0","#d17de4","#ef5cac","#56f6ff","#9bda38"];
@@ -2386,6 +2386,7 @@ class SurveyController extends Controller
 
                     // NPS questions: 156
                     $nspq = DB::table('survey_questions')->where('survey_id',$id)->where('ordering',13)->first();
+
                     $npsQuestions = DB::table('surveys')->where('surveys.id',$id)->
                                         join('survey_questions','survey_questions.survey_id','=','surveys.id')->
                                         join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
@@ -2410,7 +2411,8 @@ class SurveyController extends Controller
                     else { $color="#fd1e1e"; $detractor=true; } //red
 
                    //return response()->json(['completed'=>$completed, 'actives'=>$actives]);
-
+                   // return $nspq;
+                    
                     return view('forms.survey-results',compact('survey','extraData','actives','completed','percentage','nps','color','promoter','detractor'));
 
                   }
