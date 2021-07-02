@@ -511,87 +511,95 @@ class SurveyController extends Controller
 
                         
                         $arr = [];
+                        $alreadyIN = [];
 
                         foreach($allEmployees as $employee)//collect($allEmployees)->where('programID',16)
                         {
-                          $i = 0;
+                          if(in_array($employee->id, $alreadyIN)){ /*wag mo na ulitin */}
+                          else
+                          {
+                              array_push($alreadyIN, $employee->id);
+                              $i = 0;
 
-                          $arr[$i] = $employee->lastname; $i++;
-                          $arr[$i] = $employee->firstname; $i++;
-                          $arr[$i] = $employee->program; $i++;
+                              $arr[$i] = $employee->lastname; $i++;
+                              $arr[$i] = $employee->firstname; $i++;
+                              $arr[$i] = $employee->program; $i++;
 
-                          //TENURE
-                          $tenure = Carbon::parse($employee->dateHired,'Asia/Manila')->diffInYears(Carbon::now('Asia/Manila'));
-                          if ($tenure == 0) {$arr[$i] = "< a yr";}
-                          else if($tenure == 1) {$arr[$i] = "1 year";}
-                          else $arr[$i] = $tenure . " year(s)";  
-
-                          $i++;
-
-                          $arr[$i] = $employee->gender; $i++;
-                          $arr[$i] = $employee->education; $i++;
-                          $arr[$i] = $employee->course; $i++;
-                          $arr[$i] = $employee->currentlocation; $i++;
-                          $arr[$i] = $employee->hobbiesinterest; $i++;
-                          $arr[$i] = $employee->commuteTime; $i++;
-
-
-                          $qCounter=1;
-                          foreach ($allQuestions as $q) {
-
-                            if($qCounter == 14){
-
-                              $q14 = DB::table('survey_questions')->where('survey_id',$id)->where('ordering',14)->first();
-                              $ans = collect($allEmployees)->where('id',$employee->id)->where('question_id',$q14->id);
-
-                              if (count($ans) > 0)
-                                 $arr[$i]= $ans->first()->essay;
-                              else
-                                 $arr[$i]= "--";
-
-                              $i++;
-                              //$arr[$i]= $employee->essay;
-                              //$arr[$i] = collect($allResp)->where('userID',$employee->id)->first()->essay;
-                            } else if($qCounter == 15){
-                              $q15 = DB::table('survey_questions')->where('survey_id',$id)->where('ordering',15)->first();
-                              $ans = collect($allEmployees)->where('id',$employee->id)->where('question_id',$q15->id);
-
-                              if (count($ans) > 0)
-                                 $arr[$i]= $ans->first()->essay;
-                              else
-                                 $arr[$i]= "--";
+                              //TENURE
+                              $tenure = Carbon::parse($employee->dateHired,'Asia/Manila')->diffInYears(Carbon::now('Asia/Manila'));
+                              if ($tenure == 0) {$arr[$i] = "< a yr";}
+                              else if($tenure == 1) {$arr[$i] = "1 year";}
+                              else $arr[$i] = $tenure . " year(s)";  
 
                               $i++;
 
-                            }
-                            else
-                            {
-
-                              //---- RATING
-                              $r = collect($allResp)->where('userID',$employee->id)->where('question',$q->id);
-                              if (count($r) > 0)
-                                $rating = $r->first()->rating;
-                              else
-                                $rating = null;
-
-                              $arr[$i]= $rating; $i++;
-                              
-                              //---- NOTE
-                              $n = collect($allNotes)->where('userID',$employee->id)->where('question_id',$q->id);
-                              if (count($n)>0) $note = $n->first()->comments;
-                              else $note=null;
-
-                              $arr[$i]= $note; $i++;
-
-                            }
-
-                            $qCounter++;
-
-                          }//end foreach questions
+                              $arr[$i] = $employee->gender; $i++;
+                              $arr[$i] = $employee->education; $i++;
+                              $arr[$i] = $employee->course; $i++;
+                              $arr[$i] = $employee->currentlocation; $i++;
+                              $arr[$i] = $employee->hobbiesinterest; $i++;
+                              $arr[$i] = $employee->commuteTime; $i++;
 
 
+                              $qCounter=1;
+                              foreach ($allQuestions as $q) {
 
-                            $sheet->appendRow($arr);
+                                if($qCounter == 14){
+
+                                  $q14 = DB::table('survey_questions')->where('survey_id',$id)->where('ordering',14)->first();
+                                  $ans = collect($allEmployees)->where('id',$employee->id)->where('question_id',$q14->id);
+
+                                  if (count($ans) > 0)
+                                     $arr[$i]= $ans->first()->essay;
+                                  else
+                                     $arr[$i]= "--";
+
+                                  $i = $i+2;
+                                  //$arr[$i]= $employee->essay;
+                                  //$arr[$i] = collect($allResp)->where('userID',$employee->id)->first()->essay;
+                                } else if($qCounter == 15){
+                                  $q15 = DB::table('survey_questions')->where('survey_id',$id)->where('ordering',15)->first();
+                                  $ans = collect($allEmployees)->where('id',$employee->id)->where('question_id',$q15->id);
+
+                                  if (count($ans) > 0)
+                                     $arr[$i]= $ans->first()->essay;
+                                  else
+                                     $arr[$i]= "--";
+
+                                  $i++;
+
+                                }
+                                else
+                                {
+
+                                  //---- RATING
+                                  $r = collect($allResp)->where('userID',$employee->id)->where('question',$q->id);
+                                  if (count($r) > 0)
+                                    $rating = $r->first()->rating;
+                                  else
+                                    $rating = null;
+
+                                  $arr[$i]= $rating; $i++;
+                                  
+                                  //---- NOTE
+                                  $n = collect($allNotes)->where('userID',$employee->id)->where('question_id',$q->id);
+                                  if (count($n)>0) $note = $n->first()->comments;
+                                  else $note=null;
+
+                                  $arr[$i]= $note; $i++;
+
+                                }
+
+                                $qCounter++;
+
+                              }//end foreach questions
+
+
+
+                                $sheet->appendRow($arr);
+
+                          }//end ng not yet included
+                          
 
                         }//end foreach employee
 
