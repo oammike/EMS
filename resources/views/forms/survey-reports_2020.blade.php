@@ -169,7 +169,7 @@
                     <h4 class="description-header text-red"> {{$ct['aveRating']}} </h4>
                     @endif
                     <span class="description-text">
-                      <a target="_blank" style="font-weight: lighter; font-size:0.9em; ; color: #333; text-decoration: underline;" href="{{action('SurveyController@showCategory',$ct['categoryID'])}} ">
+                      <a target="_blank" style="font-weight: lighter; font-size:0.9em; ; color: #333; text-decoration: underline;" href="{{action('SurveyController@showCategory',['id'=>$ct['categoryID'],'s'=>$survey->id] )}}">
                         {{$ct['categoryName']}} &nbsp; 
                         <span style="font-size: smaller;"><i class="fa fa-external-link"></i> </span> 
                       </a>
