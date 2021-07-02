@@ -2106,7 +2106,26 @@ class SurveyController extends Controller
             return view('access-denied');
         }
 
-        $categoryData = DB::table('categoryTags')->where('categoryTags.id',$id)->
+        $s = Input::get('s');
+
+        if($s){
+          $categoryData = DB::table('categoryTags')->where('categoryTags.id',$id)->
+                        join('survey_questions_category','survey_questions_category.categoryTag_id','=','categoryTags.id')->
+                        join('survey_questions','survey_questions_category.survey_questionID','=','survey_questions.id')->
+                        join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
+                        leftJoin('survey_user','survey_user.user_id','=','survey_responses.user_id')->
+                        join('team','team.user_id','=','survey_responses.user_id')->
+                        //join('users','users.id','=','survey_responses.user_id')->
+                        join('campaign','team.campaign_id','=','campaign.id')->
+                        //leftJoin('survey_notes','survey_notes.user_id','=','survey_responses.user_id')->
+                        select('categoryTags.label','survey_questions.value as question','survey_questions.survey_id as surveyID','survey_questions.id as questionID','survey_questions.img',  'survey_responses.survey_optionsID as answer', 'campaign.name as program', 'survey_responses.user_id', 'survey_user.isDone')->
+                        where('survey_questions.survey_id',$s)->
+                        where('survey_user.isDone',1)->get();
+            $questions = collect($categoryData)->groupBy('questionID');
+            $surveyID = $s; //$categoryData[0]->surveyID;
+
+        }else{
+            $categoryData = DB::table('categoryTags')->where('categoryTags.id',$id)->
                         join('survey_questions_category','survey_questions_category.categoryTag_id','=','categoryTags.id')->
                         join('survey_questions','survey_questions_category.survey_questionID','=','survey_questions.id')->
                         join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
@@ -2117,8 +2136,10 @@ class SurveyController extends Controller
                         //leftJoin('survey_notes','survey_notes.user_id','=','survey_responses.user_id')->
                         select('categoryTags.label','survey_questions.value as question','survey_questions.survey_id as surveyID','survey_questions.id as questionID','survey_questions.img',  'survey_responses.survey_optionsID as answer', 'campaign.name as program', 'survey_responses.user_id', 'survey_user.isDone')->
                         where('survey_user.isDone',1)->get();
-        $questions = collect($categoryData)->groupBy('questionID');
-        $surveyID = $categoryData[0]->surveyID;
+            $questions = collect($categoryData)->groupBy('questionID');
+            $surveyID = $categoryData[0]->surveyID;
+        }
+        
         
         //return $questions;
 
