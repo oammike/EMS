@@ -123,7 +123,8 @@ class SurveyController extends Controller
       $testgroup = [564,508,1644,1611,1784,491,1,184,887,3835];
       $keyGroup =  [564,1611,491,1,184,1099,628,3835];
       //(in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
-      (in_array($this->user->id, $keyGroup)) ? $canDL=true : $canDL=false;
+      if (in_array($this->user->id, $keyGroup)) $canDL=true;
+      else { $canDL=false; return view('access-denied'); }
 
       switch ($id) {
         case 1:
@@ -399,9 +400,9 @@ class SurveyController extends Controller
 
         }break;
 
-        case 6:
+        default:
         {
-          // Pulse 2020
+          // Pulse 2020 onwards
           $allEmployees = DB::table('survey_user')->where('survey_user.survey_id',$survey->id)->
                        
                         join('users','users.id','=','survey_user.user_id')->
@@ -487,7 +488,7 @@ class SurveyController extends Controller
           {
             //return response()->json(['allEmployees'=>$allEmployees, 'allQuestions'=>$allQuestions,'allNotes'=>$allNotes,'allResp'=>$allResp]);
             
-                $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                   fwrite($file, "-------------------\n DL survey[".$id."] on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
                   fclose($file);
             
@@ -607,9 +608,7 @@ class SurveyController extends Controller
 
         }break;
         
-        default: return view('access-denied');
-          # code...
-          break;
+       
       }
 
 
@@ -730,8 +729,10 @@ class SurveyController extends Controller
                 
 
                 
-                if($id == 6)
-                  $nspResponses = collect($allResp)->whereIn('question',[156]);
+                if($id >= 6){
+                  $nspq = DB::table('survey_questions')->where('survey_id',$id)->where('order',13)->first();
+                  $nspResponses = collect($allResp)->whereIn('question',[$nspq->id]);
+                }
                 else
                   $nspResponses = collect($allResp)->whereIn('question',[13,15,44,45,49]);
 
@@ -1242,7 +1243,7 @@ class SurveyController extends Controller
                 }break;
         
 
-        case 6: //EES 2020
+        default : //EES 2020++
                 {
 
                   $allResp = DB::table('survey_questions')->where('survey_questions.survey_id',$id)->
@@ -1276,7 +1277,9 @@ class SurveyController extends Controller
                     
                     
                             ])->get(); 
-                  $nspResponses = collect($allResp)->whereIn('question',[156]);
+
+                  $nspq = DB::table('survey_questions')->where('survey_id',$id)->where('order',13)->first();
+                  $nspResponses = collect($allResp)->whereIn('question',[$nspq]);
                  
                   $groupedResp = collect($allResp)->sortBy('lastname')->groupBy('userID');
                   $groupedNPS = collect($nspResponses)->groupBy('userID'); 
@@ -1464,7 +1467,7 @@ class SurveyController extends Controller
 
 
                     if($this->user->id !== 564 ) {
-                      $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                      $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                         fwrite($file, "-------------------\n Viewed Survey[".$id."] by [". $this->user->id."] ".$this->user->lastname."\n");
                         fclose($file);
                     }
@@ -1479,7 +1482,7 @@ class SurveyController extends Controller
                     (in_array($this->user->id, $testgroup)) ? $canAccess=true : $canAccess=false;
                     (in_array($this->user->id, $keyGroup)) ? $canViewAll=true : $canViewAll=false;
 
-                    $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+                    $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                     fwrite($file, "-------------------\n Report survey[".$id."] on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
                     fclose($file);
 
@@ -1493,9 +1496,9 @@ class SurveyController extends Controller
 
                 }break;
         
-        default: return view('under-construction');
-          # code...
-          break;
+        // default: return view('under-construction');
+        //   # code...
+        //   break;
       }
 
 
@@ -2159,7 +2162,7 @@ class SurveyController extends Controller
 
 
          if($this->user->id !== 564 ) {
-          $file = fopen('public/build/changes.txt', 'a') or die("Unable to open logs");
+          $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
             fwrite($file, "-------------------\n Viewed Survey Cat (".$id.") by [". $this->user->id."] ".$this->user->lastname."\n");
             fclose($file);
         }
@@ -2361,6 +2364,7 @@ class SurveyController extends Controller
 
 
                     // NPS questions: 156
+                    $nspq = DB::table('survey_questions')->where('survey_id',$id)->where('order',13)->first();
                     $npsQuestions = DB::table('surveys')->where('surveys.id',$id)->
                                         join('survey_questions','survey_questions.survey_id','=','surveys.id')->
                                         join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
@@ -2369,7 +2373,7 @@ class SurveyController extends Controller
                     $my = collect($npsQuestions);
                     $m = $my->where('user_id',$this->user->id);
                     $m2 = collect($m);
-                    $n = $m2->whereIn('question',[156]);
+                    $n = $m2->whereIn('question',[$nspq->id]);
 
                     if (count($n->pluck('answer')) > 0)
                       $nps = number_format(($n->pluck('answer')->sum())/count($n->pluck('answer')),2);
