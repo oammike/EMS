@@ -540,7 +540,9 @@ class SurveyController extends Controller
                           foreach ($allQuestions as $q) {
 
                             if($qCounter == 14){
-                              $ans = collect($allEmployees)->where('id',$employee->id)->where('question_id',157);
+
+                              $q14 = DB::table('survey_questions')->where('survey_id',$id)->where('ordering',14)->first();
+                              $ans = collect($allEmployees)->where('id',$employee->id)->where('question_id',$q14->id);
 
                               if (count($ans) > 0)
                                  $arr[$i]= $ans->first()->essay;
@@ -551,7 +553,8 @@ class SurveyController extends Controller
                               //$arr[$i]= $employee->essay;
                               //$arr[$i] = collect($allResp)->where('userID',$employee->id)->first()->essay;
                             } else if($qCounter == 15){
-                              $ans = collect($allEmployees)->where('id',$employee->id)->where('question_id',158);
+                              $q15 = DB::table('survey_questions')->where('survey_id',$id)->where('ordering',15)->first();
+                              $ans = collect($allEmployees)->where('id',$employee->id)->where('question_id',$q15->id);
 
                               if (count($ans) > 0)
                                  $arr[$i]= $ans->first()->essay;
