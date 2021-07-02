@@ -34,9 +34,9 @@
                 <tr>
                   <td class="text-center" style="overflow: hidden; background-color: #000; position: absolute; height: 780px; width: 100%">
                     <div id="instructions" style="background: rgba(0, 0, 0, 0.4); position: absolute;bottom:45px; font-size: 0.95em;color:#fff; z-index: 100;padding: 5px; text-align: left;" ><i class="fa fa-info"></i> <em>
-
+<!-- 
 Evaluation Period: January - June 2020<br/>
-Survey Period:  July 15-30, 2020<br/><br/>
+Survey Period:  July 15-30, 2020<br/><br/> --><br/>
 
 Please answer the following questions in light of the events of the first six months of this year, whether as an onsite worker or at-home worker:<br/><br/>
 
