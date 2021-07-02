@@ -730,7 +730,7 @@ class SurveyController extends Controller
 
                 
                 if($id >= 6){
-                  $nspq = DB::table('survey_questions')->where('survey_id',$id)->where('order',13)->first();
+                  $nspq = DB::table('survey_questions')->where('survey_id',$id)->where('ordering',13)->first();
                   $nspResponses = collect($allResp)->whereIn('question',[$nspq->id]);
                 }
                 else
@@ -1278,7 +1278,7 @@ class SurveyController extends Controller
                     
                             ])->get(); 
 
-                  $nspq = DB::table('survey_questions')->where('survey_id',$id)->where('order',13)->first();
+                  $nspq = DB::table('survey_questions')->where('survey_id',$id)->where('ordering',13)->first();
                   $nspResponses = collect($allResp)->whereIn('question',[$nspq]);
                  
                   $groupedResp = collect($allResp)->sortBy('lastname')->groupBy('userID');
@@ -2364,7 +2364,7 @@ class SurveyController extends Controller
 
 
                     // NPS questions: 156
-                    $nspq = DB::table('survey_questions')->where('survey_id',$id)->where('order',13)->first();
+                    $nspq = DB::table('survey_questions')->where('survey_id',$id)->where('ordering',13)->first();
                     $npsQuestions = DB::table('surveys')->where('surveys.id',$id)->
                                         join('survey_questions','survey_questions.survey_id','=','surveys.id')->
                                         join('survey_responses','survey_responses.question_id','=','survey_questions.id')->
