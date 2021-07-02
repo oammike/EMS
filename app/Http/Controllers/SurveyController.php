@@ -1884,7 +1884,7 @@ class SurveyController extends Controller
               $q1 = DB::table('survey_questions')->where('survey_id',$id)->where('ordering',1)->get();
               if(count($q1) > 0)
               {
-                $userSurvey->lastItem = $q1->first()->id;
+                $userSurvey->lastItem = $q1[0]->id;
 
               }else  $userSurvey->lastItem = null;
 
