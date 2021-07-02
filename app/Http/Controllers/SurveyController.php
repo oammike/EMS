@@ -1880,9 +1880,17 @@ class SurveyController extends Controller
               $userSurvey->survey_id = $id;
               $userSurvey->startDate = Carbon::now('GMT+8')->format('Y-m-d H:i:s');
 
-              if ($id == 1) $userSurvey->lastItem = 1;
-              else if ($id == 6)  $userSurvey->lastItem = 144;
-              else  $userSurvey->lastItem = null;
+              //hanapan mo muna ng Question #1
+              $q1 = DB::table('survey_questions')->where('survey_id',$id)->where('ordering',1)->get();
+              if(count($q1) > 0)
+              {
+                $userSurvey->lastItem = $q1->first()->id;
+
+              }else  $userSurvey->lastItem = null;
+
+              // if ($id == 1) $userSurvey->lastItem = 1;
+              // else if ($id == 6)  $userSurvey->lastItem = 144;
+              // else  $userSurvey->lastItem = null;
 
               $userSurvey->save();
               $latest=null;
