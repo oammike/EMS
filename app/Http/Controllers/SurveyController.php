@@ -2068,19 +2068,19 @@ class SurveyController extends Controller
                   }
             break;
 
-          case 6: {
-                    $file = fopen('public/build/rewards.txt', 'a') or die("Unable to open logs");
+          default: {
+                    $file = fopen('storage/uploads/log.txt', 'a') or die("Unable to open logs");
                     fwrite($file, "-------------------\n Show survey[".$id."] on ".Carbon::now('GMT+8')->format('Y-m-d H:i')." by [". \Auth::user()->id."] ".\Auth::user()->lastname."\n");
                     fclose($file);
                     return view('forms.survey-shownew', compact('id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa','mayEssayna'));
 
           }break;
           
-          default: {
-                      //return response()->json(['startFrom'=>$startFrom, 'extraDataNa'=>$extraDataNa]);
-                      return view('forms.survey-show', compact('id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa'));
-                   }
-            break;
+          // default: {
+          //             //return response()->json(['startFrom'=>$startFrom, 'extraDataNa'=>$extraDataNa]);
+          //             return view('forms.survey-show', compact('id','survey', 'totalItems','questions','startFrom','options','userSurvey','latest','extradata','extraDataNa'));
+          //          }
+          //   break;
         }
 
 
