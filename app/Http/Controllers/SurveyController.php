@@ -2324,7 +2324,7 @@ class SurveyController extends Controller
 
                   }break;
           
-          case 6: // EES 2020
+          default: // EES 2020 up
                   {
 
 
@@ -2391,9 +2391,7 @@ class SurveyController extends Controller
                   }
             break;
 
-            default:
-            # code...
-            break;
+           
         }
         
 
