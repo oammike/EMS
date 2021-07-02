@@ -56,6 +56,7 @@ use OAMPI_Eval\Survey_Notes;
 use OAMPI_Eval\Survey_User;
 use OAMPI_Eval\Options;
 use OAMPI_Eval\Categorytag;
+use OAMPI_Eval\Survey_Intro;
 
 class SurveyController extends Controller
 {
@@ -685,12 +686,13 @@ class SurveyController extends Controller
     {
       //check mo kung done na sya sa survey
       $survey = Survey::find($id);
+      $intro = Survey_Intro::where('survey_id',$survey->id)->first();
       $doneNa = DB::table('survey_user')->where('user_id',$this->user->id)->where('survey_id',$id)->where('isDone',1)->get();
 
       if (count($doneNa) > 0)
         return redirect()->action('SurveyController@show',$id);
       else
-        return view('forms.survey-intro',compact('survey'));
+        return view('forms.survey-intro',compact('survey','intro'));
 
     }
 
