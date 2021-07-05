@@ -319,7 +319,7 @@ class DTRController extends Controller
         $program =null;
         
         $pname="Trainees";
-        $headers = ['Trainee Code', 'Formal Name','Date','Day','Time IN','Time OUT','Hours', 'OT billable','OT Approved','OT Start','OT End', 'OT hours','OT Reason','Locked Timestamp'];
+        $headers = ['Trainee Code','Employee Code', 'Formal Name','Date','Day','Time IN','Time OUT','Hours', 'OT billable','OT Approved','OT Start','OT End', 'OT hours','OT Reason','Locked Timestamp'];
         
         $reportType = 'trainees';
 
@@ -1909,7 +1909,7 @@ class DTRController extends Controller
 
                           // $header3 = ['','','',''];
 
-                          $headers = ['EMP ID No.', 'NAME','Program'];
+                          $headers = ['Trainee Code', 'EMP ID No.', 'NAME','Program'];
 
                           $productionDates = [];
                           $ct = 0;
@@ -1961,12 +1961,15 @@ class DTRController extends Controller
                               $totalHours = 0;
                               $arr = [];
 
-                              if(empty($employeeDTR->first()->traineeCode)){
-                                $arr[$i] = $employeeDTR->first()->employeeCode; $i++;
+                              // if(empty($employeeDTR->first()->traineeCode)){
+                              //   $arr[$i] = $employeeDTR->first()->employeeCode; $i++;
 
-                              }else{
-                                $arr[$i] = $employeeDTR->first()->traineeCode; $i++;
-                              }
+                              // }else{
+                              //   $arr[$i] = $employeeDTR->first()->traineeCode; $i++;
+                              // }
+
+                              $arr[$i] = $employeeDTR->first()->traineeCode; $i++;
+                              $arr[$i] = $employeeDTR->first()->employeeCode; $i++;
                               
                               $arr[$i] = $employeeDTR->first()->lastname.", ".$employeeDTR->first()->firstname." ".$employeeDTR->first()->middlename; $i++;
                               $arr[$i] = $employeeDTR->first()->program; $i++;
