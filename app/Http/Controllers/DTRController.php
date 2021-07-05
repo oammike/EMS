@@ -7847,10 +7847,6 @@ class DTRController extends Controller
                 if ( $user->fixedSchedule->isEmpty() )
                 {
 
-               
-                  /*$workSched = MonthlySchedules::where('user_id',$id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',0)->get(); //Collection::make($monthlySched->where('isRD',0)->all());
-                  $RDsched = MonthlySchedules::where('user_id',$id)->where('productionDate','>=', $currentPeriod[0])->where('productionDate','<=',$currentPeriod[1])->where('isRD',1)->get();  //$monthlySched->where('isRD',1)->all();*/
-
                   $workSched = collect($monthlyScheds)->where('isRD',0);
                   $RDsched = collect($monthlyScheds)->where('isRD',1);
                   $isFixedSched = false;
@@ -8237,6 +8233,7 @@ class DTRController extends Controller
                                       'isRD'=>$isRDToday,
                                       'isFixedSched'=>$isFixedSched,
                                       'isFlexitime'=> $isFlexitime,
+                                      'isLateIN'=>null,
                                       'isWFH'=>$isWFH,
                                       'isOnsite' =>$isOnsite,
                                       'leaveDetails'=>null,
@@ -8293,6 +8290,7 @@ class DTRController extends Controller
                                     'isRD'=>$isRDToday,
                                     'isFixedSched'=>$isFixedSched,
                                     'isFlexitime'=> $isFlexitime,
+                                    'isLateIN'=>null,
                                     'isWFH'=>$isWFH,
                                     'isOnsite' =>$isOnsite,
                                     'leaveDetails'=>null,
@@ -8565,6 +8563,7 @@ class DTRController extends Controller
                                         $OTattribute = $data[0]['OTattribute'];
                                         $UT = $data[0]['UT'];
                                         $backOffice= null;
+                                        $isLateIN =$data[0]['isLateIN'];
                                         ($hasHolidayToday) ?  $hdToday=$data[0]['hdToday'] : $hdToday=null;
                                         
                                         //$coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
@@ -8589,6 +8588,7 @@ class DTRController extends Controller
                                       $UT = $data[0]['UT'];
                                       $backOffice = $data[0]['isBackoffice'];
                                       $hdToday = $data[0]['hdToday'];
+                                      $isLateIN =$data[0]['isLateIN'];
 
                                       
                                       //$coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
@@ -8668,14 +8668,15 @@ class DTRController extends Controller
                                             //$coll->empty();
                                             $coll->push(['payday'=>$payday,'data'=>$data]);
 
-                                        $workedHours= $data[0]['workedHours']; //$wh=$data[0]['wh'];
-                                        $billableForOT = $data[0]['billableForOT'];
-                                        $OTattribute = $data[0]['OTattribute'];
-                                        $UT = $data[0]['UT'];
-                                        $VLs = $data[0]['VL'];
-                                        $LWOPs = $data[0]['LWOP'];
-                                        $backOffice = $data[0]['isBackoffice'];
-                                        $hdToday = $data[0]['hdToday'];
+                                            $workedHours= $data[0]['workedHours']; //$wh=$data[0]['wh'];
+                                            $billableForOT = $data[0]['billableForOT'];
+                                            $OTattribute = $data[0]['OTattribute'];
+                                            $UT = $data[0]['UT'];
+                                            $VLs = $data[0]['VL'];
+                                            $LWOPs = $data[0]['LWOP'];
+                                            $backOffice = $data[0]['isBackoffice'];
+                                            $hdToday = $data[0]['hdToday'];
+                                            $isLateIN =$data[0]['isLateIN'];
 
 
                                         //$VTOba = $$data[0]['VTO'];
@@ -8716,6 +8717,7 @@ class DTRController extends Controller
                                                     'hasLeave' => $userLogIN[0]['hasLeave'],
                                                     'leaveDetails'=>$userLogIN[0]['leave'],
                                                     'hasLWOP' => $userLogIN[0]['hasLWOP'],
+                                                    'isLateIN'=>null,
                                                     'isWFH'=>$isWFH,
                                                     'isOnsite'=>$isOnsite,
                                                     'lwopDetails'=>$userLogIN[0]['lwop'],
@@ -8769,6 +8771,7 @@ class DTRController extends Controller
                                       'isAproblemShift'=>$isAproblemShift,
                                       'isFixedSched'=>$isFixedSched,
                                       'isFlexitime'=>$schedForToday['isFlexitime'],
+                                      'isLateIN'=>null,
                                       'isRDToday'=>$isRDToday,  
                                       'isRD'=> 0,
                                       'isWFH'=>$isWFH,
@@ -8831,6 +8834,7 @@ class DTRController extends Controller
                                       'isAproblemShift'=>$isAproblemShift,
                                       'isFixedSched'=>$isFixedSched,
                                       'isFlexitime'=>$schedForToday['isFlexitime'],
+                                      'isLateIN'=>$isLateIN,
                                       'isRDToday'=>$isRDToday,  
                                       'isRD'=> 0,
                                       'isWFH'=>$isWFH,

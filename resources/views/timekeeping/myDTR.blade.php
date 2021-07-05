@@ -1546,6 +1546,7 @@
                                                                                 'isRD'=> $data["isRD"],
                                                                                 'formID'=>'submitOT',
                                                                                 'otData'=>$postOT,
+                                                                                'isLateIN'=>null,
                                                                                 'icon'=>'glyphicon-up' ])
 
                                                                               @endif
@@ -1581,6 +1582,7 @@
                                                                                         'approver' => $user->supervisor->immediateHead_Campaigns_id,
                                                                                         'isRD'=> $data["isRD"],
                                                                                         'formID'=>'submitOT',
+                                                                                        'isLateIN'=>null,
                                                                                         'icon'=>'glyphicon-up' ])
                                                                                       @endif
 
@@ -1615,6 +1617,7 @@
                                                                                           'biometrics_id'=> $data["biometrics_id"],
                                                                                           'approver' => $user->supervisor->immediateHead_Campaigns_id,
                                                                                           'isRD'=> $data["isRD"],
+                                                                                          'isLateIN'=>$data["isLateIN"],
                                                                                           'formID'=>'submitOT',
                                                                                           'icon'=>'glyphicon-up' ])
 
@@ -1841,6 +1844,7 @@
                                                                           'approver' => $user->supervisor->immediateHead_Campaigns_id,
                                                                           'isRD'=> $data["isRD"],
                                                                           'formID'=>'submitOT',
+                                                                          'isLateIN'=> $data["isLateIN"],
                                                                           'icon'=>'glyphicon-up' ])
                                                                         @else
                                                                           @include('layouts.modals-OT', [
@@ -1852,6 +1856,7 @@
                                                                           'DproductionDate' =>$data["productionDate"],
                                                                           'biometrics_id'=> $data["biometrics_id"],
                                                                           'approver' => $user->supervisor->immediateHead_Campaigns_id,
+                                                                          'isLateIN'=>$data["isLateIN"],
                                                                           'isRD'=> $data["isRD"],
                                                                           'formID'=>'submitOT',
                                                                           'icon'=>'glyphicon-up' ])
@@ -1895,6 +1900,7 @@
                                                                       'DproductionDate' =>$data["productionDate"],
                                                                       'biometrics_id'=> $data["biometrics_id"],
                                                                       'approver' => $user->supervisor->immediateHead_Campaigns_id,
+                                                                      'isLateIN'=>$data["isLateIN"],
                                                                       'isRD'=> $data["isRD"],
                                                                       'formID'=>'submitOT',
                                                                       'icon'=>'glyphicon-up' ])

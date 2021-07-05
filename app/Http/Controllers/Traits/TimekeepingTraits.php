@@ -5423,6 +5423,7 @@ trait TimekeepingTraits
             'hasPendingOUT' => $hasPendingOUT,
             'pendingDTRPout' => $pendingDTRPout,
             'schedKahapon' => $schedKahapon,
+            'isLateIN'=>null,
             'approvedOT'=>$approvedOT]);
 
 
@@ -5779,6 +5780,7 @@ trait TimekeepingTraits
     $hasVTO = null; $vtoDetails = new Collection; $hasPendingVTO=false;
     $hasOBT = null; $obtDetails = new Collection; $hasPendingOBT=false;
     $hasFL = null; $flDetails = new Collection; $hasPendingFL=false;
+    $withLegitOT=null; $minsLate=null;$totalbill=null;$isLateIN=null;
 
     //$thisPayrollDate = Biometrics::where(find($biometrics->id)->productionDate;
     //**** Hack for Davao holiday
@@ -6766,7 +6768,7 @@ trait TimekeepingTraits
         //    otherwise, super undertime talaga sya
         $minsLate = $scheduleStart->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],'Asia/Manila'));
 
-        if (Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") > $endOfShift) // Carbon::parse($schedForToday['timeEnd'],"Asia/Manila") )
+        if (Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila") > $endOfShift) 
         {
           
           if ($isPartTimer || $ptSched || $isPartTimerForeign)
@@ -6779,8 +6781,28 @@ trait TimekeepingTraits
             $e1 = $endOfShift->format('Y-m-d H:i');
             $timing = Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->format('Y-m-d H:i');
 
-            $wh = Carbon::parse($e1,'Asia/Manila')->diffInMinutes(Carbon::parse($timing,'Asia/Manila')); //$endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila"));
-            if ($wh >=300) $wh =  Carbon::parse($e1,'Asia/Manila')->diffInMinutes(Carbon::parse($timing,'Asia/Manila')->addMinutes(60));//$endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
+
+            // *** new policy: kung may legit approved OT kahit lateIN, completed WH na at no UT
+            $legitOT = User_OT::where('user_id',$user->id)->where('biometrics_id',$bioID->id)->where('isApproved',1)->get();
+            if( count($legitOT) > 0){
+
+                $withLegitOT=1;
+                $wh = $startOfShift->diffInMinutes($endOfShift->addMinutes(-60));// Carbon::parse($e1,'Asia/Manila')->diffInMinutes(Carbon::parse($timing,'Asia/Manila')); 
+
+            }else{
+                //$wh = Carbon::parse($userLogOUT[0]['timing'],"Asia/Manila")->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila"));
+                $wh = Carbon::parse($e1,'Asia/Manila')->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila"));
+                if($wh >= 300) $wh-=60;
+
+                //if($wh > 480) $totalbill = 480 - $wh;
+                  //Carbon::parse($e1,'Asia/Manila')->diffInMinutes(Carbon::parse($timing,'Asia/Manila')); 
+                //if ($wh >=300) $wh = $wh+60; 
+                //$wh =  Carbon::parse($e1,'Asia/Manila')->diffInMinutes(Carbon::parse($timing,'Asia/Manila')->addMinutes(60));
+            }
+
+            
+            
+            //$endOfShift->diffInMinutes(Carbon::parse($userLogIN[0]['timing'],"Asia/Manila")->addMinutes(60));
             
           }
 
@@ -6954,23 +6976,50 @@ trait TimekeepingTraits
                   else
                     {
                       if ($is4x11) {
-                        $UT = round((600.0 - $wh )/60,2);  //number_format((480.0 - $wh)/60,2); 44.44;
-                        $UT2 = 600.0 - $wh;
+
+                        if($withLegitOT)
+                        {
+                          $UT=0.0; $UT2=0.0;
+
+                        }else
+                        {
+                           $UT = round((600.0 - $wh )/60,2); 
+                           $UT2 = 600.0 - $wh;
+
+                        }
+                       
                       }
-                      else {
-                        $UT = round((480.0 - $wh )/60,2); 
-                        $UT2 = 480.0 - $wh; 
+                      else
+                      {
+                        if($withLegitOT){  $UT=0.0; $UT2=0.0; }
+                        else
+                        {
+                          $UT = round((480.0 - $wh )/60,2); 
+                          $UT2 = 480.0 - $wh; 
+                        }
+                        
                       }
 
                       $sSh = Carbon::parse($startOfShift->format('Y-m-d H:i'),'Asia/Manila')->addHours(5);
 
                       //kunin mo muna ilang hours bago sya nagOUT kung legit OT
-                      $bagoMagout = number_format( (($userLogOUT[0]['timing']->diffInMinutes($endOfShift))/60)-$UT,2);
+                      if($withLegitOT) {
+                        $complete8hrs = Carbon::parse($endOfShift,'Asia/Manila')->addMinutes($minsLate+60); //need lagyan ng 60mins break
+                        $totalbill = number_format( (($userLogOUT[0]['timing']->diffInMinutes($complete8hrs))/60),2);
+                        
+                      }else
+                      {
+                        
+                          $bagoMagout = number_format( (($userLogOUT[0]['timing']->diffInMinutes($endOfShift))/60)-$UT,2);
 
-                      if ($bagoMagout > $UT)
-                        $totalbill = $bagoMagout;
-                      else
-                        $totalbill =  number_format(($userLogOUT[0]['timing']->diffInMinutes($sSh)-480 )/ 60,2);   //$sSh->diffInMinutes($userLogOUT[0]['timing'] )/60,2);
+                          if ($bagoMagout > $UT)
+                            $totalbill = $bagoMagout;
+                          else
+                            $totalbill =  number_format(($userLogOUT[0]['timing']->diffInMinutes($sSh)-480 )/ 60,2); 
+
+                        
+                          
+                      }
                     }
 
 
@@ -6979,14 +7028,6 @@ trait TimekeepingTraits
                 }
 
                 
-
-                
-                  
-                
-                //$totalbill = 33.33;
-                
-
-                //if ($totalbill > 0.25)
                 if ($totalbill >= 0.01)
                 {
                   $billableForOT = $totalbill;
@@ -7588,7 +7629,7 @@ trait TimekeepingTraits
                   //'wh'=>$wh,'comp'=>$comp,
                   'isBackoffice'=>$isBackoffice,
                   'workedHours'=>$workedHours, //$koll, // $wh,// 
-                  'UT'=>$UT, 'VL'=>$hasVL, 'SL'=>$hasSL, 'FL'=>$hasFL,  'LWOP'=>$hasLWOP, 'VTO'=>$vtimeoff ]);
+                  'UT'=>$UT, 'VL'=>$hasVL, 'SL'=>$hasSL, 'FL'=>$hasFL,  'LWOP'=>$hasLWOP, 'VTO'=>$vtimeoff,'isLateIN'=>$isLateIN ]);
    
 
 

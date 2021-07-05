@@ -16,6 +16,10 @@
       @if($data['shiftEnd'] == "* RD *")
       <input type="hidden" name="fromRD" value="1" />
       <input type="hidden" name="OTstart" value="{{$data['logIN']}}" />
+      @elseif($isLateIN)
+      <?php $start = \Carbon\Carbon::parse($data['logIN'],'Asia/Manila')->addHours(9); ?>
+      <input type="hidden" name="OTstart" value="{{ $start->format('Y-m-d H:i A') }}" />
+      
       @else
       <input type="hidden" name="OTstart" value="{{ $DproductionDate }} {{$data['shiftEnd']}}" />
       @endif
@@ -37,6 +41,14 @@
 
                 <h5 class='text-center'>File an overtime for <br/><strong class="text-danger">
                 {{ $Dday }} {{ $DproductionDate }} {{$data['shiftEnd']}} <?php if ($data['shiftEnd'] == "* RD *") { ?><br/> <br/>{{$data['logIN']}} <?php } ?> - {{$data['logOUT']}}</strong><br/><br/><i class="fa fa-clock-o"></i> Total Hours worked: </h5>
+
+        @elseif($isLateIN)
+                <h5 class='text-center'>File overtime for <br/><strong class="text-danger">
+                {{$start->format('D M d H:i:s A')}} <?php if ($data['shiftEnd'] == "* RD *") { ?><br/> <br/>{{$start->format('H:i A') }} <?php } ?> - {{$data['logOUT']}}</strong><br/><br/><i class="fa fa-clock-o"></i> Total Hours worked: </h5>
+
+
+               <!--  {{ $Dday }} {{ $DproductionDate }} {{$data['shiftEnd']}} <?php if ($data['shiftEnd'] == "* RD *") { ?><br/> <br/>{{$data['logIN']}} <?php } ?> - {{$data['logOUT']}}</strong><br/><br/><i class="fa fa-clock-o"></i> Total Hours worked: </h5> -->
+
 
         @else
          <h5 class='text-center'>File overtime for <br/><strong class="text-danger">
@@ -172,6 +184,10 @@
 
 
                                   }
+                                  elseif ($isLateIN) {
+                                            $start = \Carbon\Carbon::parse($data['logIN'],'Asia/Manila')->addHours(9);
+                                            $t1 = \Carbon\Carbon::parse($data['logOUT'],'Asia/Manila'); 
+                                          }
                                   else
                                   {
                                     $start= \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila'); 
@@ -219,7 +235,12 @@
                                           {
                                             //$endOT = \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila')->addMinutes(240+$num);
                                           }*/
+                                          elseif($isLateIN){
+                                            $endOT = \Carbon\Carbon::parse($data['logIN'],'Asia/Manila')->addHours(9);
+                                            $endOT->addMinutes($num);
 
+                                          }
+                                          
                                           else
                                           { 
                                             $endOT = \Carbon\Carbon::parse($DproductionDate." ".$data['shiftEnd'],'Asia/Manila')->addMinutes($num);
