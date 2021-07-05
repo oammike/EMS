@@ -8565,6 +8565,7 @@ class DTRController extends Controller
                                         $backOffice= null;
                                         $isLateIN =$data[0]['isLateIN'];
                                         ($hasHolidayToday) ?  $hdToday=$data[0]['hdToday'] : $hdToday=null;
+                                        $isLateIN =null;//$data[0]['isLateIN'];
                                         
                                         //$coll->push(['ret workedHours:'=> $data, 'out'=>$userLogOUT]);
 
@@ -8576,6 +8577,7 @@ class DTRController extends Controller
                                           $UT = "-";
                                           $backOffice=null;
                                           ($hasHolidayToday) ?  $hdToday=$data[0]['hdToday'] : $hdToday=null;
+                                          $isLateIN =null;//$data[0]['isLateIN'];
                                       }
                                       
 
