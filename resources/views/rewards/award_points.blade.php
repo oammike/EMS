@@ -47,6 +47,9 @@ span.to-input {
     padding-bottom: 3px;
     /*margin-top: 23px;*/
 }
+#pad{
+   margin: 5%;
+}
 
   </style>
 
@@ -112,38 +115,43 @@ span.to-input {
             <div class="row">
               <div class="col-lg-12">
                 
+                
 
                
                 <div class="row">
 
-                  <div class="col-lg-1"></div>
-                  <div class="col-lg-6" style="padding:20px"><h2 class="text-left"><i class="fa fa-trophy"></i> Award Points <br><br></h2>
-
-                    <label class="text-primary"><input type="radio" class="awardees" name="awardees" id="specific" value="SPECIFIC"> Search for specific employee(s) by name or program<br/><small><em>You may add in multiple employees</em></small></label>
-
-                    
+                  
+                  <div class="col-lg-1">
                    
-                        
-                        <input type="text" style="width: 95%;display:none;margin-top:10px" name="transferto" required="required" id="transferto" class="form-control pull-left" placeholder="search for FIRSTNAME, LASTNAME, NICKNAME, or PROGRAM name" /><i style="display: none;" id="transfertoi" class="fa fa-angle-double-right fa-3x pull-right"></i>
-                        <input id="transfer_id" disabled="disabled" type="hidden" />
-                        <input id="transfer_name" disabled="disabled" type="hidden" />
-                        <input id="transfer_prog" disabled="disabled" type="hidden" />
-                        <input id="recipients" type="hidden" name="recipients" />
-                        <input type="hidden" id="essai" placeholder="Email" />
-                        <h3 id="maxpoints" style="display: none;padding-top: 50px"></h3>
-                      
+                  </div>
 
-                        <label id="reasonl" style="display: none;margin-top: 20px">Reason: </label>
-                        <select class="form-control" id="reason" style="display: none;">
-                          <option value="0">* select a reason *</option>
-                          @foreach($creditor as $w)
-                          @if( (strpos($w->name,'Birth') !== 0) && !(strpos($w->name,'Anniversary')) )
-                          <option value="{{$w->waysto_id}}" data-points="{{$w->allowed_points}}">{{$w->name}} </option>
-                          @endif
-                          @endforeach
-                        </select><br/>
+                  <div class="col-lg-6" style="padding:20px"><h2 class="text-left text-primary"><i class="fa fa-trophy"></i> Award Points <br><br></h2>
+
+                    <label class="text-primary"><input type="radio" class="awardees" name="awardees" id="specific" value="SPECIFIC"> Search for specific employee(s) by name or program<br/><small><em>You can add in multiple employees</em></small></label>
+
+                    <div class="clearfix"><br/></div>
+                    <a id="clear" class="btn btn-xs btn-default pull-left"><i class="fa fa-eraser"></i> Clear field </a>
                         
-                     
+                    <input type="text" style="width: 95%;display:none;margin-top:10px" name="transferto" required="required" id="transferto" class="form-control pull-left" placeholder="search for FIRSTNAME, LASTNAME, NICKNAME, or PROGRAM name" /><i style="display: none;" id="transfertoi" class="fa fa-angle-double-right fa-3x pull-right"></i>
+                    <input id="transfer_id" disabled="disabled" type="hidden" />
+                    <input id="transfer_name" disabled="disabled" type="hidden" />
+                    <input id="transfer_prog" disabled="disabled" type="hidden" />
+                    <input id="recipients" type="hidden" name="recipients" />
+                    <input type="hidden" id="essai" placeholder="Email" />
+                    <h3 id="maxpoints" style="display: none;padding-top: 50px"></h3>
+                  
+                    <div class="clearfix"></div>
+                    <label id="reasonl" style="display: none;margin-top: 20px">Reason: </label>
+                    <select class="form-control" id="reason" style="display: none;">
+                      <option value="0">* select a reason *</option>
+                      @foreach($creditor as $w)
+                      @if( (strpos($w->name,'Birth') !== 0) && !(strpos($w->name,'Anniversary')) )
+                      <option value="{{$w->waysto_id}}" data-points="{{$w->allowed_points}}">{{$w->name}} </option>
+                      @endif
+                      @endforeach
+                    </select><br/>
+                        
+                     <div class="clearfix"></div>
 
                     @if($canAwardBday)
                     <label class="text-primary" style="margin-top: 0px"><input type="radio" class="awardees" name="awardees" id="bday" value="BDAY"> Search for Birthday Celebrators</label>
@@ -317,7 +325,7 @@ span.to-input {
                     <a id="sendpts" class="btn btn-lg btn-primary pull-right" style="margin-top: 10px"><i class="fa fa-exchange"></i> Send Reward Points </a>
                     <a id="makenew" class="btn btn-lg btn-primary pull-right" style="display: none;margin-top: 10px" href="{{action('UserController@rewards_award')}}"><i class="fa fa-exchange"></i> Make New Transfer</a>
 
-                    <div id="pad" style="display: none;" class="btn-group-vertical ml-3 mt-3" role="group">
+                    <div id="pad" style="display: none;" class="btn-group-vertical pull-left" role="group"><!--  ml-3 mt-3 -->
                               <div class="row">
                                 <label>Number of Points to Award: <input required="required" class="text-center form-control mb-2" id="code" autocomplete="off"> </label>
                               </div>
@@ -339,23 +347,39 @@ span.to-input {
                                   <button type="button" class="btn btn-outline-secondary py-3" style="padding:24px" onclick="document.getElementById('code').value=document.getElementById('code').value + '9';">9</button>
                               </div>
                               <div class="row">
-                                  <button type="button" class="btn btn-outline-secondary py-3" style="padding:24px" onclick="document.getElementById('code').value=document.getElementById('code').value.slice(0, -1);">&lt;</button>
+                                  <button type="button" class="btn btn-outline-secondary py-3" style="padding:24px" onclick="document.getElementById('code').value=document.getElementById('code').value.slice(0, -1);"><span style="font-weight: bolder">&laquo;</span></button>
                                   <button type="button" class="btn btn-outline-secondary py-3" style="padding:24px" onclick="document.getElementById('code').value=document.getElementById('code').value + '0';">0</button>
                                   <button type="button"  class="btn btn-primary py-3" id="go" style="padding:24px" >Go</button>
                                   <!-- data-toggle="modal" data-target="#mytransfer" -->
                               </div>
                               
                         </div>
+
+                        @if($allocation)
+
+                         <table id="alloc" class="table-bordered table pull-right" style="margin-top: 20px; width: 40%; display:none;">
+                          <thead><th>Program</th><th style="font-size: smaller;">Remaining Points to Award</th></thead>
+                          <tbody>
+                            @foreach($allocation as $a)
+                            <tr><td>{{$a->program}}</td><td class="prog" id="prog_{{$a->program}}" data-allocid="{{$a->allocid}}" data-camp="{{$a->program}}" data-deduct="0" data-bal="{{$a->allocated}}" data-newval="">{{$a->allocated}} </td></tr>
+                            
+                            @endforeach
+                          </tbody>
+                        </table><div class="clearfix"></div>
+
+                        @endif
     
 
                    
                   </div>
                   <div class="col-lg-5">
+                    
                     <div id="awardees" style="padding-top: 150px"></div>
                     <img src="storage/uploads/rewards.png" width="70%" style="margin-top: 0px" class="pull-right" />
                     
                     
                   </div>
+                 
                   
                   
                 </div>
@@ -459,7 +483,7 @@ span.to-input {
   <script>
     window.selected_reward_id = 0;
     window.table = $('#awardlist').DataTable({
-      "pageLength": {{ $items_per_page }},
+      "pageLength": "{{ $items_per_page }}",
       "paging": true,
       "pagingType": "simple_numbers",
       "lengthChange": false,
@@ -484,12 +508,20 @@ span.to-input {
           "data" : "way_title" 
         },
         {
-          "data" : "notes" 
+          "data" : "notes"
         }
       ]
     }); 
 
     $(function() {
+
+      
+      $('#code').keypress(function(event) {
+       event.preventDefault();
+       return false;
+      });
+
+      $('#clear').hide();
       $('#history_table_wrapper').hide();
       $('#bt_history').on('click',function(){
         $('#main_orig_wrapper').hide();
@@ -528,9 +560,13 @@ span.to-input {
                                   var valfname = $("#transferto").getSelectedItemData().fullname;
                                   var prog = $("#transferto").getSelectedItemData().program;
 
+
                                   $("#transfer_id").val(value).trigger("change");
                                   $("#transfer_name").val(valname+', '+valfname).trigger("change");
                                   $("#transfer_prog").val(prog).trigger("change");
+                                  
+
+                                 
 
                                 },
                 onChooseEvent: function(){
@@ -550,7 +586,11 @@ span.to-input {
                                 });
 
                                 if (!existings.includes(id)){
-                                  $('#awardees').append('<span class="email-ids" data-userid="'+id+'" data-emp="'+n+' of '+c+' ">' + n+' -- '+c + '<span class="cancel-email">x</span></span>');
+                                  $('#awardees').append('<span class="email-ids" data-camp="'+c+'" data-userid="'+id+'" data-emp="'+n+' of '+c+' ">' + n+' -- '+c + '<span class="cancel-email">x</span></span>');
+                                  var p = $('#prog_'+c).attr('data-deduct');
+                                  var d = $('#prog_'+c).attr('data-deduct',parseInt(p)+1);
+                                  console.log(d);
+                                  computeAlloc();
 
                                 }else alert(n + " is already on the list.");
                                 
@@ -597,6 +637,10 @@ span.to-input {
 
       $('#transferto').easyAutocomplete(options); 
 
+      $('#clear').on('click',function(){
+          $('#transferto').val('');
+      });
+
 
       $('.awardees').on('click',function(){
         var v = $(this).val();
@@ -606,11 +650,12 @@ span.to-input {
           case 'SPECIFIC': {
                               $('#transferto,#transfertoi,#reason,#reasonl,#awardees').fadeIn();
                               $('#reason').val('0');
-                              $('#bdays').fadeOut();
+                              $('#bdays,#workannivs').fadeOut();
+                              $('#clear').fadeIn();
 
                            }break;
           case 'BDAY': {
-                          $('#transferto,#transfertoi,#reason,#reasonl,#maxpoints,#awardees,#pad').fadeOut();
+                          $('#transferto,#transfertoi,#reason,#reasonl,#maxpoints,#awardees,#pad,#clear,#workannivs').fadeOut();
                           $('#bdays,#sendpts').fadeIn();
                           $('#bdays select').on('change',function(){
                             var m_from = $('#from_mos').find(':selected').val();
@@ -666,7 +711,7 @@ span.to-input {
                        }break;
           case 'ANNIV': {
 
-                          $('#transferto,#transfertoi,#reason,#reasonl,#maxpoints,#awardees,#pad,#bdays').fadeOut();
+                          $('#transferto,#transfertoi,#reason,#reasonl,#maxpoints,#awardees,#pad,#bdays,#clear').fadeOut();
 
                           $('#workannivs,#sendpts').fadeIn();
                           $('#workannivs select').on('change',function(){
@@ -733,17 +778,75 @@ span.to-input {
         if (p) {
           $('#maxpoints').fadeIn().html('Points to Award: <strong class="text-danger">'+p+'</strong>');
           $('#ptsto').html(p+' points ');
-          $('#pad').fadeOut();
+          $('#pad,#alloc').fadeOut();
           $('#sendpts').fadeIn();
         }
           
         else {
-          $('#pad').fadeIn();
+
+          if(r==12) //Program based points
+          {
+
+          }
+          $('#pad,#alloc').fadeIn();
           $('#ptsto').html(p+ ' points ');
           $('#maxpoints').fadeOut();
           $('#sendpts').fadeOut();
         }
         console.log(r);
+
+      });
+
+
+      $('#holder').on('click','.cancel-email',function(){
+        var c = $(this).parent().attr('data-camp');
+        var d = $('#prog_'+c).attr('data-deduct');
+        $('#prog_'+c).attr('data-deduct',parseInt(d)-1);
+
+
+        
+        var pts = $('#code').val();
+        var bal = $('#prog_'+c).attr('data-bal');
+        var pval = parseInt(bal) - ( (parseInt(d)-1) * pts);
+        $('#prog_'+c).attr('data-newval',pval);
+        
+
+        $('#prog_'+c).html('').append(' <strong class=\"text-danger \"> '+pval+ '</strong>');
+        if(pval >= 0) $('#go').css('display','inline'); 
+          else $('#go').css('display','none');
+
+       
+        //computeAlloc();
+      });
+
+
+
+      $('button.btn.btn-outline-secondary.py-3').on('click',function(){
+
+        // var pts = $('#code').val();
+        // var negatives = [];
+
+
+        // console.log('progs:');
+        computeAlloc();
+        
+        
+        /*$('td.prog').each(function(){
+          var pchange = $(this).attr('data-deduct');
+          var bal = $(this).attr('data-bal');
+          var pval = parseInt(bal) - (parseInt(pchange)*pts);
+          var camp = $(this).attr('data-camp');
+
+
+          $(this).html('').append(' <strong class=\"text-danger \"> '+pval+ '</strong>');
+          if(pval <=0) negatives.push(camp);
+
+        });
+
+        if (negatives.length === 0){}
+          else alert("Insufficient reward points for the following programs: "+negatives);
+        console.log("negatives:");
+        console.log(negatives);*/
 
       });
 
@@ -805,8 +908,7 @@ span.to-input {
 
         var _token = "{{ csrf_token() }}";
         var points = $('#code').val();
-        console.log('points1');
-                                  console.log(points);
+        console.log('points1');console.log(points);
 
         
 
@@ -828,6 +930,19 @@ span.to-input {
                                   console.log('points');
                                   console.log(points);
                                   var recipients =  getAllRecipients(allexist);
+                                  
+                                  var newAlloc = [];
+                                  var allocids=[];
+                                  $('td.prog').each(function(){
+                                     
+                                    newAlloc.push($(this).attr('data-newval'));
+                                    allocids.push($(this).attr('data-allocid'));
+                                    
+                                  });
+
+                                  console.log('td progs');
+                                  console.log(allocids);
+                                  console.log(newAlloc);
                                   $.ajax({
                                           type:"POST",
                                           url : "{{ url('/grantRewardPoints') }}",
@@ -838,6 +953,8 @@ span.to-input {
                                                     'waysto': $('#reason').find(':selected').val(),
                                                     'notes': $('#notes').val(),
                                                     'pw' : pw,
+                                                    'newAlloc': newAlloc,
+                                                    'allocIDs': allocids,
                                                     '_token' : _token
 
                                           },
@@ -1111,6 +1228,48 @@ span.to-input {
                 // reset: true
             });
 
+      function computeAlloc(){
+
+          var pts = $('#code').val();
+          var negatives = [];
+
+          console.log('progs:');
+          
+          
+          $('td.prog').each(function(){
+            var pchange = $(this).attr('data-deduct');
+            var bal = $(this).attr('data-bal');
+            var pval = parseInt(bal) - (parseInt(pchange)*pts);
+            var camp = $(this).attr('data-camp');
+
+            
+            if(pval <0) {
+              negatives.push(camp);
+              $(this).html('').append(' <strong class=\"text-danger \"> '+pval+ '</strong>');
+              $(this).attr('data-newval',pval);
+            }else{
+              $(this).html('').append(' <strong class=\"text-success \"> '+pval+ '</strong>');
+              $(this).attr('data-newval',pval);
+            }
+            
+            
+
+            console.log("negatives:");
+            console.log(negatives);
+            //console.log($(this));
+            //console.log("deduct " + p.attr('data-deduct') );
+
+          });
+          //if (negatives.length === 0){ $('#go').fadeIn()}
+          if (negatives.length > 0) {alert("Insufficient reward points for the following program(s): "+negatives); $('#go').css('display','none')}
+          //else if(negatives.length === 0){alert("No more reward points left for the following program(s): "+negatives); $('#go').css('display','none')}
+          else { $('#go').fadeIn() }
+
+
+
+          
+        }
+
 
 
       function getAllRecipients(allexist){
@@ -1195,6 +1354,7 @@ span.to-input {
             }
 
             if(settings.reset){
+                
                 $('.email-ids').remove()
             }
 
