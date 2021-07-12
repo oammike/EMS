@@ -500,11 +500,12 @@
 
 
         <li class="treeview @if ( Request::is('survey*') ) active @endif">
-          <a href="#"><i class="fa fa-2x fa-question-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Surveys</span><i class="fa fa-angle-left pull-right"></i></a>
+          <a href="#" class="text-orange"><i class="fa fa-2x fa-question-circle"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <span>Surveys</span><i class="fa fa-angle-left pull-right"></i></a>
           <ul class="treeview-menu">
 
 
-              <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{action('SurveyController@report',6)}} "><i class="fa fa-question-circle"></i> <span>Pulse Check 2020</span> </a> </li>
+              <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{action('SurveyController@intro',7)}} " class="text-orange"><i class="fa fa-question-circle"></i> <span>* NEW * Pulse Check 2021</span> </a> </li>
+               <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{action('SurveyController@report',7)}} "><i class="fa fa-question-circle"></i> <span>Pulse Check 2021 Report</span> </a> </li>
               <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{action('SurveyController@report',6)}} "><i class="fa fa-question-circle"></i> <span>Pulse Check 2020 Report</span> </a> </li>
 
              <!--  <li @if (Request::is('survey*')) class="active" @endif style="padding-left:20px"><a href="{{ action('SurveyController@show',5)}}"><i class="fa fa-file-o"></i>360° Survey </a> </li>
