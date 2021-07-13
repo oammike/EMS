@@ -473,6 +473,16 @@ class SurveyController extends Controller
                           
                           //where('survey_notes.survey_id','=',$id)->
                           where('survey_notes.comments','!=',null)->
+                          where('survey_user.isDone',1)->
+                          
+                          where('users.status_id',"!=",2)->
+                          where('users.status_id',"!=",7)->
+                          where('users.status_id',"!=",8)->
+                          where('users.status_id',"!=",9)->
+                          where('users.status_id',"!=",13)->
+                          where('users.status_id',"!=",16)->
+                          where('users.status_id',"!=",18)->
+                          where('users.status_id',"!=",19)->
                           orderBy('users.lastname')->get();
 
                           
