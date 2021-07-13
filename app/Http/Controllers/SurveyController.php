@@ -2422,7 +2422,12 @@ class SurveyController extends Controller
 
                     //return count($actives);
                                 //);
-                    $completed = count(Survey_User::where('isDone',true)->where('survey_id',$survey->id)->get());
+                    //$completed = count(Survey_User::where('isDone',true)->where('survey_id',$survey->id)->get());
+                    $completed = count(DB::table('survey_user')->where('survey_user.isDone',true)->where('survey_user.survey_id',$survey->id)->
+                                join('users','survey_user.user_id','=','users.id')->
+                                select('users.id','users.dateHired')->where('users.dateHired','<=',$tenure3mos->format('Y-m-d H:i:s'))->get());
+
+
                     $percentage = number_format(($completed / $actives)*100,2);
 
 
