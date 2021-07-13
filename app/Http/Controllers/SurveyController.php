@@ -2291,6 +2291,7 @@ class SurveyController extends Controller
         DB::connection()->disableQueryLog(); 
 
         $survey = Survey::find($id);
+        $tenure3mos = Carbon::now('GMT+8')->addMonths(-3);
 
         switch ($id) {
           case 1: // EES 2019
@@ -2385,6 +2386,7 @@ class SurveyController extends Controller
                     //                select('users.status_id')->get());
 
                     //exclude Taipei and Xiamen
+                    
                      
                     $actives = count(DB::table('users')->where('status_id','!=',2)->
                                     where('status_id','!=',2)->
@@ -2398,6 +2400,7 @@ class SurveyController extends Controller
                                     where('status_id','!=',19)->
                                     leftJoin('team','team.user_id','=','users.id')->
                                     select('users.id','users.lastname','team.floor_id','team.campaign_id')->
+                                    where('users.dateHired','<=',$tenure3mos->format('Y-m-d H:i:s'))->
                                     where('team.floor_id','!=',10)->
                                     where('team.floor_id','!=',11)->get());//;return $actives;
                     
