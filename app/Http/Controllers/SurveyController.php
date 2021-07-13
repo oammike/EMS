@@ -408,11 +408,14 @@ class SurveyController extends Controller
                         join('users','users.id','=','survey_user.user_id')->
                         where('users.dateHired','<=',$tenure3mos->format('Y-m-d H:i:s'))->
                         where([
+                              ['users.status_id', '!=', 2],
                               ['users.status_id', '!=', 6],
                               ['users.status_id', '!=', 16],
                               ['users.status_id', '!=', 7],
                               ['users.status_id', '!=', 8],
                               ['users.status_id', '!=', 9],
+                              ['users.status_id', '!=', 18],
+                              ['users.status_id', '!=', 19],
                                       ])->
                         join('survey_extradata','survey_extradata.user_id','=','survey_user.user_id')->
                         where('survey_extradata.survey_id','=',$survey->id)->
@@ -449,11 +452,14 @@ class SurveyController extends Controller
                         where('survey_user.isDone',1)->
                         where('team.floor_id','!=',10)->
                         where('team.floor_id','!=',11)->
+                        where('users.status_id',"!=",2)->
                         where('users.status_id',"!=",7)->
                         where('users.status_id',"!=",8)->
                         where('users.status_id',"!=",9)->
                         where('users.status_id',"!=",13)->
-                        where('users.status_id',"!=",16)->get();
+                        where('users.status_id',"!=",16)->
+                        where('users.status_id',"!=",18)->
+                        where('users.status_id',"!=",19)->get();
 
                         
 
@@ -1287,6 +1293,8 @@ class SurveyController extends Controller
                     ['users.status_id', '!=', 9],
                     ['users.status_id', '!=', 13],
                     ['users.status_id', '!=', 16],
+                    ['users.status_id', '!=', 18],
+                    ['users.status_id', '!=', 19],
                     
                     
                             ])->get(); 
@@ -1409,6 +1417,8 @@ class SurveyController extends Controller
                                     where('users.status_id',"!=",9)->
                                     where('users.status_id',"!=",13)->
                                     where('users.status_id',"!=",16)->
+                                    where('users.status_id',"!=",18)->
+                                    where('users.status_id',"!=",19)->
                                     where('team.floor_id','!=',10)->
                                     where('team.floor_id','!=',11)->get();
                       $total = count($totalData); //count(Team::where('campaign_id',$p[0]['programID'])->get());
@@ -1468,6 +1478,8 @@ class SurveyController extends Controller
                                     where('status_id','!=',9)->
                                     where('status_id','!=',13)->
                                     where('status_id','!=',16)->
+                                    where('status_id','!=',18)->
+                                    where('status_id','!=',19)->
                                     leftJoin('team','team.user_id','=','users.id')->
                                     select('users.id','users.lastname','team.floor_id','team.campaign_id')->
                                     where('team.floor_id','!=',10)->
@@ -2373,13 +2385,17 @@ class SurveyController extends Controller
                     //                select('users.status_id')->get());
 
                     //exclude Taipei and Xiamen
+                     
                     $actives = count(DB::table('users')->where('status_id','!=',2)->
+                                    where('status_id','!=',2)->
                                     where('status_id','!=',6)->
                                     where('status_id','!=',7)->
                                     where('status_id','!=',8)->
                                     where('status_id','!=',9)->
                                     where('status_id','!=',13)->
                                     where('status_id','!=',16)->
+                                    where('status_id','!=',18)->
+                                    where('status_id','!=',19)->
                                     leftJoin('team','team.user_id','=','users.id')->
                                     select('users.id','users.lastname','team.floor_id','team.campaign_id')->
                                     where('team.floor_id','!=',10)->
